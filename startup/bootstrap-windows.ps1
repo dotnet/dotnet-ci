@@ -1,3 +1,4 @@
+Set-ExecutionPolicy Unrestricted -force
 # Download the main script
 $scriptSrc = "http://corefx-ci.cloudapp.net/jenkins/userContent/jenkins-windows-startup.ps1"
 $scriptDest = "$env:USERPROFILE\jenkins-windows-startup.ps1"

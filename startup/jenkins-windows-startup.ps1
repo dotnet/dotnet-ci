@@ -1,6 +1,5 @@
 # This script starts up a Windows Jenkins Slave
 
-Set-ExecutionPolicy Unrestricted -force
 # If your jenkins server is configured for security, make sure to edit command for how slave executes
 # You may need to pass credentails or secret in the command , Refer to help by running "java -jar slave.jar --help" 
 
