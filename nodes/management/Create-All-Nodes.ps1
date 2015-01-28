@@ -10,7 +10,7 @@ $VMService="dotnet-ci-pool"
 
 # Basic VM props
 $TotalBasicWindowsBuildVMs=5
-$BasicWindowsBuildImage="dci-win-bld-2"
+$BasicWindowsBuildImage="dci-win-bld-3"
 
 echo "Creating $TotalBasicWindowsBuildVMs Windows Basic Build VMs (Basic_A3, image $BasicWindowsBuildImage)"
 
