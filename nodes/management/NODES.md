@@ -7,19 +7,19 @@
 
 # Table of machines
 
-|Machine Name|Current Image|VM or Machine Size|
+|Machine Name|Current Image|VM or Machine Size|Labels|
 |---|---|---|
-|dci-ub-fbld-1|dci-ub-bld-2|Standard_D3|
-|dci-ub-fbld-2|dci-ub-bld-2|Standard_D3|
-|dci-win-bld-1|dci-win-bld-3|Basic_A3|
-|dci-win-bld-2|dci-win-bld-3|Basic_A3|
-|dci-win-bld-3|dci-win-bld-3|Basic_A3|
-|dci-win-bld-4|dci-win-bld-3|Basic_A3|
-|dci-win-bld-5|dci-win-bld-3|Basic_A3|
-|dci-win-bld-6|dci-win-bld-3|Basic_A3|
-|dci-win-bld-7|dci-win-bld-3|Basic_A3|
-|dci-win-bld-8|dci-win-bld-3|Basic_A3|
-|dci-win-fbld-1|dci-win-bld-3|Standard_D3|
-|dci-win-fbld-2|dci-win-bld-3|Standard_D3|
-|dci-win-fbld-3|dci-win-bld-3|Standard_D3|
-|dci-win-fbld-4|dci-win-bld-3|Standard_D3|
+|dci-ub-fbld-1|dci-ub-bld-2|Standard_D3|ubuntu, ubuntu-fast|
+|dci-ub-fbld-2|dci-ub-bld-2|Standard_D3|ubuntu, ubuntu-fast|
+|dci-win-bld-1|dci-win-bld-3|Basic_A3|windows|
+|dci-win-bld-2|dci-win-bld-3|Basic_A3|windows|
+|dci-win-bld-3|dci-win-bld-3|Basic_A3|windows|
+|dci-win-bld-4|dci-win-bld-3|Basic_A3|windows|
+|dci-win-bld-5|dci-win-bld-3|Basic_A3|windows|
+|dci-win-bld-6|dci-win-bld-3|Basic_A3|windows|
+|dci-win-bld-7|dci-win-bld-3|Basic_A3|windows|
+|dci-win-bld-8|dci-win-bld-3|Basic_A3|windows|
+|dci-win-fbld-1|dci-win-bld-3|Standard_D3|windows, windows-fast|
+|dci-win-fbld-2|dci-win-bld-3|Standard_D3|windows, windows-fast|
+|dci-win-fbld-3|dci-win-bld-3|Standard_D3|windows, windows-fast|
+|dci-win-fbld-4|dci-win-bld-3|Standard_D3|windows, windows-fast|
