@@ -3,11 +3,34 @@
 $ServiceName="dotnet-ci-pool"
 
 # Basic VM props
-$TotalBasicWindowsBuildVMs=5
+$TotalBasicWindowsBuildVMs=8
 
 echo "Deleting $TotalBasicWindowsBuildVMs Windows Basic Build VMs"
 
 for ($i=1;$i -le $TotalBasicWindowsBuildVMs; $i++)
 {
     Remove-AzureVM -ServiceName $ServiceName -Name "dci-win-bld-$i" -DeleteVHD
+}
+
+#Service name for these is different.
+
+$ServiceName="dotnet-ci-nodes"
+$TotalFastWindowsBuildVMs=4
+
+echo "Deleting $TotalFastWindowsBuildVMs Windows Fast Build VMs"
+
+for ($i=1;$i -le $TotalFastWindowsBuildVMs; $i++)
+{
+    Remove-AzureVM -ServiceName $ServiceName -Name "dci-win-fbld-$i" -DeleteVHD
+}
+
+#Service name for these is different.
+
+$TotalFastLinuxBuildVMs=2
+
+echo "Deleting $TotalFastLinuxBuildVMs Windows Fast Build VMs"
+
+for ($i=1;$i -le $TotalFastLinuxBuildVMs; $i++)
+{
+    Remove-AzureVM -ServiceName $ServiceName -Name "dci-ub-fbld-$i" -DeleteVHD
 }
