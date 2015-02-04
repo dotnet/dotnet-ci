@@ -3,7 +3,7 @@
 $ServiceName="dotnet-ci-pool"
 
 # Basic VM props
-$TotalBasicWindowsBuildVMs=8
+$TotalBasicWindowsBuildVMs=0
 
 echo "Deleting $TotalBasicWindowsBuildVMs Windows Basic Build VMs"
 
@@ -15,7 +15,7 @@ for ($i=1;$i -le $TotalBasicWindowsBuildVMs; $i++)
 #Service name for these is different.
 
 $ServiceName="dotnet-ci-nodes"
-$TotalFastWindowsBuildVMs=4
+$TotalFastWindowsBuildVMs=10
 
 echo "Deleting $TotalFastWindowsBuildVMs Windows Fast Build VMs"
 

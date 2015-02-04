@@ -6,10 +6,10 @@ Param
 # Creates all the nodes that we use in the dotnet-ci Jenkins instance.
 
 $VMUsername="dotnet-bot"
-$VMService="dotnet-ci-pool"
+$VMService="dotnet-ci-nodes"
 
 # Basic VM props
-$TotalBasicWindowsBuildVMs=8
+$TotalBasicWindowsBuildVMs=0
 $BasicWindowsBuildImage="dci-win-bld-3"
 
 echo "Creating $TotalBasicWindowsBuildVMs Windows Basic Build VMs (Basic_A3, image $BasicWindowsBuildImage)"
@@ -21,12 +21,12 @@ for ($i=1;$i -le $TotalBasicWindowsBuildVMs; $i++)
 
 # Now for the "fast" windows machines
 
-$TotalFastWindowsBuildVMs=4
+$TotalFastWindowsBuildVMs=10
 $BasicWindowsBuildImage="dci-win-bld-3"
 
-echo "Creating $TotalFastWindowsBuildVMs Windows Fast Build VMs (Basic_A3, image $BasicWindowsBuildImage)"
+echo "Creating $TotalFastWindowsBuildVMs Windows Fast Build VMs (Standard_D3, image $BasicWindowsBuildImage)"
 
 for ($i=1;$i -le $TotalFastWindowsBuildVMs; $i++)
 {
-    New-AzureQuickVM -Windows -ServiceName "dotnet-ci-nodes" -Name "dci-win-fbld-$i" -ImageName $BasicWindowsBuildImage -AdminUsername $VMUsername -Password $VMPassword -InstanceSize Standard_D3
+    New-AzureQuickVM -Windows -ServiceName $VMService -Name "dci-win-fbld-$i" -ImageName $BasicWindowsBuildImage -AdminUsername $VMUsername -Password $VMPassword -InstanceSize Standard_D3
 }
