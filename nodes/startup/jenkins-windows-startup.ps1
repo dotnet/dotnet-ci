@@ -21,7 +21,7 @@ $wc.DownloadFile($jarSource, $jarDest)
 $serverURL=$jenkinsserverurl + "computer/" + $vmname + "/slave-agent.jnlp"
 # syntax for credentials username:apitoken or username:password
 # you can get api token by clicking on your username --> configure --> show api token
-$token="dotnet-bot:ca028e8f4a93ac3406bb47fd88ff80d3"
+$token="dotnet-bot:<insert token>"
 $commandLine="java -jar $jarDest -jnlpUrl $serverURL -jnlpCredentials $token"
 Write-Output "Executing slave process: $commandLine"
 & java -jar $jarDest -jnlpUrl $serverURL -jnlpCredentials $token

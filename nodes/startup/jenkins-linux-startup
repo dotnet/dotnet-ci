@@ -20,7 +20,8 @@ start(){
  mkdir /mnt/j
  chmod 777 /mnt/j/
  wget $JENKINS_MASTER/jnlpJars/slave.jar -O /home/$USER/slave.jar
- START="nohup java -jar /home/$USER/slave.jar -jnlpUrl $JENKINS_MASTER/computer/$HOSTNAME/slave-agent.jnlp -jnlpCredentials dotnet-bot:93c6c7e9521dfd0d35b3b73210e94152"
+ dotnetbotSecret=
+ START="nohup java -jar /home/$USER/slave.jar -jnlpUrl $JENKINS_MASTER/computer/$HOSTNAME/slave-agent.jnlp -jnlpCredentials dotnet-bot:"
  echo $START
  nohup /bin/su -m $USER -c "$START" > /home/$USER/jenkins.log 2>&1 &
  echo "Jenkins slave started"
@@ -64,4 +65,8 @@ restart)
  exit 1
 esac
 
+<<<<<<< HEAD
 exit 0
+=======
+exit 0
+>>>>>>> origin/master
