@@ -1,0 +1,67 @@
+#!/bin/bash
+# /etc/init.d/jenkins-slave
+#
+### BEGIN INIT INFO
+# Provides:          jenkins-slave
+# Required-Start:    $remote_fs $syslog $network
+# Required-Stop:     $remote_fs $syslog $network
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start jenkins-slave at boot time
+# Description:       Controls the jenkins-slave.
+### END INIT INFO
+
+JENKINS_MASTER=http://dotnet-ci.cloudapp.net
+
+start(){
+ USER=dotnet-bot
+ HOSTNAME=$(hostname)
+ # Make /mnt/j and make it writeable
+ mkdir /mnt/j
+ chmod 777 /mnt/j/
+ wget $JENKINS_MASTER/jnlpJars/slave.jar -O /home/$USER/slave.jar
+ START="nohup java -jar /home/$USER/slave.jar -jnlpUrl $JENKINS_MASTER/computer/$HOSTNAME/slave-agent.jnlp -jnlpCredentials dotnet-bot:93c6c7e9521dfd0d35b3b73210e94152"
+ echo $START
+ nohup /bin/su -m $USER -c "$START" > /home/$USER/jenkins.log 2>&1 &
+ echo "Jenkins slave started"
+}
+
+stop(){
+ kill `ps -ef | grep jenkins | grep slave | grep -v grep | awk '{ print $2 }'`
+ echo "Jenkins slave stopped"
+}
+
+status(){
+ numproc=`ps -ef | grep jenkins | grep slave | grep -v grep | awk  | wc -l`
+ if [ $numproc -gt 0 ]; then
+  echo "Jenkins slave is running..."
+  else
+  echo "Jenkins slave is stopped..."
+ fi
+}
+
+restart(){
+  stop
+  start
+}
+
+# See how we were called.
+case "$1" in
+start)
+ start
+ ;;
+stop)
+ stop
+ ;;
+status)
+ status
+ ;;
+restart)
+ restart
+ ;;
+*)
+ echo $"Usage: $0 {start|stop|status|restart}"
+ exit 1
+esac
+
+exit 0
