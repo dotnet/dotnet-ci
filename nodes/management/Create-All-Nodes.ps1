@@ -10,7 +10,7 @@ $VMService="dotnet-ci-nodes"
 
 # Basic VM props
 $TotalBasicWindowsBuildVMs=0
-$BasicWindowsBuildImage="dci-win-bld-3"
+$BasicWindowsBuildImage="dci-win-bld-5"
 
 echo "Creating $TotalBasicWindowsBuildVMs Windows Basic Build VMs (Basic_A3, image $BasicWindowsBuildImage)"
 
@@ -22,7 +22,7 @@ for ($i=1;$i -le $TotalBasicWindowsBuildVMs; $i++)
 # Now for the "fast" windows machines
 
 $TotalFastWindowsBuildVMs=10
-$BasicWindowsBuildImage="dci-win-bld-3"
+$BasicWindowsBuildImage="dci-win-bld-5"
 
 echo "Creating $TotalFastWindowsBuildVMs Windows Fast Build VMs (Standard_D3, image $BasicWindowsBuildImage)"
 
