@@ -1,4 +1,4 @@
 # List is of the form: <base name> <number of nodes> <OS Type>
 BaseName,Count,OSType,CurrentImageName,Size
-dci-win-fbld-,15,Windows,dci-win-fbld-8,Standard_D3
-dci-ub-fbld-,4,Linux,dci-win-fbld-8,Standard_D3
+dci-win-fbld-,15,Windows,dci-win-bld-9,Standard_D3
+dci-ub-fbld-,4,Linux,dci-ub-bld-4,Standard_D3

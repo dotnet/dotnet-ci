@@ -1,8 +1,26 @@
-﻿param (
+﻿<#
+.SYNOPSIS
+    Cycle-Nodes
+.DESCRIPTION
+    Cycles Nodes in the dotnet-ci azure pool
+.PARAMETER Password
+    Password to create the dotnet-bot account with
+.PARAMETER Pattern
+    Pattern of machine names to cycle
+.PARAMETER NewImage
+    New image to place on those machines
+.PARAMETER AllowMissingMachines
+    If machines are not currently in azure, allows creation
+.PARAMETER Verbose
+    Verbose tracing of the script
+#>
+
+param (
     [string]$Password = $(Read-Host -assecurestring -prompt "Password for user"),
     [string]$Pattern = $(Read-Host -prompt "Pattern for replacement"),
     [string]$NewImage = $null,
-    [bool]$AllowMissingMachines = $false
+    [switch]$AllowMissingMachines = $false,
+    [switch]$Verbose = $false
 )
 
 $ServiceName="dotnet-ci-nodes"
@@ -21,8 +39,18 @@ foreach ($machine in $machines)
     {
         $fullMachineName = $machine.BaseName + $i
 
+        if ($Verbose)
+        {
+            Write-Host -NoNewLine "Checking machine $fullMachineName against pattern $Pattern..."
+        }
+        
         if ($fullMachineName -match $Pattern)
         {
+            if ($Verbose)
+            {
+                Write-Host "Matched"
+            }
+            
             $imageToUse = $NewImage
 
             if ($imageToUse -eq $null)
@@ -75,6 +103,13 @@ foreach ($machine in $machines)
                 {
                     throw "Unknown OS type $machine.OSType"
                 }
+            }
+        }
+        else
+        {
+            if ($Verbose)
+            {
+                Write-Host "Not Matched"
             }
         }
     }
