@@ -22,7 +22,7 @@ for ($i=1;$i -le $TotalBasicWindowsBuildVMs; $i++)
 # Now for the "fast" windows machines
 
 $TotalFastWindowsBuildVMs=10
-$BasicWindowsBuildImage="dci-win-bld-5"
+$BasicWindowsBuildImage="dci-win-bld-7"
 
 echo "Creating $TotalFastWindowsBuildVMs Windows Fast Build VMs (Standard_D3, image $BasicWindowsBuildImage)"
 

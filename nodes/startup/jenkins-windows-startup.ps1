@@ -1,13 +1,13 @@
 # This script starts up a Windows Jenkins Slave
 
+Set-ExecutionPolicy Unrestricted -force
 # If your jenkins server is configured for security, make sure to edit command for how slave executes
-# You may need to pass credentails or secret in the command , Refer to help by running "java -jar slave.jar --help" 
+# You may need to pass credentails or secret in the command , Refer to help by running "java -jar slave.jar --help"
 
-$jenkinsserverurl = "http://corefx-ci.cloudapp.net/jenkins/"
+$jenkinsserverurl = "http://dotnet-ci.cloudapp.net/"
 $vmname = $env:COMPUTERNAME
 
-# WORKAROUND - VM names are always 'Azure' and the computer name comes out as "AZURE".  Alter to avoid a 404 on the jnlp call.
-$vmname = $vmname.Substring(0,1) + $vmName.Substring(1).ToLower();
+$vmname = $vmname.ToLower();
 
 # Download slave jar
 

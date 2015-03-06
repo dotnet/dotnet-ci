@@ -26,7 +26,7 @@ for ($i=1;$i -le $TotalFastWindowsBuildVMs; $i++)
 
 #Service name for these is different.
 
-$TotalFastLinuxBuildVMs=2
+$TotalFastLinuxBuildVMs=0
 
 echo "Deleting $TotalFastLinuxBuildVMs Windows Fast Build VMs"
 
