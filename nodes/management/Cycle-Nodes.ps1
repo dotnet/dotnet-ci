@@ -58,34 +58,37 @@ foreach ($machine in $machines)
                 $imageToUse = $NewImage
             }
 
-            Write-Host "Cycling $fullMachineName to $NewImage"
+            [int]$port = [int]$machine.RdpSshStart;
+            $port += $i
+            
+            Write-Host "Cycling $fullMachineName to $NewImage with RDP/SSH on $port"
 
+            # Check for existence of the old machine
+
+            $existingVM = Get-AzureVM -ServiceName $ServiceName -Name $fullMachineName
+
+            if (-not $existingVM)
+            {
+                if ($AllowMissingMachines)
+                {
+                    Write-Warning "VM $fullMachineName did not exist...creating"
+                }
+                else
+                {
+                    throw "VM $fullMachineName did not exist."
+                }
+            }
+            else
+            {
+                # Delete the old machine
+            
+                Remove-AzureVM -ServiceName $ServiceName -Name $fullMachineName -DeleteVHD
+            }
+                    
             switch ($machine.OSType)
             {
                 "Windows"
                 {
-                    # Check for existence of the old machine
-
-                    $existingVM = Get-AzureVM -ServiceName $ServiceName -Name $fullMachineName
-
-                    if (-not $existingVM)
-                    {
-                        if ($AllowMissingMachines)
-                        {
-                            Write-Warning "VM $fullMachineName did not exist...creating"
-                        }
-                        else
-                        {
-                            throw "VM $fullMachineName did not exist."
-                        }
-                    }
-                    else
-                    {
-                        # Delete the old machine
-                    
-                        Remove-AzureVM -ServiceName $ServiceName -Name $fullMachineName -DeleteVHD
-                    }
-
                     # Create the new one
 
                     $newVM = New-AzureQuickVM -Windows -ServiceName $ServiceName -Name $fullMachineName -ImageName $imageToUse -AdminUsername $Username -Password $Password -InstanceSize $machine.Size
@@ -94,10 +97,21 @@ foreach ($machine in $machines)
                     {
                         throw "Could not create $fullMachineName"
                     }
+                    
+                    Get-AzureVM -ServiceName $ServiceName -Name $fullMachineName | Set-AzureEndpoint -Name "RemoteDesktop" -PublicPort $port -LocalPort 3389 -Protocol TCP | Update-AzureVM
                 }
                 "Linux"
                 {
-                    throw "Linux cycling not supported"
+                    $newVM = New-AzureQuickVM -Linux -ServiceName $ServiceName -Name $fullMachineName -ImageName $imageToUse -LinuxUser $Username -Password $Password -InstanceSize $machine.Size
+                    
+                    if (!$newVM)
+                    {
+                        throw "Could not create $fullMachineName"
+                    }
+                    
+                    # Alter the endpoint so that the SSH port is predictable
+                    
+                    Get-AzureVM -ServiceName $ServiceName -Name $fullMachineName | Set-AzureEndpoint -Name "SSH" -PublicPort $port -LocalPort 22 -Protocol TCP | Update-AzureVM
                 }
                 default
                 {
