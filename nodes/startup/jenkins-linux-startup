@@ -28,12 +28,12 @@ start(){
 }
 
 stop(){
- kill `ps -ef | grep jenkins | grep slave | grep -v grep | awk '{ print $2 }'`
+ kill `ps | grep dotnet-ci | grep slave | grep -v grep | awk '{ print $2 }'`
  echo "Jenkins slave stopped"
 }
 
 status(){
- numproc=`ps -ef | grep jenkins | grep slave | grep -v grep | awk  | wc -l`
+ numproc=`ps | grep dotnet-ci | grep slave | grep -v grep | awk  | wc -l`
  if [ $numproc -gt 0 ]; then
   echo "Jenkins slave is running..."
   else
@@ -64,9 +64,3 @@ restart)
  echo $"Usage: $0 {start|stop|status|restart}"
  exit 1
 esac
-
-<<<<<<< HEAD
-exit 0
-=======
-exit 0
->>>>>>> origin/master
