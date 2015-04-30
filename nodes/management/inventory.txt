@@ -2,3 +2,4 @@
 BaseName,Count,OSType,CurrentImageName,Size,RdpSshStart
 dci-win-fbld-,15,Windows,dci-win-bld-17,Standard_D3,57100
 dci-ub-fbld-,5,Linux,dci-ub-bld-5,Standard_D3,57000
+dci-fbsd-fbld-,2,Linux,dci-bsd-bld-2,Standard_D3,57200
