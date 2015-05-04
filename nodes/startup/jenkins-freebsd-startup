@@ -1,60 +1,59 @@
 # !/bin/sh
 #
 # PROVIDE: jenkins
-# REQUIRE: NETWORKING
-# KEYWORD: shutdown
+# REQUIRE: waagent
+# KEYWORD: nojail
 
-JENKINS_MASTER=http://dotnet-ci.cloudapp.net
+. /etc/rc.subr
 
-start(){
+name="jenkins"
+rcvar="jenkins_enable"
+start_cmd="${name}_start"
+stop_cmd="${name}_stop"
+status_cmd="${name}_status"
+restart_cmd="${name}_restart"
+
+jenkins_start(){
+ JENKINS_MASTER=http://dotnet-ci.cloudapp.net
  USER=dotnet-bot
- HOSTNAME=<hostname>
- # Make /mnt/j and make it writeable
- chmod 777 /mnt/tmpdrive/
- mkdir /mnt/tmpdrive/j
+ # Host name not correctly evaluated at each boot by waagent
+ HOSTNAME=<insert host name>
+ # Make Temporary drive.  The waagent wants to apparently
+ # Remove and then reformat the mounted resource disk at each boot
+ # So, wait around for the disk to come back.  We can't just wait for the
+ # mount directory because it will be here when we look.  Then it will go away again.
+ sleep 180
+ mkdir /mnt/resource/j
+ chown dotnet-bot /mnt/resource/j
+ chmod 777 /mnt/resource/j
  /usr/local/bin/wget $JENKINS_MASTER/jnlpJars/slave.jar -O /home/$USER/slave.jar
  dotnetbotSecret=
- START="nohup /usr/local/bin/java -jar /home/$USER/slave.jar -jnlpUrl $JENKINS_MASTER/computer/$HOSTNAME/slave-agent.jnlp -jnlpCredentials dotnet-bot:<dotnet-bot creds>"
- echo $START
- nohup /usr/bin/su -m $USER -c "$START" > /home/$USER/jenkins.log 2>&1 &
- echo "Jenkins slave started"
+ START="/usr/local/bin/java -jar /home/$USER/slave.jar -jnlpUrl $JENKINS_MASTER/computer/$HOSTNAME/slave-agent.jnlp -jnlpCredentials
+dotnet-bot:<secret here>"
+ debug "About to run $START"
+ daemon -r -u $USER "$START" > /home/$USER/jenkins.log 2>&1 &
+ debug "Jenkins slave started"
 }
 
-stop(){
- kill `ps | grep dotnet-ci | grep slave | grep -v grep | awk '{ print $1 }'`
- echo "Jenkins slave stopped"
+jenkins_stop(){
+ kill `ps -ax | grep dotnet-ci | grep slave | grep -v grep | awk '{ print $1 }'`
+ debug "Jenkins slave stopped"
 }
 
-status(){
- numproc=`ps | grep dotnet-ci | grep slave | grep -v grep | awk  | wc -l`
+jenkins_status(){
+ numproc=`ps -ax | grep dotnet-ci | grep slave | grep -v grep | awk  | wc -l`
  if [ $numproc -gt 0 ]; then
-  echo "Jenkins slave is running..."
+  debug "Jenkins slave is running..."
   else
-  echo "Jenkins slave is stopped..."
+  debug "Jenkins slave is stopped..."
  fi
 }
 
-restart(){
+jenkins_restart(){
   stop
   start
 }
 
-# See how we were called.
-case "$1" in
-start)
- start
- ;;
-stop)
- stop
- ;;
-status)
- status
- ;;
-restart)
- restart
- ;;
-*)
- exit 1
-esac
-
-exit 0
+load_rc_config $name
+run_rc_command "$1"
+$
