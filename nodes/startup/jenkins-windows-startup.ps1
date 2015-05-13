@@ -31,5 +31,5 @@ while($true) {
     $token="dotnet-bot:<secret here>"
     $commandLine="java -jar $jarDest -jnlpUrl $serverURL -jnlpCredentials $token -noReconnect"
     Write-Output "Executing slave process: $commandLine"
-    & java -jar $jarDest -jnlpUrl $serverURL -jnlpCredentials $token
+    & java -jar $jarDest -jnlpUrl $serverURL -jnlpCredentials $token -noReconnect
 }
