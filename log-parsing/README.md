@@ -1,1 +1,0 @@
-Contains parse rules for various build legs that are compatible with the "Log Parser Plugin"
