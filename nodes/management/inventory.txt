@@ -1,0 +1,4 @@
+# List is of the form: <base name> <number of nodes> <OS Type>
+BaseName,Count,OSType,CurrentImageName,Size,RdpSshStart
+dci-win-fbld-,15,Windows,dci-win-bld-17,Standard_D3,57100
+dci-ub-fbld-,5,Linux,dci-ub-bld-5,Standard_D3,57000

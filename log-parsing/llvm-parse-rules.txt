@@ -1,0 +1,4 @@
+error /(?i)^error/
+warning /(?i)^warning/
+start /Building CXX object/
+start /Building C object/
