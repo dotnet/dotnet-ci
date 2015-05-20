@@ -1,0 +1,215 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep>60</daysToKeep>
+    <numToKeep>-1</numToKeep>
+    <artifactDaysToKeep>30</artifactDaysToKeep>
+    <artifactNumToKeep>50</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <com.sonyericsson.jenkins.plugins.bfa.model.ScannerJobProperty plugin="build-failure-analyzer@1.13.0">
+      <doNotScan>false</doNotScan>
+    </com.sonyericsson.jenkins.plugins.bfa.model.ScannerJobProperty>
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.11.3">
+      <projectUrl>https://github.com/dotnet/llilc/</projectUrl>
+    </com.coravy.hudson.plugins.github.GithubProjectProperty>
+  </properties>
+  <scm class="org.jenkinsci.plugins.multiplescms.MultiSCM" plugin="multiple-scms@0.4">
+    <scms>
+      <hudson.plugins.git.GitSCM plugin="git@2.3.5">
+        <configVersion>2</configVersion>
+        <userRemoteConfigs>
+          <hudson.plugins.git.UserRemoteConfig>
+            <url>git@github.com:Microsoft/llvm.git</url>
+            <credentialsId>603b4ba7-083a-467b-80d2-28ae0f0e4b6c</credentialsId>
+          </hudson.plugins.git.UserRemoteConfig>
+        </userRemoteConfigs>
+        <branches>
+          <hudson.plugins.git.BranchSpec>
+            <name>*/MS</name>
+          </hudson.plugins.git.BranchSpec>
+        </branches>
+        <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+        <submoduleCfg class="list"/>
+        <extensions>
+          <hudson.plugins.git.extensions.impl.WipeWorkspace/>
+          <hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+            <relativeTargetDir>LLVM</relativeTargetDir>
+          </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+          <hudson.plugins.git.extensions.impl.CloneOption>
+            <shallow>true</shallow>
+            <reference></reference>
+            <timeout>30</timeout>
+          </hudson.plugins.git.extensions.impl.CloneOption>
+        </extensions>
+      </hudson.plugins.git.GitSCM>
+      <hudson.plugins.git.GitSCM plugin="git@2.3.5">
+        <configVersion>2</configVersion>
+        <userRemoteConfigs>
+          <hudson.plugins.git.UserRemoteConfig>
+            <url>git@github.com:dotnet/llilc.git</url>
+            <credentialsId>603b4ba7-083a-467b-80d2-28ae0f0e4b6c</credentialsId>
+          </hudson.plugins.git.UserRemoteConfig>
+        </userRemoteConfigs>
+        <branches>
+          <hudson.plugins.git.BranchSpec>
+            <name>*/master</name>
+          </hudson.plugins.git.BranchSpec>
+        </branches>
+        <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+        <submoduleCfg class="list"/>
+        <extensions>
+          <hudson.plugins.git.extensions.impl.WipeWorkspace/>
+          <hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+            <relativeTargetDir>LLVM\tools\llilc</relativeTargetDir>
+          </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+        </extensions>
+      </hudson.plugins.git.GitSCM>
+      <hudson.plugins.git.GitSCM plugin="git@2.3.5">
+        <configVersion>2</configVersion>
+        <userRemoteConfigs>
+          <hudson.plugins.git.UserRemoteConfig>
+            <url>git@github.com:dotnet/coreclr.git</url>
+            <credentialsId>603b4ba7-083a-467b-80d2-28ae0f0e4b6c</credentialsId>
+          </hudson.plugins.git.UserRemoteConfig>
+        </userRemoteConfigs>
+        <branches>
+          <hudson.plugins.git.BranchSpec>
+            <name>*/master</name>
+          </hudson.plugins.git.BranchSpec>
+        </branches>
+        <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+        <submoduleCfg class="list"/>
+        <extensions>
+          <hudson.plugins.git.extensions.impl.WipeWorkspace/>
+          <hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+            <relativeTargetDir>coreclr</relativeTargetDir>
+          </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+        </extensions>
+      </hudson.plugins.git.GitSCM>
+    </scms>
+  </scm>
+  <scmCheckoutRetryCount>5</scmCheckoutRetryCount>
+  <assignedNode>windows</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>true</concurrentBuild>
+  <builders>
+    <com.microsoftopentechnologies.windowsazurestorage.AzureStorageBuilder plugin="windows-azure-storage@0.3.1-SNAPSHOT">
+      <storageAccName>dotnetci</storageAccName>
+      <containerName>llilc-release-win64</containerName>
+      <includeFilesPattern>**/*</includeFilesPattern>
+      <excludeFilesPattern></excludeFilesPattern>
+      <downloadDirLoc>lkg</downloadDirLoc>
+      <flattenDirectories>true</flattenDirectories>
+      <includeArchiveZips>false</includeArchiveZips>
+    </com.microsoftopentechnologies.windowsazurestorage.AzureStorageBuilder>
+    <hudson.tasks.BatchFile>
+      <command>if exist build/ rd /s /q build&#xd;
+mkdir build&#xd;
+if exist test/ rd /s /q test&#xd;
+mkdir test&#xd;
+&#xd;
+cd coreclr&#xd;
+./build.cmd Release&#xd;
+</command>
+    </hudson.tasks.BatchFile>
+    <hudson.tasks.BatchFile>
+      <command>cd build&#xd;
+cmake -G &quot;Visual Studio 12 2013 Win64&quot; -DWITH_CORECLR=%WORKSPACE%\coreclr\bin\Product\Windows_NT.x64.Release ..\llvm&#xd;
+&quot;%VS120COMNTOOLS%\..\..\VC\vcvarsall.bat&quot; x86 &amp;&amp; msbuild llvm.sln /p:Configuration=Release /p:Platform=x64 /t:ALL_BUILD /m</command>
+    </hudson.tasks.BatchFile>
+    <hudson.plugins.powershell.PowerShell plugin="powershell@1.2">
+      <command>$env:LLVMSource = $env:WORKSPACE + &quot;\LLVM\&quot;
+$env:LLVMBuild = $env:WORKSPACE + &quot;\build\&quot;
+$env:LLILCTestResult = $env:WORKSPACE + &quot;\test\&quot;
+$env:CoreCLRSource=$env:WORKSPACE + &quot;\coreclr&quot;
+$env:Path = ($env:Path).Replace(&quot;`&quot;&quot;,&quot;&quot;) + &quot;;C:\Python34;C:\GnuWin32\bin&quot;
+$TestBase = $True
+
+&amp; $Env:LLVMSOURCE\tools\llilc\test\LLILCEnv.ps1 -Build Release -Arch x64
+BuildTest -Arch x64 -Build Release
+CopyJit -Build Release
+
+if($TestBase) {
+Write-Output &quot;Running: RunTest -Arch x64 -Build Release -Jit $env:WORKSPACE\lkg\llilcjit.dll -Result SummaryBase -Dump Summary&quot;
+$failures = RunTest -Arch x64 -Build Release -Jit $env:WORKSPACE\lkg\llilcjit.dll -Result SummaryBase -Dump Summary
+
+if (-Not ($failures)) {
+throw &quot;There were failures with the baseline Jit&quot;
+}
+}
+
+Write-Output &quot;Running: RunTest -Arch x64 -Build Release -Result SummaryDiff -Dump Summary&quot;
+$failures = RunTest -Arch x64 -Build Release -Result SummaryDiff -Dump Summary
+
+if (-Not ($failures)) {
+throw &quot;There were $failures failures with the new Jit&quot;
+}
+
+if($TestBase) {
+Write-Output &quot;Running: CheckDiff -Base SummaryBase -Diff SummaryDiff -Summary&quot;
+$diffs = CheckDiff -Base SummaryBase -Diff SummaryDiff -Summary
+
+if (-Not ($diffs -eq 0)) {
+throw &quot;There were diffs.&quot;
+}
+
+}</command>
+    </hudson.plugins.powershell.PowerShell>
+  </builders>
+  <publishers>
+    <xunit plugin="xunit@1.95">
+      <types>
+        <XUnitDotNetTestType>
+          <pattern>coreclr/bin/**/TestRun*.xml</pattern>
+          <skipNoTestFiles>false</skipNoTestFiles>
+          <failIfNotNew>false</failIfNotNew>
+          <deleteOutputFiles>true</deleteOutputFiles>
+          <stopProcessingIfError>false</stopProcessingIfError>
+        </XUnitDotNetTestType>
+      </types>
+      <thresholds>
+        <org.jenkinsci.plugins.xunit.threshold.FailedThreshold>
+          <unstableThreshold></unstableThreshold>
+          <unstableNewThreshold></unstableNewThreshold>
+          <failureThreshold></failureThreshold>
+          <failureNewThreshold></failureNewThreshold>
+        </org.jenkinsci.plugins.xunit.threshold.FailedThreshold>
+        <org.jenkinsci.plugins.xunit.threshold.SkippedThreshold>
+          <unstableThreshold></unstableThreshold>
+          <unstableNewThreshold></unstableNewThreshold>
+          <failureThreshold></failureThreshold>
+          <failureNewThreshold></failureNewThreshold>
+        </org.jenkinsci.plugins.xunit.threshold.SkippedThreshold>
+      </thresholds>
+      <thresholdMode>1</thresholdMode>
+      <extraConfiguration>
+        <testTimeMargin>3000</testTimeMargin>
+      </extraConfiguration>
+    </xunit>
+    <com.microsoftopentechnologies.windowsazurestorage.WAStoragePublisher plugin="windows-azure-storage@0.3.1-SNAPSHOT">
+      <storageAccName>dotnetci</storageAccName>
+      <containerName>llilc-release-win64</containerName>
+      <cntPubAccess>true</cntPubAccess>
+      <cleanUpContainer>true</cleanUpContainer>
+      <allowAnonymousAccess>true</allowAnonymousAccess>
+      <uploadArtifactsOnlyIfSuccessful>true</uploadArtifactsOnlyIfSuccessful>
+      <doNotFailIfArchivingReturnsNothing>false</doNotFailIfArchivingReturnsNothing>
+      <uploadZips>true</uploadZips>
+      <doNotUploadIndividualFiles>false</doNotUploadIndividualFiles>
+      <filesPath>build/bin/Release/*.dll</filesPath>
+      <excludeFilesPath></excludeFilesPath>
+      <virtualPath></virtualPath>
+    </com.microsoftopentechnologies.windowsazurestorage.WAStoragePublisher>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.6"/>
+  </buildWrappers>
+</project>
