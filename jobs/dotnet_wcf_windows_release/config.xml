@@ -14,14 +14,14 @@
       <doNotScan>false</doNotScan>
     </com.sonyericsson.jenkins.plugins.bfa.model.ScannerJobProperty>
     <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.11.3">
-      <projectUrl>https://github.com/dotnet/corefx/</projectUrl>
+      <projectUrl>https://github.com/dotnet/wcf/</projectUrl>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
   </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@2.3.5">
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
-        <url>git://github.com/dotnet/corefx.git</url>
+        <url>git://github.com/dotnet/wcf.git</url>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
@@ -44,29 +44,10 @@
   <concurrentBuild>true</concurrentBuild>
   <builders>
     <hudson.tasks.BatchFile>
-      <command>&quot;C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat&quot; x86 &amp;&amp; build.cmd /p:Coverage=true</command>
+      <command>build.cmd /p:Configuration=Release</command>
     </hudson.tasks.BatchFile>
   </builders>
   <publishers>
-    <hudson.tasks.ArtifactArchiver>
-      <artifacts>**/coverage/*,msbuild.log</artifacts>
-      <allowEmptyArchive>false</allowEmptyArchive>
-      <onlyIfSuccessful>true</onlyIfSuccessful>
-      <fingerprint>false</fingerprint>
-      <defaultExcludes>true</defaultExcludes>
-    </hudson.tasks.ArtifactArchiver>
-    <htmlpublisher.HtmlPublisher plugin="htmlpublisher@1.3">
-      <reportTargets>
-        <htmlpublisher.HtmlPublisherTarget>
-          <reportName>Code Coverage Report</reportName>
-          <reportDir>bin/tests/coverage</reportDir>
-          <reportFiles>index.htm</reportFiles>
-          <keepAll>true</keepAll>
-          <allowMissing>true</allowMissing>
-          <wrapperName>htmlpublisher-wrapper.html</wrapperName>
-        </htmlpublisher.HtmlPublisherTarget>
-      </reportTargets>
-    </htmlpublisher.HtmlPublisher>
     <xunit plugin="xunit@1.95">
       <types>
         <XUnitDotNetTestType>
