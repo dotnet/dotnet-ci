@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>jenkins-osx-startup</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/bin/bash</string>
+		<string>/Users/dotnet-bot/dotnet-ci/nodes/startup/jenkins-osx-startup.sh</string>
+		<string>http://dotnet-ci.cloudapp.net</string>
+		<string>dotnet-bot:<api key here></string>
+	</array>
+	<key>RunAtLoad</key>
+	<true/>
+        <key>KeepAlive</key>
+	<true/>
+</dict>
+</plist>

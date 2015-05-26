@@ -1,3 +1,0 @@
-error /\[FAIL\]/
-error /(?i)^error/
-warning /(?i)^warning/
