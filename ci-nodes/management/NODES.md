@@ -1,4 +1,4 @@
-vThis document contains information about the current state of the machines used in Jenkins.  Please update as software changes in case we need to rebuild.
+This document contains information about the current state of the machines used in Jenkins.  Please update as software changes in case we need to rebuild.
 
 # Table of machines
 
