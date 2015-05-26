@@ -5,8 +5,8 @@
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>60</daysToKeep>
     <numToKeep>-1</numToKeep>
-    <artifactDaysToKeep>30</artifactDaysToKeep>
-    <artifactNumToKeep>50</artifactNumToKeep>
+    <artifactDaysToKeep>14</artifactDaysToKeep>
+    <artifactNumToKeep>25</artifactNumToKeep>
   </logRotator>
   <keepDependencies>true</keepDependencies>
   <properties>
@@ -14,7 +14,7 @@
       <doNotScan>false</doNotScan>
     </com.sonyericsson.jenkins.plugins.bfa.model.ScannerJobProperty>
     <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.11.3">
-      <projectUrl>git://github.com/dotnet/wcf.git/</projectUrl>
+      <projectUrl>https://github.com/dotnet/wcf/</projectUrl>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
   </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@2.3.5">
@@ -22,7 +22,7 @@
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
         <refspec>+refs/pull/*:refs/remotes/origin/pr/*</refspec>
-        <url>https://github.com/dotnet/wcf.git</url>
+        <url>git://github.com/dotnet/wcf.git</url>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>

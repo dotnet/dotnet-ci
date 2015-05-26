@@ -5,8 +5,8 @@
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>60</daysToKeep>
     <numToKeep>-1</numToKeep>
-    <artifactDaysToKeep>30</artifactDaysToKeep>
-    <artifactNumToKeep>50</artifactNumToKeep>
+    <artifactDaysToKeep>14</artifactDaysToKeep>
+    <artifactNumToKeep>25</artifactNumToKeep>
   </logRotator>
   <keepDependencies>false</keepDependencies>
   <properties>
@@ -36,7 +36,7 @@
       <hudson.plugins.git.extensions.impl.WipeWorkspace/>
     </extensions>
   </scm>
-  <assignedNode>windows-roslyn-tst</assignedNode>
+  <assignedNode>windows-roslyn</assignedNode>
   <canRoam>false</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
@@ -49,7 +49,7 @@
     </hudson.tasks.BatchFile>
   </builders>
   <publishers>
-    <xunit plugin="xunit@1.94">
+    <xunit plugin="xunit@1.95">
       <types>
         <XUnitDotNetTestType>
           <pattern>**/*TestResults.xml</pattern>

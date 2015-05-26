@@ -5,8 +5,8 @@
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>60</daysToKeep>
     <numToKeep>-1</numToKeep>
-    <artifactDaysToKeep>30</artifactDaysToKeep>
-    <artifactNumToKeep>50</artifactNumToKeep>
+    <artifactDaysToKeep>14</artifactDaysToKeep>
+    <artifactNumToKeep>25</artifactNumToKeep>
   </logRotator>
   <keepDependencies>true</keepDependencies>
   <properties>
@@ -83,12 +83,10 @@
     linux_debug_libs_snippet = &quot;&lt;SpecificBuildSelector&gt;&lt;buildNumber&gt;$linux_debug_libs.build.number&lt;/buildNumber&gt;&lt;/SpecificBuildSelector&gt;&quot;
     windows_debug_tests_snippet = &quot;&lt;SpecificBuildSelector&gt;&lt;buildNumber&gt;$windows_debug_tests.build.number&lt;/buildNumber&gt;&lt;/SpecificBuildSelector&gt;&quot;
     
-    // Ignore failure in this job, it does not yet pass
-    
-      build(&quot;dotnet_corefx_linux_debug_tst_prtest&quot;,
-            COREFX_LINUX_BUILD: linux_debug_libs_snippet, 
-            COREFX_WINDOWS_BUILD: windows_debug_tests_snippet,
-            sha1: params[&quot;sha1&quot;])
+    build(&quot;dotnet_corefx_linux_debug_tst_prtest&quot;,
+          COREFX_LINUX_BUILD: linux_debug_libs_snippet, 
+          COREFX_WINDOWS_BUILD: windows_debug_tests_snippet,
+          sha1: params[&quot;sha1&quot;])
   },
   {
     parallel (
