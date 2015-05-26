@@ -5,8 +5,8 @@
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>60</daysToKeep>
     <numToKeep>-1</numToKeep>
-    <artifactDaysToKeep>30</artifactDaysToKeep>
-    <artifactNumToKeep>50</artifactNumToKeep>
+    <artifactDaysToKeep>14</artifactDaysToKeep>
+    <artifactNumToKeep>25</artifactNumToKeep>
   </logRotator>
   <keepDependencies>true</keepDependencies>
   <properties>
@@ -82,8 +82,8 @@ parallel (
   { build(&quot;dotnet_coreclr_linux_debug_prtest&quot;, sha1: params[&quot;sha1&quot;]) },
   { build(&quot;dotnet_coreclr_mac_release_prtest&quot;, sha1: params[&quot;sha1&quot;]) },
   { build(&quot;dotnet_coreclr_mac_debug_prtest&quot;, sha1: params[&quot;sha1&quot;]) },
-  { ignore(FAILURE) { build(&quot;dotnet_coreclr_freebsd_release_prtest&quot;, sha1: params[&quot;sha1&quot;]) } },
-  { ignore(FAILURE) { build(&quot;dotnet_coreclr_freebsd_debug_prtest&quot;, sha1: params[&quot;sha1&quot;]) } }
+  { build(&quot;dotnet_coreclr_freebsd_release_prtest&quot;, sha1: params[&quot;sha1&quot;]) },
+  { build(&quot;dotnet_coreclr_freebsd_debug_prtest&quot;, sha1: params[&quot;sha1&quot;]) }
 )</dsl>
   <buildNeedsWorkspace>true</buildNeedsWorkspace>
 </com.cloudbees.plugins.flow.BuildFlow>

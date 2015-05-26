@@ -35,7 +35,7 @@
       <hudson.plugins.git.extensions.impl.WipeWorkspace/>
     </extensions>
   </scm>
-  <assignedNode>windows</assignedNode>
+  <assignedNode>windows-elevated</assignedNode>
   <canRoam>false</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
@@ -44,18 +44,47 @@
   <concurrentBuild>true</concurrentBuild>
   <builders>
     <hudson.tasks.BatchFile>
-      <command>&quot;C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat&quot; x86 &amp;&amp; build.cmd /p:OSGroup=OSX /p:Configuration=Release /p:SkipTests=true</command>
+      <command>&quot;C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat&quot; x86 &amp;&amp; build.cmd /p:OSGroup=Windows_NT /p:Configuration=Release /p:TestConsumptiveMetrics=true /p:PerfToolsDir=%WORKSPACE%\packages\Microsoft.DotNet.PerfTools\0.0.1-prerelease-00022\tools\</command>
     </hudson.tasks.BatchFile>
   </builders>
   <publishers>
     <hudson.tasks.ArtifactArchiver>
-      <artifacts>bin/**,msbuild.log</artifacts>
-      <excludes>bin/tests/**/*,bin/obj/**/*,bin/packages/**/*,bin/**/*.Tests/*,bin/**/System.Threading.Tasks.Dataflow.WP8/*,bin/**/System.Reflection.Metadata/System.Collections.Immutable.*</excludes>
+      <artifacts>bin/**/Perf*.xml,msbuild.log</artifacts>
+      <excludes>bin/obj/**,bin/packages/**,bin/**/*.Tests/*,bin/**/System.Threading.Tasks.Dataflow.WP8/*,bin/**/System.Reflection.Metadata/System.Collections.Immutable.*</excludes>
       <allowEmptyArchive>false</allowEmptyArchive>
       <onlyIfSuccessful>true</onlyIfSuccessful>
       <fingerprint>false</fingerprint>
       <defaultExcludes>true</defaultExcludes>
     </hudson.tasks.ArtifactArchiver>
+    <xunit plugin="xunit@1.95">
+      <types>
+        <XUnitDotNetTestType>
+          <pattern>bin/tests/**/testResults.xml</pattern>
+          <skipNoTestFiles>true</skipNoTestFiles>
+          <failIfNotNew>false</failIfNotNew>
+          <deleteOutputFiles>true</deleteOutputFiles>
+          <stopProcessingIfError>true</stopProcessingIfError>
+        </XUnitDotNetTestType>
+      </types>
+      <thresholds>
+        <org.jenkinsci.plugins.xunit.threshold.FailedThreshold>
+          <unstableThreshold></unstableThreshold>
+          <unstableNewThreshold></unstableNewThreshold>
+          <failureThreshold></failureThreshold>
+          <failureNewThreshold></failureNewThreshold>
+        </org.jenkinsci.plugins.xunit.threshold.FailedThreshold>
+        <org.jenkinsci.plugins.xunit.threshold.SkippedThreshold>
+          <unstableThreshold></unstableThreshold>
+          <unstableNewThreshold></unstableNewThreshold>
+          <failureThreshold></failureThreshold>
+          <failureNewThreshold></failureNewThreshold>
+        </org.jenkinsci.plugins.xunit.threshold.SkippedThreshold>
+      </thresholds>
+      <thresholdMode>1</thresholdMode>
+      <extraConfiguration>
+        <testTimeMargin>3000</testTimeMargin>
+      </extraConfiguration>
+    </xunit>
   </publishers>
   <buildWrappers>
     <hudson.plugins.build__timeout.BuildTimeoutWrapper plugin="build-timeout@1.14.1">

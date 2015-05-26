@@ -5,8 +5,8 @@
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>60</daysToKeep>
     <numToKeep>-1</numToKeep>
-    <artifactDaysToKeep>30</artifactDaysToKeep>
-    <artifactNumToKeep>50</artifactNumToKeep>
+    <artifactDaysToKeep>14</artifactDaysToKeep>
+    <artifactNumToKeep>25</artifactNumToKeep>
   </logRotator>
   <keepDependencies>false</keepDependencies>
   <properties>
@@ -64,6 +64,8 @@
       <allowAnonymousAccess>true</allowAnonymousAccess>
       <uploadArtifactsOnlyIfSuccessful>true</uploadArtifactsOnlyIfSuccessful>
       <doNotFailIfArchivingReturnsNothing>true</doNotFailIfArchivingReturnsNothing>
+      <uploadZips>false</uploadZips>
+      <doNotUploadIndividualFiles>false</doNotUploadIndividualFiles>
       <filesPath>bin/**</filesPath>
       <excludeFilesPath>bin/obj/**,bin/packages/**,bin/**/*.Tests/*,bin/**/System.Threading.Tasks.Dataflow.WP8/*,bin/**/System.Reflection.Metadata/System.Collections.Immutable.*</excludeFilesPath>
       <virtualPath>${BUILD_NUMBER}</virtualPath>

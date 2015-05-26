@@ -5,8 +5,8 @@
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>60</daysToKeep>
     <numToKeep>-1</numToKeep>
-    <artifactDaysToKeep>30</artifactDaysToKeep>
-    <artifactNumToKeep>50</artifactNumToKeep>
+    <artifactDaysToKeep>14</artifactDaysToKeep>
+    <artifactNumToKeep>25</artifactNumToKeep>
   </logRotator>
   <keepDependencies>false</keepDependencies>
   <properties>
@@ -24,8 +24,7 @@
         <userRemoteConfigs>
           <hudson.plugins.git.UserRemoteConfig>
             <name>origin</name>
-            <url>git@github.com:dotnet/llilc.git</url>
-            <credentialsId>603b4ba7-083a-467b-80d2-28ae0f0e4b6c</credentialsId>
+            <url>git://github.com/dotnet/llilc.git</url>
           </hudson.plugins.git.UserRemoteConfig>
         </userRemoteConfigs>
         <branches>
@@ -59,6 +58,6 @@ llilc\utils\ccformat.py</command>
   </builders>
   <publishers/>
   <buildWrappers>
-    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.5.16"/>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.6"/>
   </buildWrappers>
 </project>

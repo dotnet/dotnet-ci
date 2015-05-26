@@ -5,8 +5,8 @@
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>60</daysToKeep>
     <numToKeep>-1</numToKeep>
-    <artifactDaysToKeep>30</artifactDaysToKeep>
-    <artifactNumToKeep>50</artifactNumToKeep>
+    <artifactDaysToKeep>14</artifactDaysToKeep>
+    <artifactNumToKeep>25</artifactNumToKeep>
   </logRotator>
   <keepDependencies>false</keepDependencies>
   <properties>
@@ -49,10 +49,10 @@
     </hudson.tasks.BatchFile>
   </builders>
   <publishers>
-    <xunit plugin="xunit@1.94">
+    <xunit plugin="xunit@1.95">
       <types>
         <XUnitDotNetTestType>
-          <pattern>binaries/**/TestRun*.xml</pattern>
+          <pattern>bin/**/TestRun*.xml</pattern>
           <skipNoTestFiles>true</skipNoTestFiles>
           <failIfNotNew>true</failIfNotNew>
           <deleteOutputFiles>true</deleteOutputFiles>
