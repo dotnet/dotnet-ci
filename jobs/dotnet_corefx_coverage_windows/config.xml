@@ -104,5 +104,6 @@
       </strategy>
       <operationList/>
     </hudson.plugins.build__timeout.BuildTimeoutWrapper>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.6"/>
   </buildWrappers>
 </project>

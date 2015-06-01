@@ -97,7 +97,11 @@
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-  <triggers/>
+  <triggers>
+    <hudson.triggers.TimerTrigger>
+      <spec>H H * * 6</spec>
+    </hudson.triggers.TimerTrigger>
+  </triggers>
   <concurrentBuild>true</concurrentBuild>
   <builders>
     <com.microsoftopentechnologies.windowsazurestorage.AzureStorageBuilder plugin="windows-azure-storage@0.3.1-SNAPSHOT">
@@ -124,38 +128,21 @@ cd coreclr&#xd;
 cmake -G &quot;Visual Studio 12 2013 Win64&quot; -DWITH_CORECLR=%WORKSPACE%\coreclr\bin\Product\Windows_NT.x64.debug ..\llvm&#xd;
 &quot;%VS120COMNTOOLS%\..\..\VC\vcvarsall.bat&quot; x86 &amp;&amp; msbuild llvm.sln /p:Configuration=Debug /p:Platform=x64 /t:ALL_BUILD /m</command>
     </hudson.tasks.BatchFile>
-    <hudson.plugins.powershell.PowerShell plugin="powershell@1.2">
-      <command>$env:LLVMSource = $env:WORKSPACE + &quot;\LLVM\&quot;
-$env:LLVMBuild = $env:WORKSPACE + &quot;\build\&quot;
-$env:LLILCTestResult = $env:WORKSPACE + &quot;\test\&quot;
-$env:CoreCLRSource=$env:WORKSPACE + &quot;\coreclr&quot;
-$env:Path = ($env:Path).Replace(&quot;`&quot;&quot;,&quot;&quot;) + &quot;;C:\Python34;C:\GnuWin32\bin&quot;
-
-&amp; $Env:LLVMSOURCE\tools\llilc\test\LLILCEnv.ps1 -Build Debug -Arch x64
-BuildTest -Arch x64 -Build Debug
-CopyJit
-
-Write-Output &quot;Running: RunTest -Arch x64 -Build Debug -Jit $env:WORKSPACE\lkg\llilcjit.dll -Result SummaryBase -Dump Summary&quot;
-$failures = RunTest -Arch x64 -Build Debug -Jit $env:WORKSPACE\lkg\llilcjit.dll -Result SummaryBase -Dump Summary
-
-if (-Not ($failures)) {
-Write-Output &quot;There were failures with the baseline Jit&quot;
-}
-
-Write-Output &quot;Running: RunTest -Arch x64 -Build Debug -Result SummaryDiff -Dump Summary&quot;
-$failures = RunTest -Arch x64 -Build Debug -Result SummaryDiff -Dump Summary
-
-if (-Not ($failures)) {
-throw &quot;There were failures with the new Jit&quot;
-}
-
-Write-Output &quot;Running: CheckDiff -Base SummaryBase -Diff SummaryDiff -Summary&quot;
-$diffs = CheckDiff -Base SummaryBase -Diff SummaryDiff -Summary
-
-if (-Not ($diffs -eq 0)) {
-throw &quot;There were diffs.&quot;
-}</command>
-    </hudson.plugins.powershell.PowerShell>
+    <hudson.tasks.BatchFile>
+      <command>if exist baseline/ rd /s /q baseline/&#xd;
+mkdir baseline&#xd;
+if exist target/ rd /s /q target/&#xd;
+mkdir target&#xd;
+&#xd;
+cd coreclr\tests&#xd;
+&#xd;
+C:\Python34\python %WORKSPACE%\llvm\tools\llilc\test\llilc_runtest.py -a x64 -b debug -d summary -r ..\..\baseline -j %WORKSPACE%\lkg\llilcjit.dll -c %WORKSPACE%\coreclr\bin\Product\Windows_NT.x64.Debug&#xd;
+&#xd;
+C:\Python34\python %WORKSPACE%\llvm\tools\llilc\test\llilc_runtest.py -a x64 -b debug -d summary -r ..\..\target -j %WORKSPACE%\build\bin\Debug\llilcjit.dll -c %WORKSPACE%\coreclr\bin\Product\Windows_NT.x64.Debug || (echo There were failures with the new JIT&amp; exit /b -1)&#xd;
+&#xd;
+C:\Python34\python %WORKSPACE%\llvm\tools\llilc\test\llilc_checkpass.py -b ..\..\baseline -d ..\..\target || (echo There were diffs.&amp; exit /b -1)&#xd;
+</command>
+    </hudson.tasks.BatchFile>
   </builders>
   <publishers>
     <xunit plugin="xunit@1.95">
@@ -205,7 +192,7 @@ throw &quot;There were diffs.&quot;
   <buildWrappers>
     <hudson.plugins.build__timeout.BuildTimeoutWrapper plugin="build-timeout@1.14.1">
       <strategy class="hudson.plugins.build_timeout.impl.AbsoluteTimeOutStrategy">
-        <timeoutMinutes>240</timeoutMinutes>
+        <timeoutMinutes>480</timeoutMinutes>
       </strategy>
       <operationList/>
     </hudson.plugins.build__timeout.BuildTimeoutWrapper>
