@@ -55,7 +55,7 @@
   <buildWrappers/>
   <icon/>
   <dsl>parallel (
-    { build(&quot;dotnet_llilc_debug_win64&quot;) },
+    { build(&quot;dotnet_llilc_check_win64&quot;) },
     { build(&quot;dotnet_llilc_release_win64&quot;) },
     { build(&quot;dotnet_llilc_debug_win32&quot;) },
     { build(&quot;dotnet_llilc_release_win32&quot;) },

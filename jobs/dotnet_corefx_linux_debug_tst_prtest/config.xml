@@ -66,7 +66,7 @@
       <project>dotnet_coreclr_linux_release</project>
       <filter></filter>
       <target></target>
-      <excludes>**/testResults.xml</excludes>
+      <excludes>**/testResults.xml,**/*.ni.dll</excludes>
       <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
       <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
     </hudson.plugins.copyartifact.CopyArtifact>
@@ -74,7 +74,7 @@
       <project>dotnet_corefx_windows_debug_prtest</project>
       <filter></filter>
       <target></target>
-      <excludes>**/testResults.xml</excludes>
+      <excludes>**/testResults.xml,**/*.ni.dll</excludes>
       <selector class="hudson.plugins.copyartifact.ParameterizedBuildSelector">
         <parameterName>COREFX_WINDOWS_BUILD</parameterName>
       </selector>
@@ -84,7 +84,7 @@
       <project>dotnet_coreclr_windows_release</project>
       <filter>bin/Product/Linux*/**</filter>
       <target></target>
-      <excludes>**/testResults.xml</excludes>
+      <excludes>**/testResults.xml,**/*.ni.dll</excludes>
       <selector class="hudson.plugins.copyartifact.StatusBuildSelector">
         <stable>true</stable>
       </selector>
@@ -94,7 +94,7 @@
       <project>dotnet_corefx_linux_debug_prtest</project>
       <filter></filter>
       <target></target>
-      <excludes>**/testResults.xml</excludes>
+      <excludes>**/testResults.xml,**/*.ni.dll</excludes>
       <selector class="hudson.plugins.copyartifact.ParameterizedBuildSelector">
         <parameterName>COREFX_LINUX_BUILD</parameterName>
       </selector>
