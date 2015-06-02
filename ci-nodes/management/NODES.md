@@ -14,16 +14,16 @@ This document contains information about the current state of the machines used 
 |dci-win-fbld-2|dci-win-bld-22|Standard_D3||
 |dci-win-fbld-3|dci-win-bld-22|Standard_D3||
 |dci-win-fbld-4|dci-win-bld-22|Standard_D3||
-|dci-win-fbld-5|dci-win-bld-22|Standard_D3||
+|dci-win-fbld-5|dci-win-bld-23|Standard_D3|23 is the same as 22 + some manual changes.  Updated because of stability issues|
 |dci-win-fbld-6|dci-win-bld-22|Standard_D3||
 |dci-win-fbld-7|dci-win-bld-22|Standard_D3||
 |dci-win-fbld-8|dci-win-bld-22|Standard_D3||
 |dci-win-fbld-9|dci-win-bld-?? + mods|Standard_D3|Out for investigation|
-|dci-win-fbld-10|dci-win-bld-22|Standard_D3||
+|dci-win-fbld-10|dci-win-bld-23|Standard_D3|23 is the same as 22 + some manual changes.  Updated because of stability issues|
 |dci-win-fbld-11|dci-win-bld-22|Standard_D3||
 |dci-win-fbld-12|dci-win-bld-22|Standard_D3||
 |dci-win-fbld-13|dci-win-bld-22|Standard_D3||
-|dci-win-fbld-14|dci-win-bld-22|Standard_D3||
+|dci-win-fbld-14|dci-win-bld-23|Standard_D3|23 is the same as 22 + some manual changes.  Updated because of stability issues|
 |dci-win-fbld-15|dci-win-bld-22|Standard_D3||
 
 # Image details
@@ -66,7 +66,7 @@ Ubuntu 14.04 image, created from the stock image in the Azure library.  Uses ini
 |zlib1g||
 |zlib1g-dev||
 
-## dci-win-bld-22
+## dci-win-bld-22 and dci-win-bld-23
 
 Ubuntu 14.04 image, created from the stock image in the Azure library.  Uses init.d to start the jenkins node.  This is problematic as it doesn't successfully mark the temporary disk as writeable by non-root.  Needs to be fixed.
 
