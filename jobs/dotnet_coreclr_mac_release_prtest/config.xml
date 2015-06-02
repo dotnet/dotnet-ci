@@ -45,7 +45,7 @@
   <concurrentBuild>true</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>./build.sh release</command>
+      <command>./build.sh verbose release</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
