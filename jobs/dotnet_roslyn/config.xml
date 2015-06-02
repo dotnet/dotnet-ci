@@ -52,6 +52,7 @@
   <icon/>
   <dsl>parallel (
     { build(&quot;dotnet_roslyn_windows&quot;) },
+    { build(&quot;dotnet_roslyn_windows_release&quot;) },
     { build(&quot;dotnet_roslyn_linux&quot;) },
     { build(&quot;dotnet_roslyn_mac&quot;) }
 )</dsl>
