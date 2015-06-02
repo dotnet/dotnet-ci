@@ -45,7 +45,7 @@
   <concurrentBuild>true</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>./build.sh debug</command>
+      <command>./build.sh verbose debug</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>

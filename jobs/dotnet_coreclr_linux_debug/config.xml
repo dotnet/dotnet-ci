@@ -44,7 +44,7 @@
   <concurrentBuild>true</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>./build.sh debug &amp;&amp; src/pal/tests/palsuite/runpaltests.sh ${WORKSPACE}/bin/obj/Linux.x64.Debug ${WORKSPACE}/bin/paltestout</command>
+      <command>./build.sh verbose debug &amp;&amp; src/pal/tests/palsuite/runpaltests.sh ${WORKSPACE}/bin/obj/Linux.x64.Debug ${WORKSPACE}/bin/paltestout</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
