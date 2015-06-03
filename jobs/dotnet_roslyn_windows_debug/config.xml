@@ -44,7 +44,7 @@
   <concurrentBuild>true</concurrentBuild>
   <builders>
     <hudson.tasks.BatchFile>
-      <command>cibuild.cmd /release</command>
+      <command>cibuild.cmd</command>
     </hudson.tasks.BatchFile>
   </builders>
   <publishers>

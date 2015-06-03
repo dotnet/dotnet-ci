@@ -14,14 +14,14 @@
       <doNotScan>false</doNotScan>
     </com.sonyericsson.jenkins.plugins.bfa.model.ScannerJobProperty>
     <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.11.3">
-      <projectUrl>https://github.com/dotnet/roslyn/</projectUrl>
+      <projectUrl>https://github.com/dotnet/corefx/</projectUrl>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
   </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@2.3.5">
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
-        <url>git://github.com/dotnet/roslyn.git</url>
+        <url>git://github.com/dotnet/corefx.git</url>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
@@ -35,25 +35,43 @@
       <hudson.plugins.git.extensions.impl.WipeWorkspace/>
     </extensions>
   </scm>
-  <assignedNode>windows-roslyn</assignedNode>
+  <assignedNode>windows</assignedNode>
   <canRoam>false</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-  <triggers/>
+  <triggers>
+    <hudson.triggers.TimerTrigger>
+      <spec>@daily</spec>
+    </hudson.triggers.TimerTrigger>
+  </triggers>
   <concurrentBuild>true</concurrentBuild>
   <builders>
     <hudson.tasks.BatchFile>
-      <command>cibuild.cmd /release</command>
+      <command>&quot;C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat&quot; x86 &amp;&amp; build.cmd /p:OSGroup=Windows_NT /p:Configuration=Debug /p:XunitMaxThreads=128</command>
     </hudson.tasks.BatchFile>
   </builders>
   <publishers>
+    <com.microsoftopentechnologies.windowsazurestorage.WAStoragePublisher plugin="windows-azure-storage@0.3.1-SNAPSHOT">
+      <storageAccName>dotnetci</storageAccName>
+      <containerName>dotnet-corefx-windows-debug</containerName>
+      <cntPubAccess>true</cntPubAccess>
+      <cleanUpContainer>true</cleanUpContainer>
+      <allowAnonymousAccess>true</allowAnonymousAccess>
+      <uploadArtifactsOnlyIfSuccessful>false</uploadArtifactsOnlyIfSuccessful>
+      <doNotFailIfArchivingReturnsNothing>true</doNotFailIfArchivingReturnsNothing>
+      <uploadZips>false</uploadZips>
+      <doNotUploadIndividualFiles>false</doNotUploadIndividualFiles>
+      <filesPath>bin/**,msbuild.log</filesPath>
+      <excludeFilesPath>bin/obj/**,bin/packages/**,bin/**/*.Tests/*,bin/**/System.Threading.Tasks.Dataflow.WP8/*,bin/**/System.Reflection.Metadata/System.Collections.Immutable.*,**/api-*,**/API-*</excludeFilesPath>
+      <virtualPath>${BUILD_NUMBER}</virtualPath>
+    </com.microsoftopentechnologies.windowsazurestorage.WAStoragePublisher>
     <xunit plugin="xunit@1.96">
       <types>
         <XUnitDotNetTestType>
-          <pattern>**/*TestResults.xml</pattern>
+          <pattern>bin/tests/**/testResults.xml</pattern>
           <skipNoTestFiles>true</skipNoTestFiles>
-          <failIfNotNew>true</failIfNotNew>
+          <failIfNotNew>false</failIfNotNew>
           <deleteOutputFiles>true</deleteOutputFiles>
           <stopProcessingIfError>true</stopProcessingIfError>
         </XUnitDotNetTestType>
@@ -85,5 +103,6 @@
       </strategy>
       <operationList/>
     </hudson.plugins.build__timeout.BuildTimeoutWrapper>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.6.2"/>
   </buildWrappers>
 </project>
