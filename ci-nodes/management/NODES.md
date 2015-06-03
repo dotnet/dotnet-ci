@@ -10,6 +10,9 @@ This document contains information about the current state of the machines used 
 |dci-fbsd-fbld-2|dci-fbsd-bld-4|Standard_D3||
 |dci-ub-fbld-1|dci-ub-bld-8|Standard_D3||
 |dci-ub-fbld-2|dci-ub-bld-8|Standard_D3||
+|dci-ub-fbld-3|dci-ub-bld-8|Standard_D3||
+|dci-ub-fbld-4|dci-ub-bld-8|Standard_D3||
+|dci-ub-fbld-5|dci-ub-bld-8|Standard_D3||
 |dci-win-fbld-1|dci-win-bld-22|Standard_D3||
 |dci-win-fbld-2|dci-win-bld-22|Standard_D3||
 |dci-win-fbld-3|dci-win-bld-22|Standard_D3||
