@@ -44,7 +44,7 @@
   <concurrentBuild>true</concurrentBuild>
   <builders>
     <hudson.tasks.BatchFile>
-      <command>build.cmd Release &amp;&amp; tests\runtest.cmd Release &amp;&amp; build.cmd linuxmscorlib Release &amp;&amp; build.cmd osxmscorlib Release</command>
+      <command>build.cmd Release &amp;&amp; tests\runtest.cmd Release &amp;&amp; build.cmd linuxmscorlib Release &amp;&amp; build.cmd freebsdmscorlib Release &amp;&amp; build.cmd osxmscorlib Release</command>
     </hudson.tasks.BatchFile>
   </builders>
   <publishers>

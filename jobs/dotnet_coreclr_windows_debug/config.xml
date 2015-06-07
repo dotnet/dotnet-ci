@@ -44,7 +44,7 @@
   <concurrentBuild>true</concurrentBuild>
   <builders>
     <hudson.tasks.BatchFile>
-      <command>build.cmd Debug &amp;&amp; tests\runtest.cmd Debug &amp;&amp; build.cmd linuxmscorlib &amp;&amp; build.cmd osxmscorlib</command>
+      <command>build.cmd Debug &amp;&amp; tests\runtest.cmd Debug &amp;&amp; build.cmd linuxmscorlib &amp;&amp; build.cmd freebsdmscorlib &amp;&amp; build.cmd osxmscorlib</command>
     </hudson.tasks.BatchFile>
   </builders>
   <publishers>
