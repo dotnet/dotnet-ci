@@ -3,7 +3,7 @@
   <actions/>
   <description></description>
   <logRotator class="hudson.tasks.LogRotator">
-    <daysToKeep>60</daysToKeep>
+    <daysToKeep>21</daysToKeep>
     <numToKeep>-1</numToKeep>
     <artifactDaysToKeep>14</artifactDaysToKeep>
     <artifactNumToKeep>25</artifactNumToKeep>
@@ -67,7 +67,7 @@
         </htmlpublisher.HtmlPublisherTarget>
       </reportTargets>
     </htmlpublisher.HtmlPublisher>
-    <xunit plugin="xunit@1.95">
+    <xunit plugin="xunit@1.96">
       <types>
         <XUnitDotNetTestType>
           <pattern>bin/tests/**/testResults.xml</pattern>
@@ -104,6 +104,6 @@
       </strategy>
       <operationList/>
     </hudson.plugins.build__timeout.BuildTimeoutWrapper>
-    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.6"/>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.6.2"/>
   </buildWrappers>
 </project>

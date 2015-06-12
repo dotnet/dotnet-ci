@@ -3,7 +3,7 @@
   <actions/>
   <description></description>
   <logRotator class="hudson.tasks.LogRotator">
-    <daysToKeep>60</daysToKeep>
+    <daysToKeep>21</daysToKeep>
     <numToKeep>-1</numToKeep>
     <artifactDaysToKeep>14</artifactDaysToKeep>
     <artifactNumToKeep>25</artifactNumToKeep>
@@ -35,7 +35,7 @@
       <hudson.plugins.git.extensions.impl.WipeWorkspace/>
     </extensions>
   </scm>
-  <assignedNode>windows-wcf</assignedNode>
+  <assignedNode>windows-elevated</assignedNode>
   <canRoam>false</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
@@ -52,7 +52,7 @@
     </hudson.tasks.BatchFile>
   </builders>
   <publishers>
-    <xunit plugin="xunit@1.95">
+    <xunit plugin="xunit@1.96">
       <types>
         <XUnitDotNetTestType>
           <pattern>bin/tests/**/testResults.xml</pattern>
