@@ -3,7 +3,7 @@
   <actions/>
   <description></description>
   <logRotator class="hudson.tasks.LogRotator">
-    <daysToKeep>60</daysToKeep>
+    <daysToKeep>21</daysToKeep>
     <numToKeep>-1</numToKeep>
     <artifactDaysToKeep>14</artifactDaysToKeep>
     <artifactNumToKeep>25</artifactNumToKeep>
@@ -150,6 +150,6 @@ rd /s /q test</command>
       </strategy>
       <operationList/>
     </hudson.plugins.build__timeout.BuildTimeoutWrapper>
-    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.6"/>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.6.2"/>
   </buildWrappers>
 </project>

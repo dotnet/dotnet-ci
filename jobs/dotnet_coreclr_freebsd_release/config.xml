@@ -3,7 +3,7 @@
   <actions/>
   <description></description>
   <logRotator class="hudson.tasks.LogRotator">
-    <daysToKeep>60</daysToKeep>
+    <daysToKeep>21</daysToKeep>
     <numToKeep>-1</numToKeep>
     <artifactDaysToKeep>14</artifactDaysToKeep>
     <artifactNumToKeep>25</artifactNumToKeep>
@@ -44,7 +44,7 @@
   <concurrentBuild>true</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>./build.sh verbose release</command>
+      <command>./build.sh verbose release &amp;&amp; src/pal/tests/palsuite/runpaltests.sh ${WORKSPACE}/bin/obj/FreeBSD.x64.Release ${WORKSPACE}/bin/paltestout</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
