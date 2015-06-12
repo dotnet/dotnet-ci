@@ -5,7 +5,7 @@
     Cycles Nodes in the dotnet-ci azure pool
 .PARAMETER Password
     Password to create the dotnet-bot account with
-.PARAMETER Pattern
+.PARAMETER Machines
     Pattern of machine names to cycle
 .PARAMETER NewImage
     New image to place on those machines
@@ -17,7 +17,7 @@
 
 param (
     [string]$Password = $(Read-Host -assecurestring -prompt "Password for user"),
-    [string]$Pattern = $(Read-Host -prompt "Pattern for replacement"),
+    [string]$Machines = $(Read-Host -prompt "Regex pattern for machines to cycle"),
     [string]$NewImage = $null,
     [switch]$AllowMissingMachines = $false,
     [switch]$Verbose = $false
@@ -30,12 +30,12 @@ Write-Host "Reading inventory from inventory.txt"
 
 # Read the inventory
 
-$machines = Get-Content inventory.txt | ConvertFrom-Csv
+$inventory = Get-Content inventory.txt | ConvertFrom-Csv
 
 # Walk the machines, append the current count and check against the regex provided.  If it matches,
 # then cycle the machine to the new image.
 
-foreach ($machine in $machines)
+foreach ($machine in $inventory)
 {
     for ($i = 1; $i -le $machine.Count; $i++)
     {
@@ -43,10 +43,10 @@ foreach ($machine in $machines)
 
         if ($Verbose)
         {
-            Write-Host -NoNewLine "Checking machine $fullMachineName against pattern $Pattern..."
+            Write-Host -NoNewLine "Checking machine $fullMachineName against pattern $Machines..."
         }
         
-        if ($fullMachineName -match $Pattern)
+        if ($fullMachineName -match $Machines)
         {
             if ($Verbose)
             {
@@ -110,6 +110,8 @@ foreach ($machine in $machines)
                     }
                     
                     Get-AzureVM -ServiceName $ServiceName -Name $fullMachineName | Set-AzureEndpoint -Name "RemoteDesktop" -PublicPort $port -LocalPort 3389 -Protocol TCP | Update-AzureVM
+					
+					Write-Host "Remember, mstsc /v:dotnet-ci-nodes.cloudapp.net:$port in a few minutes to start the jenkins process"
                 }
                 "Linux"
                 {
