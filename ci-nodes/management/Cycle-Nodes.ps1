@@ -26,6 +26,8 @@ param (
 $ServiceName="dotnet-ci-nodes"
 $Username="dotnet-bot"
 
+Write-Host "Reading inventory from inventory.txt"
+
 # Read the inventory
 
 $machines = Get-Content inventory.txt | ConvertFrom-Csv
@@ -56,6 +58,15 @@ foreach ($machine in $machines)
             if ($imageToUse -eq $null)
             {
                 $imageToUse = $NewImage
+            }
+
+            # Check to see whether the new vm image actually exists
+
+            $newImageCheck = Get-AzureVMImage $imageToUse
+
+            if (!$newImageCheck)
+            {
+                throw "VM $imageToUse did not exist, aborting"
             }
 
             [int]$port = [int]$machine.RdpSshStart;
