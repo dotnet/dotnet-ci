@@ -49,7 +49,19 @@
   </builders>
   <publishers>
     <hudson.tasks.ArtifactArchiver>
-      <artifacts>bin/Product/**</artifacts>
+      <artifacts>
+        bin/Product/**
+        obj/**/BclRewriter/mscorlib.apiClosure.xml
+        obj/**/BclRewriter/mscorlib.implClosure.xml
+        obj/**/GeneratedAssemblyInfo.cs
+        obj/**/GeneratedVersion.h
+        obj/**/moduleName.rsp
+        obj/**/mscorlib.csproj.FileListAbsolute.txt
+        obj/**/mscorlib.dll
+        obj/**/mscorlib.pdb
+        obj/**/mscorlib.resources
+        obj/**/NativeVersion.res
+      </artifacts>
       <excludes>bin/Product/**/inc/*</excludes>
       <allowEmptyArchive>false</allowEmptyArchive>
       <onlyIfSuccessful>true</onlyIfSuccessful>
@@ -66,7 +78,19 @@
       <doNotFailIfArchivingReturnsNothing>true</doNotFailIfArchivingReturnsNothing>
       <uploadZips>true</uploadZips>
       <doNotUploadIndividualFiles>false</doNotUploadIndividualFiles>
-      <filesPath>bin/Product/**</filesPath>
+      <filesPath>
+        bin/Product/**
+        obj/**/BclRewriter/mscorlib.apiClosure.xml
+        obj/**/BclRewriter/mscorlib.implClosure.xml
+        obj/**/GeneratedAssemblyInfo.cs
+        obj/**/GeneratedVersion.h
+        obj/**/moduleName.rsp
+        obj/**/mscorlib.csproj.FileListAbsolute.txt
+        obj/**/mscorlib.dll
+        obj/**/mscorlib.pdb
+        obj/**/mscorlib.resources
+        obj/**/NativeVersion.res
+      </filesPath>
       <excludeFilesPath>bin/Product/**/inc/*</excludeFilesPath>
       <virtualPath>${BUILD_NUMBER}</virtualPath>
     </com.microsoftopentechnologies.windowsazurestorage.WAStoragePublisher>
