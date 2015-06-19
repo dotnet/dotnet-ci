@@ -101,6 +101,22 @@ Windows Server 2012 R2
 |VS 2013 Community||
 |VS 2015 Community Preview||
 
+## dci-win-bld-28
+
+Windows Server 2012 R2
+
+|Software|Notes|
+|---|---|
+|clang 3.5||
+|llvm 3.5||
+|cmake|3.2|
+|git||
+|java8||
+[Strawbery Perl||
+[python 3.2||
+|VS 2013 Community||
+|VS 2015 Community Preview||
+
 ## Mac mini's
 
 Basic Mac Mini machines.  Currently sitting in 3512.
