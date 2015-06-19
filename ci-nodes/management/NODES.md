@@ -13,21 +13,21 @@ This document contains information about the current state of the machines used 
 |dci-ub-fbld-3|dci-ub-bld-8|Standard_D3||
 |dci-ub-fbld-4|dci-ub-bld-8|Standard_D3||
 |dci-ub-fbld-5|dci-ub-bld-8|Standard_D3||
-|dci-win-fbld-1|dci-win-bld-26|Standard_D3|26 + UAC disabled|
-|dci-win-fbld-2|dci-win-bld-26|Standard_D3||
-|dci-win-fbld-3|dci-win-bld-26|Standard_D3||
-|dci-win-fbld-4|dci-win-bld-26|Standard_D3||
-|dci-win-fbld-5|dci-win-bld-26|Standard_D3||
-|dci-win-fbld-6|dci-win-bld-26|Standard_D3||
-|dci-win-fbld-7|dci-win-bld-26|Standard_D3||
-|dci-win-fbld-8|dci-win-bld-26|Standard_D3||
-|dci-win-fbld-9|dci-win-bld-26|Standard_D3||
-|dci-win-fbld-10|dci-win-bld-26|Standard_D3||
-|dci-win-fbld-11|dci-win-bld-26|Standard_D3||
-|dci-win-fbld-12|dci-win-bld-26|Standard_D3||
-|dci-win-fbld-13|dci-win-bld-26|Standard_D3||
-|dci-win-fbld-14|dci-win-bld-26|Standard_D3||
-|dci-win-fbld-15|dci-win-bld-26|Standard_D3||
+|dci-win-fbld-1|dci-win-bld-28|Standard_D3|26 + UAC disabled|
+|dci-win-fbld-2|dci-win-bld-28|Standard_D3||
+|dci-win-fbld-3|dci-win-bld-28|Standard_D3||
+|dci-win-fbld-4|dci-win-bld-28|Standard_D3||
+|dci-win-fbld-5|dci-win-bld-28|Standard_D3||
+|dci-win-fbld-6|dci-win-bld-28|Standard_D3||
+|dci-win-fbld-7|dci-win-bld-28|Standard_D3||
+|dci-win-fbld-8|dci-win-bld-28|Standard_D3||
+|dci-win-fbld-9|dci-win-bld-28|Standard_D3||
+|dci-win-fbld-10|dci-win-bld-28|Standard_D3||
+|dci-win-fbld-11|dci-win-bld-28|Standard_D3||
+|dci-win-fbld-12|dci-win-bld-28|Standard_D3||
+|dci-win-fbld-13|dci-win-bld-28|Standard_D3||
+|dci-win-fbld-14|dci-win-bld-28|Standard_D3||
+|dci-win-fbld-15|dci-win-bld-28|Standard_D3||
 
 # Image details
 
