@@ -13,21 +13,21 @@ This document contains information about the current state of the machines used 
 |dci-ub-fbld-3|dci-ub-bld-8|Standard_D3||
 |dci-ub-fbld-4|dci-ub-bld-8|Standard_D3||
 |dci-ub-fbld-5|dci-ub-bld-8|Standard_D3||
-|dci-win-fbld-1|dci-win-bld-28|Standard_D3|28 + UAC disabled with Disable-UAC.reg|
-|dci-win-fbld-2|dci-win-bld-28|Standard_D3||
-|dci-win-fbld-3|dci-win-bld-28|Standard_D3||
-|dci-win-fbld-4|dci-win-bld-28|Standard_D3||
-|dci-win-fbld-5|dci-win-bld-28|Standard_D3||
-|dci-win-fbld-6|dci-win-bld-28|Standard_D3||
-|dci-win-fbld-7|dci-win-bld-28|Standard_D3||
-|dci-win-fbld-8|dci-win-bld-28|Standard_D3||
-|dci-win-fbld-9|dci-win-bld-28|Standard_D3||
-|dci-win-fbld-10|dci-win-bld-28|Standard_D3||
-|dci-win-fbld-11|dci-win-bld-28|Standard_D3||
-|dci-win-fbld-12|dci-win-bld-28|Standard_D3||
-|dci-win-fbld-13|dci-win-bld-28|Standard_D3||
-|dci-win-fbld-14|dci-win-bld-28|Standard_D3||
-|dci-win-fbld-15|dci-win-bld-28|Standard_D3||
+|dci-win-fbld-1|dci-win-bld-29|Standard_D3|28 + UAC disabled with Disable-UAC.reg|
+|dci-win-fbld-2|dci-win-bld-29|Standard_D3||
+|dci-win-fbld-3|dci-win-bld-29|Standard_D3||
+|dci-win-fbld-4|dci-win-bld-29|Standard_D3||
+|dci-win-fbld-5|dci-win-bld-29|Standard_D3||
+|dci-win-fbld-6|dci-win-bld-29|Standard_D3||
+|dci-win-fbld-7|dci-win-bld-29|Standard_D3||
+|dci-win-fbld-8|dci-win-bld-29|Standard_D3||
+|dci-win-fbld-9|dci-win-bld-29|Standard_D3||
+|dci-win-fbld-10|dci-win-bld-29|Standard_D3||
+|dci-win-fbld-11|dci-win-bld-29|Standard_D3||
+|dci-win-fbld-12|dci-win-bld-29|Standard_D3||
+|dci-win-fbld-13|dci-win-bld-29|Standard_D3||
+|dci-win-fbld-14|dci-win-bld-29|Standard_D3||
+|dci-win-fbld-15|dci-win-bld-29|Standard_D3||
 
 # Image details
 
@@ -102,6 +102,22 @@ Windows Server 2012 R2
 |VS 2015 Community Preview||
 
 ## dci-win-bld-28
+
+Windows Server 2012 R2
+
+|Software|Notes|
+|---|---|
+|clang 3.5||
+|llvm 3.5||
+|cmake|3.2|
+|git||
+|java8||
+[Strawbery Perl||
+[python 3.2||
+|VS 2013 Community||
+|VS 2015 Community Preview||
+
+## dci-win-bld-29
 
 Windows Server 2012 R2
 
