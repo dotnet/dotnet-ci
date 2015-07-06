@@ -118,27 +118,10 @@ build.cmd</command>
 cmake -G &quot;Visual Studio 12 2013 Win64&quot; -DLLVM_TARGETS_TO_BUILD=X86 -DWITH_CORECLR=%WORKSPACE%\coreclr\bin\Product\Windows_NT.x64.debug ..\llvm -DCMAKE_BUILD_TYPE=RELWITHDEBINFO -DLLVM_ENABLE_ASSERTIONS=ON&#xd;
 &quot;%VS120COMNTOOLS%\..\..\VC\vcvarsall.bat&quot; x86 &amp;&amp; msbuild llvm.sln /p:Configuration=RelWithDebInfo /p:Platform=x64 /t:ALL_BUILD /m</command>
     </hudson.tasks.BatchFile>
-    <hudson.plugins.powershell.PowerShell plugin="powershell@1.2">
-      <command>$env:LLVMSource = $env:WORKSPACE + &quot;\LLVM\&quot;
-$env:LLVMBuild = $env:WORKSPACE + &quot;\build\&quot;
-$env:LLILCTestResult = $env:WORKSPACE + &quot;\test\&quot;
-$env:CoreCLRSource=$env:WORKSPACE + &quot;\coreclr&quot;
-$env:Path = ($env:Path).Replace(&quot;`&quot;&quot;,&quot;&quot;) + &quot;;C:\Python34;C:\GnuWin32\bin&quot;
-
-&amp; $env:LLVMSource\tools\llilc\test\LLILCEnv.ps1 -Arch x64 -Build Debug
-
-BuildTest -Arch x64 -Build Debug
-CopyJit -Build RelWithDebInfo
-$failures = RunTest -Arch x64 -Build Debug
-
-if (-Not ($failures)) {
-throw &quot;There were failures and/or diffs&quot;
-}
-</command>
-    </hudson.plugins.powershell.PowerShell>
     <hudson.tasks.BatchFile>
-      <command>rd /s /q build&#xd;
-rd /s /q test</command>
+      <command>cd coreclr\tests&#xd;
+&#xd;
+C:\Python34\python %WORKSPACE%\llvm\tools\llilc\test\llilc_runtest.py -a x64 -b debug -j %WORKSPACE%\build\bin\RelWithDebInfo\llilcjit.dll -c %WORKSPACE%\coreclr\bin\Product\Windows_NT.x64.Debug || (echo There were failures with the new JIT&amp; exit /b -1)</command>
     </hudson.tasks.BatchFile>
   </builders>
   <publishers/>
