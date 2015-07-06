@@ -45,7 +45,7 @@
   <concurrentBuild>true</concurrentBuild>
   <builders>
     <hudson.tasks.BatchFile>
-      <command>&quot;C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat&quot; x86 &amp;&amp; build.cmd /p:OSGroup=Windows_NT /p:Configuration=Debug</command>
+      <command>&quot;C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat&quot; x86 &amp;&amp; build.cmd /p:OSGroup=Windows_NT /p:Configuration=Debug /p:SerializeProjects=true</command>
     </hudson.tasks.BatchFile>
   </builders>
   <publishers>
@@ -53,7 +53,7 @@
       <artifacts>bin/**,msbuild.log</artifacts>
       <excludes>bin/obj/**,bin/packages/**,bin/**/*.Tests/*,bin/**/System.Threading.Tasks.Dataflow.WP8/*,bin/**/System.Reflection.Metadata/System.Collections.Immutable.*,**/api-*,**/API-*</excludes>
       <allowEmptyArchive>false</allowEmptyArchive>
-      <onlyIfSuccessful>true</onlyIfSuccessful>
+      <onlyIfSuccessful>false</onlyIfSuccessful>
       <fingerprint>false</fingerprint>
       <defaultExcludes>true</defaultExcludes>
     </hudson.tasks.ArtifactArchiver>

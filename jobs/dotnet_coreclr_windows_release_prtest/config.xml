@@ -79,5 +79,7 @@
       </extraConfiguration>
     </xunit>
   </publishers>
-  <buildWrappers/>
+  <buildWrappers>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.6.2"/>
+  </buildWrappers>
 </project>
