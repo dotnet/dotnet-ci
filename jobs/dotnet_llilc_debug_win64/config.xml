@@ -94,25 +94,16 @@
   </scm>
   <assignedNode>windows</assignedNode>
   <canRoam>false</canRoam>
-  <disabled>true</disabled>
+  <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
     <hudson.triggers.TimerTrigger>
-      <spec>H H * * 6</spec>
+      <spec>@midnight</spec>
     </hudson.triggers.TimerTrigger>
   </triggers>
   <concurrentBuild>true</concurrentBuild>
   <builders>
-    <com.microsoftopentechnologies.windowsazurestorage.AzureStorageBuilder plugin="windows-azure-storage@0.3.1-SNAPSHOT">
-      <storageAccName>dotnetci</storageAccName>
-      <containerName>llilc-debug-win64</containerName>
-      <includeFilesPattern>**/*</includeFilesPattern>
-      <excludeFilesPattern></excludeFilesPattern>
-      <downloadDirLoc>lkg</downloadDirLoc>
-      <flattenDirectories>true</flattenDirectories>
-      <includeArchiveZips>false</includeArchiveZips>
-    </com.microsoftopentechnologies.windowsazurestorage.AzureStorageBuilder>
     <hudson.tasks.BatchFile>
       <command>if exist build/ rd /s /q build&#xd;
 mkdir build&#xd;
@@ -129,70 +120,20 @@ cmake -G &quot;Visual Studio 12 2013 Win64&quot; -DWITH_CORECLR=%WORKSPACE%\core
 &quot;%VS120COMNTOOLS%\..\..\VC\vcvarsall.bat&quot; x86 &amp;&amp; msbuild llvm.sln /p:Configuration=Debug /p:Platform=x64 /t:ALL_BUILD /m</command>
     </hudson.tasks.BatchFile>
     <hudson.tasks.BatchFile>
-      <command>if exist baseline/ rd /s /q baseline/&#xd;
-mkdir baseline&#xd;
-if exist target/ rd /s /q target/&#xd;
+      <command>if exist target/ rd /s /q target/&#xd;
 mkdir target&#xd;
 &#xd;
 cd coreclr\tests&#xd;
 &#xd;
-C:\Python34\python %WORKSPACE%\llvm\tools\llilc\test\llilc_runtest.py -a x64 -b debug -d summary -r ..\..\baseline -j %WORKSPACE%\lkg\llilcjit.dll -c %WORKSPACE%\coreclr\bin\Product\Windows_NT.x64.Debug&#xd;
-&#xd;
-C:\Python34\python %WORKSPACE%\llvm\tools\llilc\test\llilc_runtest.py -a x64 -b debug -d summary -r ..\..\target -j %WORKSPACE%\build\bin\Debug\llilcjit.dll -c %WORKSPACE%\coreclr\bin\Product\Windows_NT.x64.Debug || (echo There were failures with the new JIT&amp; exit /b -1)&#xd;
-&#xd;
-C:\Python34\python %WORKSPACE%\llvm\tools\llilc\test\llilc_checkpass.py -b ..\..\baseline -d ..\..\target || (echo There were diffs.&amp; exit /b -1)&#xd;
+C:\Python34\python %WORKSPACE%\llvm\tools\llilc\test\llilc_runtest.py -a x64 -b debug -j %WORKSPACE%\build\bin\Debug\llilcjit.dll -c %WORKSPACE%\coreclr\bin\Product\Windows_NT.x64.Debug || (echo There were failures with the new JIT&amp; exit /b -1)&#xd;
 </command>
     </hudson.tasks.BatchFile>
   </builders>
-  <publishers>
-    <xunit plugin="xunit@1.96">
-      <types>
-        <XUnitDotNetTestType>
-          <pattern>coreclr/bin/**/TestRun*.xml</pattern>
-          <skipNoTestFiles>false</skipNoTestFiles>
-          <failIfNotNew>false</failIfNotNew>
-          <deleteOutputFiles>true</deleteOutputFiles>
-          <stopProcessingIfError>false</stopProcessingIfError>
-        </XUnitDotNetTestType>
-      </types>
-      <thresholds>
-        <org.jenkinsci.plugins.xunit.threshold.FailedThreshold>
-          <unstableThreshold></unstableThreshold>
-          <unstableNewThreshold></unstableNewThreshold>
-          <failureThreshold></failureThreshold>
-          <failureNewThreshold></failureNewThreshold>
-        </org.jenkinsci.plugins.xunit.threshold.FailedThreshold>
-        <org.jenkinsci.plugins.xunit.threshold.SkippedThreshold>
-          <unstableThreshold></unstableThreshold>
-          <unstableNewThreshold></unstableNewThreshold>
-          <failureThreshold></failureThreshold>
-          <failureNewThreshold></failureNewThreshold>
-        </org.jenkinsci.plugins.xunit.threshold.SkippedThreshold>
-      </thresholds>
-      <thresholdMode>1</thresholdMode>
-      <extraConfiguration>
-        <testTimeMargin>3000</testTimeMargin>
-      </extraConfiguration>
-    </xunit>
-    <com.microsoftopentechnologies.windowsazurestorage.WAStoragePublisher plugin="windows-azure-storage@0.3.1-SNAPSHOT">
-      <storageAccName>dotnetci</storageAccName>
-      <containerName>llilc-debug-win64</containerName>
-      <cntPubAccess>true</cntPubAccess>
-      <cleanUpContainer>true</cleanUpContainer>
-      <allowAnonymousAccess>true</allowAnonymousAccess>
-      <uploadArtifactsOnlyIfSuccessful>true</uploadArtifactsOnlyIfSuccessful>
-      <doNotFailIfArchivingReturnsNothing>false</doNotFailIfArchivingReturnsNothing>
-      <uploadZips>false</uploadZips>
-      <doNotUploadIndividualFiles>false</doNotUploadIndividualFiles>
-      <filesPath>build/bin/Debug/*.dll</filesPath>
-      <excludeFilesPath></excludeFilesPath>
-      <virtualPath></virtualPath>
-    </com.microsoftopentechnologies.windowsazurestorage.WAStoragePublisher>
-  </publishers>
+  <publishers/>
   <buildWrappers>
     <hudson.plugins.build__timeout.BuildTimeoutWrapper plugin="build-timeout@1.14.1">
       <strategy class="hudson.plugins.build_timeout.impl.AbsoluteTimeOutStrategy">
-        <timeoutMinutes>480</timeoutMinutes>
+        <timeoutMinutes>720</timeoutMinutes>
       </strategy>
       <operationList/>
     </hudson.plugins.build__timeout.BuildTimeoutWrapper>
