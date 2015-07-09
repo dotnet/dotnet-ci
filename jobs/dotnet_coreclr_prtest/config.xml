@@ -69,13 +69,12 @@
   </triggers>
   <concurrentBuild>true</concurrentBuild>
   <builders/>
-  <publishers/>
+  <publishers>
+    <org.zeroturnaround.jenkins.flowbuildtestaggregator.FlowTestAggregator plugin="build-flow-test-aggregator@1.1"/>
+  </publishers>
   <buildWrappers/>
   <icon/>
-  <dsl>out.println &apos;Triggered Parameters Map:&apos;
-out.println params
-
-parallel (
+  <dsl>parallel (
   { build(&quot;dotnet_coreclr_windows_release_prtest&quot;, sha1: params[&quot;sha1&quot;]) },
   { build(&quot;dotnet_coreclr_windows_debug_prtest&quot;, sha1: params[&quot;sha1&quot;]) },
   { build(&quot;dotnet_coreclr_linux_release_prtest&quot;, sha1: params[&quot;sha1&quot;]) },

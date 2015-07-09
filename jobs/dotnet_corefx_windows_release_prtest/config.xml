@@ -45,7 +45,7 @@
   <concurrentBuild>true</concurrentBuild>
   <builders>
     <hudson.tasks.BatchFile>
-      <command>&quot;C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat&quot; x86 &amp;&amp; build.cmd /p:OSGroup=Windows_NT /p:Configuration=Release</command>
+      <command>&quot;C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat&quot; x86 &amp;&amp; build.cmd /p:OSGroup=Windows_NT /p:Configuration=Release /p:SerializeProjects=true</command>
     </hudson.tasks.BatchFile>
   </builders>
   <publishers>

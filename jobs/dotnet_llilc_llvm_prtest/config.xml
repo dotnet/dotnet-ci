@@ -79,7 +79,7 @@ out.println params
 parallel (
   { build(&quot;dotnet_llilc_llvm_windows_release_win64_prtest&quot;, sha1: params[&quot;sha1&quot;]) },
   { build(&quot;dotnet_llilc_llvm_windows_release_win32_prtest&quot;, sha1: params[&quot;sha1&quot;]) },
-  { build(&quot;dotnet_llilc_llvm_windows_debug_win64_prtest&quot;, sha1: params[&quot;sha1&quot;]) },
+  { build(&quot;dotnet_llilc_llvm_windows_check_win64_prtest&quot;, sha1: params[&quot;sha1&quot;]) },
   { build(&quot;dotnet_llilc_llvm_windows_debug_win32_prtest&quot;, sha1: params[&quot;sha1&quot;]) },
 )</dsl>
   <buildNeedsWorkspace>false</buildNeedsWorkspace>
