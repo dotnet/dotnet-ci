@@ -26,13 +26,17 @@
     </userRemoteConfigs>
     <branches>
       <hudson.plugins.git.BranchSpec>
-        <name>*/stabilization</name>
+        <name>*/master</name>
       </hudson.plugins.git.BranchSpec>
     </branches>
     <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
     <submoduleCfg class="list"/>
     <extensions>
       <hudson.plugins.git.extensions.impl.WipeWorkspace/>
+      <hudson.plugins.git.extensions.impl.CloneOption>
+        <shallow>true</shallow>
+        <reference></reference>
+      </hudson.plugins.git.extensions.impl.CloneOption>
     </extensions>
   </scm>
   <assignedNode>windows-roslyn</assignedNode>
@@ -51,9 +55,8 @@
   <buildWrappers/>
   <icon/>
   <dsl>parallel (
-    { build(&quot;dotnet_roslyn_stabilization_windows&quot;) },
-    { build(&quot;dotnet_roslyn_stabilization_linux&quot;) },
-    { build(&quot;dotnet_roslyn_stabilization_mac&quot;) }
+    { build(&quot;dotnet_roslyn_windows_debug&quot;) },
+    { build(&quot;dotnet_roslyn_windows_release&quot;) }
 )</dsl>
   <buildNeedsWorkspace>false</buildNeedsWorkspace>
 </com.cloudbees.plugins.flow.BuildFlow>

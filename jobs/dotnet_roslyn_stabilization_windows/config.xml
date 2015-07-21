@@ -51,9 +51,8 @@
   <buildWrappers/>
   <icon/>
   <dsl>parallel (
-    { build(&quot;dotnet_roslyn_stabilization_windows&quot;) },
-    { build(&quot;dotnet_roslyn_stabilization_linux&quot;) },
-    { build(&quot;dotnet_roslyn_stabilization_mac&quot;) }
+    { build(&quot;dotnet_roslyn_stabilization_windows_debug&quot;) },
+    { build(&quot;dotnet_roslyn_stabilization_windows_release&quot;) }
 )</dsl>
   <buildNeedsWorkspace>false</buildNeedsWorkspace>
 </com.cloudbees.plugins.flow.BuildFlow>

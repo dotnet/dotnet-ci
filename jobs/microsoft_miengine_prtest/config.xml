@@ -14,7 +14,7 @@
       <doNotScan>false</doNotScan>
     </com.sonyericsson.jenkins.plugins.bfa.model.ScannerJobProperty>
     <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.11.3">
-      <projectUrl>https://github.com/dotnet/roslyn/</projectUrl>
+      <projectUrl>https://github.com/Microsoft/MIEngine/</projectUrl>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
   </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@2.3.5">
@@ -22,7 +22,8 @@
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
         <refspec>+refs/pull/*:refs/remotes/origin/pr/*</refspec>
-        <url>git://github.com/dotnet/roslyn.git</url>
+        <url>https://github.com/Microsoft/MIEngine.git</url>
+        <credentialsId>efd43e00-50a0-4247-8664-15f7fac9713d</credentialsId>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
@@ -34,13 +35,9 @@
     <submoduleCfg class="list"/>
     <extensions>
       <hudson.plugins.git.extensions.impl.WipeWorkspace/>
-      <hudson.plugins.git.extensions.impl.CloneOption>
-        <shallow>true</shallow>
-        <reference></reference>
-      </hudson.plugins.git.extensions.impl.CloneOption>
     </extensions>
   </scm>
-  <assignedNode>windows-roslyn</assignedNode>
+  <assignedNode>windows</assignedNode>
   <canRoam>false</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
@@ -65,7 +62,7 @@
           <branch></branch>
         </org.jenkinsci.plugins.ghprb.GhprbBranch>
       </whiteListTargetBranches>
-      <project>dotnet_roslyn_prtest</project>
+      <project>microsoft_miengine_prtest</project>
       <__project class="com.cloudbees.plugins.flow.BuildFlow" reference="../../.."/>
       <gitHubApiAuth>
         <serverAPIUrl>https://api.github.com</serverAPIUrl>
@@ -89,9 +86,8 @@
   <buildWrappers/>
   <icon/>
   <dsl>parallel (
-  { build(&quot;dotnet_roslyn_windows_prtest&quot;, sha1: params[&quot;sha1&quot;]) },
-  { build(&quot;dotnet_roslyn_linux_prtest&quot;, sha1: params[&quot;sha1&quot;]) },
-  { build(&quot;dotnet_roslyn_mac_prtest&quot;, sha1: params[&quot;sha1&quot;]) }
+    { build(&quot;microsoft_miengine_debug_prtest&quot;, sha1: params[&quot;sha1&quot;]) },
+    { build(&quot;microsoft_miengine_release_prtest&quot;, sha1: params[&quot;sha1&quot;]) }
 )</dsl>
-  <buildNeedsWorkspace>false</buildNeedsWorkspace>
+  <buildNeedsWorkspace>true</buildNeedsWorkspace>
 </com.cloudbees.plugins.flow.BuildFlow>

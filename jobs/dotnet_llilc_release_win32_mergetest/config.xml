@@ -14,7 +14,7 @@
       <doNotScan>false</doNotScan>
     </com.sonyericsson.jenkins.plugins.bfa.model.ScannerJobProperty>
     <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.11.3">
-      <projectUrl>https://github.com/microsoft/llvm/</projectUrl>
+      <projectUrl>https://github.com/dotnet/llilc/</projectUrl>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
   </properties>
   <scm class="org.jenkinsci.plugins.multiplescms.MultiSCM" plugin="multiple-scms@0.4">
@@ -23,14 +23,13 @@
         <configVersion>2</configVersion>
         <userRemoteConfigs>
           <hudson.plugins.git.UserRemoteConfig>
-            <refspec>+refs/pull/*:refs/remotes/origin/pr/*</refspec>
             <url>git@github.com:Microsoft/llvm.git</url>
             <credentialsId>603b4ba7-083a-467b-80d2-28ae0f0e4b6c</credentialsId>
           </hudson.plugins.git.UserRemoteConfig>
         </userRemoteConfigs>
         <branches>
           <hudson.plugins.git.BranchSpec>
-            <name>${sha1}</name>
+            <name>refs/heads/mergetest</name>
           </hudson.plugins.git.BranchSpec>
         </branches>
         <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
@@ -54,13 +53,14 @@
         <configVersion>2</configVersion>
         <userRemoteConfigs>
           <hudson.plugins.git.UserRemoteConfig>
+            <refspec>+refs/pull/*:refs/remotes/origin/pr/*</refspec>
             <url>git@github.com:dotnet/llilc.git</url>
             <credentialsId>603b4ba7-083a-467b-80d2-28ae0f0e4b6c</credentialsId>
           </hudson.plugins.git.UserRemoteConfig>
         </userRemoteConfigs>
         <branches>
           <hudson.plugins.git.BranchSpec>
-            <name>*/master</name>
+            <name>refs/heads/mergetest</name>
           </hudson.plugins.git.BranchSpec>
         </branches>
         <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
@@ -96,6 +96,7 @@
       </hudson.plugins.git.GitSCM>
     </scms>
   </scm>
+  <scmCheckoutRetryCount>5</scmCheckoutRetryCount>
   <assignedNode>windows</assignedNode>
   <canRoam>false</canRoam>
   <disabled>false</disabled>
@@ -111,17 +112,13 @@ if exist test/ rd /s /q test&#xd;
 mkdir test&#xd;
 &#xd;
 cd coreclr&#xd;
-./build.cmd Release</command>
+./build.cmd Release&#xd;
+</command>
     </hudson.tasks.BatchFile>
     <hudson.tasks.BatchFile>
       <command>cd build&#xd;
-cmake -G &quot;Visual Studio 12 2013 Win64&quot; -DWITH_CORECLR=%WORKSPACE%\coreclr\bin\Product\Windows_NT.x64.Release ..\llvm&#xd;
-&quot;%VS120COMNTOOLS%\..\..\VC\vcvarsall.bat&quot; x86 &amp;&amp; msbuild llvm.sln /p:Configuration=Release /p:Platform=x64 /t:ALL_BUILD /m</command>
-    </hudson.tasks.BatchFile>
-    <hudson.tasks.BatchFile>
-      <command>cd coreclr\tests&#xd;
-&#xd;
-C:\Python34\python %WORKSPACE%\llvm\tools\llilc\test\llilc_runtest.py -a x64 -b release -j %WORKSPACE%\build\bin\Release\llilcjit.dll -c %WORKSPACE%\coreclr\bin\Product\Windows_NT.x64.Release || (echo There were failures with the new JIT&amp; exit /b -1)</command>
+cmake -G &quot;Visual Studio 12&quot; -DLLVM_TARGETS_TO_BUILD=X86 -DWITH_CORECLR=%WORKSPACE%\coreclr\bin\Product\Windows_NT.x64.Release ..\llvm&#xd;
+&quot;%VS120COMNTOOLS%\..\..\VC\vcvarsall.bat&quot; x86 &amp;&amp; msbuild llvm.sln /p:Configuration=Release /p:Platform=Win32 /t:ALL_BUILD /m</command>
     </hudson.tasks.BatchFile>
     <hudson.tasks.BatchFile>
       <command>rd /s /q build&#xd;
@@ -129,5 +126,7 @@ rd /s /q test</command>
     </hudson.tasks.BatchFile>
   </builders>
   <publishers/>
-  <buildWrappers/>
+  <buildWrappers>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.6.2"/>
+  </buildWrappers>
 </project>

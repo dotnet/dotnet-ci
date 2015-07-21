@@ -111,17 +111,17 @@ if exist test/ rd /s /q test&#xd;
 mkdir test&#xd;
 &#xd;
 cd coreclr&#xd;
-./build.cmd Release</command>
+build.cmd</command>
     </hudson.tasks.BatchFile>
     <hudson.tasks.BatchFile>
       <command>cd build&#xd;
-cmake -G &quot;Visual Studio 12 2013 Win64&quot; -DWITH_CORECLR=%WORKSPACE%\coreclr\bin\Product\Windows_NT.x64.Release ..\llvm&#xd;
-&quot;%VS120COMNTOOLS%\..\..\VC\vcvarsall.bat&quot; x86 &amp;&amp; msbuild llvm.sln /p:Configuration=Release /p:Platform=x64 /t:ALL_BUILD /m</command>
+cmake -G &quot;Visual Studio 12 2013 Win64&quot; -DLLVM_TARGETS_TO_BUILD=X86 -DWITH_CORECLR=%WORKSPACE%\coreclr\bin\Product\Windows_NT.x64.debug ..\llvm -DCMAKE_BUILD_TYPE=RELWITHDEBINFO -DLLVM_ENABLE_ASSERTIONS=ON&#xd;
+&quot;%VS120COMNTOOLS%\..\..\VC\vcvarsall.bat&quot; x86 &amp;&amp; msbuild llvm.sln /p:Configuration=RelWithDebInfo /p:Platform=x64 /t:ALL_BUILD /m</command>
     </hudson.tasks.BatchFile>
     <hudson.tasks.BatchFile>
       <command>cd coreclr\tests&#xd;
 &#xd;
-C:\Python34\python %WORKSPACE%\llvm\tools\llilc\test\llilc_runtest.py -a x64 -b release -j %WORKSPACE%\build\bin\Release\llilcjit.dll -c %WORKSPACE%\coreclr\bin\Product\Windows_NT.x64.Release || (echo There were failures with the new JIT&amp; exit /b -1)</command>
+C:\Python34\python %WORKSPACE%\llvm\tools\llilc\test\llilc_runtest.py -a x64 -b debug -j %WORKSPACE%\build\bin\RelWithDebInfo\llilcjit.dll -c %WORKSPACE%\coreclr\bin\Product\Windows_NT.x64.Debug || (echo There were failures with the new JIT&amp; exit /b -1)</command>
     </hudson.tasks.BatchFile>
     <hudson.tasks.BatchFile>
       <command>rd /s /q build&#xd;
@@ -129,5 +129,13 @@ rd /s /q test</command>
     </hudson.tasks.BatchFile>
   </builders>
   <publishers/>
-  <buildWrappers/>
+  <buildWrappers>
+    <hudson.plugins.build__timeout.BuildTimeoutWrapper plugin="build-timeout@1.14.1">
+      <strategy class="hudson.plugins.build_timeout.impl.AbsoluteTimeOutStrategy">
+        <timeoutMinutes>180</timeoutMinutes>
+      </strategy>
+      <operationList/>
+    </hudson.plugins.build__timeout.BuildTimeoutWrapper>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.6.2"/>
+  </buildWrappers>
 </project>

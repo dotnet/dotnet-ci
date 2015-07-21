@@ -14,19 +14,21 @@
       <doNotScan>false</doNotScan>
     </com.sonyericsson.jenkins.plugins.bfa.model.ScannerJobProperty>
     <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.11.3">
-      <projectUrl>https://github.com/dotnet/roslyn/</projectUrl>
+      <projectUrl>https://github.com/dotnet/llilc/</projectUrl>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
   </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@2.3.5">
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
-        <url>git://github.com/dotnet/roslyn.git</url>
+        <refspec>+refs/pull/*:refs/remotes/origin/pr/*</refspec>
+        <url>git@github.com:dotnet/llilc.git</url>
+        <credentialsId>603b4ba7-083a-467b-80d2-28ae0f0e4b6c</credentialsId>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
       <hudson.plugins.git.BranchSpec>
-        <name>*/stabilization</name>
+        <name>*/mergetest</name>
       </hudson.plugins.git.BranchSpec>
     </branches>
     <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
@@ -35,25 +37,28 @@
       <hudson.plugins.git.extensions.impl.WipeWorkspace/>
     </extensions>
   </scm>
-  <assignedNode>windows-roslyn</assignedNode>
+  <assignedNode>windows</assignedNode>
   <canRoam>false</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-  <triggers>
-    <com.cloudbees.jenkins.GitHubPushTrigger plugin="github@1.11.3">
-      <spec></spec>
-    </com.cloudbees.jenkins.GitHubPushTrigger>
-  </triggers>
+  <triggers/>
   <concurrentBuild>true</concurrentBuild>
   <builders/>
   <publishers/>
   <buildWrappers/>
   <icon/>
-  <dsl>parallel (
-    { build(&quot;dotnet_roslyn_stabilization_windows&quot;) },
-    { build(&quot;dotnet_roslyn_stabilization_linux&quot;) },
-    { build(&quot;dotnet_roslyn_stabilization_mac&quot;) }
+  <dsl>out.println &apos;Triggered Parameters Map:&apos;
+out.println params
+
+parallel (
+  { build(&quot;dotnet_llilc_release_win64_mergetest&quot;) },
+  { build(&quot;dotnet_llilc_release_win32_mergetest&quot;) },
+  { build(&quot;dotnet_llilc_check_win64_mergetest&quot;) },
+  { build(&quot;dotnet_llilc_debug_win32_mergetest&quot;) },
+  { build(&quot;dotnet_llilc_linux_release_mergetest&quot;) },
+  { build(&quot;dotnet_llilc_linux_debug_mergetest&quot;) },
+  { build(&quot;dotnet_llilc_code_formatting_mergetest&quot;) }
 )</dsl>
-  <buildNeedsWorkspace>false</buildNeedsWorkspace>
+  <buildNeedsWorkspace>true</buildNeedsWorkspace>
 </com.cloudbees.plugins.flow.BuildFlow>

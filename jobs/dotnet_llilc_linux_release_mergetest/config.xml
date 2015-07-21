@@ -23,14 +23,13 @@
         <configVersion>2</configVersion>
         <userRemoteConfigs>
           <hudson.plugins.git.UserRemoteConfig>
-            <refspec>+refs/pull/*:refs/remotes/origin/pr/*</refspec>
             <url>git@github.com:Microsoft/llvm.git</url>
             <credentialsId>603b4ba7-083a-467b-80d2-28ae0f0e4b6c</credentialsId>
           </hudson.plugins.git.UserRemoteConfig>
         </userRemoteConfigs>
         <branches>
           <hudson.plugins.git.BranchSpec>
-            <name>${sha1}</name>
+            <name>refs/heads/mergetest</name>
           </hudson.plugins.git.BranchSpec>
         </branches>
         <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
@@ -38,7 +37,7 @@
         <extensions>
           <hudson.plugins.git.extensions.impl.WipeWorkspace/>
           <hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
-            <relativeTargetDir>LLVM</relativeTargetDir>
+            <relativeTargetDir>llvm</relativeTargetDir>
           </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
           <hudson.plugins.git.extensions.impl.CheckoutOption>
             <timeout>40</timeout>
@@ -54,13 +53,14 @@
         <configVersion>2</configVersion>
         <userRemoteConfigs>
           <hudson.plugins.git.UserRemoteConfig>
+            <refspec>+refs/pull/*:refs/remotes/origin/pr/*</refspec>
             <url>git@github.com:dotnet/llilc.git</url>
             <credentialsId>603b4ba7-083a-467b-80d2-28ae0f0e4b6c</credentialsId>
           </hudson.plugins.git.UserRemoteConfig>
         </userRemoteConfigs>
         <branches>
           <hudson.plugins.git.BranchSpec>
-            <name>*/master</name>
+            <name>refs/heads/mergetest</name>
           </hudson.plugins.git.BranchSpec>
         </branches>
         <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
@@ -68,7 +68,7 @@
         <extensions>
           <hudson.plugins.git.extensions.impl.WipeWorkspace/>
           <hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
-            <relativeTargetDir>LLVM\tools\llilc</relativeTargetDir>
+            <relativeTargetDir>llvm\tools\llilc</relativeTargetDir>
           </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
         </extensions>
       </hudson.plugins.git.GitSCM>
@@ -76,7 +76,7 @@
         <configVersion>2</configVersion>
         <userRemoteConfigs>
           <hudson.plugins.git.UserRemoteConfig>
-            <url>git@github.com:dotnet/coreclr.git</url>
+            <url>git@github.com:dotnet/coreclr</url>
             <credentialsId>603b4ba7-083a-467b-80d2-28ae0f0e4b6c</credentialsId>
           </hudson.plugins.git.UserRemoteConfig>
         </userRemoteConfigs>
@@ -88,15 +88,15 @@
         <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
         <submoduleCfg class="list"/>
         <extensions>
-          <hudson.plugins.git.extensions.impl.WipeWorkspace/>
           <hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
             <relativeTargetDir>coreclr</relativeTargetDir>
           </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+          <hudson.plugins.git.extensions.impl.WipeWorkspace/>
         </extensions>
       </hudson.plugins.git.GitSCM>
     </scms>
   </scm>
-  <assignedNode>windows</assignedNode>
+  <assignedNode>ubuntu</assignedNode>
   <canRoam>false</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
@@ -104,30 +104,23 @@
   <triggers/>
   <concurrentBuild>true</concurrentBuild>
   <builders>
-    <hudson.tasks.BatchFile>
-      <command>if exist build/ rd /s /q build&#xd;
-mkdir build&#xd;
-if exist test/ rd /s /q test&#xd;
-mkdir test&#xd;
-&#xd;
-cd coreclr&#xd;
-./build.cmd Release</command>
-    </hudson.tasks.BatchFile>
-    <hudson.tasks.BatchFile>
-      <command>cd build&#xd;
-cmake -G &quot;Visual Studio 12 2013 Win64&quot; -DWITH_CORECLR=%WORKSPACE%\coreclr\bin\Product\Windows_NT.x64.Release ..\llvm&#xd;
-&quot;%VS120COMNTOOLS%\..\..\VC\vcvarsall.bat&quot; x86 &amp;&amp; msbuild llvm.sln /p:Configuration=Release /p:Platform=x64 /t:ALL_BUILD /m</command>
-    </hudson.tasks.BatchFile>
-    <hudson.tasks.BatchFile>
-      <command>cd coreclr\tests&#xd;
-&#xd;
-C:\Python34\python %WORKSPACE%\llvm\tools\llilc\test\llilc_runtest.py -a x64 -b release -j %WORKSPACE%\build\bin\Release\llilcjit.dll -c %WORKSPACE%\coreclr\bin\Product\Windows_NT.x64.Release || (echo There were failures with the new JIT&amp; exit /b -1)</command>
-    </hudson.tasks.BatchFile>
-    <hudson.tasks.BatchFile>
-      <command>rd /s /q build&#xd;
-rd /s /q test</command>
-    </hudson.tasks.BatchFile>
+    <hudson.tasks.Shell>
+      <command>if which clang-3.5; then
+	export CC=$(which clang-3.5)
+    export CXX=$(which clang++-3.5)
+elif which clang; then
+	export CC=$(which clang)
+    export CXX=$(which clang++) 
+else
+    echo Could not find clang or clang-3.5
+    exit 1
+fi
+
+(cd coreclr &amp;&amp; ./build.sh release &amp;&amp; cd ..) &amp;&amp; (cd llvm &amp;&amp; mkdir build &amp;&amp; cd build &amp;&amp; cmake -DCMAKE_BUILD_TYPE=Release -DWITH_CORECLR=../../coreclr/bin/Product/Linux.x64.Release .. &amp;&amp; make -j 5)</command>
+    </hudson.tasks.Shell>
   </builders>
   <publishers/>
-  <buildWrappers/>
+  <buildWrappers>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.6.2"/>
+  </buildWrappers>
 </project>
