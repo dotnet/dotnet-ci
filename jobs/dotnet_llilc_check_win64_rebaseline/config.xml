@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description></description>
+  <description>Like dotnet_llilc_check_win64, but do not run baseline jit but&#xd;
+update baseline jit with the built jit.</description>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>21</daysToKeep>
     <numToKeep>-1</numToKeep>
@@ -14,7 +15,7 @@
       <doNotScan>false</doNotScan>
     </com.sonyericsson.jenkins.plugins.bfa.model.ScannerJobProperty>
     <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.11.3">
-      <projectUrl>https://github.com/microsoft/llvm/</projectUrl>
+      <projectUrl>https://github.com/dotnet/llilc/</projectUrl>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
   </properties>
   <scm class="org.jenkinsci.plugins.multiplescms.MultiSCM" plugin="multiple-scms@0.4">
@@ -23,14 +24,13 @@
         <configVersion>2</configVersion>
         <userRemoteConfigs>
           <hudson.plugins.git.UserRemoteConfig>
-            <refspec>+refs/pull/*:refs/remotes/origin/pr/*</refspec>
             <url>git@github.com:Microsoft/llvm.git</url>
             <credentialsId>603b4ba7-083a-467b-80d2-28ae0f0e4b6c</credentialsId>
           </hudson.plugins.git.UserRemoteConfig>
         </userRemoteConfigs>
         <branches>
           <hudson.plugins.git.BranchSpec>
-            <name>${sha1}</name>
+            <name>*/MS</name>
           </hudson.plugins.git.BranchSpec>
         </branches>
         <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
@@ -40,13 +40,10 @@
           <hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
             <relativeTargetDir>LLVM</relativeTargetDir>
           </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
-          <hudson.plugins.git.extensions.impl.CheckoutOption>
-            <timeout>40</timeout>
-          </hudson.plugins.git.extensions.impl.CheckoutOption>
           <hudson.plugins.git.extensions.impl.CloneOption>
-            <shallow>false</shallow>
+            <shallow>true</shallow>
             <reference></reference>
-            <timeout>40</timeout>
+            <timeout>30</timeout>
           </hudson.plugins.git.extensions.impl.CloneOption>
         </extensions>
       </hudson.plugins.git.GitSCM>
@@ -111,23 +108,77 @@ if exist test/ rd /s /q test&#xd;
 mkdir test&#xd;
 &#xd;
 cd coreclr&#xd;
-./build.cmd Release</command>
+.\build.cmd&#xd;
+</command>
     </hudson.tasks.BatchFile>
     <hudson.tasks.BatchFile>
       <command>cd build&#xd;
-cmake -G &quot;Visual Studio 12 2013 Win64&quot; -DWITH_CORECLR=%WORKSPACE%\coreclr\bin\Product\Windows_NT.x64.Release ..\llvm&#xd;
-&quot;%VS120COMNTOOLS%\..\..\VC\vcvarsall.bat&quot; x86 &amp;&amp; msbuild llvm.sln /p:Configuration=Release /p:Platform=x64 /t:ALL_BUILD /m</command>
+cmake -G &quot;Visual Studio 12 2013 Win64&quot; -DWITH_CORECLR=%WORKSPACE%\coreclr\bin\Product\Windows_NT.x64.debug -DCMAKE_BUILD_TYPE=RelWithDebInfo -DLLVM_ENABLE_ASSERTIONS=ON ..\llvm&#xd;
+&quot;%VS120COMNTOOLS%\..\..\VC\vcvarsall.bat&quot; x86 &amp;&amp; msbuild llvm.sln /p:Configuration=RelWithDebInfo /p:Platform=x64 /t:ALL_BUILD /m</command>
     </hudson.tasks.BatchFile>
     <hudson.tasks.BatchFile>
-      <command>cd coreclr\tests&#xd;
+      <command>if exist target/ rd /s /q target/&#xd;
+mkdir target&#xd;
 &#xd;
-C:\Python34\python %WORKSPACE%\llvm\tools\llilc\test\llilc_runtest.py -a x64 -b release -j %WORKSPACE%\build\bin\Release\llilcjit.dll -c %WORKSPACE%\coreclr\bin\Product\Windows_NT.x64.Release || (echo There were failures with the new JIT&amp; exit /b -1)</command>
-    </hudson.tasks.BatchFile>
-    <hudson.tasks.BatchFile>
-      <command>rd /s /q build&#xd;
-rd /s /q test</command>
+cd coreclr\tests&#xd;
+&#xd;
+C:\Python34\python %WORKSPACE%\llvm\tools\llilc\test\llilc_runtest.py -a x64 -b debug -d summary -r ..\..\target -j %WORKSPACE%\build\bin\RelWithDebInfo\llilcjit.dll -c %WORKSPACE%\coreclr\bin\Product\Windows_NT.x64.Debug || (echo There were failures with the new JIT&amp; exit /b -1)&#xd;
+&#xd;
+</command>
     </hudson.tasks.BatchFile>
   </builders>
-  <publishers/>
-  <buildWrappers/>
+  <publishers>
+    <xunit plugin="xunit@1.96">
+      <types>
+        <XUnitDotNetTestType>
+          <pattern>coreclr/bin/**/TestRun*.xml</pattern>
+          <skipNoTestFiles>false</skipNoTestFiles>
+          <failIfNotNew>false</failIfNotNew>
+          <deleteOutputFiles>true</deleteOutputFiles>
+          <stopProcessingIfError>false</stopProcessingIfError>
+        </XUnitDotNetTestType>
+      </types>
+      <thresholds>
+        <org.jenkinsci.plugins.xunit.threshold.FailedThreshold>
+          <unstableThreshold></unstableThreshold>
+          <unstableNewThreshold></unstableNewThreshold>
+          <failureThreshold></failureThreshold>
+          <failureNewThreshold></failureNewThreshold>
+        </org.jenkinsci.plugins.xunit.threshold.FailedThreshold>
+        <org.jenkinsci.plugins.xunit.threshold.SkippedThreshold>
+          <unstableThreshold></unstableThreshold>
+          <unstableNewThreshold></unstableNewThreshold>
+          <failureThreshold></failureThreshold>
+          <failureNewThreshold></failureNewThreshold>
+        </org.jenkinsci.plugins.xunit.threshold.SkippedThreshold>
+      </thresholds>
+      <thresholdMode>1</thresholdMode>
+      <extraConfiguration>
+        <testTimeMargin>3000</testTimeMargin>
+      </extraConfiguration>
+    </xunit>
+    <com.microsoftopentechnologies.windowsazurestorage.WAStoragePublisher plugin="windows-azure-storage@0.3.1-SNAPSHOT">
+      <storageAccName>dotnetci</storageAccName>
+      <containerName>llilc-check-win64</containerName>
+      <cntPubAccess>true</cntPubAccess>
+      <cleanUpContainer>true</cleanUpContainer>
+      <allowAnonymousAccess>true</allowAnonymousAccess>
+      <uploadArtifactsOnlyIfSuccessful>true</uploadArtifactsOnlyIfSuccessful>
+      <doNotFailIfArchivingReturnsNothing>false</doNotFailIfArchivingReturnsNothing>
+      <uploadZips>false</uploadZips>
+      <doNotUploadIndividualFiles>false</doNotUploadIndividualFiles>
+      <filesPath>build/bin/RelWithDebInfo/*.dll</filesPath>
+      <excludeFilesPath></excludeFilesPath>
+      <virtualPath></virtualPath>
+    </com.microsoftopentechnologies.windowsazurestorage.WAStoragePublisher>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.build__timeout.BuildTimeoutWrapper plugin="build-timeout@1.14.1">
+      <strategy class="hudson.plugins.build_timeout.impl.AbsoluteTimeOutStrategy">
+        <timeoutMinutes>240</timeoutMinutes>
+      </strategy>
+      <operationList/>
+    </hudson.plugins.build__timeout.BuildTimeoutWrapper>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.6.2"/>
+  </buildWrappers>
 </project>
