@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<com.cloudbees.plugins.flow.BuildFlow plugin="build-flow-plugin@0.18">
+<project>
   <actions/>
   <description></description>
   <logRotator class="hudson.tasks.LogRotator">
@@ -8,13 +8,13 @@
     <artifactDaysToKeep>14</artifactDaysToKeep>
     <artifactNumToKeep>25</artifactNumToKeep>
   </logRotator>
-  <keepDependencies>true</keepDependencies>
+  <keepDependencies>false</keepDependencies>
   <properties>
     <com.sonyericsson.jenkins.plugins.bfa.model.ScannerJobProperty plugin="build-failure-analyzer@1.13.0">
       <doNotScan>false</doNotScan>
     </com.sonyericsson.jenkins.plugins.bfa.model.ScannerJobProperty>
     <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.11.3">
-      <projectUrl>https://github.com/dotnet/llilc/</projectUrl>
+      <projectUrl>https://github.com/dotnet/corefx/</projectUrl>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
   </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@2.3.5">
@@ -22,13 +22,12 @@
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
         <refspec>+refs/pull/*:refs/remotes/origin/pr/*</refspec>
-        <url>git@github.com:dotnet/llilc.git</url>
-        <credentialsId>603b4ba7-083a-467b-80d2-28ae0f0e4b6c</credentialsId>
+        <url>git://github.com/dotnet/corefx.git</url>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
       <hudson.plugins.git.BranchSpec>
-        <name>*/mergetest</name>
+        <name>${sha1}</name>
       </hudson.plugins.git.BranchSpec>
     </branches>
     <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
@@ -37,28 +36,27 @@
       <hudson.plugins.git.extensions.impl.WipeWorkspace/>
     </extensions>
   </scm>
-  <assignedNode>windows</assignedNode>
+  <assignedNode>ubuntu</assignedNode>
   <canRoam>false</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers/>
   <concurrentBuild>true</concurrentBuild>
-  <builders/>
-  <publishers/>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>./src/Native/build.sh x64 release</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>bin/**</artifacts>
+      <excludes>bin/obj/**</excludes>
+      <allowEmptyArchive>false</allowEmptyArchive>
+      <onlyIfSuccessful>false</onlyIfSuccessful>
+      <fingerprint>false</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+    </hudson.tasks.ArtifactArchiver>
+  </publishers>
   <buildWrappers/>
-  <icon/>
-  <dsl>out.println &apos;Triggered Parameters Map:&apos;
-out.println params
-
-parallel (
-  { build(&quot;dotnet_llilc_release_win64_mergetest&quot;) },
-  { build(&quot;dotnet_llilc_release_win32_mergetest&quot;) },
-  { build(&quot;dotnet_llilc_check_win64_mergetest&quot;) },
-  { build(&quot;dotnet_llilc_debug_win32_mergetest&quot;) },
-  { build(&quot;dotnet_llilc_linux_release_mergetest&quot;) },
-  { build(&quot;dotnet_llilc_linux_debug_mergetest&quot;) },
-  { build(&quot;dotnet_llilc_code_formatting_mergetest&quot;) }
-)</dsl>
-  <buildNeedsWorkspace>true</buildNeedsWorkspace>
-</com.cloudbees.plugins.flow.BuildFlow>
+</project>

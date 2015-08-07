@@ -147,7 +147,7 @@ exit -1&#xd;
 del llilcjit.dll</command>
     </hudson.tasks.BatchFile>
     <hudson.tasks.BatchFile>
-      <command>if exist baseline/ rd /s /q baseline/&#xd;
+      <command>if exist baseline\ rd /s /q baseline\&#xd;
 mkdir baseline&#xd;
 &#xd;
 cd coreclr\tests&#xd;
@@ -174,7 +174,7 @@ exit -1&#xd;
 del llilcjit.dll</command>
     </hudson.tasks.BatchFile>
     <hudson.tasks.BatchFile>
-      <command>if exist target/ rd /s /q target/&#xd;
+      <command>if exist target\ rd /s /q target\&#xd;
 mkdir target&#xd;
 &#xd;
 cd coreclr\tests&#xd;

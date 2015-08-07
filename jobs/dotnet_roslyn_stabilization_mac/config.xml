@@ -35,7 +35,7 @@
       <hudson.plugins.git.extensions.impl.WipeWorkspace/>
     </extensions>
   </scm>
-  <assignedNode>mac-roslyn</assignedNode>
+  <assignedNode>mac</assignedNode>
   <canRoam>false</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
@@ -44,7 +44,7 @@
   <concurrentBuild>true</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>./cibuild.sh --mono-path ~/builds/mono/bin --os Darwin</command>
+      <command>./cibuild.sh</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>

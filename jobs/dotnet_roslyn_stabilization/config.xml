@@ -55,5 +55,5 @@
     { build(&quot;dotnet_roslyn_stabilization_linux&quot;) },
     { build(&quot;dotnet_roslyn_stabilization_mac&quot;) }
 )</dsl>
-  <buildNeedsWorkspace>false</buildNeedsWorkspace>
+  <buildNeedsWorkspace>true</buildNeedsWorkspace>
 </com.cloudbees.plugins.flow.BuildFlow>
