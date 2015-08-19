@@ -7,7 +7,7 @@
 	<key>ProgramArguments</key>
 	<array>
 		<string>/bin/bash</string>
-		<string>/Users/dotnet-bot/dotnet-ci/nodes/startup/jenkins-osx-startup.sh</string>
+		<string>/Library/LaunchDaemons/jenkins-osx-startup.sh</string>
 		<string>http://dotnet-ci.cloudapp.net</string>
 		<string>dotnet-bot:<api key here></string>
 	</array>
