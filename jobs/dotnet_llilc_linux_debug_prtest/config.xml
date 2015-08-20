@@ -155,7 +155,7 @@ else
     exit 1
 fi
 
-(cd coreclr &amp;&amp; ./build.sh debug &amp;&amp; cd ..) &amp;&amp; (cd llvm &amp;&amp; mkdir build &amp;&amp; cd build &amp;&amp; cmake -DCMAKE_BUILD_TYPE=Debug -DWITH_CORECLR=../../coreclr/bin/Product/Linux.x64.Debug .. &amp;&amp; make -j 5)</command>
+(cd coreclr &amp;&amp; ./build.sh skipmscorlib debug &amp;&amp; cd ..) &amp;&amp; (cd llvm &amp;&amp; mkdir build &amp;&amp; cd build &amp;&amp; cmake -DCMAKE_BUILD_TYPE=Debug -DWITH_CORECLR=../../coreclr/bin/Product/Linux.x64.Debug .. &amp;&amp; make -j 5)</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>

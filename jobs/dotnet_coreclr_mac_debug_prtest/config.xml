@@ -54,7 +54,7 @@
   <concurrentBuild>true</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>./build.sh verbose debug</command>
+      <command>./build.sh skipmscorlib verbose debug</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>

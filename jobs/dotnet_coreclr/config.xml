@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<com.cloudbees.plugins.flow.BuildFlow plugin="build-flow-plugin@0.17">
+<com.cloudbees.plugins.flow.BuildFlow plugin="build-flow-plugin@0.18">
   <actions/>
   <description></description>
   <logRotator class="hudson.tasks.LogRotator">
@@ -16,6 +16,19 @@
     <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.11.3">
       <projectUrl>https://github.com/dotnet/coreclr/</projectUrl>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>GitBranchOrCommit</name>
+          <description>Git branch or commit to build.  If a branch, builds the HEAD of that branch.  If a commit, then checks out that specific commit.</description>
+          <defaultValue>*/master</defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.25">
+      <autoRebuild>false</autoRebuild>
+      <rebuildDisabled>false</rebuildDisabled>
+    </com.sonyericsson.rebuild.RebuildSettings>
   </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@2.3.5">
     <configVersion>2</configVersion>
@@ -26,7 +39,7 @@
     </userRemoteConfigs>
     <branches>
       <hudson.plugins.git.BranchSpec>
-        <name>*/master</name>
+        <name>$GitBranchOrCommit</name>
       </hudson.plugins.git.BranchSpec>
     </branches>
     <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
@@ -50,15 +63,17 @@
   <publishers/>
   <buildWrappers/>
   <icon/>
-  <dsl>parallel (
-    { build(&quot;dotnet_coreclr_windows_debug&quot;) },
-    { build(&quot;dotnet_coreclr_windows_release&quot;) },
-    { build(&quot;dotnet_coreclr_linux_debug&quot;) },
-    { build(&quot;dotnet_coreclr_linux_release&quot;) },
-    { build(&quot;dotnet_coreclr_mac_debug&quot;) },
-    { build(&quot;dotnet_coreclr_mac_release&quot;) },
-    { build(&quot;dotnet_coreclr_freebsd_debug&quot;) },
-    { build(&quot;dotnet_coreclr_freebsd_release&quot;) }
+  <dsl>globalParams = [GitBranchOrCommit: build.environment.get(&apos;GIT_COMMIT&apos;)];
+
+parallel (
+    { build(globalParams, &quot;dotnet_coreclr_windows_debug&quot;) },
+    { build(globalParams, &quot;dotnet_coreclr_windows_release&quot;) },
+    { build(globalParams, &quot;dotnet_coreclr_linux_debug&quot;) },
+    { build(globalParams, &quot;dotnet_coreclr_linux_release&quot;) },
+    { build(globalParams, &quot;dotnet_coreclr_mac_debug&quot;) },
+    { build(globalParams, &quot;dotnet_coreclr_mac_release&quot;) },
+    { build(globalParams, &quot;dotnet_coreclr_freebsd_debug&quot;) },
+    { build(globalParams, &quot;dotnet_coreclr_freebsd_release&quot;) }
 )</dsl>
   <buildNeedsWorkspace>true</buildNeedsWorkspace>
 </com.cloudbees.plugins.flow.BuildFlow>
