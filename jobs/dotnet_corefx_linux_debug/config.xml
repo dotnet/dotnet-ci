@@ -50,26 +50,12 @@
   <publishers>
     <hudson.tasks.ArtifactArchiver>
       <artifacts>bin/**</artifacts>
-      <excludes>bin/obj/**,bin/packages/**,bin/**/*.Tests/*,bin/**/System.Threading.Tasks.Dataflow.WP8/*,bin/**/System.Reflection.Metadata/System.Collections.Immutable.*</excludes>
+      <excludes>bin/tests/**,bin/obj/**,bin/packages/**,bin/**/*.Tests/*,bin/**/System.Threading.Tasks.Dataflow.WP8/*,bin/**/System.Reflection.Metadata/System.Collections.Immutable.*,**/api-*,**/API-*</excludes>
       <allowEmptyArchive>false</allowEmptyArchive>
       <onlyIfSuccessful>true</onlyIfSuccessful>
       <fingerprint>false</fingerprint>
       <defaultExcludes>true</defaultExcludes>
     </hudson.tasks.ArtifactArchiver>
-    <com.microsoftopentechnologies.windowsazurestorage.WAStoragePublisher plugin="windows-azure-storage@0.3.1-SNAPSHOT">
-      <storageAccName>dotnetci</storageAccName>
-      <containerName>dotnet-corefx-linux-debug</containerName>
-      <cntPubAccess>true</cntPubAccess>
-      <cleanUpContainer>true</cleanUpContainer>
-      <allowAnonymousAccess>true</allowAnonymousAccess>
-      <uploadArtifactsOnlyIfSuccessful>true</uploadArtifactsOnlyIfSuccessful>
-      <doNotFailIfArchivingReturnsNothing>true</doNotFailIfArchivingReturnsNothing>
-      <uploadZips>false</uploadZips>
-      <doNotUploadIndividualFiles>false</doNotUploadIndividualFiles>
-      <filesPath>bin/**</filesPath>
-      <excludeFilesPath>bin/obj/**,bin/packages/**,bin/**/*.Tests/*,bin/**/System.Threading.Tasks.Dataflow.WP8/*,bin/**/System.Reflection.Metadata/System.Collections.Immutable.*</excludeFilesPath>
-      <virtualPath>${BUILD_NUMBER}</virtualPath>
-    </com.microsoftopentechnologies.windowsazurestorage.WAStoragePublisher>
   </publishers>
   <buildWrappers/>
 </project>

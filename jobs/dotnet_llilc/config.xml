@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<com.cloudbees.plugins.flow.BuildFlow plugin="build-flow-plugin@0.17">
+<com.cloudbees.plugins.flow.BuildFlow plugin="build-flow-plugin@0.18">
   <actions/>
-  <description></description>
+  <description>Runs for each push to dotnet/llilc.</description>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>21</daysToKeep>
     <numToKeep>-1</numToKeep>

@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description></description>
+  <description>Runs for each push to dotnet/llilc. Runs clang-format and clang-tidy over llilc</description>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>21</daysToKeep>
     <numToKeep>-1</numToKeep>
@@ -16,6 +16,10 @@
     <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.11.3">
       <projectUrl>https://github.com/dotnet/llilc/</projectUrl>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.25">
+      <autoRebuild>false</autoRebuild>
+      <rebuildDisabled>false</rebuildDisabled>
+    </com.sonyericsson.rebuild.RebuildSettings>
   </properties>
   <scm class="org.jenkinsci.plugins.multiplescms.MultiSCM" plugin="multiple-scms@0.4">
     <scms>
@@ -103,7 +107,7 @@
   <triggers/>
   <concurrentBuild>true</concurrentBuild>
   <builders>
-    <com.microsoftopentechnologies.windowsazurestorage.AzureStorageBuilder plugin="windows-azure-storage@0.3.1-SNAPSHOT">
+    <com.microsoftopentechnologies.windowsazurestorage.AzureStorageBuilder plugin="windows-azure-storage@0.3.2-SNAPSHOT">
       <storageAccName>dotnetci</storageAccName>
       <containerName>clang-tools-extra</containerName>
       <includeFilesPattern>**/*</includeFilesPattern>
@@ -132,11 +136,18 @@ cmake -G &quot;Visual Studio 12 2013 Win64&quot; -DLLVM_TARGETS_TO_BUILD=X86 -DL
     <hudson.tasks.BatchFile>
       <command>set PATH=%PATH%;C:\Program Files (x86)\llvm\bin&#xd;
 call &quot;%VS120COMNTOOLS%\..\..\VC\vcvarsall.bat&quot; x86&#xd;
+echo on&#xd;
 llvm\tools\llilc\utils\ccformat.py --clang-tidy %WORKSPACE%\clang-tools\clang-tidy.exe --clang-format %WORKSPACE%\clang-tools\clang-format.exe --llvm-source %WORKSPACE%\llvm --llvm-build %WORKSPACE%\build --coreclr-build %WORKSPACE%\coreclr\bin\Product\Windows_NT.x64.Debug</command>
     </hudson.tasks.BatchFile>
   </builders>
   <publishers/>
   <buildWrappers>
+    <hudson.plugins.build__timeout.BuildTimeoutWrapper plugin="build-timeout@1.14.1">
+      <strategy class="hudson.plugins.build_timeout.impl.AbsoluteTimeOutStrategy">
+        <timeoutMinutes>360</timeoutMinutes>
+      </strategy>
+      <operationList/>
+    </hudson.plugins.build__timeout.BuildTimeoutWrapper>
     <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.6.2"/>
   </buildWrappers>
 </project>

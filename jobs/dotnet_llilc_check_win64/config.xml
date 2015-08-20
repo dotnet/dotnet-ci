@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description></description>
+  <description>Runs for each push to dotnet/llilc. Performs a RelWithDebInfo win64 build and test run</description>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>21</daysToKeep>
     <numToKeep>-1</numToKeep>
@@ -100,7 +100,7 @@
   <triggers/>
   <concurrentBuild>true</concurrentBuild>
   <builders>
-    <com.microsoftopentechnologies.windowsazurestorage.AzureStorageBuilder plugin="windows-azure-storage@0.3.1-SNAPSHOT">
+    <com.microsoftopentechnologies.windowsazurestorage.AzureStorageBuilder plugin="windows-azure-storage@0.3.2-SNAPSHOT">
       <storageAccName>dotnetci</storageAccName>
       <containerName>llilc-check-win64</containerName>
       <includeFilesPattern>**/*</includeFilesPattern>
@@ -170,7 +170,7 @@ C:\Python34\python %WORKSPACE%\llvm\tools\llilc\test\llilc_checkpass.py -b ..\..
         <testTimeMargin>3000</testTimeMargin>
       </extraConfiguration>
     </xunit>
-    <com.microsoftopentechnologies.windowsazurestorage.WAStoragePublisher plugin="windows-azure-storage@0.3.1-SNAPSHOT">
+    <com.microsoftopentechnologies.windowsazurestorage.WAStoragePublisher plugin="windows-azure-storage@0.3.2-SNAPSHOT">
       <storageAccName>dotnetci</storageAccName>
       <containerName>llilc-check-win64</containerName>
       <cntPubAccess>true</cntPubAccess>

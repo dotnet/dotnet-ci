@@ -50,7 +50,7 @@
   <publishers>
     <hudson.tasks.ArtifactArchiver>
       <artifacts>bin/**,msbuild.log</artifacts>
-      <excludes>bin/tests/**/*,bin/obj/**/*,bin/packages/**/*,bin/**/*.Tests/*,bin/**/System.Threading.Tasks.Dataflow.WP8/*,bin/**/System.Reflection.Metadata/System.Collections.Immutable.*</excludes>
+      <excludes>bin/tests/**,bin/obj/**/*,bin/packages/**/*,bin/**/*.Tests/*,bin/**/System.Threading.Tasks.Dataflow.WP8/*,bin/**/System.Reflection.Metadata/System.Collections.Immutable.*</excludes>
       <allowEmptyArchive>false</allowEmptyArchive>
       <onlyIfSuccessful>true</onlyIfSuccessful>
       <fingerprint>false</fingerprint>

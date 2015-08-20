@@ -37,10 +37,11 @@
       <hudson.plugins.git.extensions.impl.CloneOption>
         <shallow>true</shallow>
         <reference></reference>
+        <timeout>60</timeout>
       </hudson.plugins.git.extensions.impl.CloneOption>
     </extensions>
   </scm>
-  <assignedNode>mac-roslyn</assignedNode>
+  <assignedNode>mac</assignedNode>
   <canRoam>false</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
@@ -49,7 +50,7 @@
   <concurrentBuild>true</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>./cibuild.sh --mono-path ~/builds/mono/bin</command>
+      <command>./cibuild.sh</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
