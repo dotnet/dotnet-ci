@@ -16,6 +16,10 @@
     <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.11.3">
       <projectUrl>https://github.com/dotnet/llilc/</projectUrl>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.25">
+      <autoRebuild>false</autoRebuild>
+      <rebuildDisabled>false</rebuildDisabled>
+    </com.sonyericsson.rebuild.RebuildSettings>
   </properties>
   <scm class="org.jenkinsci.plugins.multiplescms.MultiSCM" plugin="multiple-scms@0.4">
     <scms>
@@ -112,7 +116,7 @@ else
     exit 1
 fi
 
-(cd coreclr &amp;&amp; ./build.sh debug &amp;&amp; cd ..) &amp;&amp; (cd llvm &amp;&amp; mkdir build &amp;&amp; cd build &amp;&amp; cmake -DCMAKE_BUILD_TYPE=Debug -DWITH_CORECLR=../../coreclr/bin/Product/Linux.x64.Debug .. &amp;&amp; make -j 5)</command>
+(cd coreclr &amp;&amp; ./build.sh skipmscorlib debug &amp;&amp; cd ..) &amp;&amp; (cd llvm &amp;&amp; mkdir build &amp;&amp; cd build &amp;&amp; cmake -DCMAKE_BUILD_TYPE=Debug -DWITH_CORECLR=../../coreclr/bin/Product/Linux.x64.Debug .. &amp;&amp; make -j 5)</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>

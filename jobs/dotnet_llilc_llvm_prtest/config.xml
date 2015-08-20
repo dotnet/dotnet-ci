@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<com.cloudbees.plugins.flow.BuildFlow plugin="build-flow-plugin@0.17">
+<com.cloudbees.plugins.flow.BuildFlow plugin="build-flow-plugin@0.18">
   <actions/>
   <description></description>
   <logRotator class="hudson.tasks.LogRotator">
@@ -16,6 +16,10 @@
     <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.11.3">
       <projectUrl>https://github.com/Microsoft/llvm/</projectUrl>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.25">
+      <autoRebuild>false</autoRebuild>
+      <rebuildDisabled>false</rebuildDisabled>
+    </com.sonyericsson.rebuild.RebuildSettings>
   </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@2.3.5">
     <configVersion>2</configVersion>
@@ -43,8 +47,9 @@
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
-    <org.jenkinsci.plugins.ghprb.GhprbTrigger plugin="ghprb@1.20">
+    <org.jenkinsci.plugins.ghprb.GhprbTrigger plugin="ghprb@1.24.5">
       <spec>H/5 * * * *</spec>
+      <configVersion>1</configVersion>
       <adminlist>microsoft mmitche</adminlist>
       <allowMembersOfWhitelistedOrgsAsAdmin>false</allowMembersOfWhitelistedOrgsAsAdmin>
       <orgslist></orgslist>
@@ -53,7 +58,6 @@
       <onlyTriggerPhrase>false</onlyTriggerPhrase>
       <useGitHubHooks>true</useGitHubHooks>
       <permitAll>true</permitAll>
-      <commentFilePath></commentFilePath>
       <whitelist></whitelist>
       <autoCloseFailedPullRequests>false</autoCloseFailedPullRequests>
       <displayBuildErrorsOnDownstreamBuilds>false</displayBuildErrorsOnDownstreamBuilds>
@@ -62,10 +66,22 @@
           <branch></branch>
         </org.jenkinsci.plugins.ghprb.GhprbBranch>
       </whiteListTargetBranches>
-      <msgSuccess></msgSuccess>
-      <msgFailure></msgFailure>
-      <commitStatusContext></commitStatusContext>
       <project>dotnet_llilc_llvm_prtest</project>
+      <__project class="com.cloudbees.plugins.flow.BuildFlow" reference="../../.."/>
+      <gitHubApiAuth>
+        <serverAPIUrl>https://api.github.com</serverAPIUrl>
+        <credentialsId>38b3cdfa-c9ae-4571-ad82-1b90ed487c9a</credentialsId>
+        <id>db6ecde3-83f0-459b-95ea-52b09dd1e069</id>
+        <description>Pre credentials Token</description>
+      </gitHubApiAuth>
+      <extensions>
+        <org.jenkinsci.plugins.ghprb.extensions.status.GhprbSimpleStatus>
+          <commitStatusContext></commitStatusContext>
+          <triggeredStatus></triggeredStatus>
+          <startedStatus></startedStatus>
+          <statusUrl></statusUrl>
+        </org.jenkinsci.plugins.ghprb.extensions.status.GhprbSimpleStatus>
+      </extensions>
     </org.jenkinsci.plugins.ghprb.GhprbTrigger>
   </triggers>
   <concurrentBuild>true</concurrentBuild>
@@ -77,10 +93,13 @@
 out.println params
 
 parallel (
-  { build(&quot;dotnet_llilc_llvm_windows_release_win64_prtest&quot;, sha1: params[&quot;sha1&quot;]) },
-  { build(&quot;dotnet_llilc_llvm_windows_release_win32_prtest&quot;, sha1: params[&quot;sha1&quot;]) },
-  { build(&quot;dotnet_llilc_llvm_windows_check_win64_prtest&quot;, sha1: params[&quot;sha1&quot;]) },
-  { build(&quot;dotnet_llilc_llvm_windows_debug_win32_prtest&quot;, sha1: params[&quot;sha1&quot;]) },
+  { build(&quot;dotnet_llilc_release_win64_prtest&quot;, LLVMFork: &quot;Microsoft&quot;, LLVMBranch: params[&quot;sha1&quot;], LLVMRef: &quot;+refs/pull/*:refs/remotes/origin/pr/*&quot;, LLILCFork: &quot;dotnet&quot;, LLILCBranch: &quot;master&quot;, sha1: params[&quot;sha1&quot;], LLILCRef: &quot;&quot;) },
+  { build(&quot;dotnet_llilc_release_win32_prtest&quot;, LLVMFork: &quot;Microsoft&quot;, LLVMBranch: params[&quot;sha1&quot;], LLVMRef: &quot;+refs/pull/*:refs/remotes/origin/pr/*&quot;, LLILCFork: &quot;dotnet&quot;, LLILCBranch: &quot;master&quot;, sha1: params[&quot;sha1&quot;], LLILCRef: &quot;&quot;) },
+  { build(&quot;dotnet_llilc_check_win64_prtest&quot;, LLVMFork: &quot;Microsoft&quot;, LLVMBranch: params[&quot;sha1&quot;], LLVMRef: &quot;+refs/pull/*:refs/remotes/origin/pr/*&quot;, LLILCFork: &quot;dotnet&quot;, LLILCBranch: &quot;master&quot;, sha1: params[&quot;sha1&quot;], LLILCRef: &quot;&quot;) },
+  { build(&quot;dotnet_llilc_debug_win32_prtest&quot;, LLVMFork: &quot;Microsoft&quot;, LLVMBranch: params[&quot;sha1&quot;], LLVMRef: &quot;+refs/pull/*:refs/remotes/origin/pr/*&quot;, LLILCFork: &quot;dotnet&quot;, LLILCBranch: &quot;master&quot;, sha1: params[&quot;sha1&quot;], LLILCRef: &quot;&quot;) },
+  { build(&quot;dotnet_llilc_linux_release_prtest&quot;, LLVMFork: &quot;Microsoft&quot;, LLVMBranch: params[&quot;sha1&quot;], LLVMRef: &quot;+refs/pull/*:refs/remotes/origin/pr/*&quot;, LLILCFork: &quot;dotnet&quot;, LLILCBranch: &quot;master&quot;, sha1: params[&quot;sha1&quot;], LLILCRef: &quot;&quot;) },
+  { build(&quot;dotnet_llilc_linux_debug_prtest&quot;, LLVMFork: &quot;Microsoft&quot;, LLVMBranch: params[&quot;sha1&quot;], LLVMRef: &quot;+refs/pull/*:refs/remotes/origin/pr/*&quot;, LLILCFork: &quot;dotnet&quot;, LLILCBranch: &quot;master&quot;, sha1: params[&quot;sha1&quot;], LLILCRef: &quot;&quot;) },
+  { build(&quot;dotnet_llilc_code_formatting_prtest&quot;, LLVMFork: &quot;Microsoft&quot;, LLVMBranch: params[&quot;sha1&quot;], LLVMRef: &quot;+refs/pull/*:refs/remotes/origin/pr/*&quot;, LLILCFork: &quot;dotnet&quot;, LLILCBranch: &quot;master&quot;, sha1: params[&quot;sha1&quot;], LLILCRef: &quot;&quot;) }
 )</dsl>
   <buildNeedsWorkspace>false</buildNeedsWorkspace>
 </com.cloudbees.plugins.flow.BuildFlow>

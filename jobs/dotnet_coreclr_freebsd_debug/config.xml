@@ -16,17 +16,35 @@
     <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.11.3">
       <projectUrl>https://github.com/dotnet/coreclr/</projectUrl>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>GitBranchOrCommit</name>
+          <description>Git branch or commit to build.  If a branch, builds the HEAD of that branch.  If a commit, then checks out that specific commit.</description>
+          <defaultValue>*/master</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>GitRepoUrl</name>
+          <description>Git repo to clone.</description>
+          <defaultValue>git://github.com/dotnet/coreclr.git</defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.25">
+      <autoRebuild>false</autoRebuild>
+      <rebuildDisabled>false</rebuildDisabled>
+    </com.sonyericsson.rebuild.RebuildSettings>
   </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@2.3.5">
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
-        <url>git://github.com/dotnet/coreclr.git</url>
+        <url>$GitRepoUrl</url>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
       <hudson.plugins.git.BranchSpec>
-        <name>*/master</name>
+        <name>$GitBranchOrCommit</name>
       </hudson.plugins.git.BranchSpec>
     </branches>
     <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
@@ -44,7 +62,7 @@
   <concurrentBuild>true</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>./build.sh verbose debug &amp;&amp; src/pal/tests/palsuite/runpaltests.sh ${WORKSPACE}/bin/obj/FreeBSD.x64.Debug ${WORKSPACE}/bin/paltestout</command>
+      <command>./build.sh skipmscorlib verbose debug &amp;&amp; src/pal/tests/palsuite/runpaltests.sh ${WORKSPACE}/bin/obj/FreeBSD.x64.Debug ${WORKSPACE}/bin/paltestout</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
@@ -56,7 +74,7 @@
       <fingerprint>false</fingerprint>
       <defaultExcludes>true</defaultExcludes>
     </hudson.tasks.ArtifactArchiver>
-    <com.microsoftopentechnologies.windowsazurestorage.WAStoragePublisher plugin="windows-azure-storage@0.3.1-SNAPSHOT">
+    <com.microsoftopentechnologies.windowsazurestorage.WAStoragePublisher plugin="windows-azure-storage@0.3.2-SNAPSHOT">
       <storageAccName>dotnetci</storageAccName>
       <containerName>dotnet-coreclr-freebsd-debug</containerName>
       <cntPubAccess>true</cntPubAccess>

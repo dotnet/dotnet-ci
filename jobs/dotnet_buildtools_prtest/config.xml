@@ -16,18 +16,41 @@
     <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.11.3">
       <projectUrl>https://github.com/dotnet/buildtools/</projectUrl>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>GitBranchOrCommit</name>
+          <description>Git branch or commit to build.  If a branch, builds the HEAD of that branch.  If a commit, then checks out that specific commit.</description>
+          <defaultValue>${sha1}</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>GitRepoUrl</name>
+          <description>Git repo to clone.</description>
+          <defaultValue>git://github.com/dotnet/buildtools.git</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>GitRefSpec</name>
+          <description>RefSpec.  WHEN SUBMITTING PRIVATE JOB FROM YOUR OWN REPO, CLEAR THIS FIELD (or it won&apos;t find your code)</description>
+          <defaultValue>+refs/pull/*:refs/remotes/origin/pr/*</defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.25">
+      <autoRebuild>false</autoRebuild>
+      <rebuildDisabled>false</rebuildDisabled>
+    </com.sonyericsson.rebuild.RebuildSettings>
   </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@2.3.5">
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
-        <refspec>+refs/pull/*:refs/remotes/origin/pr/*</refspec>
-        <url>git://github.com/dotnet/buildtools.git</url>
+        <refspec>$GitRefSpec</refspec>
+        <url>$GitRepoUrl</url>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
       <hudson.plugins.git.BranchSpec>
-        <name>${sha1}</name>
+        <name>$GitBranchOrCommit</name>
       </hudson.plugins.git.BranchSpec>
     </branches>
     <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
@@ -42,8 +65,9 @@
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
-    <org.jenkinsci.plugins.ghprb.GhprbTrigger plugin="ghprb@1.20">
+    <org.jenkinsci.plugins.ghprb.GhprbTrigger plugin="ghprb@1.24.5">
       <spec>H/5 * * * *</spec>
+      <configVersion>1</configVersion>
       <adminlist>microsoft mmitche</adminlist>
       <allowMembersOfWhitelistedOrgsAsAdmin>false</allowMembersOfWhitelistedOrgsAsAdmin>
       <orgslist></orgslist>
@@ -52,7 +76,6 @@
       <onlyTriggerPhrase>false</onlyTriggerPhrase>
       <useGitHubHooks>true</useGitHubHooks>
       <permitAll>true</permitAll>
-      <commentFilePath></commentFilePath>
       <whitelist></whitelist>
       <autoCloseFailedPullRequests>false</autoCloseFailedPullRequests>
       <displayBuildErrorsOnDownstreamBuilds>false</displayBuildErrorsOnDownstreamBuilds>
@@ -61,10 +84,22 @@
           <branch></branch>
         </org.jenkinsci.plugins.ghprb.GhprbBranch>
       </whiteListTargetBranches>
-      <msgSuccess></msgSuccess>
-      <msgFailure></msgFailure>
-      <commitStatusContext></commitStatusContext>
       <project>dotnet_buildtools_prtest</project>
+      <__project class="project" reference="../../.."/>
+      <gitHubApiAuth>
+        <serverAPIUrl>https://api.github.com</serverAPIUrl>
+        <credentialsId>38b3cdfa-c9ae-4571-ad82-1b90ed487c9a</credentialsId>
+        <id>db6ecde3-83f0-459b-95ea-52b09dd1e069</id>
+        <description>Pre credentials Token</description>
+      </gitHubApiAuth>
+      <extensions>
+        <org.jenkinsci.plugins.ghprb.extensions.status.GhprbSimpleStatus>
+          <commitStatusContext></commitStatusContext>
+          <triggeredStatus></triggeredStatus>
+          <startedStatus></startedStatus>
+          <statusUrl></statusUrl>
+        </org.jenkinsci.plugins.ghprb.extensions.status.GhprbSimpleStatus>
+      </extensions>
     </org.jenkinsci.plugins.ghprb.GhprbTrigger>
   </triggers>
   <concurrentBuild>true</concurrentBuild>

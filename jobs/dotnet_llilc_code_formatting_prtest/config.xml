@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description></description>
+  <description>Runs for each PR submitted to dotnet/llilc. Runs clang-format and clang-tidy over llilc.</description>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>21</daysToKeep>
     <numToKeep>-1</numToKeep>
@@ -16,6 +16,44 @@
     <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.11.3">
       <projectUrl>https://github.com/dotnet/llilc/</projectUrl>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>LLVMFork</name>
+          <description></description>
+          <defaultValue>Microsoft</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>LLVMBranch</name>
+          <description></description>
+          <defaultValue>MS</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>LLILCFork</name>
+          <description></description>
+          <defaultValue>dotnet</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>LLILCBranch</name>
+          <description></description>
+          <defaultValue>$sha1</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>LLVMRef</name>
+          <description></description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>LLILCRef</name>
+          <description></description>
+          <defaultValue>+refs/pull/*:refs/remotes/origin/pr/*</defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.25">
+      <autoRebuild>false</autoRebuild>
+      <rebuildDisabled>false</rebuildDisabled>
+    </com.sonyericsson.rebuild.RebuildSettings>
   </properties>
   <scm class="org.jenkinsci.plugins.multiplescms.MultiSCM" plugin="multiple-scms@0.4">
     <scms>
@@ -23,13 +61,14 @@
         <configVersion>2</configVersion>
         <userRemoteConfigs>
           <hudson.plugins.git.UserRemoteConfig>
-            <url>git@github.com:Microsoft/llvm.git</url>
+            <refspec>$LLVMRef</refspec>
+            <url>git@github.com:$LLVMFork/llvm.git</url>
             <credentialsId>603b4ba7-083a-467b-80d2-28ae0f0e4b6c</credentialsId>
           </hudson.plugins.git.UserRemoteConfig>
         </userRemoteConfigs>
         <branches>
           <hudson.plugins.git.BranchSpec>
-            <name>*/MS</name>
+            <name>$LLVMBranch</name>
           </hudson.plugins.git.BranchSpec>
         </branches>
         <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
@@ -54,13 +93,14 @@
         <userRemoteConfigs>
           <hudson.plugins.git.UserRemoteConfig>
             <name>origin</name>
-            <refspec>+refs/pull/*:refs/remotes/origin/pr/*</refspec>
-            <url>git://github.com/dotnet/llilc.git</url>
+            <refspec>$LLILCRef</refspec>
+            <url>git@github.com:$LLILCFork/llilc.git</url>
+            <credentialsId>603b4ba7-083a-467b-80d2-28ae0f0e4b6c</credentialsId>
           </hudson.plugins.git.UserRemoteConfig>
         </userRemoteConfigs>
         <branches>
           <hudson.plugins.git.BranchSpec>
-            <name>${sha1}</name>
+            <name>$LLILCBranch</name>
           </hudson.plugins.git.BranchSpec>
         </branches>
         <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
@@ -104,6 +144,15 @@
   <triggers/>
   <concurrentBuild>true</concurrentBuild>
   <builders>
+    <com.microsoftopentechnologies.windowsazurestorage.AzureStorageBuilder plugin="windows-azure-storage@0.3.2-SNAPSHOT">
+      <storageAccName>dotnetci</storageAccName>
+      <containerName>clang-tools-extra</containerName>
+      <includeFilesPattern>**/*</includeFilesPattern>
+      <excludeFilesPattern></excludeFilesPattern>
+      <downloadDirLoc>clang-tools</downloadDirLoc>
+      <flattenDirectories>true</flattenDirectories>
+      <includeArchiveZips>false</includeArchiveZips>
+    </com.microsoftopentechnologies.windowsazurestorage.AzureStorageBuilder>
     <hudson.tasks.BatchFile>
       <command>if exist build/ rd /s /q build&#xd;
 mkdir build&#xd;
@@ -122,7 +171,8 @@ cmake -G &quot;Visual Studio 12 2013 Win64&quot; -DLLVM_TARGETS_TO_BUILD=X86 -DL
     <hudson.tasks.BatchFile>
       <command>set PATH=%PATH%;C:\Program Files (x86)\llvm\bin&#xd;
 call &quot;%VS120COMNTOOLS%\..\..\VC\vcvarsall.bat&quot; x86&#xd;
-llvm\tools\llilc\utils\ccformat.py --clang-tidy C:\clang-tidy\clang-tidy.exe --llvm-source %WORKSPACE%\llvm --llvm-build %WORKSPACE%\build --coreclr-build %WORKSPACE%\coreclr\bin\Product\Windows_NT.x64.Debug</command>
+echo on&#xd;
+llvm\tools\llilc\utils\ccformat.py --clang-tidy %WORKSPACE%\clang-tools\clang-tidy.exe --clang-format %WORKSPACE%\clang-tools\clang-format.exe --llvm-source %WORKSPACE%\llvm --llvm-build %WORKSPACE%\build --coreclr-build %WORKSPACE%\coreclr\bin\Product\Windows_NT.x64.Debug</command>
     </hudson.tasks.BatchFile>
   </builders>
   <publishers/>

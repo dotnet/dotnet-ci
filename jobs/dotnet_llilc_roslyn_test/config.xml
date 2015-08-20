@@ -1,0 +1,253 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Test Roslyn bootstrapping with LLILC as JIT&gt;</description>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep>21</daysToKeep>
+    <numToKeep>-1</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <com.sonyericsson.jenkins.plugins.bfa.model.ScannerJobProperty plugin="build-failure-analyzer@1.13.0">
+      <doNotScan>false</doNotScan>
+    </com.sonyericsson.jenkins.plugins.bfa.model.ScannerJobProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>LLVMFork</name>
+          <description>Github handle of repository to get LLVM. Use your Github handle to use your fork.</description>
+          <defaultValue>Microsoft</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>LLVMBranch</name>
+          <description>Branch of the LLVM repository to use.</description>
+          <defaultValue>MS</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>LLILCFork</name>
+          <description>Github handle of repository to get LLILC. Use your Github handle to use your fork.</description>
+          <defaultValue>dotnet</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>LLILCBranch</name>
+          <description>Branch of LLILC to use. This is not currently run from a higher job so we default to master.
+If we change this to be invoked by a pull then we will make $sha1 the default.
+</description>
+          <defaultValue>master</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>RoslynFork</name>
+          <description>Github handle of repository to get LLILC. Use your Github handle to use your fork.</description>
+          <defaultValue>dotnet</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>RoslynBranch</name>
+          <description>Branch of Roslyn to use.</description>
+          <defaultValue>master</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>CoreClrFork</name>
+          <description>Github handle of repository to get LLILC. Use your Github handle to use your fork.</description>
+          <defaultValue>dotnet</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>CoreClrBranch</name>
+          <description>Branch of CoreClr to use.</description>
+          <defaultValue>master</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>Visual Studio Version</name>
+          <description>Version of Visual Studio to use</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>2015</string>
+              <string>2013</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>BuiltType</name>
+          <description>The type of LLVM/LLILC build to use.
+</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>RelWithDebInfo</string>
+              <string>Debug</string>
+              <string>Release</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.25">
+      <autoRebuild>false</autoRebuild>
+      <rebuildDisabled>false</rebuildDisabled>
+    </com.sonyericsson.rebuild.RebuildSettings>
+  </properties>
+  <scm class="org.jenkinsci.plugins.multiplescms.MultiSCM" plugin="multiple-scms@0.4">
+    <scms>
+      <hudson.plugins.git.GitSCM plugin="git@2.3.5">
+        <configVersion>2</configVersion>
+        <userRemoteConfigs>
+          <hudson.plugins.git.UserRemoteConfig>
+            <url>git@github.com:$LLVMFork/llvm.git</url>
+            <credentialsId>603b4ba7-083a-467b-80d2-28ae0f0e4b6c</credentialsId>
+          </hudson.plugins.git.UserRemoteConfig>
+        </userRemoteConfigs>
+        <branches>
+          <hudson.plugins.git.BranchSpec>
+            <name>$LLVMBranch</name>
+          </hudson.plugins.git.BranchSpec>
+        </branches>
+        <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+        <submoduleCfg class="list"/>
+        <extensions>
+          <hudson.plugins.git.extensions.impl.WipeWorkspace/>
+          <hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+            <relativeTargetDir>LLVM</relativeTargetDir>
+          </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+          <hudson.plugins.git.extensions.impl.CheckoutOption>
+            <timeout>40</timeout>
+          </hudson.plugins.git.extensions.impl.CheckoutOption>
+          <hudson.plugins.git.extensions.impl.CloneOption>
+            <shallow>false</shallow>
+            <reference></reference>
+            <timeout>40</timeout>
+          </hudson.plugins.git.extensions.impl.CloneOption>
+        </extensions>
+      </hudson.plugins.git.GitSCM>
+      <hudson.plugins.git.GitSCM plugin="git@2.3.5">
+        <configVersion>2</configVersion>
+        <userRemoteConfigs>
+          <hudson.plugins.git.UserRemoteConfig>
+            <url>git@github.com:$LLILCFork/llilc.git</url>
+            <credentialsId>603b4ba7-083a-467b-80d2-28ae0f0e4b6c</credentialsId>
+          </hudson.plugins.git.UserRemoteConfig>
+        </userRemoteConfigs>
+        <branches>
+          <hudson.plugins.git.BranchSpec>
+            <name>$LLILCBranch</name>
+          </hudson.plugins.git.BranchSpec>
+        </branches>
+        <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+        <submoduleCfg class="list"/>
+        <extensions>
+          <hudson.plugins.git.extensions.impl.WipeWorkspace/>
+          <hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+            <relativeTargetDir>LLVM\tools\llilc</relativeTargetDir>
+          </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+        </extensions>
+      </hudson.plugins.git.GitSCM>
+      <hudson.plugins.git.GitSCM plugin="git@2.3.5">
+        <configVersion>2</configVersion>
+        <userRemoteConfigs>
+          <hudson.plugins.git.UserRemoteConfig>
+            <url>git@github.com:$CoreClrFork/coreclr.git</url>
+            <credentialsId>603b4ba7-083a-467b-80d2-28ae0f0e4b6c</credentialsId>
+          </hudson.plugins.git.UserRemoteConfig>
+        </userRemoteConfigs>
+        <branches>
+          <hudson.plugins.git.BranchSpec>
+            <name>$CoreClrBranch</name>
+          </hudson.plugins.git.BranchSpec>
+        </branches>
+        <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+        <submoduleCfg class="list"/>
+        <extensions>
+          <hudson.plugins.git.extensions.impl.WipeWorkspace/>
+          <hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+            <relativeTargetDir>coreclr</relativeTargetDir>
+          </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+          <hudson.plugins.git.extensions.impl.CheckoutOption>
+            <timeout>40</timeout>
+          </hudson.plugins.git.extensions.impl.CheckoutOption>
+          <hudson.plugins.git.extensions.impl.CloneOption>
+            <shallow>false</shallow>
+            <reference></reference>
+            <timeout>40</timeout>
+          </hudson.plugins.git.extensions.impl.CloneOption>
+        </extensions>
+      </hudson.plugins.git.GitSCM>
+      <hudson.plugins.git.GitSCM plugin="git@2.3.5">
+        <configVersion>2</configVersion>
+        <userRemoteConfigs>
+          <hudson.plugins.git.UserRemoteConfig>
+            <url>git@github.com:$RoslynFork/roslyn.git</url>
+            <credentialsId>603b4ba7-083a-467b-80d2-28ae0f0e4b6c</credentialsId>
+          </hudson.plugins.git.UserRemoteConfig>
+        </userRemoteConfigs>
+        <branches>
+          <hudson.plugins.git.BranchSpec>
+            <name>$RoslynBranch</name>
+          </hudson.plugins.git.BranchSpec>
+        </branches>
+        <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+        <submoduleCfg class="list"/>
+        <extensions>
+          <hudson.plugins.git.extensions.impl.WipeWorkspace/>
+          <hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+            <relativeTargetDir>roslyn</relativeTargetDir>
+          </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+          <hudson.plugins.git.extensions.impl.CloneOption>
+            <shallow>false</shallow>
+            <reference></reference>
+            <timeout>40</timeout>
+          </hudson.plugins.git.extensions.impl.CloneOption>
+        </extensions>
+      </hudson.plugins.git.GitSCM>
+    </scms>
+  </scm>
+  <assignedNode>windows</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>true</concurrentBuild>
+  <builders>
+    <hudson.tasks.BatchFile>
+      <command>if exist build/ rd /s /q build&#xd;
+mkdir build&#xd;
+if exist test/ rd /s /q test&#xd;
+mkdir test&#xd;
+&#xd;
+cd coreclr&#xd;
+build.cmd</command>
+    </hudson.tasks.BatchFile>
+    <hudson.tasks.BatchFile>
+      <command>cd build&#xd;
+cmake -G &quot;Visual Studio 14 2015 Win64&quot; -DLLVM_TARGETS_TO_BUILD=X86 -DWITH_CORECLR=%WORKSPACE%\coreclr\bin\Product\Windows_NT.x64.debug ..\llvm -DCMAKE_BUILD_TYPE=RELWITHDEBINFO -DLLVM_ENABLE_ASSERTIONS=ON&#xd;
+call &quot;%VS140COMNTOOLS%..\..\VC\vcvarsall.bat&quot; x86&#xd;
+echo on&#xd;
+msbuild llvm.sln /p:Configuration=RelWithDebInfo /p:Platform=x64 /t:ALL_BUILD /m</command>
+    </hudson.tasks.BatchFile>
+    <hudson.tasks.BatchFile>
+      <command>call &quot;%VS140COMNTOOLS%..\..\VC\vcvarsall.bat&quot; x86&#xd;
+echo on&#xd;
+cd roslyn&#xd;
+powershell .\.nuget\NuGetRestore.ps1&#xd;
+msbuild .\src\Compilers\CSharp\CscCore\CscCore.csproj</command>
+    </hudson.tasks.BatchFile>
+    <hudson.tasks.BatchFile>
+      <command>llvm\tools\llilc\test\llilc_roslyn_stage.cmd %WORKSPACE% build stage1</command>
+    </hudson.tasks.BatchFile>
+    <hudson.tasks.BatchFile>
+      <command>llvm\tools\llilc\test\llilc_roslyn_stage.cmd %WORKSPACE% build stage2</command>
+    </hudson.tasks.BatchFile>
+    <hudson.tasks.BatchFile>
+      <command>llvm\tools\llilc\test\llilc_roslyn_stage.cmd %WORKSPACE% build stage3</command>
+    </hudson.tasks.BatchFile>
+  </builders>
+  <publishers/>
+  <buildWrappers>
+    <hudson.plugins.build__timeout.BuildTimeoutWrapper plugin="build-timeout@1.14.1">
+      <strategy class="hudson.plugins.build_timeout.impl.AbsoluteTimeOutStrategy">
+        <timeoutMinutes>240</timeoutMinutes>
+      </strategy>
+      <operationList/>
+    </hudson.plugins.build__timeout.BuildTimeoutWrapper>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.6.2"/>
+  </buildWrappers>
+</project>

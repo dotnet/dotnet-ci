@@ -18,15 +18,22 @@
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>
-        <hudson.plugins.copyartifact.BuildSelectorParameter plugin="copyartifact@1.35.1">
+        <hudson.plugins.copyartifact.BuildSelectorParameter plugin="copyartifact@1.35.2">
           <name>COREFX_LINUX_BUILD</name>
           <description></description>
           <defaultSelector class="hudson.plugins.copyartifact.SpecificBuildSelector">
             <buildNumber></buildNumber>
           </defaultSelector>
         </hudson.plugins.copyartifact.BuildSelectorParameter>
-        <hudson.plugins.copyartifact.BuildSelectorParameter plugin="copyartifact@1.35.1">
+        <hudson.plugins.copyartifact.BuildSelectorParameter plugin="copyartifact@1.35.2">
           <name>COREFX_WINDOWS_BUILD</name>
+          <description></description>
+          <defaultSelector class="hudson.plugins.copyartifact.SpecificBuildSelector">
+            <buildNumber></buildNumber>
+          </defaultSelector>
+        </hudson.plugins.copyartifact.BuildSelectorParameter>
+        <hudson.plugins.copyartifact.BuildSelectorParameter plugin="copyartifact@1.35.2">
+          <name>COREFX_LINUX_NATIVECOMP_BUILD</name>
           <description></description>
           <defaultSelector class="hudson.plugins.copyartifact.SpecificBuildSelector">
             <buildNumber></buildNumber>
@@ -61,7 +68,7 @@
   <triggers/>
   <concurrentBuild>true</concurrentBuild>
   <builders>
-    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.35.1">
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.35.2">
       <project>dotnet_coreclr_linux_release</project>
       <filter></filter>
       <target></target>
@@ -69,7 +76,7 @@
       <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
       <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
     </hudson.plugins.copyartifact.CopyArtifact>
-    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.35.1">
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.35.2">
       <project>dotnet_corefx_windows_debug</project>
       <filter></filter>
       <target></target>
@@ -79,7 +86,7 @@
       </selector>
       <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
     </hudson.plugins.copyartifact.CopyArtifact>
-    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.35.1">
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.35.2">
       <project>dotnet_coreclr_windows_release</project>
       <filter>bin/Product/Linux*/**</filter>
       <target></target>
@@ -89,7 +96,17 @@
       </selector>
       <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
     </hudson.plugins.copyartifact.CopyArtifact>
-    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.35.1">
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.35.2">
+      <project>dotnet_corefx_linux_nativecomp_debug</project>
+      <filter>bin/**</filter>
+      <target></target>
+      <excludes></excludes>
+      <selector class="hudson.plugins.copyartifact.ParameterizedBuildSelector">
+        <parameterName>COREFX_LINUX_NATIVECOMP_BUILD</parameterName>
+      </selector>
+      <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
+    </hudson.plugins.copyartifact.CopyArtifact>
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.35.2">
       <project>dotnet_corefx_linux_debug</project>
       <filter></filter>
       <target></target>

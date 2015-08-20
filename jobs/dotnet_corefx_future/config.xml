@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<com.cloudbees.plugins.flow.BuildFlow plugin="build-flow-plugin@0.17">
+<com.cloudbees.plugins.flow.BuildFlow plugin="build-flow-plugin@0.18">
   <actions/>
   <description></description>
   <logRotator class="hudson.tasks.LogRotator">
@@ -16,6 +16,10 @@
     <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.11.3">
       <projectUrl>https://github.com/dotnet/corefx/</projectUrl>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.25">
+      <autoRebuild>false</autoRebuild>
+      <rebuildDisabled>false</rebuildDisabled>
+    </com.sonyericsson.rebuild.RebuildSettings>
   </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@2.3.5">
     <configVersion>2</configVersion>
@@ -41,6 +45,9 @@
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
+    <hudson.triggers.TimerTrigger>
+      <spec>@weekly</spec>
+    </hudson.triggers.TimerTrigger>
     <com.cloudbees.jenkins.GitHubPushTrigger plugin="github@1.11.3">
       <spec></spec>
     </com.cloudbees.jenkins.GitHubPushTrigger>

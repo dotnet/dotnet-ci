@@ -16,6 +16,10 @@
     <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.11.3">
       <projectUrl>https://github.com/dotnet/llilc/</projectUrl>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.25">
+      <autoRebuild>false</autoRebuild>
+      <rebuildDisabled>false</rebuildDisabled>
+    </com.sonyericsson.rebuild.RebuildSettings>
   </properties>
   <scm class="org.jenkinsci.plugins.multiplescms.MultiSCM" plugin="multiple-scms@0.4">
     <scms>
@@ -29,7 +33,7 @@
         </userRemoteConfigs>
         <branches>
           <hudson.plugins.git.BranchSpec>
-            <name>refs/heads/mergetest</name>
+            <name>*/MS</name>
           </hudson.plugins.git.BranchSpec>
         </branches>
         <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
@@ -39,13 +43,10 @@
           <hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
             <relativeTargetDir>LLVM</relativeTargetDir>
           </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
-          <hudson.plugins.git.extensions.impl.CheckoutOption>
-            <timeout>40</timeout>
-          </hudson.plugins.git.extensions.impl.CheckoutOption>
           <hudson.plugins.git.extensions.impl.CloneOption>
-            <shallow>false</shallow>
+            <shallow>true</shallow>
             <reference></reference>
-            <timeout>40</timeout>
+            <timeout>30</timeout>
           </hudson.plugins.git.extensions.impl.CloneOption>
         </extensions>
       </hudson.plugins.git.GitSCM>
@@ -53,14 +54,13 @@
         <configVersion>2</configVersion>
         <userRemoteConfigs>
           <hudson.plugins.git.UserRemoteConfig>
-            <refspec>+refs/pull/*:refs/remotes/origin/pr/*</refspec>
             <url>git@github.com:dotnet/llilc.git</url>
             <credentialsId>603b4ba7-083a-467b-80d2-28ae0f0e4b6c</credentialsId>
           </hudson.plugins.git.UserRemoteConfig>
         </userRemoteConfigs>
         <branches>
           <hudson.plugins.git.BranchSpec>
-            <name>refs/heads/mergetest</name>
+            <name>*/master</name>
           </hudson.plugins.git.BranchSpec>
         </branches>
         <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
@@ -97,7 +97,7 @@
     </scms>
   </scm>
   <scmCheckoutRetryCount>5</scmCheckoutRetryCount>
-  <assignedNode>windows</assignedNode>
+  <assignedNode>dci-win-fbld-1</assignedNode>
   <canRoam>false</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
@@ -105,6 +105,15 @@
   <triggers/>
   <concurrentBuild>true</concurrentBuild>
   <builders>
+    <com.microsoftopentechnologies.windowsazurestorage.AzureStorageBuilder plugin="windows-azure-storage@0.3.2-SNAPSHOT">
+      <storageAccName>dotnetci</storageAccName>
+      <containerName>llilc-release-win64</containerName>
+      <includeFilesPattern>**/*</includeFilesPattern>
+      <excludeFilesPattern></excludeFilesPattern>
+      <downloadDirLoc>lkg</downloadDirLoc>
+      <flattenDirectories>true</flattenDirectories>
+      <includeArchiveZips>false</includeArchiveZips>
+    </com.microsoftopentechnologies.windowsazurestorage.AzureStorageBuilder>
     <hudson.tasks.BatchFile>
       <command>if exist build/ rd /s /q build&#xd;
 mkdir build&#xd;
@@ -117,13 +126,22 @@ cd coreclr&#xd;
     </hudson.tasks.BatchFile>
     <hudson.tasks.BatchFile>
       <command>cd build&#xd;
-cmake -G &quot;Visual Studio 12 2013 Win64&quot; -DLLVM_TARGETS_TO_BUILD=X86 -DLLVM_TARGETS_TO_BUILD=X86 -DWITH_CORECLR=%WORKSPACE%\coreclr\bin\Product\Windows_NT.x64.Release ..\llvm&#xd;
+cmake -G &quot;Visual Studio 12 2013 Win64&quot; -DWITH_CORECLR=%WORKSPACE%\coreclr\bin\Product\Windows_NT.x64.Release ..\llvm&#xd;
 &quot;%VS120COMNTOOLS%\..\..\VC\vcvarsall.bat&quot; x86 &amp;&amp; msbuild llvm.sln /p:Configuration=Release /p:Platform=x64 /t:ALL_BUILD /m</command>
     </hudson.tasks.BatchFile>
     <hudson.tasks.BatchFile>
-      <command>cd coreclr\tests&#xd;
+      <command>if exist baseline/ rd /s /q baseline/&#xd;
+mkdir baseline&#xd;
+if exist target/ rd /s /q target/&#xd;
+mkdir target&#xd;
 &#xd;
-C:\Python34\python %WORKSPACE%\llvm\tools\llilc\test\llilc_runtest.py -a x64 -b release -j %WORKSPACE%\build\bin\Release\llilcjit.dll -c %WORKSPACE%\coreclr\bin\Product\Windows_NT.x64.Release || (echo There were failures with the new JIT&amp; exit /b -1)&#xd;
+cd coreclr\tests&#xd;
+&#xd;
+C:\Python27\python %WORKSPACE%\llvm\tools\llilc\test\llilc_runtest.py -a x64 -b release -d summary -r ..\..\baseline -j %WORKSPACE%\lkg\llilcjit.dll -c %WORKSPACE%\coreclr\bin\Product\Windows_NT.x64.Release&#xd;
+&#xd;
+C:\Python27\python %WORKSPACE%\llvm\tools\llilc\test\llilc_runtest.py -a x64 -b release -d summary -r ..\..\target -j %WORKSPACE%\build\bin\Release\llilcjit.dll -c %WORKSPACE%\coreclr\bin\Product\Windows_NT.x64.Release || (echo There were failures with the new JIT&amp; exit /b -1)&#xd;
+&#xd;
+C:\Python27\python %WORKSPACE%\llvm\tools\llilc\test\llilc_checkpass.py -b ..\..\baseline -d ..\..\target || (echo There were diffs.&amp; exit /b -1)&#xd;
 </command>
     </hudson.tasks.BatchFile>
   </builders>
@@ -131,11 +149,11 @@ C:\Python34\python %WORKSPACE%\llvm\tools\llilc\test\llilc_runtest.py -a x64 -b 
     <xunit plugin="xunit@1.96">
       <types>
         <XUnitDotNetTestType>
-          <pattern>test/CoreCLRTestAssets/coreclr/bin/**/TestRun*.xml</pattern>
-          <skipNoTestFiles>true</skipNoTestFiles>
-          <failIfNotNew>true</failIfNotNew>
+          <pattern>coreclr/bin/**/TestRun*.xml</pattern>
+          <skipNoTestFiles>false</skipNoTestFiles>
+          <failIfNotNew>false</failIfNotNew>
           <deleteOutputFiles>true</deleteOutputFiles>
-          <stopProcessingIfError>true</stopProcessingIfError>
+          <stopProcessingIfError>false</stopProcessingIfError>
         </XUnitDotNetTestType>
       </types>
       <thresholds>
@@ -157,6 +175,20 @@ C:\Python34\python %WORKSPACE%\llvm\tools\llilc\test\llilc_runtest.py -a x64 -b 
         <testTimeMargin>3000</testTimeMargin>
       </extraConfiguration>
     </xunit>
+    <com.microsoftopentechnologies.windowsazurestorage.WAStoragePublisher plugin="windows-azure-storage@0.3.2-SNAPSHOT">
+      <storageAccName>dotnetci</storageAccName>
+      <containerName>llilc-release-win64</containerName>
+      <cntPubAccess>true</cntPubAccess>
+      <cleanUpContainer>true</cleanUpContainer>
+      <allowAnonymousAccess>true</allowAnonymousAccess>
+      <uploadArtifactsOnlyIfSuccessful>true</uploadArtifactsOnlyIfSuccessful>
+      <doNotFailIfArchivingReturnsNothing>false</doNotFailIfArchivingReturnsNothing>
+      <uploadZips>true</uploadZips>
+      <doNotUploadIndividualFiles>false</doNotUploadIndividualFiles>
+      <filesPath>build/bin/Release/*.dll</filesPath>
+      <excludeFilesPath></excludeFilesPath>
+      <virtualPath></virtualPath>
+    </com.microsoftopentechnologies.windowsazurestorage.WAStoragePublisher>
   </publishers>
   <buildWrappers>
     <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.6.2"/>

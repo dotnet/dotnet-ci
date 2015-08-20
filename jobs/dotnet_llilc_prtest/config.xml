@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<com.cloudbees.plugins.flow.BuildFlow plugin="build-flow-plugin@0.17">
+<com.cloudbees.plugins.flow.BuildFlow plugin="build-flow-plugin@0.18">
   <actions/>
   <description></description>
   <logRotator class="hudson.tasks.LogRotator">
@@ -16,19 +16,43 @@
     <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.11.3">
       <projectUrl>https://github.com/dotnet/llilc/</projectUrl>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>LLVMFork</name>
+          <description></description>
+          <defaultValue>Microsoft</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>LLVMBranch</name>
+          <description></description>
+          <defaultValue>MS</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>LLILCFork</name>
+          <description></description>
+          <defaultValue>dotnet</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>LLILCBranch</name>
+          <description></description>
+          <defaultValue>$sha1</defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
   </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@2.3.5">
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
         <refspec>+refs/pull/*:refs/remotes/origin/pr/*</refspec>
-        <url>git@github.com:dotnet/llilc.git</url>
+        <url>git@github.com:$LLILCFork/llilc.git</url>
         <credentialsId>603b4ba7-083a-467b-80d2-28ae0f0e4b6c</credentialsId>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
       <hudson.plugins.git.BranchSpec>
-        <name>${sha1}</name>
+        <name>$LLILCBranch</name>
       </hudson.plugins.git.BranchSpec>
     </branches>
     <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
@@ -43,8 +67,9 @@
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers>
-    <org.jenkinsci.plugins.ghprb.GhprbTrigger plugin="ghprb@1.20">
+    <org.jenkinsci.plugins.ghprb.GhprbTrigger plugin="ghprb@1.24.5">
       <spec>H/5 * * * *</spec>
+      <configVersion>1</configVersion>
       <adminlist>microsoft mmitche</adminlist>
       <allowMembersOfWhitelistedOrgsAsAdmin>false</allowMembersOfWhitelistedOrgsAsAdmin>
       <orgslist></orgslist>
@@ -53,7 +78,6 @@
       <onlyTriggerPhrase>false</onlyTriggerPhrase>
       <useGitHubHooks>true</useGitHubHooks>
       <permitAll>true</permitAll>
-      <commentFilePath></commentFilePath>
       <whitelist></whitelist>
       <autoCloseFailedPullRequests>false</autoCloseFailedPullRequests>
       <displayBuildErrorsOnDownstreamBuilds>false</displayBuildErrorsOnDownstreamBuilds>
@@ -62,10 +86,22 @@
           <branch></branch>
         </org.jenkinsci.plugins.ghprb.GhprbBranch>
       </whiteListTargetBranches>
-      <msgSuccess></msgSuccess>
-      <msgFailure></msgFailure>
-      <commitStatusContext></commitStatusContext>
       <project>dotnet_llilc_prtest</project>
+      <__project class="com.cloudbees.plugins.flow.BuildFlow" reference="../../.."/>
+      <gitHubApiAuth>
+        <serverAPIUrl>https://api.github.com</serverAPIUrl>
+        <credentialsId>38b3cdfa-c9ae-4571-ad82-1b90ed487c9a</credentialsId>
+        <id>db6ecde3-83f0-459b-95ea-52b09dd1e069</id>
+        <description>Pre credentials Token</description>
+      </gitHubApiAuth>
+      <extensions>
+        <org.jenkinsci.plugins.ghprb.extensions.status.GhprbSimpleStatus>
+          <commitStatusContext></commitStatusContext>
+          <triggeredStatus></triggeredStatus>
+          <startedStatus></startedStatus>
+          <statusUrl></statusUrl>
+        </org.jenkinsci.plugins.ghprb.extensions.status.GhprbSimpleStatus>
+      </extensions>
     </org.jenkinsci.plugins.ghprb.GhprbTrigger>
   </triggers>
   <concurrentBuild>true</concurrentBuild>
@@ -77,13 +113,13 @@
 out.println params
 
 parallel (
-  { build(&quot;dotnet_llilc_release_win64_prtest&quot;, sha1: params[&quot;sha1&quot;]) },
-  { build(&quot;dotnet_llilc_release_win32_prtest&quot;, sha1: params[&quot;sha1&quot;]) },
-  { build(&quot;dotnet_llilc_check_win64_prtest&quot;, sha1: params[&quot;sha1&quot;]) },
-  { build(&quot;dotnet_llilc_debug_win32_prtest&quot;, sha1: params[&quot;sha1&quot;]) },
-  { build(&quot;dotnet_llilc_linux_release_prtest&quot;, sha1: params[&quot;sha1&quot;]) },
-  { build(&quot;dotnet_llilc_linux_debug_prtest&quot;, sha1: params[&quot;sha1&quot;]) },
-  { build(&quot;dotnet_llilc_code_formatting_prtest&quot;, sha1: params[&quot;sha1&quot;]) }
+  { build(&quot;dotnet_llilc_release_win64_prtest&quot;, LLVMFork: params[&quot;LLVMFork&quot;], LLVMBranch: params[&quot;LLVMBranch&quot;], LLILCFork: params[&quot;LLILCFork&quot;], LLILCBranch: params[&quot;LLILCBranch&quot;], sha1: params[&quot;sha1&quot;]) },
+  { build(&quot;dotnet_llilc_release_win32_prtest&quot;, LLVMFork: params[&quot;LLVMFork&quot;], LLVMBranch: params[&quot;LLVMBranch&quot;], LLILCFork: params[&quot;LLILCFork&quot;], LLILCBranch: params[&quot;LLILCBranch&quot;], sha1: params[&quot;sha1&quot;]) },
+  { build(&quot;dotnet_llilc_check_win64_prtest&quot;, LLVMFork: params[&quot;LLVMFork&quot;], LLVMBranch: params[&quot;LLVMBranch&quot;], LLILCFork: params[&quot;LLILCFork&quot;], LLILCBranch: params[&quot;LLILCBranch&quot;], sha1: params[&quot;sha1&quot;]) },
+  { build(&quot;dotnet_llilc_debug_win32_prtest&quot;, LLVMFork: params[&quot;LLVMFork&quot;], LLVMBranch: params[&quot;LLVMBranch&quot;], LLILCFork: params[&quot;LLILCFork&quot;], LLILCBranch: params[&quot;LLILCBranch&quot;], sha1: params[&quot;sha1&quot;]) },
+  { build(&quot;dotnet_llilc_linux_release_prtest&quot;, LLVMFork: params[&quot;LLVMFork&quot;], LLVMBranch: params[&quot;LLVMBranch&quot;], LLILCFork: params[&quot;LLILCFork&quot;], LLILCBranch: params[&quot;LLILCBranch&quot;], sha1: params[&quot;sha1&quot;]) },
+  { build(&quot;dotnet_llilc_linux_debug_prtest&quot;, LLVMFork: params[&quot;LLVMFork&quot;], LLVMBranch: params[&quot;LLVMBranch&quot;], LLILCFork: params[&quot;LLILCFork&quot;], LLILCBranch: params[&quot;LLILCBranch&quot;], sha1: params[&quot;sha1&quot;]) },
+  { build(&quot;dotnet_llilc_code_formatting_prtest&quot;, LLVMFork: params[&quot;LLVMFork&quot;], LLVMBranch: params[&quot;LLVMBranch&quot;], LLILCFork: params[&quot;LLILCFork&quot;], LLILCBranch: params[&quot;LLILCBranch&quot;], sha1: params[&quot;sha1&quot;]) }
 )</dsl>
   <buildNeedsWorkspace>true</buildNeedsWorkspace>
 </com.cloudbees.plugins.flow.BuildFlow>

@@ -16,6 +16,10 @@
     <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.11.3">
       <projectUrl>https://github.com/dotnet/roslyn/</projectUrl>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.25">
+      <autoRebuild>false</autoRebuild>
+      <rebuildDisabled>false</rebuildDisabled>
+    </com.sonyericsson.rebuild.RebuildSettings>
   </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@2.3.5">
     <configVersion>2</configVersion>
@@ -36,6 +40,7 @@
       <hudson.plugins.git.extensions.impl.CloneOption>
         <shallow>true</shallow>
         <reference></reference>
+        <timeout>60</timeout>
       </hudson.plugins.git.extensions.impl.CloneOption>
     </extensions>
   </scm>
@@ -48,7 +53,7 @@
   <concurrentBuild>true</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>./cibuild.sh --mono-path ~/builds/mono/bin --os Darwin</command>
+      <command>./cibuild.sh</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
