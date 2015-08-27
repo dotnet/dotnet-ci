@@ -95,6 +95,8 @@ for (jobName in jobList) {
     }
   }
   
+  job.save();
+  
   // print the current params for verification
   println('    Current properties:');
   prop = job.getProperty(ParametersDefinitionProperty.class)
