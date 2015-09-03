@@ -5,7 +5,7 @@
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>21</daysToKeep>
     <numToKeep>-1</numToKeep>
-    <artifactDaysToKeep>14</artifactDaysToKeep>
+    <artifactDaysToKeep>7</artifactDaysToKeep>
     <artifactNumToKeep>25</artifactNumToKeep>
   </logRotator>
   <keepDependencies>true</keepDependencies>
@@ -16,6 +16,16 @@
     <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.11.3">
       <projectUrl>https://github.com/dotnet/llilc/</projectUrl>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.25">
+      <autoRebuild>false</autoRebuild>
+      <rebuildDisabled>false</rebuildDisabled>
+    </com.sonyericsson.rebuild.RebuildSettings>
+    <hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@1.8.4">
+      <maxConcurrentPerNode>0</maxConcurrentPerNode>
+      <maxConcurrentTotal>0</maxConcurrentTotal>
+      <throttleEnabled>false</throttleEnabled>
+      <throttleOption>project</throttleOption>
+    </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
   </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@2.3.5">
     <configVersion>2</configVersion>
@@ -54,9 +64,17 @@
   <publishers/>
   <buildWrappers/>
   <icon/>
-  <dsl>parallel (
-    { build(&quot;dotnet_llilc_check_win64&quot;) },
-    { build(&quot;dotnet_llilc_release_win64&quot;) },
+  <dsl>import hudson.model.*;
+
+checkJob = Hudson.instance.getItem(&quot;dotnet_llilc_check_win64&quot;);
+checkJobNumber = checkJob.getLastStableBuild().number
+
+releaseJob = Hudson.instance.getItem(&quot;dotnet_llilc_release_win64&quot;);
+releaseJobNumber = releaseJob.getLastStableBuild().number
+
+parallel (
+    { build(&quot;dotnet_llilc_check_win64&quot;, LastStableBuild: checkJobNumber) },
+    { build(&quot;dotnet_llilc_release_win64&quot;, LastStableBuild: releaseJobNumber) },
     { build(&quot;dotnet_llilc_debug_win32&quot;) },
     { build(&quot;dotnet_llilc_release_win32&quot;) },
     { build(&quot;dotnet_llilc_linux_debug&quot;) },

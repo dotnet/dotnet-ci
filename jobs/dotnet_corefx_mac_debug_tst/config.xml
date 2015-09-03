@@ -5,7 +5,7 @@
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>21</daysToKeep>
     <numToKeep>-1</numToKeep>
-    <artifactDaysToKeep>14</artifactDaysToKeep>
+    <artifactDaysToKeep>7</artifactDaysToKeep>
     <artifactNumToKeep>25</artifactNumToKeep>
   </logRotator>
   <keepDependencies>false</keepDependencies>
@@ -18,14 +18,14 @@
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>
-        <hudson.plugins.copyartifact.BuildSelectorParameter plugin="copyartifact@1.35.1">
+        <hudson.plugins.copyartifact.BuildSelectorParameter plugin="copyartifact@1.35.2">
           <name>COREFX_MAC_BUILD</name>
           <description></description>
           <defaultSelector class="hudson.plugins.copyartifact.SpecificBuildSelector">
             <buildNumber></buildNumber>
           </defaultSelector>
         </hudson.plugins.copyartifact.BuildSelectorParameter>
-        <hudson.plugins.copyartifact.BuildSelectorParameter plugin="copyartifact@1.35.1">
+        <hudson.plugins.copyartifact.BuildSelectorParameter plugin="copyartifact@1.35.2">
           <name>COREFX_WINDOWS_BUILD</name>
           <description></description>
           <defaultSelector class="hudson.plugins.copyartifact.SpecificBuildSelector">
@@ -34,6 +34,16 @@
         </hudson.plugins.copyartifact.BuildSelectorParameter>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.25">
+      <autoRebuild>false</autoRebuild>
+      <rebuildDisabled>false</rebuildDisabled>
+    </com.sonyericsson.rebuild.RebuildSettings>
+    <hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@1.8.4">
+      <maxConcurrentPerNode>0</maxConcurrentPerNode>
+      <maxConcurrentTotal>0</maxConcurrentTotal>
+      <throttleEnabled>false</throttleEnabled>
+      <throttleOption>project</throttleOption>
+    </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
   </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@2.3.5">
     <configVersion>2</configVersion>
@@ -61,7 +71,7 @@
   <triggers/>
   <concurrentBuild>true</concurrentBuild>
   <builders>
-    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.35.1">
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.35.2">
       <project>dotnet_coreclr_mac_release</project>
       <filter></filter>
       <target></target>
@@ -69,7 +79,7 @@
       <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
       <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
     </hudson.plugins.copyartifact.CopyArtifact>
-    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.35.1">
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.35.2">
       <project>dotnet_corefx_windows_debug</project>
       <filter></filter>
       <target></target>
@@ -79,7 +89,7 @@
       </selector>
       <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
     </hudson.plugins.copyartifact.CopyArtifact>
-    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.35.1">
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.35.2">
       <project>dotnet_coreclr_windows_release</project>
       <filter>bin/Product/OSX*/**</filter>
       <target></target>
@@ -89,7 +99,7 @@
       </selector>
       <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
     </hudson.plugins.copyartifact.CopyArtifact>
-    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.35.1">
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.35.2">
       <project>dotnet_corefx_mac_debug</project>
       <filter></filter>
       <target></target>
@@ -100,7 +110,9 @@
       <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
     </hudson.plugins.copyartifact.CopyArtifact>
     <hudson.tasks.Shell>
-      <command>./run-test.sh --configuration Debug --os OSX --coreclr-bins ${WORKSPACE}/bin/Product/OSX.x64.Release/ --mscorlib-bins ${WORKSPACE}/bin/Product/OSX.x64.Release/
+      <command>PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+env
+./run-test.sh --configuration Debug --os OSX --coreclr-bins ${WORKSPACE}/bin/Product/OSX.x64.Release/ --mscorlib-bins ${WORKSPACE}/bin/Product/OSX.x64.Release/
 # Always exit with 0.  Expected to fail right now
 exit 0</command>
     </hudson.tasks.Shell>
@@ -109,7 +121,7 @@ exit 0</command>
   <buildWrappers>
     <hudson.plugins.build__timeout.BuildTimeoutWrapper plugin="build-timeout@1.14.1">
       <strategy class="hudson.plugins.build_timeout.impl.AbsoluteTimeOutStrategy">
-        <timeoutMinutes>120</timeoutMinutes>
+        <timeoutMinutes>240</timeoutMinutes>
       </strategy>
       <operationList/>
     </hudson.plugins.build__timeout.BuildTimeoutWrapper>

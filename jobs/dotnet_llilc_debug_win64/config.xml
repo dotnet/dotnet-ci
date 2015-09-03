@@ -5,7 +5,7 @@
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>21</daysToKeep>
     <numToKeep>-1</numToKeep>
-    <artifactDaysToKeep>14</artifactDaysToKeep>
+    <artifactDaysToKeep>7</artifactDaysToKeep>
     <artifactNumToKeep>25</artifactNumToKeep>
   </logRotator>
   <keepDependencies>false</keepDependencies>
@@ -20,6 +20,12 @@
       <autoRebuild>false</autoRebuild>
       <rebuildDisabled>false</rebuildDisabled>
     </com.sonyericsson.rebuild.RebuildSettings>
+    <hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@1.8.4">
+      <maxConcurrentPerNode>0</maxConcurrentPerNode>
+      <maxConcurrentTotal>0</maxConcurrentTotal>
+      <throttleEnabled>false</throttleEnabled>
+      <throttleOption>project</throttleOption>
+    </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
   </properties>
   <scm class="org.jenkinsci.plugins.multiplescms.MultiSCM" plugin="multiple-scms@0.4">
     <scms>
@@ -129,7 +135,7 @@ mkdir target&#xd;
 &#xd;
 cd coreclr\tests&#xd;
 &#xd;
-C:\Python34\python %WORKSPACE%\llvm\tools\llilc\test\llilc_runtest.py -a x64 -b debug -j %WORKSPACE%\build\bin\Debug\llilcjit.dll -c %WORKSPACE%\coreclr\bin\Product\Windows_NT.x64.Debug || (echo There were failures with the new JIT&amp; exit /b -1)&#xd;
+C:\Python27\python %WORKSPACE%\llvm\tools\llilc\test\llilc_runtest.py -a x64 -b debug -j %WORKSPACE%\build\bin\Debug\llilcjit.dll -c %WORKSPACE%\coreclr\bin\Product\Windows_NT.x64.Debug || (echo There were failures with the new JIT&amp; exit /b -1)&#xd;
 </command>
     </hudson.tasks.BatchFile>
   </builders>

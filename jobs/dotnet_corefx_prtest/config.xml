@@ -5,7 +5,7 @@
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>21</daysToKeep>
     <numToKeep>-1</numToKeep>
-    <artifactDaysToKeep>14</artifactDaysToKeep>
+    <artifactDaysToKeep>7</artifactDaysToKeep>
     <artifactNumToKeep>25</artifactNumToKeep>
   </logRotator>
   <keepDependencies>true</keepDependencies>
@@ -16,22 +16,47 @@
     <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.11.3">
       <projectUrl>https://github.com/dotnet/corefx/</projectUrl>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>GitBranchOrCommit</name>
+          <description>Git branch or commit to build.  If a branch, builds the HEAD of that branch.  If a commit, then checks out that specific commit.</description>
+          <defaultValue>${sha1}</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>GitRepoUrl</name>
+          <description>Git repo to clone.</description>
+          <defaultValue>git://github.com/dotnet/corefx.git</defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>GitRefSpec</name>
+          <description>RefSpec.  WHEN SUBMITTING PRIVATE JOB FROM YOUR OWN REPO, CLEAR THIS FIELD (or it won&apos;t find your code)</description>
+          <defaultValue>+refs/pull/*:refs/remotes/origin/pr/*</defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
     <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.25">
       <autoRebuild>false</autoRebuild>
       <rebuildDisabled>false</rebuildDisabled>
     </com.sonyericsson.rebuild.RebuildSettings>
+    <hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@1.8.4">
+      <maxConcurrentPerNode>0</maxConcurrentPerNode>
+      <maxConcurrentTotal>0</maxConcurrentTotal>
+      <throttleEnabled>false</throttleEnabled>
+      <throttleOption>project</throttleOption>
+    </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
   </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@2.3.5">
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
-        <refspec>+refs/pull/*:refs/remotes/origin/pr/*</refspec>
-        <url>git://github.com/dotnet/corefx.git</url>
+        <refspec>$GitRefSpec</refspec>
+        <url>$GitRepoUrl</url>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
       <hudson.plugins.git.BranchSpec>
-        <name>${sha1}</name>
+        <name>$GitBranchOrCommit</name>
       </hudson.plugins.git.BranchSpec>
     </branches>
     <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
@@ -72,6 +97,7 @@
         <credentialsId>38b3cdfa-c9ae-4571-ad82-1b90ed487c9a</credentialsId>
         <id>db6ecde3-83f0-459b-95ea-52b09dd1e069</id>
         <description>Pre credentials Token</description>
+        <secret></secret>
       </gitHubApiAuth>
       <extensions>
         <org.jenkinsci.plugins.ghprb.extensions.status.GhprbSimpleStatus>
@@ -91,30 +117,29 @@
   <dsl>parallel (
   {
     parallel (
-     { windows_debug_tests = build(&quot;dotnet_corefx_windows_debug_prtest&quot;, sha1: params[&quot;sha1&quot;]) },
-     { linux_debug_libs = build(&quot;dotnet_corefx_linux_debug_prtest&quot;, sha1: params[&quot;sha1&quot;]) },
-     { linux_nativecomp_libs = build(&quot;dotnet_corefx_linux_nativecomp_debug_prtest&quot;, sha1: params[&quot;sha1&quot;]) }
+     { windows_debug_tests = build(params, &quot;dotnet_corefx_windows_debug_prtest&quot;) },
+     { linux_debug_libs = build(params, &quot;dotnet_corefx_linux_debug_prtest&quot;) },
+     { linux_nativecomp_libs = build(params, &quot;dotnet_corefx_linux_nativecomp_debug_prtest&quot;) }
     )
       
     linux_debug_libs_snippet = &quot;&lt;SpecificBuildSelector&gt;&lt;buildNumber&gt;$linux_debug_libs.build.number&lt;/buildNumber&gt;&lt;/SpecificBuildSelector&gt;&quot;
     windows_debug_tests_snippet = &quot;&lt;SpecificBuildSelector&gt;&lt;buildNumber&gt;$windows_debug_tests.build.number&lt;/buildNumber&gt;&lt;/SpecificBuildSelector&gt;&quot;
     linux_nativecomp_libs_snippet = &quot;&lt;SpecificBuildSelector&gt;&lt;buildNumber&gt;$linux_nativecomp_libs.build.number&lt;/buildNumber&gt;&lt;/SpecificBuildSelector&gt;&quot;
     
-    build(&quot;dotnet_corefx_linux_debug_tst_prtest&quot;,
-          COREFX_LINUX_BUILD: linux_debug_libs_snippet, 
+    build(params + [COREFX_LINUX_BUILD: linux_debug_libs_snippet, 
           COREFX_WINDOWS_BUILD: windows_debug_tests_snippet,
-          COREFX_LINUX_NATIVECOMP_BUILD: linux_nativecomp_libs_snippet,
-          sha1: params[&quot;sha1&quot;])
+          COREFX_LINUX_NATIVECOMP_BUILD: linux_nativecomp_libs_snippet],
+         &quot;dotnet_corefx_linux_debug_tst_prtest&quot;)
   },
   {
     parallel (
-      { build(&quot;dotnet_corefx_windows_release_prtest&quot;, sha1: params[&quot;sha1&quot;]) },
-      { build(&quot;dotnet_corefx_linux_release_prtest&quot;, sha1: params[&quot;sha1&quot;]) },
-      { build(&quot;dotnet_corefx_mac_debug_prtest&quot;, sha1: params[&quot;sha1&quot;]) },
-      { build(&quot;dotnet_corefx_mac_release_prtest&quot;, sha1: params[&quot;sha1&quot;]) },
-      { build(&quot;dotnet_corefx_linux_nativecomp_release_prtest&quot;, sha1: params[&quot;sha1&quot;]) },
-      { build(&quot;dotnet_corefx_mac_nativecomp_debug_prtest&quot;, sha1: params[&quot;sha1&quot;]) },
-      { build(&quot;dotnet_corefx_mac_nativecomp_release_prtest&quot;, sha1: params[&quot;sha1&quot;]) }
+      { build(params, &quot;dotnet_corefx_windows_release_prtest&quot;) },
+      { build(params, &quot;dotnet_corefx_linux_release_prtest&quot;) },
+      { build(params, &quot;dotnet_corefx_mac_debug_prtest&quot;) },
+      { build(params, &quot;dotnet_corefx_mac_release_prtest&quot;) },
+      { build(params, &quot;dotnet_corefx_linux_nativecomp_release_prtest&quot;) },
+      { build(params, &quot;dotnet_corefx_mac_nativecomp_debug_prtest&quot;) },
+      { build(params, &quot;dotnet_corefx_mac_nativecomp_release_prtest&quot;) }
     )
   }
 )</dsl>
