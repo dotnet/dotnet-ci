@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<com.cloudbees.plugins.flow.BuildFlow plugin="build-flow-plugin@0.17">
+<com.cloudbees.plugins.flow.BuildFlow plugin="build-flow-plugin@0.18">
   <actions/>
   <description></description>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>21</daysToKeep>
     <numToKeep>-1</numToKeep>
-    <artifactDaysToKeep>14</artifactDaysToKeep>
+    <artifactDaysToKeep>7</artifactDaysToKeep>
     <artifactNumToKeep>25</artifactNumToKeep>
   </logRotator>
   <keepDependencies>false</keepDependencies>

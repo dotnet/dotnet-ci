@@ -5,7 +5,7 @@
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>21</daysToKeep>
     <numToKeep>-1</numToKeep>
-    <artifactDaysToKeep>14</artifactDaysToKeep>
+    <artifactDaysToKeep>7</artifactDaysToKeep>
     <artifactNumToKeep>25</artifactNumToKeep>
   </logRotator>
   <keepDependencies>false</keepDependencies>
@@ -16,6 +16,25 @@
     <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.11.3">
       <projectUrl>https://github.com/dotnet/llilc/</projectUrl>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>LastStableBuild</name>
+          <description></description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.25">
+      <autoRebuild>false</autoRebuild>
+      <rebuildDisabled>false</rebuildDisabled>
+    </com.sonyericsson.rebuild.RebuildSettings>
+    <hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@1.8.4">
+      <maxConcurrentPerNode>0</maxConcurrentPerNode>
+      <maxConcurrentTotal>0</maxConcurrentTotal>
+      <throttleEnabled>false</throttleEnabled>
+      <throttleOption>project</throttleOption>
+    </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
   </properties>
   <scm class="org.jenkinsci.plugins.multiplescms.MultiSCM" plugin="multiple-scms@0.4">
     <scms>
@@ -103,12 +122,25 @@
     <com.microsoftopentechnologies.windowsazurestorage.AzureStorageBuilder plugin="windows-azure-storage@0.3.2-SNAPSHOT">
       <storageAccName>dotnetci</storageAccName>
       <containerName>llilc-check-win64</containerName>
-      <includeFilesPattern>**/*</includeFilesPattern>
+      <includeFilesPattern>${LastStableBuild}/**/*</includeFilesPattern>
       <excludeFilesPattern></excludeFilesPattern>
       <downloadDirLoc>lkg</downloadDirLoc>
       <flattenDirectories>true</flattenDirectories>
       <includeArchiveZips>false</includeArchiveZips>
     </com.microsoftopentechnologies.windowsazurestorage.AzureStorageBuilder>
+    <hudson.tasks.BatchFile>
+      <command>cd llvm&#xd;
+echo |set /p=&quot;LLVMCommit=&quot; &gt; %WORKSPACE%\commits.txt&#xd;
+git rev-parse &quot;refs/remotes/origin/MS^{commit}&quot; &gt;&gt; %WORKSPACE%\commits.txt&#xd;
+&#xd;
+cd tools\llilc&#xd;
+echo |set /p=&quot;LLILCCommit=&quot; &gt;&gt; %WORKSPACE%\commits.txt&#xd;
+git rev-parse &quot;refs/remotes/origin/master^{commit}&quot; &gt;&gt; %WORKSPACE%\commits.txt&#xd;
+&#xd;
+cd %workspace%\coreclr&#xd;
+echo |set /p=&quot;CoreCLRCommit=&quot; &gt;&gt; %WORKSPACE%\commits.txt&#xd;
+git rev-parse &quot;refs/remotes/origin/master^{commit}&quot; &gt;&gt; %WORKSPACE%\commits.txt</command>
+    </hudson.tasks.BatchFile>
     <hudson.tasks.BatchFile>
       <command>if exist build/ rd /s /q build&#xd;
 mkdir build&#xd;
@@ -132,11 +164,11 @@ mkdir target&#xd;
 &#xd;
 cd coreclr\tests&#xd;
 &#xd;
-C:\Python34\python %WORKSPACE%\llvm\tools\llilc\test\llilc_runtest.py -a x64 -b debug -d summary -r ..\..\baseline -j %WORKSPACE%\lkg\llilcjit.dll -c %WORKSPACE%\coreclr\bin\Product\Windows_NT.x64.Debug&#xd;
+C:\Python27\python %WORKSPACE%\llvm\tools\llilc\test\llilc_runtest.py -a x64 -b debug -d summary -r ..\..\baseline -j %WORKSPACE%\lkg\llilcjit.dll -c %WORKSPACE%\coreclr\bin\Product\Windows_NT.x64.Debug&#xd;
 &#xd;
-C:\Python34\python %WORKSPACE%\llvm\tools\llilc\test\llilc_runtest.py -a x64 -b debug -d summary -r ..\..\target -j %WORKSPACE%\build\bin\RelWithDebInfo\llilcjit.dll -c %WORKSPACE%\coreclr\bin\Product\Windows_NT.x64.Debug || (echo There were failures with the new JIT&amp; exit /b -1)&#xd;
+C:\Python27\python %WORKSPACE%\llvm\tools\llilc\test\llilc_runtest.py -a x64 -b debug -d summary -r ..\..\target -j %WORKSPACE%\build\bin\RelWithDebInfo\llilcjit.dll -c %WORKSPACE%\coreclr\bin\Product\Windows_NT.x64.Debug || (echo There were failures with the new JIT&amp; exit /b -1)&#xd;
 &#xd;
-C:\Python34\python %WORKSPACE%\llvm\tools\llilc\test\llilc_checkpass.py -b ..\..\baseline -d ..\..\target || (echo There were diffs.&amp; exit /b -1)&#xd;
+C:\Python27\python %WORKSPACE%\llvm\tools\llilc\test\llilc_checkpass.py -b ..\..\baseline -d ..\..\target || (echo There were diffs.&amp; exit /b -1)&#xd;
 </command>
     </hudson.tasks.BatchFile>
   </builders>
@@ -174,15 +206,15 @@ C:\Python34\python %WORKSPACE%\llvm\tools\llilc\test\llilc_checkpass.py -b ..\..
       <storageAccName>dotnetci</storageAccName>
       <containerName>llilc-check-win64</containerName>
       <cntPubAccess>true</cntPubAccess>
-      <cleanUpContainer>true</cleanUpContainer>
+      <cleanUpContainer>false</cleanUpContainer>
       <allowAnonymousAccess>true</allowAnonymousAccess>
       <uploadArtifactsOnlyIfSuccessful>true</uploadArtifactsOnlyIfSuccessful>
       <doNotFailIfArchivingReturnsNothing>false</doNotFailIfArchivingReturnsNothing>
       <uploadZips>false</uploadZips>
       <doNotUploadIndividualFiles>false</doNotUploadIndividualFiles>
-      <filesPath>build/bin/RelWithDebInfo/*.dll</filesPath>
+      <filesPath>build/bin/RelWithDebInfo/**,commits.txt</filesPath>
       <excludeFilesPath></excludeFilesPath>
-      <virtualPath></virtualPath>
+      <virtualPath>${BUILD_NUMBER}</virtualPath>
     </com.microsoftopentechnologies.windowsazurestorage.WAStoragePublisher>
   </publishers>
   <buildWrappers>
