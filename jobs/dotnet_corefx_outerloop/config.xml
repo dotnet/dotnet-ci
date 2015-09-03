@@ -5,7 +5,7 @@
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>21</daysToKeep>
     <numToKeep>-1</numToKeep>
-    <artifactDaysToKeep>14</artifactDaysToKeep>
+    <artifactDaysToKeep>7</artifactDaysToKeep>
     <artifactNumToKeep>25</artifactNumToKeep>
   </logRotator>
   <keepDependencies>true</keepDependencies>
@@ -34,6 +34,12 @@
       <autoRebuild>false</autoRebuild>
       <rebuildDisabled>false</rebuildDisabled>
     </com.sonyericsson.rebuild.RebuildSettings>
+    <hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@1.8.4">
+      <maxConcurrentPerNode>0</maxConcurrentPerNode>
+      <maxConcurrentTotal>0</maxConcurrentTotal>
+      <throttleEnabled>false</throttleEnabled>
+      <throttleOption>project</throttleOption>
+    </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
   </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@2.3.5">
     <configVersion>2</configVersion>
@@ -73,12 +79,13 @@
 parallel (
   { build(globalParams, &apos;dotnet_corefx_outerloop_windows_release&apos;) },
   { build(globalParams, &apos;dotnet_corefx_outerloop_windows_debug&apos;) },
-  { build(globalParams, &apos;dotnet_corefx_linux_centos71_nativecomp_debug&apos;) },
-  { build(globalParams, &apos;dotnet_corefx_linux_centos71_nativecomp_release&apos;) },
+  // Remove centos temporarily since the image seems to be corrupted.
+  // { build(globalParams, &apos;dotnet_corefx_linux_centos71_nativecomp_debug&apos;) },
+  // { build(globalParams, &apos;dotnet_corefx_linux_centos71_nativecomp_release&apos;) },
   { build(globalParams, &apos;dotnet_corefx_linux_opensuse132_nativecomp_debug&apos;) },
   { build(globalParams, &apos;dotnet_corefx_linux_opensuse132_nativecomp_release&apos;) },
   // Todo make this dependent on the nativecomp build and make it run outerloop
-  { ignore(FAILURE) { build(globalParams, &apos;dotnet_corefx_linux_centos71_debug_tst&apos;) } },
+  // { ignore(FAILURE) { build(globalParams, &apos;dotnet_corefx_linux_centos71_debug_tst&apos;) } },
   { ignore(FAILURE) { build(globalParams, &apos;dotnet_corefx_linux_opensuse132_debug_tst&apos;) } }
 )</dsl>
   <buildNeedsWorkspace>true</buildNeedsWorkspace>

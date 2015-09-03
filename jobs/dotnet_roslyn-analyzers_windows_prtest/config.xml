@@ -5,7 +5,7 @@
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>21</daysToKeep>
     <numToKeep>-1</numToKeep>
-    <artifactDaysToKeep>14</artifactDaysToKeep>
+    <artifactDaysToKeep>7</artifactDaysToKeep>
     <artifactNumToKeep>25</artifactNumToKeep>
   </logRotator>
   <keepDependencies>false</keepDependencies>
@@ -16,6 +16,18 @@
     <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.11.3">
       <projectUrl>https://github.com/dotnet/roslyn-analyzers/</projectUrl>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.25">
+      <autoRebuild>false</autoRebuild>
+      <rebuildDisabled>false</rebuildDisabled>
+    </com.sonyericsson.rebuild.RebuildSettings>
+    <hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@1.8.4">
+      <maxConcurrentPerNode>0</maxConcurrentPerNode>
+      <maxConcurrentTotal>0</maxConcurrentTotal>
+      <categories/>
+      <throttleEnabled>false</throttleEnabled>
+      <throttleOption>project</throttleOption>
+      <configVersion>1</configVersion>
+    </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
   </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@2.3.5">
     <configVersion>2</configVersion>
@@ -54,8 +66,8 @@
       <types>
         <XUnitDotNetTestType>
           <pattern>**/*TestResults.xml</pattern>
-          <skipNoTestFiles>true</skipNoTestFiles>
-          <failIfNotNew>false</failIfNotNew>
+          <skipNoTestFiles>false</skipNoTestFiles>
+          <failIfNotNew>true</failIfNotNew>
           <deleteOutputFiles>true</deleteOutputFiles>
           <stopProcessingIfError>true</stopProcessingIfError>
         </XUnitDotNetTestType>
@@ -64,7 +76,7 @@
         <org.jenkinsci.plugins.xunit.threshold.FailedThreshold>
           <unstableThreshold></unstableThreshold>
           <unstableNewThreshold></unstableNewThreshold>
-          <failureThreshold></failureThreshold>
+          <failureThreshold>0</failureThreshold>
           <failureNewThreshold></failureNewThreshold>
         </org.jenkinsci.plugins.xunit.threshold.FailedThreshold>
         <org.jenkinsci.plugins.xunit.threshold.SkippedThreshold>

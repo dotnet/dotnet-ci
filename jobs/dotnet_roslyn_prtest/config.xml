@@ -5,7 +5,7 @@
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>21</daysToKeep>
     <numToKeep>-1</numToKeep>
-    <artifactDaysToKeep>14</artifactDaysToKeep>
+    <artifactDaysToKeep>7</artifactDaysToKeep>
     <artifactNumToKeep>25</artifactNumToKeep>
   </logRotator>
   <keepDependencies>true</keepDependencies>
@@ -16,6 +16,16 @@
     <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.11.3">
       <projectUrl>https://github.com/dotnet/roslyn/</projectUrl>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.25">
+      <autoRebuild>false</autoRebuild>
+      <rebuildDisabled>false</rebuildDisabled>
+    </com.sonyericsson.rebuild.RebuildSettings>
+    <hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@1.8.4">
+      <maxConcurrentPerNode>0</maxConcurrentPerNode>
+      <maxConcurrentTotal>0</maxConcurrentTotal>
+      <throttleEnabled>false</throttleEnabled>
+      <throttleOption>project</throttleOption>
+    </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
   </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@2.3.5">
     <configVersion>2</configVersion>
@@ -72,6 +82,7 @@
         <credentialsId>38b3cdfa-c9ae-4571-ad82-1b90ed487c9a</credentialsId>
         <id>db6ecde3-83f0-459b-95ea-52b09dd1e069</id>
         <description>Pre credentials Token</description>
+        <secret></secret>
       </gitHubApiAuth>
       <extensions>
         <org.jenkinsci.plugins.ghprb.extensions.status.GhprbSimpleStatus>
@@ -85,13 +96,15 @@
   </triggers>
   <concurrentBuild>true</concurrentBuild>
   <builders/>
-  <publishers/>
+  <publishers>
+    <org.zeroturnaround.jenkins.flowbuildtestaggregator.FlowTestAggregator plugin="build-flow-test-aggregator@1.1"/>
+  </publishers>
   <buildWrappers/>
   <icon/>
   <dsl>parallel (
-  { build(&quot;dotnet_roslyn_windows_prtest&quot;, sha1: params[&quot;sha1&quot;]) },
-  { build(&quot;dotnet_roslyn_linux_prtest&quot;, sha1: params[&quot;sha1&quot;]) },
-  { build(&quot;dotnet_roslyn_mac_prtest&quot;, sha1: params[&quot;sha1&quot;]) }
+  { build(&quot;dotnet_roslyn_prtest_win&quot;, sha1: params[&quot;sha1&quot;]) },
+  { build(&quot;dotnet_roslyn_prtest_lin&quot;, sha1: params[&quot;sha1&quot;]) },
+  { build(&quot;dotnet_roslyn_prtest_mac&quot;, sha1: params[&quot;sha1&quot;]) }
 )</dsl>
-  <buildNeedsWorkspace>false</buildNeedsWorkspace>
+  <buildNeedsWorkspace>true</buildNeedsWorkspace>
 </com.cloudbees.plugins.flow.BuildFlow>

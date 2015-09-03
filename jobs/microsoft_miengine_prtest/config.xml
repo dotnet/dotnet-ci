@@ -5,7 +5,7 @@
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>21</daysToKeep>
     <numToKeep>-1</numToKeep>
-    <artifactDaysToKeep>14</artifactDaysToKeep>
+    <artifactDaysToKeep>7</artifactDaysToKeep>
     <artifactNumToKeep>25</artifactNumToKeep>
   </logRotator>
   <keepDependencies>true</keepDependencies>
@@ -45,7 +45,7 @@
   <triggers>
     <org.jenkinsci.plugins.ghprb.GhprbTrigger plugin="ghprb@1.24.5">
       <spec>H/5 * * * *</spec>
-      <configVersion>1</configVersion>
+      <configVersion>2</configVersion>
       <adminlist>microsoft mmitche</adminlist>
       <allowMembersOfWhitelistedOrgsAsAdmin>false</allowMembersOfWhitelistedOrgsAsAdmin>
       <orgslist></orgslist>
