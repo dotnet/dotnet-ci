@@ -68,7 +68,7 @@
   <concurrentBuild>true</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>./src/Native/build.sh x64 debug</command>
+      <command>./build.sh native x64 debug</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>

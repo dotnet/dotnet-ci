@@ -44,7 +44,7 @@
   <concurrentBuild>true</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>./src/Native/build.sh x64 release</command>
+      <command>./build.sh native x64 release</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
