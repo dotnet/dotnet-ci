@@ -67,6 +67,18 @@ elseif ($Machine -match "fbsd")
 	$osType = "fbsd"
 	$osDescription = "FreeBSD 10.1"
 }
+elseif ($Machine -match "cnt71")
+{
+	# Centos 7.1
+	$osType = "cnt71"
+	$osDescription = "Centos 7.1"
+}
+elseif ($Machine -match "s132")
+{
+	# OpenSUSE 13.2
+	$osType = "s132"
+	$osDescription = "OpenSUSE 13.2"
+}
 else
 {
 	throw "Unknown OS type.  Expected $Machine to contain 'win, ub, or fbsd'"
