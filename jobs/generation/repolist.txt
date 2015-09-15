@@ -1,0 +1,6 @@
+# List of repositories that are under control of JIT CI
+# Place one element per line in <org>/<project> format
+# Example: dotnet/coreclr
+# This file is currently non-functional
+
+dotnet/coreclr
