@@ -33,8 +33,8 @@ param (
     [switch]$Auto = $false,
     [switch]$DryRun = $false,
     [string]$PrivateKey = $null,
-	[int]$IdleWait = 10,
-	[int]$MaxIdleTimes = 24,
+    [int]$IdleWait = 10,
+    [int]$MaxIdleTimes = 24,
     [switch]$AllowMissingMachines = $false,
     [switch]$Verbose = $false
 )
@@ -68,28 +68,28 @@ foreach ($machine in $inventory)
         
         if ($fullMachineName -match $Machines)
         {
-			Write-Host "Matched"
-			
+            Write-Host "Matched"
+
             $machinesThatNeedUpdates += @{
-				FullMachineName = $fullMachineName;
-				Port = [int]$machine.RdpSshStart + [int]$i;
-				OSType = $machine.OSType;
-				Cycled = $false;
+                FullMachineName = $fullMachineName;
+                Port = [int]$machine.RdpSshStart + [int]$i;
+                OSType = $machine.OSType;
+                Cycled = $false;
                 Size = $machine.Size
-				}
+                }
         }
-		else {
-			Write-Host "Not Matched"
-		}
+        else {
+            Write-Host "Not Matched"
+        }
     }
 }
             
 if ($Verbose) {
     Write-Host "The following machines will be updated: "
     foreach($entry in $machinesThatNeedUpdates) {
-		$entry.GetEnumerator() | Sort-Object Name
-		Write-Host
-	}
+        $entry.GetEnumerator() | Sort-Object Name
+        Write-Host
+    }
 }
 
 # Check to see whether the new vm image actually exists
@@ -98,7 +98,7 @@ $newImageCheck = Get-AzureVMImage $NewImage
 
 if (!$newImageCheck)
 {
-	throw "VM $NewImage did not exist, aborting"
+    throw "VM $NewImage did not exist, aborting"
 }
 
 # 1. Walk the machine update list and set everything offline.
@@ -109,7 +109,7 @@ if (!$newImageCheck)
 if ($Auto)
 {
     # Download Jar to temp
-	WGet $JenkinsCLIJarURL -OutFile $JenkinsCLIJar
+    WGet $JenkinsCLIJarURL -OutFile $JenkinsCLIJar
     
     if (!$DryRun) {
         Write-Host "Taking machines offline for auto-update"
@@ -132,49 +132,49 @@ $notAllUpdated = $false
 
 do
 {
-	$notAllUpdated = $false
-	
+    $notAllUpdated = $false
+
     foreach ($machine in $machinesThatNeedUpdates)
     {
-		# If already updated, skip
-		
-		if ($machine.Cycled)
-		{
-			continue
-		}
+        # If already updated, skip
+        
+        if ($machine.Cycled)
+        {
+            continue
+        }
         
         $fullMachineName = $machine.FullMachineName
         $port = $machine.Port
-		
-		# If in auto-mode, check to see whether the machine is quiet now
-		
-		if ($Auto)
-		{
+        
+        # If in auto-mode, check to see whether the machine is quiet now
+
+        if ($Auto)
+        {
             Write-Output "Checking status of $fullMachineName"
             
-			$idleOutput = & java -jar $JenkinsCLIJar -i $PrivateKey -s $JenkinsInstance groovy check-is-idle.groovy $fullMachineName
-			if ($idleOutput -contains "Busy")
-			{
+            $idleOutput = & java -jar $JenkinsCLIJar -i $PrivateKey -s $JenkinsInstance groovy check-is-idle.groovy $fullMachineName
+            if ($idleOutput -contains "Busy")
+            {
                 Write-Host "$fullMachineName is Busy, waiting till later"
-				# Machine is busy.
-				$notAllUpdated = $true
-				continue
-			}
-			elseif ($idleOutput -contains "Idle")
-			{
-				# Ready to go.
-				if ($Verbose)
-				{
-					Write-Host "$fullMachineName is Idle and ready to be cycled"
-				}
-			}
-			else
-			{
-				# Unknown response from the script
-				throw "Unknown response '$idleOutput' from check-is-idle.groovy script"
-			}
-		}
-		
+                # Machine is busy.
+                $notAllUpdated = $true
+                continue
+            }
+            elseif ($idleOutput -contains "Idle")
+            {
+                # Ready to go.
+                if ($Verbose)
+                {
+                    Write-Host "$fullMachineName is Idle and ready to be cycled"
+                }
+            }
+            else
+            {
+                # Unknown response from the script
+                throw "Unknown response '$idleOutput' from check-is-idle.groovy script"
+            }
+        }
+
         Write-Host "Cycling $fullMachineName to $NewImage with RDP/SSH on $port"
         
         if ($DryRun) {
@@ -182,7 +182,7 @@ do
             $machine.Cycled = $true
             continue;
         }
-		
+        
         # Check for existence of the old machine
 
         $existingVM = Get-AzureVM -ServiceName $ServiceName -Name $fullMachineName
@@ -243,43 +243,45 @@ do
                 throw "Unknown OS type $osType"
             }
         }
-		
-		# Done cycling.  Set the machine online if in auto mode
-		
-		if ($Auto)
-		{
-			& java -jar $JenkinsCLIJar -i $PrivateKey -s $JenkinsInstance online-node $fullMachineName
-		
-			if (-not $?)
-			{
-				throw "Failed to take $fullMachineName online"
-			}
-		}
+        
+        # Done cycling.  Set the machine online if in auto mode
+        
+        if ($Auto)
+        {
+            & java -jar $JenkinsCLIJar -i $PrivateKey -s $JenkinsInstance online-node $fullMachineName
+        
+            if (-not $?)
+            {
+                throw "Failed to take $fullMachineName online"
+            }
+        }
+
+        $machine.Cycled = $true
     }
-	
-	# If in auto mode and we haven't updated everything, wait the idle time mins
-	
-	if ($Auto -and $notAllUpdated)
-	{
-		if ($waitsLeft -eq 0)
-		{
-			# Print those machines that haven't been updated
-			
-			foreach ($entry in $machinesThatNeedUpdates)
-			{
-				if ($entry.Cycled)
-				{
-					continue
-				}
-				
-				$entry.GetEnumerator() | Sort-Object Name
-				Write-Host
-			}
-			throw "Failed to update all machines, some left."
-		}
-		
-		$waitsLeft--
-		Sleep $($IdleWait * 60)
-	}
+    
+    # If in auto mode and we haven't updated everything, wait the idle time mins
+    
+    if ($Auto -and $notAllUpdated)
+    {
+        if ($waitsLeft -eq 0)
+        {
+            # Print those machines that haven't been updated
+            
+            foreach ($entry in $machinesThatNeedUpdates)
+            {
+                if ($entry.Cycled)
+                {
+                    continue
+                }
+                
+                $entry.GetEnumerator() | Sort-Object Name
+                Write-Host
+            }
+            throw "Failed to update all machines, some left."
+        }
+        
+        $waitsLeft--
+        Sleep $($IdleWait * 60)
+    }
 }
 while ($notAllUpdated)
