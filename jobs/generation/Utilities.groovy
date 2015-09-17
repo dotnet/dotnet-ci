@@ -2,19 +2,46 @@ package jobs.generation;
 
 class Utilities {
 
-  def static getFullJobName(def project, def jobName, def isPR) {
+  def static getFullJobName(def project, def jobName, def isPR, def folder = '') {
     def projectJobName = project.replace('/', '_')
     def jobSuffix = ''
     if (isPR) { 
       jobSuffix = '_prtest'
     }
+    
+    def folderPrefix = ''
+    if (folder != '') {
+        folderPrefix = "${folder}/"
+    }
 
     if (jobName == '') {
-      return "${projectJobName}${jobSuffix}"
+      return "${folderPrefix}${projectJobName}${jobSuffix}"
     }
     else {
-      return "${projectJobName}_${jobName}${jobSuffix}"
+      return "${folderPrefix}${projectJobName}_${jobName}${jobSuffix}"
     }
+  }
+  
+  // Given the github full project name (e.g. dotnet/coreclr), get the
+  // project name (coreclr)
+  //
+  // Parameters:
+  //  project: Qualified project name
+  //
+  // Returns: Project name
+  def static getProjectName(def project) {
+    return project.split('/')[0];
+  }
+  
+  // Given the github full project name (e.g. dotnet/coreclr), get the
+  // org name (dotnet)
+  //
+  // Parameters:
+  //  project: Qualified project name
+  //
+  // Returns: Org name
+  def static getOrgName(def project) {
+    return project.split('/')[1];
   }
 
   // Do the standard job setup
