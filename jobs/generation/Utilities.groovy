@@ -2,6 +2,10 @@ package jobs.generation;
 
 class Utilities {
 
+  def static getFolderName(def project) {
+    return project.replace('/', '_')
+  }
+  
   def static getFullJobName(def project, def jobName, def isPR, def folder = '') {
     def projectJobName = project.replace('/', '_')
     def jobSuffix = ''
