@@ -30,7 +30,7 @@ class Utilities {
   //
   // Returns: Project name
   def static getProjectName(def project) {
-    return project.split('/')[0];
+    return project.split('/')[1];
   }
   
   // Given the github full project name (e.g. dotnet/coreclr), get the
@@ -41,7 +41,7 @@ class Utilities {
   //
   // Returns: Org name
   def static getOrgName(def project) {
-    return project.split('/')[1];
+    return project.split('/')[0];
   }
 
   // Do the standard job setup
