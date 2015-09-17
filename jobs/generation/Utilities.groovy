@@ -12,6 +12,8 @@ class Utilities {
     def folderPrefix = ''
     if (folder != '') {
         folderPrefix = "${folder}/"
+    } else {
+        folderPrefix = getProjectName(project) + "/"
     }
 
     if (jobName == '') {
