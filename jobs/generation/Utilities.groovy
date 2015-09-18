@@ -7,7 +7,6 @@ class Utilities {
   }
   
   def static getFullJobName(def project, def jobName, def isPR, def folder = '') {
-    def projectJobName = project.replace('/', '_')
     def jobSuffix = ''
     if (isPR) { 
       jobSuffix = '_prtest'
@@ -16,15 +15,13 @@ class Utilities {
     def folderPrefix = ''
     if (folder != '') {
         folderPrefix = "${folder}/"
-    } else {
-        folderPrefix = getProjectName(project) + "/"
     }
 
     if (jobName == '') {
-      return "${folderPrefix}${projectJobName}${jobSuffix}"
+      return "${folderPrefix}innerloop${jobSuffix}"
     }
     else {
-      return "${folderPrefix}${projectJobName}_${jobName}${jobSuffix}"
+      return "${folderPrefix}${jobName}${jobSuffix}"
     }
   }
   
