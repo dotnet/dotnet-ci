@@ -82,7 +82,12 @@ class Utilities {
     }
   }
 
-  def static addGithubPRTrigger(def job) {
+  def static addGithubPRTrigger(def job, def context = '') {
+    def commitContext = context
+    if (commitContext == '') {
+        commitContext = job.name
+    }
+    
     job.with {
       triggers {
         pullRequest {
@@ -92,7 +97,7 @@ class Utilities {
           permitAll()            
           extensions {
             commitStatus {
-              context(job.name)
+              context(commitContext)
             }
           }
         }
