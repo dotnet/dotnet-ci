@@ -79,7 +79,7 @@ streamFileFromWorkspace('dotnet-ci/jobs/data/repolist.txt').eachLine { line ->
                         external(Utilities.getProjectName(project) + '/netci.groovy')
                         
                         // Additional classpath should point to the utility repo
-                        additionalClasspath('dotnet-ci\n')
+                        additionalClasspath('dotnet-ci')
                         
                         // Generate jobs relative to the seed job.        
                         lookupStrategy('SEED_JOB')

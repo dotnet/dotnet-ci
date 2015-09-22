@@ -12,7 +12,6 @@ class Utilities {
       jobSuffix = '_prtest'
     }
     
-    // If the folder wasn't specified, we use the project folder name
     def folderPrefix = ''
     if (folder != '') {
         folderPrefix = "${folder}/"
