@@ -82,8 +82,8 @@ class Utilities {
     }
   }
 
-  def static addGithubPRTrigger(def job, def context = '') {
-    def commitContext = context
+  def static addGithubPRTrigger(def job, def contextString = '') {
+    def commitContext = contextString
     if (commitContext == '') {
         commitContext = job.name
     }
