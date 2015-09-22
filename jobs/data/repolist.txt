@@ -3,4 +3,4 @@
 # Example: dotnet/coreclr
 # This file is currently non-functional
 
-dotnet/coreclr
+dotnet/buildtools
