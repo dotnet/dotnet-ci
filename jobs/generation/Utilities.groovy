@@ -12,6 +12,7 @@ class Utilities {
       jobSuffix = '_prtest'
     }
     
+    // If the folder wasn't specified, we use the project folder name
     def folderPrefix = ''
     if (folder != '') {
         folderPrefix = "${folder}/"
@@ -102,24 +103,6 @@ class Utilities {
           }
         }
       }
-    }
-  }
-
-  // Sets up a simple build flow to build all jobs in jobList in parallel
-  // For PR jobs, 
-
-  def static addBuildJobsInParallel(def buildFlowJob, def jobList) {
-    def buildString = '';
-    jobList.each { currentJob ->
-      buildString += "  { build(globalParams, '${currentJob.name}') },\n"
-    }
-    buildFlowJob.with {
-      buildFlow("""
-// Augment the build parameters based on the GIT_COMMIT that was checked out.
-globalParams = params + [GitBranchOrCommit: build.environment.get('GIT_COMMIT')];
-parallel (
-${buildString}
-)""")
     }
   }
 
