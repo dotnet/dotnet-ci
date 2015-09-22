@@ -133,4 +133,44 @@ class Utilities {
       }
     }
   }
+  
+  def static addScm(def job, def project, def buildBranch = '${GitBranchOrCommit}') {
+    job.with {
+      scm {
+        git {
+          wipeOutWorkspace()
+
+          remote {
+            github(project)
+          }
+
+          branch(buildBranch)
+        }
+      }
+    }
+  }
+  
+  // Adds private job/PR test SCM.  This is slightly different than normal
+  // SCM since we use the parameterized fields for the refspec, repo, and branch
+  def static addPRTestSCM(def job, def project) {
+    job.with {
+      scm {
+        git {
+          wipeOutWorkspace()
+
+          remote {
+            github(project)
+
+            // Set the refspec
+            refspec('${GitRefSpec}')
+
+            // Reset the url to the parameterized version
+            url('${GitRepoUrl}')
+          }
+
+          branch('${GitBranchOrCommit}')
+        }
+      }
+    }
+  }
 }
