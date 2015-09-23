@@ -126,24 +126,7 @@ streamFileFromWorkspace('dotnet-ci/jobs/data/repolist.txt').eachLine { line ->
             if (isPRTest) {
                 // Enable the github PR trigger, but add a trigger phrase so
                 // that it doesn't build on every change.
-                
-                jobGenerator.with {
-                    triggers {
-                        pullRequest {
-                            useGitHubHooks()
-                            admin('Microsoft')
-                            admin('mmitche')
-                            permitAll()
-                            extensions {
-                                commitStatus {
-                                    context(jobGenerator.name)
-                                }
-                            }
-                            onlyTriggerPhrase()
-                            triggerPhrase('test ci please')
-                        }
-                    }
-                }
+                Utilities.addGithubPRTrigger(jobGenerator, jobGenerator.name, 'test ci please')
             }
             else {
                 // Enable the github push trigger
