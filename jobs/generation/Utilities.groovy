@@ -82,7 +82,14 @@ class Utilities {
     }
   }
 
-  def static addGithubPRTrigger(def job, def contextString = '') {
+  // Adds a github PR trigger for a job
+  // Parameters:
+  //    job - Job to add the PR trigger for
+  //    contextString - String to use as the context (appears in github as the name of the test being run).
+  //                    If empty, the job name is used.
+  //    triggerPhraseString - String to use to trigger the job.  If empty, the PR is triggered by default.
+  //
+  def static addGithubPRTrigger(def job, def contextString = '',  def triggerPhraseString = '') {
     def commitContext = contextString
     if (commitContext == '') {
         commitContext = job.name
@@ -99,6 +106,11 @@ class Utilities {
             commitStatus {
               context(commitContext)
             }
+          }
+          
+          if (triggerPhraseString != '') {
+            onlyTriggerPhrase()
+            triggerPhrase(triggerPhraseString)
           }
         }
       }
