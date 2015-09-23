@@ -5,3 +5,4 @@
 
 dotnet/buildtools
 dotnet/corefx
+Microsoft/xunit-performance
