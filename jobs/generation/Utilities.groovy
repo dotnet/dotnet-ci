@@ -185,4 +185,41 @@ class Utilities {
       }
     }
   }
+  
+  def static addArchival(def job, def filesToArchive, def filesToExclude = '',
+        def doNotFailIfNothingArchived = false, def archiveOnlyIfSuccessful = true) {
+
+        job.with {
+            publishers {
+                archiveArtifacts {
+                    pattern(filesToArchive)
+                    exclude(filesToExclude)
+                    onlyIfSuccessful(archiveOnlyIfSuccessful)
+                    allowEmpty(doNotFailIfNothingArchived)
+                }
+            }
+        }
+    }
+
+    def static addHtmlPublisher(def job, def reportDir, def name, def reportHtml, def keepAllReports = true) {
+        job.with {
+            publishers {
+                publishHtml {
+                    report(reportDir) {
+                        reportName(name)
+                        keepAll(keepAllReports)
+                        reportFiles(reportHtml)
+                    }
+                }
+            }
+        }
+    }
+
+    def static addPeriodicTrigger(def job, def cronString) {
+        job.with {
+            triggers {
+                cron(cronString)
+            }
+        }
+    }
 }
