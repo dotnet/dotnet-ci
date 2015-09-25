@@ -6,4 +6,5 @@
 dotnet/buildtools
 dotnet/codeformatter
 dotnet/corefx
+dotnet/roslyn
 Microsoft/xunit-performance
