@@ -4,5 +4,6 @@
 # This file is currently non-functional
 
 dotnet/buildtools
+dotnet/codeformatter
 dotnet/corefx
 Microsoft/xunit-performance
