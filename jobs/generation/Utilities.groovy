@@ -222,4 +222,50 @@ class Utilities {
             }
         }
     }
+    
+    // Adds xunit.NET v2 test results.
+    // TODO: Once native support for this type appears in the plugin (should be next version),
+    // this code can be simplified.
+    // Parameters:
+    //
+    //  job - Job to modify
+    //  resultFilePattern - Ant style pattern of test results.  Defaults to **/testResults.xml
+    //  skipIfNoTestFiles - Do not fail the build if there were no test files found.
+    def static addXUnitDotNETResults(def job, def resultFilePattern = '**/testResults.xml', def skipIfNoTestFiles = false) {
+        job.with {
+            configure { node ->
+                node / 'publishers' << {
+                    'xunit'('plugin': 'xunit@1.97') {
+                        'types' {
+                            'XUnitDotNetTestType' {
+                                'pattern'(resultFilePattern)
+                                'skipNoTestFiles'(skipIfNoTestFiles)
+                                'failIfNotNew'(true)
+                                'deleteOutputFiles'(true)
+                                'stopProcessingIfError'(true)
+                            }
+                        }
+                        'thresholds' {
+                            'org.jenkinsci.plugins.xunit.threshold.FailedThreshold' {
+                                'unstableThreshold'('')
+                                'unstableNewThreshold'('')
+                                'failureThreshold'('')
+                                'failureNewThreshold'('')
+                            }
+                            'org.jenkinsci.plugins.xunit.threshold.SkippedThreshold' {
+                                'unstableThreshold'('')
+                                'unstableNewThreshold'('')
+                                'failureThreshold'('')
+                                'failureNewThreshold'('')
+                            }
+                        }
+                        'thresholdMode'('1')
+                        'extraConfiguration' {
+                            testTimeMargin('3000')
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
