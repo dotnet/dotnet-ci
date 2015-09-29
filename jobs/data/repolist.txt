@@ -6,6 +6,7 @@
 dotnet/buildtools
 dotnet/codeformatter
 dotnet/corefx
+dotnet/orleans
 dotnet/roslyn
 dotnet/wcf
 Microsoft/ConcordExtensibilitySamples
