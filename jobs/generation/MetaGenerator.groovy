@@ -130,7 +130,7 @@ streamFileFromWorkspace('dotnet-ci/jobs/data/repolist.txt').eachLine { line ->
                   throttleDisabled(false)
                   maxTotal(1)
                   maxPerNode(1)
-                  categories('job_generators')
+                  categories(['job_generators'])
                 }
             }
             
