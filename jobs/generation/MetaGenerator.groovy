@@ -23,14 +23,17 @@ streamFileFromWorkspace('dotnet-ci/jobs/data/repolist.txt').eachLine { line ->
     line.trim()
     skip |= (line == '')
     if (!skip) {
-        def project = line
-      
+        // Tokenize the line into columns.  If there is a second column, it is the root folder that the
+        // the jobs should go in (vs. the repo name)
+        def projectInfo = line.tokenize()
+        assert projectInfo.size() == 1 || projectInfo.size() == 2 : "Line ${line} should have at least a project name"
+        def project = projectInfo[0]
        	// Create a folder for the project
-        // Folders do not have a way to not inherit the top level permissions
-     	// currently.  This is problematic since it means that we can't put 
-      	// names of non-open jobs in the folder name.  For now, label Private.
-      	// Fix for the folder should be relatively trivial.
         def generatorFolder = Utilities.getFolderName(project)
+        if (projectInfo.size() == 2) {
+            generatorFolder = projectInfo[1]
+        }
+        
         def generatorPRTestFolder = "${generatorFolder}/GenPRTest"
         
       	folder(generatorFolder) {}
@@ -121,6 +124,14 @@ streamFileFromWorkspace('dotnet-ci/jobs/data/repolist.txt').eachLine { line ->
             jobGenerator.with {
                 // Disable concurrency
                 concurrentBuild(false)
+                
+                // Disable concurrency across all generators 
+                throttleConcurrentBuilds {
+                  throttleDisabled(false)
+                  maxTotal(1)
+                  maxPerNode(1)
+                  categories('job_generators')
+                }
             }
             
             if (isPRTest) {
