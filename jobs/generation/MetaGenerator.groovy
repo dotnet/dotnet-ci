@@ -124,6 +124,14 @@ streamFileFromWorkspace('dotnet-ci/jobs/data/repolist.txt').eachLine { line ->
             jobGenerator.with {
                 // Disable concurrency
                 concurrentBuild(false)
+                
+                // Disable concurrency across all generators 
+                throttleConcurrentBuilds {
+                  throttleDisabled(false)
+                  maxTotal(1)
+                  maxPerNode(1)
+                  categories('job_generators')
+                }
             }
             
             if (isPRTest) {
