@@ -32,11 +32,16 @@ streamFileFromWorkspace('dotnet-ci/jobs/data/repolist.txt').eachLine { line ->
         def generatorFolder = Utilities.getFolderName(project)
         if (projectInfo.size() == 2) {
             generatorFolder = projectInfo[1]
+            if (generatorFolder == '<root>') {
+                generatorFolder = ''
+            }
         }
         
         def generatorPRTestFolder = "${generatorFolder}/GenPRTest"
         
-      	folder(generatorFolder) {}
+        if (generatorFolder != '') {
+      	  folder(generatorFolder) {}
+        }
         
         // Create a Folder for generator PR tests under that.
         folder(generatorPRTestFolder) {}
