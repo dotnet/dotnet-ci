@@ -8,7 +8,7 @@ dotnet/codeformatter
 dotnet/coreclr
 dotnet/corefx
 dotnet/orleans
-dotnet/roslyn
+dotnet/roslyn <root>
 dotnet/wcf
 Microsoft/ConcordExtensibilitySamples
 Microsoft/xunit-performance
