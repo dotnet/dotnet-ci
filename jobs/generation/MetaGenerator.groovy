@@ -126,18 +126,18 @@ streamFileFromWorkspace('dotnet-ci/jobs/data/repolist.txt').eachLine { line ->
             // Enable the standard options
             Utilities.addStandardOptions(jobGenerator)
             
-            jobGenerator.with {
+            // jobGenerator.with {
                 // Disable concurrency
-                concurrentBuild(false)
+                // concurrentBuild(false)
                 
                 // Disable concurrency across all generators 
-                throttleConcurrentBuilds {
-                  throttleDisabled(false)
-                  maxTotal(1)
-                  maxPerNode(1)
-                  categories(['job_generators'])
-                }
-            }
+                // throttleConcurrentBuilds {
+                //  throttleDisabled(false)
+                //  maxTotal(1)
+                //  maxPerNode(1)
+                //  categories(['job_generators'])
+                // }
+            // }
             
             if (isPRTest) {
                 // Enable the github PR trigger, but add a trigger phrase so
