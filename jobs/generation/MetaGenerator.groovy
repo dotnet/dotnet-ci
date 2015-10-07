@@ -121,10 +121,18 @@ streamFileFromWorkspace('dotnet-ci/jobs/data/repolist.txt').eachLine { line ->
                         }
                     }
                 }
+                
+                // Enable concurrent builds 
+                concurrentBuild()
+
+                // Enable the log rotator
+
+                logRotator {    
+                    artifactDaysToKeep(7)
+                    daysToKeep(21)
+                    artifactNumToKeep(25)
+                }
             }
-            
-            // Enable the standard options
-            Utilities.addStandardOptions(jobGenerator)
             
             // jobGenerator.with {
                 // Disable concurrency

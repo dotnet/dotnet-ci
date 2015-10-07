@@ -71,6 +71,19 @@ class Utilities {
         }
         timestamps()
       }
+      
+      // Add option to ignore changes to netci.groovy when building
+      configure {
+        it / 'buildWrappers' / 'ruby-proxy-object' {
+          'ruby-object' ('ruby-class': 'Jenkins::Plugin::Proxies::BuildWrapper', pluginid: 'pathignore') {
+             pluginid(pluginid: 'pathignore', 'ruby-class': 'String', 'pathignore' )
+             object('ruby-class': 'PathignoreWrapper', pluginid: 'pathignore') {
+               ignored__paths(pluginid: 'pathignore', 'ruby-class': 'String', 'netci.groovy')
+               invert__ignore(pluginid: 'pathignore', 'ruby-class': 'FalseClass')
+             }
+          }
+        }
+      }
     }
   }
 
