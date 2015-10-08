@@ -1,8 +1,13 @@
 # List is of the form: <base name> <number of nodes> <OS Type>
-BaseName,Count,OSType,CurrentImageName,Size,RdpSshStart
-dci-win-fbld-,20,Windows,dci-win-bld-31,Standard_D3,57100
-dci-win-rbld-,9,Windows,dci-win-bld-32,Standard_D3,57300
-dci-cnt71-bld-,1,Linux,dci-cnt71-bld-1,Standard_D3,57400
-dci-s132-bld-,1,Linux,dci-s132-bld-1,Standard_D3,57500
-dci-ub-fbld-,5,Linux,dci-ub-bld-8,Standard_D3,57000
-dci-fbsd-fbld-,2,Linux,dci-bsd-bld-2,Standard_D3,57200
+BaseName,Count,OSType,CurrentImageName,Size,RdpSshStart,ServiceName
+dci-win-fbld-,20,Windows,dci-win-bld-38,Standard_D3,57100,dotnet-ci-nodes
+dci-win-rbld-,12,Windows,dci-win-bld-32,Standard_D3,57300,dotnet-ci-nodes
+dci-cnt71-bld-,3,Linux,dci-cnt71-bld-5,Standard_D3,57400,dotnet-ci-nodes2
+# FreeBSD machines currently are not correctly getting their machine names from the Azure fabric
+# Need to log in and manually set the node name so that the connection to jenkins is correct
+dci-s132-bld-,2,Linux,dci-s132-bld-2,Standard_D3,57500,dotnet-ci-nodes2
+# Ubuntu machines may not correctly set their /mnt/j drive to writeable.  Log in after reimage
+dci-ub-fbld-,5,Linux,dci-ub-bld-10,Standard_D3,57000,dotnet-ci-nodes
+# FreeBSD machines currently are not correctly getting their machine names from the Azure fabric
+# Need to log in and manually set the node name so that the connection to jenkins is correct
+dci-fbsd-fbld-,3,Linux,dci-fbsd-bld-5,Standard_D3,57200,dotnet-ci-nodes
