@@ -46,7 +46,34 @@ class Utilities {
   def static getOrgName(def project) {
     return project.split('/')[0];
   }
-
+  
+  // Does simple setup for a job.  Used for easy setup when building a
+  // bunch of jobs in a loop
+  // 
+  // Parameters:
+  //  job - Job to modify
+  //  project - Project the job belongs to
+  //  isPR - True if the job is a PR job, false otherwise
+  //  prContext - If the job is a PR job, it will get a PR trigger.  This context will
+  //              show up in github for the PR.  If left blank, will use the job name.
+  def static simpleInnerLoopJobSetup(def job, def project, def isPR, def prContext = '') {
+    if (isPR) {
+      if (prContext == '') {
+        prContext = job.name
+      }
+      Utilities.addPRTestSCM(job, project)
+      Utilities.addStandardPRParameters(job, project)
+      Utilities.addGithubPRTrigger(job, prContext)
+    }
+    else {
+      Utilities.addScm(job, project)
+      Utilities.addStandardNonPRParameters(job)
+      Utilities.addGithubPushTrigger(job)
+    }
+    
+    Utilities.addStandardOptions(job)
+  }
+  
   // Do the standard job setup
   // job - Input job
   // url - Github URL of project
