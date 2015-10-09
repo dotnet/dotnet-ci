@@ -23,17 +23,31 @@ param (
     [string]$Description = $null
 )
 
-$ServiceName="dotnet-ci-nodes"
+$ServiceNames = @("dotnet-ci-nodes", "dotnet-ci-nodes2")
 
 # Do some housekeeping.  Look up the VM.  Check the OS and current state, and construct the potential image name to check whether it exists.
 
 Write-Host "Looking up $Machine in $ServiceName Azure cloud service"
 
-$existingVM = Get-AzureVM -ServiceName $ServiceName -Name $Machine
+$vmServiceName = $null
+$existingVM = $null
+foreach ($service in $ServiceNames)
+{
+    $existingVM = Get-AzureVM -ServiceName $service -Name $Machine
+
+    if (!$existingVM)
+    {
+        Write-Host "$Machine not found in $service"
+        continue
+    }
+    
+    $vmServiceName = $service
+    break
+}
 
 if (!$existingVM)
 {
-	throw "Could not find $Machine, did you get the VM name correct?"
+    throw "VM not found in any of the services"
 }
 
 Write-Host "Checking machine state"
@@ -122,6 +136,6 @@ if ($Description)
 Write-Host "Image will have description: $finalDescription"
 Write-Host "Attempting to Capture"
 
-Save-AzureVMImage -ServiceName $ServiceName -Name $Machine -ImageName $imageName -OSState "Generalized"  -ImageLabel $finalDescription
+Save-AzureVMImage -ServiceName $vmServiceName -Name $Machine -ImageName $imageName -OSState "Generalized"  -ImageLabel $finalDescription
 
 Write-Host "Success"

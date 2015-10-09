@@ -39,7 +39,6 @@ param (
     [switch]$Verbose = $false
 )
 
-$ServiceName="dotnet-ci-nodes"
 $Username="dotnet-bot"
 $JenkinsInstance="http://dotnet-ci.cloudapp.net"
 $JenkinsCLIJarURL="$JenkinsInstance/jnlpJars/jenkins-cli.jar"
@@ -69,13 +68,14 @@ foreach ($machine in $inventory)
         if ($fullMachineName -match $Machines)
         {
             Write-Host "Matched"
-
+            
             $machinesThatNeedUpdates += @{
                 FullMachineName = $fullMachineName;
                 Port = [int]$machine.RdpSshStart + [int]$i;
                 OSType = $machine.OSType;
                 Cycled = $false;
-                Size = $machine.Size
+                Size = $machine.Size;
+                ServiceName = $machine.ServiceName
                 }
         }
         else {
@@ -117,6 +117,16 @@ if ($Auto)
         foreach ($machine in $machinesThatNeedUpdates)
         {
             $fullMachineName = $machine.FullMachineName
+            
+            # Determine whether the node exists
+            & java -jar $JenkinsCLIJar -i $PrivateKey -s $JenkinsInstance get-node $fullMachineName
+            if (-not $?)
+            {
+                $machine.Exists = $false
+                Write-Host "Node $fullMachineName doesn't exist, skipping"
+                continue
+            }
+            
             & java -jar $JenkinsCLIJar -i $PrivateKey -s $JenkinsInstance offline-node $fullMachineName -m "Taking offline for automated image update"
             
             if (-not $?)
@@ -148,7 +158,7 @@ do
         
         # If in auto-mode, check to see whether the machine is quiet now
 
-        if ($Auto)
+        if ($Auto -and $machine.Exists)
         {
             Write-Output "Checking status of $fullMachineName"
             
@@ -185,7 +195,7 @@ do
         
         # Check for existence of the old machine
 
-        $existingVM = Get-AzureVM -ServiceName $ServiceName -Name $fullMachineName
+        $existingVM = Get-AzureVM -ServiceName $machine.ServiceName -Name $fullMachineName
 
         if (-not $existingVM)
         {
@@ -202,7 +212,7 @@ do
         {
             # Delete the old machine
         
-            Remove-AzureVM -ServiceName $ServiceName -Name $fullMachineName -DeleteVHD
+            Remove-AzureVM -ServiceName $machine.ServiceName -Name $fullMachineName -DeleteVHD
         }
         
         $machineSize = $machine.Size
@@ -214,20 +224,20 @@ do
             {
                 # Create the new one
 
-                $newVM = New-AzureQuickVM -Windows -ServiceName $ServiceName -Name $fullMachineName -ImageName $NewImage -AdminUsername $Username -Password $Password -InstanceSize $machineSize
+                $newVM = New-AzureQuickVM -Windows -ServiceName $machine.ServiceName -Name $fullMachineName -ImageName $NewImage -AdminUsername $Username -Password $Password -InstanceSize $machineSize
                 
                 if (!$newVM)
                 {
                     throw "Could not create $fullMachineName"
                 }
                 
-                Get-AzureVM -ServiceName $ServiceName -Name $fullMachineName | Set-AzureEndpoint -Name "RemoteDesktop" -PublicPort $port -LocalPort 3389 -Protocol TCP | Update-AzureVM
+                Get-AzureVM -ServiceName $machine.ServiceName -Name $fullMachineName | Set-AzureEndpoint -Name "RemoteDesktop" -PublicPort $port -LocalPort 3389 -Protocol TCP | Update-AzureVM
                 
-                Write-Host "Remember, mstsc /v:dotnet-ci-nodes.cloudapp.net:$port in a few minutes to start the jenkins process"
+                Write-Host "Remember, mstsc /v:$machine.ServiceName.cloudapp.net:$port in a few minutes to start the jenkins process"
             }
             "Linux"
             {
-                $newVM = New-AzureQuickVM -Linux -ServiceName $ServiceName -Name $fullMachineName -ImageName $NewImage -LinuxUser $Username -Password $Password -InstanceSize $machineSize
+                $newVM = New-AzureQuickVM -Linux -ServiceName $machine.ServiceName -Name $fullMachineName -ImageName $NewImage -LinuxUser $Username -Password $Password -InstanceSize $machineSize
                 
                 if (!$newVM)
                 {
@@ -236,7 +246,7 @@ do
                 
                 # Alter the endpoint so that the SSH port is predictable
                 
-                Get-AzureVM -ServiceName $ServiceName -Name $fullMachineName | Set-AzureEndpoint -Name "SSH" -PublicPort $port -LocalPort 22 -Protocol TCP | Update-AzureVM
+                Get-AzureVM -ServiceName $machine.ServiceName -Name $fullMachineName | Set-AzureEndpoint -Name "SSH" -PublicPort $port -LocalPort 22 -Protocol TCP | Update-AzureVM
             }
             default
             {
@@ -246,13 +256,20 @@ do
         
         # Done cycling.  Set the machine online if in auto mode
         
-        if ($Auto)
+        if ($Auto -and $machine.Exists)
         {
-            & java -jar $JenkinsCLIJar -i $PrivateKey -s $JenkinsInstance online-node $fullMachineName
-        
-            if (-not $?)
+            if ($osType -eq "Linux")
             {
-                throw "Failed to take $fullMachineName online"
+                Write-Host "[Temporary workaround] Temporary disk on $fullMachineName ($machine.ServiceName.cloudapp.net:$port) may not be writeable, please SSH and chmod 777 the disk"
+            }
+            else
+            {
+                & java -jar $JenkinsCLIJar -i $PrivateKey -s $JenkinsInstance online-node $fullMachineName
+                
+                if (-not $?)
+                {
+                    throw "Failed to bring $fullMachineName back online"
+                }
             }
         }
 
