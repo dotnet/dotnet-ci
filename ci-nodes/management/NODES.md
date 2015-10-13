@@ -137,9 +137,17 @@ Windows Server 2012 R2
 
 Basic Mac Mini machines.  Currently sitting in 3512.
 
+Setting up: 
+
+curl https://raw.githubusercontent.com/dotnet/dotnet-ci/master/ci-nodes/startup/jenkins-osx-setup.sh -O 
+chmod +x jenkins-osx-setup.sh
+sudo ./jenkins-osx-setup.sh <api key>
+
 |Software|Notes|
 |---|---|
 |xcode command line tools||
-|cmake|3.2|
+|cmake|3.2. Built from source|
+|icu4c||Install through homebrew}
+|unpacker|curl -o https://matell.blob.core.windows.net/unpacker/osx/unpacker -o /usr/local/bin/unpacker then chmod +x it
 |git||
 |java8||
