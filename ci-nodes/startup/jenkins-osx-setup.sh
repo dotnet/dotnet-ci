@@ -12,5 +12,5 @@ curl https://raw.githubusercontent.com/dotnet/dotnet-ci/master/ci-nodes/startup/
 chmod +x /Library/LaunchDaemons/jenkins-osx-startup.sh
 chown root:wheel /Library/LaunchDaemons/jenkins-osx-startup.sh
 chown root:wheel /Library/LaunchDaemons/jenkins-osx-startup.plist
-launchctl load jenkins-osx-startup.plist
+launchctl load /Library/LaunchDaemons/jenkins-osx-startup.plist
 
