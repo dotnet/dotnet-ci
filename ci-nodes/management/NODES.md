@@ -148,6 +148,6 @@ sudo ./jenkins-osx-setup.sh <api key>
 |xcode command line tools||
 |cmake|3.2. Built from source|
 |icu4c||Install through homebrew}
-|unpacker|curl -o https://matell.blob.core.windows.net/unpacker/osx/unpacker -o /usr/local/bin/unpacker then chmod +x it
+|unpacker|curl https://matell.blob.core.windows.net/unpacker/osx/unpacker -o /usr/local/bin/unpacker then chmod +x it
 |git||
 |java8||
