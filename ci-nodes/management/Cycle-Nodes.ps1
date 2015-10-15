@@ -67,7 +67,10 @@ foreach ($machine in $inventory)
         
         if ($fullMachineName -match $Machines)
         {
-            Write-Host "Matched"
+            if ($Verbose)
+            {
+                Write-Host "Matched"
+            }
             
             $machinesThatNeedUpdates += @{
                 FullMachineName = $fullMachineName;
@@ -79,17 +82,18 @@ foreach ($machine in $inventory)
                 }
         }
         else {
-            Write-Host "Not Matched"
+            if ($Verbose)
+            {
+                Write-Host "Not Matched"
+            }
         }
     }
 }
             
-if ($Verbose) {
-    Write-Host "The following machines will be updated: "
-    foreach($entry in $machinesThatNeedUpdates) {
-        $entry.GetEnumerator() | Sort-Object Name
-        Write-Host
-    }
+Write-Host "The following machines will be updated: "
+foreach($entry in $machinesThatNeedUpdates) {
+    $entry.GetEnumerator() | Sort-Object Name
+    Write-Host
 }
 
 # Check to see whether the new vm image actually exists
