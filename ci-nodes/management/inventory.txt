@@ -8,6 +8,9 @@ dci-cnt71-bld-,3,Linux,dci-cnt71-bld-5,Standard_D3,57400,dotnet-ci-nodes2
 dci-s132-bld-,2,Linux,dci-s132-bld-2,Standard_D3,57500,dotnet-ci-nodes2
 # Ubuntu machines may not correctly set their /mnt/j drive to writeable.  Log in after reimage
 dci-ub-fbld-,5,Linux,dci-ub-bld-10,Standard_D3,57000,dotnet-ci-nodes
+# Additional 5 ubuntu machines in the dotnet-ci-nodes2 service.  Labeled 10-15.
+# TODO: When possible, move machines around in the services to keep OS's together.
+dci-ub-bld-1,5,Linux,dci-ub-bld-10,Standard_D3,57010,dotnet-ci-nodes2
 # FreeBSD machines currently are not correctly getting their machine names from the Azure fabric
 # Need to log in and manually set the node name so that the connection to jenkins is correct
 dci-fbsd-fbld-,3,Linux,dci-fbsd-bld-5,Standard_D3,57200,dotnet-ci-nodes
