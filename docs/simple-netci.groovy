@@ -3,8 +3,6 @@ import jobs.generation.Utilities;
 
 // Defines a the new of the repo, used elsewhere in the file
 def project = 'dotnet/my-new-repo' 
-// Define build string
-def buildString = '''call "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\Common7\\Tools\\VsDevCmd.bat" && build.cmd'''
 
 // Generate the builds for debug and release, commit and PRJob
 [true, false].each { isPR -> // Defines a closure over true and false, value assigned to isPR
@@ -16,6 +14,9 @@ def buildString = '''call "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0
         // suffix _prtest will be appended.
         def newJobName = Utilities.getFullJobName(project, configuration, isPR)
         
+        // Define build string
+        def buildString = """call \"C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\Common7\\Tools\\VsDevCmd.bat\" && build.cmd ${configuration}"""
+
         // Create a new job with the specified name.  The brace opens a new closure
         // and calls made within that closure apply to the newly created job.
         def newJob = job(newJobName) {

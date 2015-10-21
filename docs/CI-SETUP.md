@@ -53,12 +53,12 @@ Below contains information on how to onboard your project onto Jenkins.
       - "Let me select individual events"
         - Pull request
         - Issue comment
-  6. PR this file, /cc @mmitche for review and comment "test this please" to the PR thread.
+  6. PR this file, /cc @mmitche for review and comment "test ci please" to the PR thread.
   7. Examine generated jobs for correctness.
 
 ### Writing CI definitions.
 
-Many projects have simple definitions, or at least start out with simple definitions.  Clone a repo, run the build and test, gather XUnit.NET test outputs.  While you can write your script from scratch, a lot of utility functionality is available while generating jobs.  This utility functionality is located in (jobs/generation/Utilities.groovy).  Below are annotated examples of CI definitions.
+Many projects have simple definitions, or at least start out with simple definitions.  Clone a repo, run the build and test, gather XUnit.NET test outputs.  While you can write your script from scratch, a lot of utility functionality is available while generating jobs.  This utility functionality is located in (jobs/generation/Utilities.groovy).  Below are annotated examples of CI definitions. The CI definition language is very powerful and can generate a wide variety of jobs very quickly.
 
 * [Simple Build/Test](simple-netci.groovy)
 
