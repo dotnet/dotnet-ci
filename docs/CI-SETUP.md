@@ -55,22 +55,4 @@ Below contains information on how to onboard your project onto Jenkins.
         - Issue comment
   6. PR this file, /cc @mmitche for review and comment "test ci please" to the PR thread.
   7. Examine generated jobs for correctness.
-
-### Writing CI definitions.
-
-Many projects have simple definitions, or at least start out with simple definitions.  Clone a repo, run the build and test, gather XUnit.NET test outputs.  While you can write your script from scratch, a lot of utility functionality is available while generating jobs.  This utility functionality is located in (jobs/generation/Utilities.groovy).  Below are annotated examples of CI definitions. The CI definition language is very powerful and can generate a wide variety of jobs very quickly.
-
-* [Simple Build/Test](simple-netci.groovy)
-
-Examples in the wild:
-
-* [dotnet/coreclr](https://github.com/dotnet/coreclr/blob/master/netci.groovy)
-* [dotnet/wcf](https://github.com/dotnet/wcf/blob/master/netci.groovy)
-  
-### How do I...?
-
-This section contains answers to frequently asked questions about how to do certain things.
-  
-  * ...
-  
-  
+  8. [Write your CI definition](WRITING-NETCI.md)
