@@ -258,7 +258,7 @@ class Utilities {
         job.with {
             parameters {
                 stringParam('GitBranchOrCommit', '${sha1}', 'Git branch or commit to build.  If a branch, builds the HEAD of that branch.  If a commit, then checks out that specific commit.')
-                stringParam('GitRepoUrl', calculateGitURL(project, protocol), 'Git repo to clone.')
+                stringParam('GitRepoUrl', calculateGitURL(project), 'Git repo to clone.')
                 stringParam('GitRefSpec', '+refs/pull/*:refs/remotes/origin/pr/*', 'RefSpec.  WHEN SUBMITTING PRIVATE JOB FROM YOUR OWN REPO, CLEAR THIS FIELD (or it won\'t find your code)')
             }
         }
