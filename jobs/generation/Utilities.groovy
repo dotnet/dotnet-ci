@@ -216,6 +216,12 @@ class Utilities {
                         onlyTriggerPhrase(triggerOnPhraseOnly)
                         regexTriggerPhrase(triggerPhraseString)
                     }
+                    else {
+                        // If the triggerPhrase is empty, set it to the commitContext
+                        // and set onlyTriggerPhrase to false so that the job can be rerun by name.    
+                        onlyTriggerPhrase(false)
+                        regexTriggerPhrase("(?i).*test\W+${commitContext}.*")
+                    }
                 }
             }
         }
