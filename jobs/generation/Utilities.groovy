@@ -269,7 +269,7 @@ class Utilities {
             addPRTestSCM(job, project)
         }
         else {
-            addScm(job, Project, buildBranch)
+            addScm(job, project, buildBranch)
         }
     }
   
