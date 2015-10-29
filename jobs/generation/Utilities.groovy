@@ -133,8 +133,9 @@ class Utilities {
     //  job: Job to set up.
     //  project: Name of project
     //  isPR: True if job is PR job, false otherwise.
-    def static standardJobSetup(def job, String project, boolean isPR) {
-        Utilities.addStandardParameters(job, project, isPR)
+    //  defaultBranch: If not a PR job, the branch that we should be building.
+    def static standardJobSetup(def job, String project, boolean isPR, String defaultBranch = '*/master') {
+        Utilities.addStandardParameters(job, project, isPR, defaultBranch)
         Utilities.addScm(job, project, isPR)
         Utilities.addStandardOptions(job)
     }
@@ -232,6 +233,13 @@ class Utilities {
         return "${protocol}://github.com/${project}.git"
     }
 
+    // Adds the standard parameters for PR and non-PR jobs.
+    //
+    // Parameters:
+    //  job: Job to change
+    //  project: Github project
+    //  isPR: True if this is a PR job, false otherwise.
+    //  defaultBranch: Branch to build by default if this is NOT a PR job.  Defaults to */master.
     def static addStandardParameters(def job, String project, boolean isPR, String defaultBranch = '*/master') {
         if (isPR) {
             addStandardPRParameters(job, project)
