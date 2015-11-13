@@ -45,7 +45,7 @@ FreeBSD 10.1 image, custom created from an image in the VM library, then modifie
 |git||
 |java8||
 
-## dci-ub-bld-8
+## dci-ub-bld-10
 
 Ubuntu 14.04 image, created from the stock image in the Azure library.  Uses init.d to start the jenkins node.  This is problematic as it doesn't successfully mark the temporary disk as writeable by non-root.  Needs to be fixed.
 
@@ -68,6 +68,7 @@ Ubuntu 14.04 image, created from the stock image in the Azure library.  Uses ini
 |mono-xbuild|For roslyn|
 |zlib1g||
 |zlib1g-dev||
+|unpacker|used to extract de-duped corefx test pacakge [download](https://matell.blob.core.windows.net/unpacker/linux/unpacker)|
 
 ## dci-win-bld-22 and dci-win-bld-23
 
@@ -117,7 +118,7 @@ Windows Server 2012 R2
 |VS 2013 Community||
 |VS 2015 Community Preview||
 
-## dci-win-bld-29
+## dci-win-bld-38
 
 Windows Server 2012 R2
 
@@ -132,6 +133,31 @@ Windows Server 2012 R2
 [python 3.2||
 |VS 2013 Community||
 |VS 2015 Community Preview||
+|Packer||
+
+### dci-w7-bld-1
+
+Windows Server 2008 R2 (Used for CoreFX outerloop testing)
+
+|Software|Notes|
+|---|---|
+|java8||
+|git||
+|VS 2013 Community||
+|VS 2015 Community||
+|Packer||
+
+### dci-w10-bld-1
+
+Windows Server 2016 TP3 (Used for CoreFX outerloop testing)
+
+|Software|Notes|
+|---|---|
+|java8||
+|git||
+|VS 2013 Community||
+|VS 2015 Community||
+|Packer||
 
 ## Mac mini's
 

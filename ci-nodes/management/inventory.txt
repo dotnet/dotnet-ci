@@ -2,6 +2,8 @@
 BaseName,Count,OSType,CurrentImageName,Size,RdpSshStart,ServiceName
 dci-win-fbld-,20,Windows,dci-win-bld-38,Standard_D3,57100,dotnet-ci-nodes
 dci-win-rbld-,12,Windows,dci-win-bld-32,Standard_D3,57300,dotnet-ci-nodes
+dci-w10-fbld-,2,Windows,dci-w10-bld-1,Standard_D3,57600,dotnet-ci-nodes
+dci-w7-fbld-,2,Windows,dci-w7-bld-1,Standard_D3,57610,dotnet-ci-nodes
 dci-cnt71-bld-,3,Linux,dci-cnt71-bld-5,Standard_D3,57400,dotnet-ci-nodes2
 # FreeBSD machines currently are not correctly getting their machine names from the Azure fabric
 # Need to log in and manually set the node name so that the connection to jenkins is correct
