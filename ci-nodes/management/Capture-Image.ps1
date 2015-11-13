@@ -63,11 +63,21 @@ if ($existingVM.PowerState -ne "Stopped")
 # There's no way to know what the VM OS is, but we do know the previous machine name,
 # which has a standard name.  So attempt to find the OS names in the vm name, and use that
 
-if ($Machine -match "win")
+elseif ($Machine -match "w7")
 {
-	# Windows
+	$osType = "w7"
+	$osDescription = "Windows 7"
+}
+elseif ($Machine -match "w10")
+{
+	$osType = "w10"
+	$osDescription = "Windows 10"
+}
+elseif ($Machine -match "win")
+{
+	# Windows 8.1
 	$osType = "win"
-	$osDescription = "Windows"
+	$osDescription = "Windows 8.1"
 }
 elseif ($Machine -match "ub")
 {
@@ -95,7 +105,7 @@ elseif ($Machine -match "s132")
 }
 else
 {
-	throw "Unknown OS type.  Expected $Machine to contain 'win, ub, or fbsd'"
+	throw "Unknown OS type.  Expected $Machine to contain 'w7, w10, win, ub, or fbsd'"
 }
 
 $imageNameBase = "dci-$osType-bld"
