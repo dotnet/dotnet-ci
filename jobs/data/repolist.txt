@@ -14,3 +14,4 @@ dotnet/roslyn <root>
 dotnet/wcf
 Microsoft/ConcordExtensibilitySamples
 Microsoft/xunit-performance
+Microsoft/Vipr

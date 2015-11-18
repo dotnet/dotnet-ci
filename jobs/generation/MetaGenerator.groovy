@@ -79,6 +79,12 @@ streamFileFromWorkspace('dotnet-ci/jobs/data/repolist.txt').eachLine { line ->
                     }
                 }
                 
+                // Add a parameter for the project, so that gets passed to the
+                // netci.groovy file
+                parameters {
+                    stringParam('GithubProject', project, 'Project name passed to the netci generator')
+                }
+                
                 // Add in the job generator logic
                 
                 steps {
