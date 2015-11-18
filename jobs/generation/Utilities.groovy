@@ -150,9 +150,9 @@ class Utilities {
             // Enable the log rotator
 
             logRotator {    
-                artifactDaysToKeep(4)
-                daysToKeep(21)
-                artifactNumToKeep(25)
+                artifactDaysToKeep(21)
+                daysToKeep(90)
+                artifactNumToKeep(50)
             }
 
             wrappers {
