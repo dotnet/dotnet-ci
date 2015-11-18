@@ -13,5 +13,6 @@ dotnet/orleans
 dotnet/roslyn <root>
 dotnet/wcf
 Microsoft/ConcordExtensibilitySamples
+Microsoft/msbuild
 Microsoft/xunit-performance
 Microsoft/Vipr
