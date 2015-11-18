@@ -8,6 +8,7 @@ dotnet/codeformatter
 dotnet/coreclr
 dotnet/corefx
 dotnet/corefxlab
+dotnet/corert
 dotnet/orleans
 dotnet/roslyn <root>
 dotnet/wcf
