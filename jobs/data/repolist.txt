@@ -9,6 +9,7 @@ dotnet/coreclr
 dotnet/corefx
 dotnet/corefxlab
 dotnet/corert
+dotnet/llilc
 dotnet/orleans
 dotnet/roslyn <root>
 dotnet/wcf
