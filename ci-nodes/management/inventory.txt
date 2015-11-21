@@ -1,7 +1,8 @@
 # List is of the form: <base name> <number of nodes> <OS Type>
 BaseName,Count,OSType,CurrentImageName,Size,RdpSshStart,ServiceName
-dci-win-fbld-,20,Windows,dci-win-bld-38,Standard_D3,57100,dotnet-ci-nodes
-dci-win-rbld-,12,Windows,dci-win-bld-32,Standard_D3,57300,dotnet-ci-nodes
+dci-win-fbld-,25,Windows,dci-win-bld-38,Standard_D3,57100,dotnet-ci-nodes
+dci-win-tbld-,15,Windows,dci-win-bld-38,Standard_D3,58000,dotnet-ci-nodes2
+dci-win-rbld-0,9,Windows,dci-win-bld-35,Standard_D3,57300,dotnet-ci-nodes
 dci-w10-fbld-,2,Windows,dci-w10-bld-1,Standard_D3,57600,dotnet-ci-nodes
 dci-w7-fbld-,2,Windows,dci-w7-bld-1,Standard_D3,57610,dotnet-ci-nodes
 dci-cnt71-bld-,3,Linux,dci-cnt71-bld-5,Standard_D3,57400,dotnet-ci-nodes2
