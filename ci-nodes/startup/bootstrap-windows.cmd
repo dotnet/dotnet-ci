@@ -1,1 +1,0 @@
-powershell.exe C:\bootstrap-windows.ps1 > log.txt
