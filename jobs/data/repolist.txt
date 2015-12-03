@@ -4,12 +4,12 @@
 # This file is currently non-functional
 
 dotnet/buildtools
+dotnet/cli
 dotnet/codeformatter
 dotnet/coreclr
 dotnet/corefx
 dotnet/corefxlab
 dotnet/corert
-dotnet/llilc
 dotnet/orleans
 dotnet/roslyn <root>
 dotnet/wcf
