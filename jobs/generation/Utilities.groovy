@@ -97,7 +97,8 @@ class Utilities {
                                'Windows 7':'windows7',
                                'FreeBSD': 'freebsd',
                                'CentOS7.1': 'centos-71',
-                               'OpenSUSE13.2': 'openSuSE-132']
+                               'OpenSUSE13.2': 'openSuSE-132',
+                               'Debian8.2': 'debian-82']
         def machineLabel = machineLabelMap.get(osName, null) 
         assert machineLabel != null : "Could not find machine label for ${osName}"
         job.with {
