@@ -261,7 +261,7 @@ class Utilities {
         
         if (triggerPhraseString == '') {
             triggerOnPhraseOnly = false
-            triggerPhraseString = "(?i).*test\\W+${commitContext}.*"
+            triggerPhraseString = "(?i).*test\\W+${contextString}.*"
         }
         
         Utilities.addGithubPRTriggerImpl(job, contextString, triggerPhraseString, triggerOnPhraseOnly, true, null, null)
