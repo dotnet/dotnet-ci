@@ -259,7 +259,7 @@ class Utilities {
     def static addGithubPRTrigger(def job, String contextString, String triggerPhraseString = '', boolean triggerOnPhraseOnly = true) {
         assert contextString != ''
         
-        if (triggerPhraseString == '')
+        if (triggerPhraseString == '') {
             triggerOnPhraseOnly = false
             triggerPhraseString = "(?i).*test\\W+${commitContext}.*"
         }
