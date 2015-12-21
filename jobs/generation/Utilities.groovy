@@ -206,7 +206,9 @@ class Utilities {
             triggers {
                 pullRequest {
                     useGitHubHooks()
-                    admin('Microsoft')
+                    if (permitAllSubmittters) {
+                        admin('Microsoft')
+                    }
                     admin('mmitche')
                     if (permitAllSubmittters) {
                         permitAll()
@@ -216,6 +218,7 @@ class Utilities {
                         permitAll(false)
                         orgWhitelist(permittedOrgs)
                         userWhitelist(permittedUsers)
+                        allowMembersOfWhitelistedOrgsAsAdmin()
                     }
                     extensions {
                         commitStatus {
