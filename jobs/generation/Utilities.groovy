@@ -188,8 +188,66 @@ class Utilities {
             } 
         }
     }
+    
+    // Adds a github PR trigger for a job
+    // Parameters:
+    //    job - Job to add the PR trigger for
+    //    contextString - String to use as the context (appears in github as the name of the test being run).
+    //                    If empty, the job name is used.
+    //    triggerPhraseString - String to use to trigger the job.  If empty, the PR is triggered by default.
+    //    triggerOnPhraseOnly - If true and trigger phrase string is non-empty, triggers only using the specified trigger
+    //                          phrase.
+    //    permitAllSubmittters - If true all PR submitters may run the job
+    //    permittedOrgs - If permitAllSubmittters is false, at least permittedOrgs or permittedUsers should be non-empty.
+    //    permittedUsers - If permitAllSubmittters is false, at least permittedOrgs or permittedUsers should be non-empty.
+    //
+    def private static addGithubPRTrigger(def job, String contextString, String triggerPhraseString, boolean triggerOnPhraseOnly, boolean permitAllSubmittters, Iterable<String> permittedOrgs = null, Iterable<String> permittedUsers = null) 
+        job.with {
+            triggers {
+                pullRequest {
+                    useGitHubHooks()
+                    admin('Microsoft')
+                    admin('mmitche')
+                    if (permitAllSubmittters) {
+                        permitAll()
+                    }
+                    else {
+                        assert permittedOrgs != null || permittedUsers != null
+                        permitAll(false)
+                        orgWhitelist(permittedOrgs)
+                        userWhitelist(permittedUsers)
+                    }
+                    extensions {
+                        commitStatus {
+                            context(contextString)
+                        }
+                    }
+                  
+                    onlyTriggerPhrase(triggerOnPhraseOnly)
+                    regexTriggerPhrase(triggerPhraseString)
+                }
+            }
+        }
+    }
+    
+    // Adds a github PR trigger only triggerable by member of certain organizations
+    // Parameters:
+    //    job - Job to add the PR trigger for
+    //    contextString - String to use as the context (appears in github as the name of the test being run).
+    //                    If empty, the job name is used.
+    //    triggerPhraseString - String to use to trigger the job.  If empty, the PR is triggered by default.
+    //    triggerOnPhraseOnly - If true and trigger phrase string is non-empty, triggers only using the specified trigger
+    //                          phrase.
+    //    permittedOrgs - If permitAllSubmittters is false, permittedOrgs should be non-empty list of organizations
+    //
+    def static addPrivateGithubPRTrigger(def job, String contextString, String triggerPhraseString, Iterable<String> permittedOrgs, Iterable<String> permittedUsers) {
+        assert contextString != ''
+        assert triggerPhraseString != ''
+        
+        addGithubPRTrigger(job, contextString, triggerPhraseString, true, false, permittedOrgs, permittedUsers)
+    }
 
-    // Adds a github PR 3 for a job
+    // Adds a github PR trigger for a job
     // Parameters:
     //    job - Job to add the PR trigger for
     //    contextString - String to use as the context (appears in github as the name of the test being run).
@@ -198,38 +256,15 @@ class Utilities {
     //    triggerOnPhraseOnly - If true and trigger phrase string is non-empty, triggers only using the specified trigger
     //                          phrase.
     //
-    def static addGithubPRTrigger(def job, String contextString = '', String triggerPhraseString = '', boolean triggerOnPhraseOnly = true) {
-        def commitContext = contextString
-        if (commitContext == '') {
-            commitContext = job.name
+    def static addGithubPRTrigger(def job, String contextString, String triggerPhraseString = '', boolean triggerOnPhraseOnly = true) {
+        assert contextString != ''
+        
+        if (triggerPhraseString == '')
+            triggerOnPhraseOnly = false
+            triggerPhraseString = "(?i).*test\\W+${commitContext}.*"
         }
-    
-        job.with {
-            triggers {
-                pullRequest {
-                    useGitHubHooks()
-                    admin('Microsoft')
-                    admin('mmitche')
-                    permitAll()            
-                    extensions {
-                        commitStatus {
-                            context(commitContext)
-                        }
-                    }
-                  
-                    if (triggerPhraseString != '') {
-                        onlyTriggerPhrase(triggerOnPhraseOnly)
-                        regexTriggerPhrase(triggerPhraseString)
-                    }
-                    else {
-                        // If the triggerPhrase is empty, set it to the commitContext
-                        // and set onlyTriggerPhrase to false so that the job can be rerun by name.    
-                        onlyTriggerPhrase(false)
-                        regexTriggerPhrase("(?i).*test\\W+${commitContext}.*")
-                    }
-                }
-            }
-        }
+        
+        addGithubPRTrigger(job, contextString, triggerPhraseString, triggerOnPhraseOnly, true, '')
     }
 
     def static calculateGitURL(def project, String protocol = 'https') {
