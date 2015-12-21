@@ -201,7 +201,7 @@ class Utilities {
     //    permittedOrgs - If permitAllSubmittters is false, at least permittedOrgs or permittedUsers should be non-empty.
     //    permittedUsers - If permitAllSubmittters is false, at least permittedOrgs or permittedUsers should be non-empty.
     //
-    def private static addGithubPRTrigger(def job, String contextString, String triggerPhraseString, boolean triggerOnPhraseOnly, boolean permitAllSubmittters, Iterable<String> permittedOrgs = null, Iterable<String> permittedUsers = null) 
+    def private static addGithubPRTrigger(def job, String contextString, String triggerPhraseString, boolean triggerOnPhraseOnly, boolean permitAllSubmittters, Iterable<String> permittedOrgs = null, Iterable<String> permittedUsers = null) {
         job.with {
             triggers {
                 pullRequest {
