@@ -148,11 +148,12 @@ class Utilities {
     // job - Input job to modify
     // jobTimeout - Set the job timeout.
     def static setJobTimeout(def job, int jobTimeout) {
-        wrappers {
-            timeout {
-                absolute(120)
+        job.with {
+            wrappers {
+                timeout {
+                    absolute(120)
+                }
             }
-            timestamps()
         }
     }
 
@@ -169,6 +170,10 @@ class Utilities {
                 artifactDaysToKeep(21)
                 daysToKeep(90)
                 artifactNumToKeep(50)
+            }
+            
+            wrappers {
+                timestamps()
             }
       
             // Add option to ignore changes to netci.groovy when building
