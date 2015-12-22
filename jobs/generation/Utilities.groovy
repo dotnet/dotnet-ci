@@ -144,6 +144,18 @@ class Utilities {
         Utilities.addStandardOptions(job)
     }
   
+    // Set the job timeout to the specified value.
+    // job - Input job to modify
+    // jobTimeout - Set the job timeout.
+    def static setJobTimeout(def job, int jobTimeout) {
+        wrappers {
+            timeout {
+                absolute(120)
+            }
+            timestamps()
+        }
+    }
+
     // Add standard options to a job.
     // job - Input job
     def static addStandardOptions(def job) {
@@ -157,13 +169,6 @@ class Utilities {
                 artifactDaysToKeep(21)
                 daysToKeep(90)
                 artifactNumToKeep(50)
-            }
-
-            wrappers {
-                timeout {
-                    absolute(120)
-                }
-                timestamps()
             }
       
             // Add option to ignore changes to netci.groovy when building
@@ -179,6 +184,8 @@ class Utilities {
                 }
             }
         }
+
+        Utilities.setJobTimeout(120)
     }
 
     def static addGithubPushTrigger(def job) {
