@@ -190,7 +190,7 @@ class Utilities {
             }
         }
 
-        Utilities.setJobTimeout(120)
+        Utilities.setJobTimeout(job, 120)
     }
 
     def static addGithubPushTrigger(def job) {
