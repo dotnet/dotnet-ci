@@ -1,5 +1,7 @@
 # .NET CI Repository
 
+RANDOM CHANGE TO TEST CI CHANGES
+
 Contains documentation and some implementation functionality for the .NET CI system.
 
 ## Getting started and need to onboard your project?
