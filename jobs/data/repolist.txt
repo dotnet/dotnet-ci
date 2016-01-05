@@ -17,3 +17,4 @@ Microsoft/ConcordExtensibilitySamples
 Microsoft/msbuild
 Microsoft/xunit-performance
 Microsoft/Vipr
+Microsoft/visualfsharp
