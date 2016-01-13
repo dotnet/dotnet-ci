@@ -13,6 +13,7 @@ dotnet/corert
 dotnet/orleans
 dotnet/roslyn <root>
 dotnet/wcf
+Microsoft/ChakraCore
 Microsoft/ConcordExtensibilitySamples
 Microsoft/msbuild
 Microsoft/xunit-performance
