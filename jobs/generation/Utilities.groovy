@@ -175,22 +175,38 @@ class Utilities {
             wrappers {
                 timestamps()
             }
-      
+        }
+
+        // Add netci.groovy as default
+        Utilities.addIgnoredPaths(job, ['netci.groovy']);
+        Utilities.setJobTimeout(job, 120)
+    }
+    
+    // Sets up the job to fast exit if only certain paths were edited.
+    //
+    // Parameters:
+    //  job - Input job to modify
+    //  ignoredPaths - Array of strings containing paths that should be ignored
+    // Description:
+    //  If only files in the paths were changed (these paths are evaluated as globs)
+    //  then the build exits early.  Multiple calls to this function will replace the original
+    //  ignored paths.
+    def static addIgnoredPaths(def job, Iterable<String> ignoredPaths) {
+        // Put in the raw configure object
+        job.with {
             // Add option to ignore changes to netci.groovy when building
             configure {
                 it / 'buildWrappers' / 'ruby-proxy-object' {
                         'ruby-object' ('ruby-class': 'Jenkins::Plugin::Proxies::BuildWrapper', pluginid: 'pathignore') {
                             pluginid(pluginid: 'pathignore', 'ruby-class': 'String', 'pathignore' )
                             object('ruby-class': 'PathignoreWrapper', pluginid: 'pathignore') {
-                            ignored__paths(pluginid: 'pathignore', 'ruby-class': 'String', 'netci.groovy')
+                            ignored__paths(pluginid: 'pathignore', 'ruby-class': 'String', String.join(',', ignoredPaths))
                             invert__ignore(pluginid: 'pathignore', 'ruby-class': 'FalseClass')
                         }
                     }
                 }
             }
         }
-
-        Utilities.setJobTimeout(job, 120)
     }
 
     def static addGithubPushTrigger(def job) {
@@ -413,46 +429,48 @@ class Utilities {
     }
     
     // Adds xunit.NET v2 test results.
-    // TODO: Once native support for this type appears in the plugin (should be next version),
-    // this code can be simplified.
     // Parameters:
     //
     //  job - Job to modify
     //  resultFilePattern - Ant style pattern of test results.  Defaults to **/testResults.xml
     //  skipIfNoTestFiles - Do not fail the build if there were no test files found.
-    def static addXUnitDotNETResults(def job, String resultFilePattern = '**/testResults.xml', String skipIfNoTestFiles = false) {
+    def static addXUnitDotNETResults(def job, String resultFilePattern = '**/testResults.xml', boolean skipIfNoTestFiles = false) {
         job.with {
-            configure { node ->
-                node / 'publishers' << {
-                    'xunit'('plugin': 'xunit@1.97') {
-                        'types' {
-                            'XUnitDotNetTestType' {
-                                'pattern'(resultFilePattern)
-                                'skipNoTestFiles'(skipIfNoTestFiles)
-                                'failIfNotNew'(true)
-                                'deleteOutputFiles'(true)
-                                'stopProcessingIfError'(true)
-                            }
-                        }
-                        'thresholds' {
-                            'org.jenkinsci.plugins.xunit.threshold.FailedThreshold' {
-                                'unstableThreshold'('')
-                                'unstableNewThreshold'('')
-                                'failureThreshold'('')
-                                'failureNewThreshold'('')
-                            }
-                            'org.jenkinsci.plugins.xunit.threshold.SkippedThreshold' {
-                                'unstableThreshold'('')
-                                'unstableNewThreshold'('')
-                                'failureThreshold'('')
-                                'failureNewThreshold'('')
-                            }
-                        }
-                        'thresholdMode'('1')
-                        'extraConfiguration' {
-                            testTimeMargin('3000')
-                        }
+            publishers {
+                archiveXUnit {
+                    xUnitDotNET {
+                        pattern(resultFilePattern)
+                        skipNoTestFiles(skipIfNoTestFiles)
+                        failIfNotNew(true)
+                        deleteOutputFiles(true)
+                        stopProcessingIfError(true)
                     }
+                    
+                    timeMargin(3000)
+                }
+            }
+        }
+    }
+    
+    // Adds MSTest test results.
+    // Parameters:
+    //
+    //  job - Job to modify
+    //  resultFilePattern - Ant style pattern of test results.  Defaults to **/testResults.xml
+    //  skipIfNoTestFiles - Do not fail the build if there were no test files found.
+    def static addMSTestResults(def job, String resultFilePattern = '**/testResults.xml', boolean skipIfNoTestFiles = false) {
+        job.with {
+            publishers {
+                archiveXUnit {
+                    msTest {
+                        pattern(resultFilePattern)
+                        skipNoTestFiles(skipIfNoTestFiles)
+                        failIfNotNew(true)
+                        deleteOutputFiles(true)
+                        stopProcessingIfError(true)
+                    }
+                    
+                    timeMargin(3000)
                 }
             }
         }
