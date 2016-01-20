@@ -107,6 +107,7 @@ if ($DotnetCIUtilities.StartsWith("http"))
 else
 {
     $dotnetCIContent = Get-Content $DotnetCIUtilities
+    $dotnetCIContent = $dotnetCIContent -join [System.Environment]::Newline
 }
 
 Write-Verbose "Preprocessing Utilities"
@@ -135,6 +136,7 @@ if ($groovyText -match "import jobs.generation.InternalUtilities;")
     else
     {
         $dotnetInternalCIContent = Get-Content $DotnetCIInternalUtilities
+        $dotnetInternalCIContent = $DotnetCIInternalUtilities -join [System.Environment]::Newline
     }
 
     $groovyText = $groovyText -replace "import jobs.generation.InternalUtilities;", $dotnetInternalCIContent
