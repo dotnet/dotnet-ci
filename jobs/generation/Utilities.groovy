@@ -192,6 +192,18 @@ class Utilities {
     //  then the build exits early.  Multiple calls to this function will replace the original
     //  ignored paths.
     def static addIgnoredPaths(def job, Iterable<String> ignoredPaths) {
+        // Doing this instead of String.join because for whatever reason it doesn't resolve
+        // in CI.
+        def ignoredPathsString = ''
+        def foundNetCi = false
+        ignoredPaths.each { path ->
+            if (ignoredPathsString == '') {
+                ignoredPathsString = path
+            }
+            else {
+                ignoredPathsString += ',' + path
+            }
+        }
         // Put in the raw configure object
         job.with {
             // Add option to ignore changes to netci.groovy when building
@@ -200,7 +212,7 @@ class Utilities {
                         'ruby-object' ('ruby-class': 'Jenkins::Plugin::Proxies::BuildWrapper', pluginid: 'pathignore') {
                             pluginid(pluginid: 'pathignore', 'ruby-class': 'String', 'pathignore' )
                             object('ruby-class': 'PathignoreWrapper', pluginid: 'pathignore') {
-                            ignored__paths(pluginid: 'pathignore', 'ruby-class': 'String', String.join(',', ignoredPaths))
+                            ignored__paths(pluginid: 'pathignore', 'ruby-class': 'String', ignoredPathsString)
                             invert__ignore(pluginid: 'pathignore', 'ruby-class': 'FalseClass')
                         }
                     }
