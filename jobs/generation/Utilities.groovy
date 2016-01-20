@@ -458,6 +458,19 @@ class Utilities {
                         stopProcessingIfError(true)
                     }
                     
+                    failedThresholds {
+                        unstable(0)
+                        unstableNew(0)
+                        failure(0)
+                        failureNew(0)
+                    }
+                    skippedThresholds {
+                        unstable(100)
+                        unstableNew(100)
+                        failure(100)
+                        failureNew(100)
+                    }
+                    thresholdMode(ThresholdMode.PERCENT)
                     timeMargin(3000)
                 }
             }
@@ -480,6 +493,19 @@ class Utilities {
                         failIfNotNew(true)
                         deleteOutputFiles(true)
                         stopProcessingIfError(true)
+                    }
+                    
+                    failedThresholds {
+                        unstable()
+                        unstableNew()
+                        failure()
+                        failureNew()
+                    }
+                    skippedThresholds {
+                        unstable()
+                        unstableNew()
+                        failure()
+                        failureNew()
                     }
                     
                     timeMargin(3000)
