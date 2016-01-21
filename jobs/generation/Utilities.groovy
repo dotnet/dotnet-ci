@@ -496,18 +496,18 @@ class Utilities {
                     }
                     
                     failedThresholds {
-                        unstable()
-                        unstableNew()
-                        failure()
-                        failureNew()
+                        unstable(0)
+                        unstableNew(0)
+                        failure(0)
+                        failureNew(0)
                     }
                     skippedThresholds {
-                        unstable()
-                        unstableNew()
-                        failure()
-                        failureNew()
+                        unstable(100)
+                        unstableNew(100)
+                        failure(100)
+                        failureNew(100)
                     }
-                    
+                    thresholdMode(ThresholdMode.PERCENT)
                     timeMargin(3000)
                 }
             }
