@@ -174,6 +174,18 @@ class Utilities {
             
             wrappers {
                 timestamps()
+                // Add a pre-build wipe-out
+                preBuildCleanup()
+            }
+            
+            // Add a post-build cleanup.  Order that this post-build step doesn't matter.
+            // It runs after everything.  Avoid cleaning when not succesful
+            publishers {
+                wsCleanup {
+                    cleanWhenFailure(false)
+                    cleanWhenAborted(false)
+                    cleanWhenUnstable(false)
+                }
             }
         }
 
@@ -367,8 +379,6 @@ class Utilities {
         job.with {
             scm {
                 git {
-                    wipeOutWorkspace()
-
                     remote {
                         github(project)
                     }
@@ -385,8 +395,6 @@ class Utilities {
         job.with {
             scm {
                 git {
-                    wipeOutWorkspace()
-
                     remote {
                         github(project)
 
