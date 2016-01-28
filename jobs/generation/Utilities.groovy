@@ -90,12 +90,14 @@ class Utilities {
     //  osName: Name of OS to to run on.
     def static setMachineAffinity(def job, String osName) {
         def machineLabelMap = ['Ubuntu':'ubuntu',
+                               'Ubuntu15.10':'ubuntu-1510',
                                'OSX':'mac',
                                // This is Windows Server 2012 R2
                                'Windows_NT':'windows',
                                'Windows 10':'windows10',
                                'Windows 7':'windows7',
                                'FreeBSD': 'freebsd',
+                               'RHEL7':'rhel-7',
                                'CentOS7.1': 'centos-71',
                                'OpenSUSE13.2': 'openSuSE-132',
                                'Debian8.2': 'debian-82']
