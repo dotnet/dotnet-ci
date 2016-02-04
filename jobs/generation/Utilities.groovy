@@ -97,7 +97,7 @@ class Utilities {
                                 // Generic version label
                                 '':'ubuntu',
                                 // Specific auto-image label
-                                 '2016128.1':'2016128.1'
+                                 '2016128.1':'auto-ubuntu1404-2016128.1'
                                 ],
                             'Ubuntu15.10' :
                                 [
