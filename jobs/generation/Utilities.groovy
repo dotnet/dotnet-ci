@@ -88,21 +88,68 @@ class Utilities {
     // Parameters:
     //  job: Job to set affinity for
     //  osName: Name of OS to to run on.
-    def static setMachineAffinity(def job, String osName) {
-        def machineLabelMap = ['Ubuntu':'ubuntu',
-                               'Ubuntu15.10':'auto-ubuntu1510-20160131',
-                               'OSX':'mac',
-                               // This is Windows Server 2012 R2
-                               'Windows_NT':'windows',
-                               'Windows 10':'windows10',
-                               'Windows 7':'windows7',
-                               'FreeBSD': 'freebsd',
-                               'RHEL7':'rhel-7',
-                               'CentOS7.1': 'centos-71',
-                               'OpenSUSE13.2': 'openSuSE-132',
-                               'Debian8.2': 'debian-82']
-        def machineLabel = machineLabelMap.get(osName, null) 
-        assert machineLabel != null : "Could not find machine label for ${osName}"
+    //  version: Optional version of the image.  This version can be the date potentially followed
+    //           by .1, .2, etc. or it could be a static image version (like a perf label).
+    def static setMachineAffinity(def job, String osName, String version = '') {
+        def machineMap    = [
+                            'Ubuntu' :
+                                [
+                                // Generic version label
+                                '':'ubuntu',
+                                // Specific auto-image label
+                                 '2016128.1':'2016128.1'
+                                ],
+                            'Ubuntu15.10' :
+                                [
+                                // Generic version label
+                                '' : 'auto-ubuntu1510-20160131'
+                                ],
+                            'OSX' :
+                                [
+                                // Generic version label
+                                '' : 'mac'
+                                ],
+                            // This is Windows Server 2012 R2
+                            'Windows_NT' :
+                                [
+                                // Generic version label
+                                '' : 'windows'
+                                ],
+                            'Windows 10' : 
+                                [
+                                // Generic version label
+                                '' : 'windows10'
+                                ],
+                            'Windows 7' : 
+                                [
+                                // Generic version label
+                                '' : 'windows7'
+                                ],
+                            'FreeBSD' :
+                                [
+                                '' : 'freebsd'
+                                ],
+                            'RHEL7' : 
+                                [
+                                '' : 'rhel-7'
+                                ],
+                            'CentOS7.1' : 
+                                [
+                                '' : 'centos-71'
+                                ],
+                            'OpenSUSE13.2' :
+                                [
+                                '' : 'openSuSE-132'
+                                ],
+                            'Debian8.2' : 
+                                [
+                                '' : 'debian-82'
+                                ]
+                            ]
+        def versionLabelMap = machineMap.get(osName, null)
+        assert versionLabelMap != null : "Could not find os ${osName}"
+        def machineLabel = versionLabelMap.get(version, null)
+        assert machineLabel != null : "Could not find version ${version} of ${osName}"
         job.with {
             label(machineLabel)
         }
