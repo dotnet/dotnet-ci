@@ -358,8 +358,9 @@ class Utilities {
     //    permitAllSubmittters - If true all PR submitters may run the job
     //    permittedOrgs - If permitAllSubmittters is false, at least permittedOrgs or permittedUsers should be non-empty.
     //    permittedUsers - If permitAllSubmittters is false, at least permittedOrgs or permittedUsers should be non-empty.
+    //    branchName - If null, all branches are tested.  If not null, then is the target branch of this trigger
     //
-    def private static addGithubPRTriggerImpl(def job, String contextString, String triggerPhraseString, boolean triggerOnPhraseOnly, boolean permitAllSubmittters, Iterable<String> permittedOrgs = null, Iterable<String> permittedUsers = null) {
+    def private static addGithubPRTriggerImpl(def job, String branchName, String contextString, String triggerPhraseString, boolean triggerOnPhraseOnly, boolean permitAllSubmittters, Iterable<String> permittedOrgs, Iterable<String> permittedUsers) {
         job.with {
             triggers {
                 pullRequest {
@@ -386,6 +387,12 @@ class Utilities {
                   
                     onlyTriggerPhrase(triggerOnPhraseOnly)
                     triggerPhrase(triggerPhraseString)
+                    
+                    if (branchName != null) {
+                        // We should only have a flat branch name, no wildcards
+                        assert branchName.indexOf('*') == -1
+                        whiteListTargetBranch(branchName)
+                    }
                 }
             }
         }
@@ -405,9 +412,32 @@ class Utilities {
         assert contextString != ''
         assert triggerPhraseString != ''
         
-        Utilities.addGithubPRTriggerImpl(job, contextString, triggerPhraseString, true, false, permittedOrgs, permittedUsers)
+        Utilities.addGithubPRTriggerImpl(job, null, contextString, triggerPhraseString, true, false, permittedOrgs, permittedUsers)
     }
 
+    // Adds a github PR trigger for a job that is specific to a particular branch
+    // Parameters:
+    //    job - Job to add the PR trigger for
+    //    contextString - String to use as the context (appears in github as the name of the test being run).
+    //                    If empty, the job name is used.
+    //    triggerPhraseString - String to use to trigger the job.  If empty, the PR is triggered by default.
+    //    triggerOnPhraseOnly - If true and trigger phrase string is non-empty, triggers only using the specified trigger
+    //                          phrase.
+    //    targetBranch - If the target branch for the PR message matches this target branch, then the trigger is run.
+    //
+    def static addGithubPRTriggerForBranch(def job, String branchName, String contextString,
+        String triggerPhraseString = '', boolean triggerOnPhraseOnly = true) {
+        
+        assert contextString != ''
+        
+        if (triggerPhraseString == '') {
+            triggerOnPhraseOnly = false
+            triggerPhraseString = "(?i).*test\\W+${contextString}.*"
+        }
+        
+        Utilities.addGithubPRTriggerImpl(job, branchName, contextString, triggerPhraseString, triggerOnPhraseOnly, true, null, null)
+    }
+    
     // Adds a github PR trigger for a job
     // Parameters:
     //    job - Job to add the PR trigger for
@@ -425,7 +455,7 @@ class Utilities {
             triggerPhraseString = "(?i).*test\\W+${contextString}.*"
         }
         
-        Utilities.addGithubPRTriggerImpl(job, contextString, triggerPhraseString, triggerOnPhraseOnly, true, null, null)
+        Utilities.addGithubPRTriggerImpl(job, null, contextString, triggerPhraseString, triggerOnPhraseOnly, true, null, null)
     }
 
     def static calculateGitURL(def project, String protocol = 'https') {
