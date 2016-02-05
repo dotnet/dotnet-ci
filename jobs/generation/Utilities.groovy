@@ -97,53 +97,97 @@ class Utilities {
                                 // Generic version label
                                 '':'ubuntu',
                                 // Specific auto-image label
-                                 '2016128.1':'auto-ubuntu1404-2016128.1'
+                                '2016128.1':'auto-ubuntu1404-2016128.1',
+                                // Latest auto image.  This will be used for transitioning
+                                // to the auto images, at which point we will move back to
+                                // the generic unversioned label except for special cases.
+                                'latest-or-auto':'auto-ubuntu1404-2016128.1'
                                 ],
                             'Ubuntu15.10' :
                                 [
                                 // Generic version label
-                                '' : 'auto-ubuntu1510-20160131'
+                                '' : 'auto-ubuntu1510-20160131',
+                                // Latest auto image.  This will be used for transitioning
+                                // to the auto images, at which point we will move back to
+                                // the generic unversioned label except for special cases.
+                                'latest-or-auto':'auto-ubuntu1510-20160131'
                                 ],
                             'OSX' :
                                 [
                                 // Generic version label
-                                '' : 'mac'
+                                '' : 'mac',
+                                // Latest auto image.  This will be used for transitioning
+                                // to the auto images, at which point we will move back to
+                                // the generic unversioned label except for special cases.
+                                'latest-or-auto':'mac'
                                 ],
                             // This is Windows Server 2012 R2
                             'Windows_NT' :
                                 [
                                 // Generic version label
-                                '' : 'windows'
+                                '' : 'windows',
+                                // Latest auto image.  This will be used for transitioning
+                                // to the auto images, at which point we will move back to
+                                // the generic unversioned label except for special cases.
+                                'latest-or-auto':'windows'
                                 ],
                             'Windows 10' : 
                                 [
                                 // Generic version label
-                                '' : 'windows10'
+                                '' : 'windows10',
+                                // Latest auto image.  This will be used for transitioning
+                                // to the auto images, at which point we will move back to
+                                // the generic unversioned label except for special cases.
+                                'latest-or-auto':'windows10'
                                 ],
                             'Windows 7' : 
                                 [
                                 // Generic version label
-                                '' : 'windows7'
+                                '' : 'windows7',
+                                // Latest auto image.  This will be used for transitioning
+                                // to the auto images, at which point we will move back to
+                                // the generic unversioned label except for special cases.
+                                'latest-or-auto':'windows7'
                                 ],
                             'FreeBSD' :
                                 [
-                                '' : 'freebsd'
+                                '' : 'freebsd',
+                                // Latest auto image.  This will be used for transitioning
+                                // to the auto images, at which point we will move back to
+                                // the generic unversioned label except for special cases.
+                                'latest-or-auto':'freebsd'
                                 ],
                             'RHEL7' : 
                                 [
-                                '' : 'rhel-7'
+                                '' : 'rhel-7',
+                                // Latest auto image.  This will be used for transitioning
+                                // to the auto images, at which point we will move back to
+                                // the generic unversioned label except for special cases.
+                                'latest-or-auto':'rhel-7'
                                 ],
                             'CentOS7.1' : 
                                 [
-                                '' : 'centos-71'
+                                '' : 'centos-71',
+                                // Latest auto image.  This will be used for transitioning
+                                // to the auto images, at which point we will move back to
+                                // the generic unversioned label except for special cases.
+                                'latest-or-auto':'centos-71'
                                 ],
                             'OpenSUSE13.2' :
                                 [
-                                '' : 'openSuSE-132'
+                                '' : 'openSuSE-132',
+                                // Latest auto image.  This will be used for transitioning
+                                // to the auto images, at which point we will move back to
+                                // the generic unversioned label except for special cases.
+                                'latest-or-auto':'openSuSE-132'
                                 ],
                             'Debian8.2' : 
                                 [
-                                '' : 'debian-82'
+                                '' : 'debian-82',
+                                // Latest auto image.  This will be used for transitioning
+                                // to the auto images, at which point we will move back to
+                                // the generic unversioned label except for special cases.
+                                'latest-or-auto':'debian-82'
                                 ]
                             ]
         def versionLabelMap = machineMap.get(osName, null)
