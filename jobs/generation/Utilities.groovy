@@ -97,11 +97,22 @@ class Utilities {
                                 // Generic version label
                                 '':'ubuntu',
                                 // Specific auto-image label
-                                '2016128.1':'auto-ubuntu1404-2016128.1',
+                                '201626':'auto-ubuntu1404-201626',
                                 // Latest auto image.  This will be used for transitioning
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
-                                'latest-or-auto':'auto-ubuntu1404-2016128.1'
+                                'latest-or-auto':'auto-ubuntu1404-201626'
+                                ],
+                            'Ubuntu14.04' :
+                                [
+                                // Generic version label
+                                '':'ubuntu',
+                                // Specific auto-image label
+                                '201626':'auto-ubuntu1404-201626',
+                                // Latest auto image.  This will be used for transitioning
+                                // to the auto images, at which point we will move back to
+                                // the generic unversioned label except for special cases.
+                                'latest-or-auto':'auto-ubuntu1404-201626'
                                 ],
                             'Ubuntu15.10' :
                                 [
