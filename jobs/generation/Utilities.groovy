@@ -168,13 +168,13 @@ class Utilities {
                                 // the generic unversioned label except for special cases.
                                 'latest-or-auto':'freebsd'
                                 ],
-                            'RHEL7' : 
+                            'RHEL7.2' : 
                                 [
-                                '' : 'rhel-7',
+                                '' : 'auto-rhel72-20160207',
                                 // Latest auto image.  This will be used for transitioning
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
-                                'latest-or-auto':'rhel-7'
+                                'latest-or-auto':'auto-rhel72-20160207'
                                 ],
                             'CentOS7.1' : 
                                 [
