@@ -255,7 +255,7 @@ class Utilities {
         job.with {
             wrappers {
                 timeout {
-                    absolute(120)
+                    absolute(jobTimeout)
                 }
             }
         }
