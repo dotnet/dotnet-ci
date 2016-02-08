@@ -384,7 +384,7 @@ class Utilities {
                     }
                   
                     onlyTriggerPhrase(triggerOnPhraseOnly)
-                    regexTriggerPhrase(triggerPhraseString)
+                    triggerPhrase(triggerPhraseString)
                 }
             }
         }
