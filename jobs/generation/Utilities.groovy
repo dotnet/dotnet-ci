@@ -184,10 +184,13 @@ class Utilities {
                             'CentOS7.1' : 
                                 [
                                 '' : 'centos-71',
+                                // First functioning auto image.  Based directly off of the
+                                // existing centos image
+                                '20160211.1':'auto-centos71-20160211.1',
                                 // Latest auto image.  This will be used for transitioning
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
-                                'latest-or-auto':'centos-71'
+                                'latest-or-auto':'auto-centos71-20160211.1'
                                 ],
                             'OpenSUSE13.2' :
                                 [
