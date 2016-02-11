@@ -98,11 +98,13 @@ class Utilities {
                                 '':'ubuntu',
                                 // Specific auto-image label
                                 '201626':'auto-ubuntu1404-201626',
+                                // Contains an updated version of mono
+                                '20160211':'auto-ubuntu1404-20160211'
                                 '201626test':'auto-ubuntu1404-201626test',
                                 // Latest auto image.  This will be used for transitioning
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
-                                'latest-or-auto':'auto-ubuntu1404-201626'
+                                'latest-or-auto':'auto-ubuntu1404-20160211'
                                 ],
                             'Ubuntu14.04' :
                                 [
@@ -110,10 +112,12 @@ class Utilities {
                                 '':'ubuntu',
                                 // Specific auto-image label
                                 '201626':'auto-ubuntu1404-201626',
+                                // Contains an updated version of mono
+                                '20160211':'auto-ubuntu1404-20160211'
                                 // Latest auto image.  This will be used for transitioning
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
-                                'latest-or-auto':'auto-ubuntu1404-201626'
+                                'latest-or-auto':'auto-ubuntu1404-20160211'
                                 ],
                             'Ubuntu15.10' :
                                 [
