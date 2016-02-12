@@ -195,6 +195,9 @@ class Utilities {
                             'OpenSUSE13.2' :
                                 [
                                 '' : 'openSuSE-132',
+                                // First functioning auto image.  Based directly off of the
+                                // existing suse image
+                                '20160211':'auto-suse132-20160211',
                                 // Latest auto image.  This will be used for transitioning
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
