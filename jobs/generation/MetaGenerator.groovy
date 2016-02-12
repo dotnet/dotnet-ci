@@ -20,34 +20,32 @@ import jobs.generation.Utilities
 class Repo {
     String project;
     String[] folders;
-    String branchName;
+    String branch;
     
-    Repo(String project, String[] folders, String[] branchName) {
+    def Repo(String project, String[] folders, String branch) {
         this.project = project
         this.folders = folders
-        this.branchName = branchName
+        this.branch = branch
     }
     
     // Parse the input string and return a Repo object
-    def static parseInputString(String input) {
-        // First element is the repo name.  Should be in <org>/<repo> format
-        def projectInfo = line.tokenize()
+    def static parseInputString(String input, def out) {
+      	// First element is the repo name.  Should be in <org>/<repo> format
+        def projectInfo = input.tokenize()
         
         assert projectInfo.size() >= 1
         
         // First element is the repo name
-        def project = projectInfo[0]
-        def folders = null
-        def branch = null
-        
-        println("Processing project ${project}")
+        String project = projectInfo[0]
+        String[] folders = null
+        String branch = null
         
         // Check whether it contains a single forward slash
         assert project.indexOf('/') != -1 && project.indexOf('/') == project.lastIndexOf('/')
         
         // Now walk the rest of the elements and set the rest of the properties
         def i = 1
-        while (i < (projectInfo.size()-1)) {
+        while (i < (projectInfo.size())) {
             def element = projectInfo[i]
             
             if (element.startsWith('folder=')) {
@@ -71,6 +69,7 @@ class Repo {
                 println("Unknown element " + element);
                 assert false
             }
+            i++
         }
         
         // If the folder was unset but branch was set to something, then we set the folder to the
@@ -83,7 +82,7 @@ class Repo {
             }
             else {
                 // Append the branch name to the folder list
-                folders += branch
+                folders += Utilities.getFolderName(branch)
             }
         }
         else {
@@ -103,7 +102,7 @@ class Repo {
     }
 }
 
-Repo[] repos
+Repo[] repos = []
 
 streamFileFromWorkspace('dotnet-ci/jobs/data/repolist.txt').eachLine { line ->
     // Skip comment lines
@@ -115,8 +114,7 @@ streamFileFromWorkspace('dotnet-ci/jobs/data/repolist.txt').eachLine { line ->
         return;
     }
     
-    
-    repos += parseInputString.parseInputString(line)
+    repos += Repo.parseInputString(line, out)
 }
 
 // Now that we have all the repos, generate the jobs
@@ -191,7 +189,7 @@ repos.each { repoInfo ->
             steps {
                 dsl {
                     // Loads netci.groovy
-                    external(Utilities.getProjectName(project) + '/netci.groovy')
+                    external(Utilities.getProjectName(repoInfo.project) + '/netci.groovy')
                     
                     // Additional classpath should point to the utility repo
                     additionalClasspath('dotnet-ci')
