@@ -201,7 +201,7 @@ class Utilities {
                                 // Latest auto image.  This will be used for transitioning
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
-                                'latest-or-auto':'openSuSE-132'
+                                'latest-or-auto':'auto-suse132-20160211'
                                 ],
                             'Debian8.2' : 
                                 [
