@@ -242,16 +242,11 @@ repos.each { repoInfo ->
         if (isPRTest) {
             // Enable the github PR trigger, but add a trigger phrase so
             // that it doesn't build on every change.
-            
-            if (isPRTest) {
-                // Enable the github PR trigger, but add a trigger phrase so
-                // that it doesn't build on every change.
-                Utilities.addGithubPRTriggerForBranch(jobGenerator, repoInfo.branch, jobGenerator.name, '(?i).*test\\W+ci\\W+please.*')
-            }
-            else {
-                // Enable the github push trigger
-                Utilities.addGithubPushTrigger(jobGenerator)
-            }
+            Utilities.addGithubPRTriggerForBranch(jobGenerator, repoInfo.branch, jobGenerator.name, '(?i).*test\\W+ci\\W+please.*')
+        }
+        else {
+            // Enable the github push trigger
+            Utilities.addGithubPushTrigger(jobGenerator)
         }
     }
 }
