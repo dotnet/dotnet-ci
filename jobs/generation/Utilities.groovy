@@ -397,11 +397,18 @@ class Utilities {
                   
                     onlyTriggerPhrase(triggerOnPhraseOnly)
                     triggerPhrase(triggerPhraseString)
-                    
-                    if (branchName != null) {
-                        // We should only have a flat branch name, no wildcards
-                        assert branchName.indexOf('*') == -1
-                        whiteListTargetBranch(branchName)
+                }
+            }
+            
+            if (branchName != null) {
+                // We should only have a flat branch name, no wildcards
+                assert branchName.indexOf('*') == -1
+                
+                // Add option to ignore changes to netci.groovy when building
+               	// Add option to ignore changes to netci.groovy when building
+                configure { project ->
+                    def currentTrigger = project / 'triggers' / 'org.jenkinsci.plugins.ghprb.GhprbTrigger' / 'whiteListTargetBranches' / 'org.jenkinsci.plugins.ghprb.GhprbBranch' { 
+                        'branch'(branchName)
                     }
                 }
             }
