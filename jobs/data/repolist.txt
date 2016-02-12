@@ -1,17 +1,25 @@
-# List of repositories that are under control of JIT CI
-# Place one element per line in <org>/<project> format
+# List of repositories that are under control of .NET CI.  
+# Format is:
+# One repo per line (org/repo format).
+# Optional elements:
+#   folder=folderName (special case <root> for root folder.  forward slashes to separate subfolders)
+#   branch=branchName (branch that should be generated).  Should be bare branch name.
+#       If ommitted, repo is not branch specific.  **Do not change this unless you know what you're doing**.
+#       Talk to @mmitche first.
+#       GithubBranchName is passed the value in branchName.
+#       Unless the folder name is specifically specified, a folder is created underneath the repo folder.  If no branch is specified,
+#       no branch folder is created.
 # Example: dotnet/coreclr
-# This file is currently non-functional
 
 dotnet/buildtools
-dotnet/cli
+dotnet/cli branch=rel/1.0.0
 dotnet/codeformatter
 dotnet/coreclr
 dotnet/corefx
 dotnet/corefxlab
 dotnet/corert
 dotnet/orleans
-dotnet/roslyn <root>
+dotnet/roslyn folder=<root>
 dotnet/wcf
 Microsoft/ChakraCore
 Microsoft/ConcordExtensibilitySamples
