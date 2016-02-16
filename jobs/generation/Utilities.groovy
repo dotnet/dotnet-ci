@@ -431,6 +431,24 @@ class Utilities {
         
         Utilities.addGithubPRTriggerImpl(job, null, contextString, triggerPhraseString, true, false, permittedOrgs, permittedUsers)
     }
+    
+    // Adds a github PR trigger only triggerable by member of certain organizations
+    // Parameters:
+    //    job - Job to add the PR trigger for
+    //    contextString - String to use as the context (appears in github as the name of the test being run).
+    //                    If empty, the job name is used.
+    //    triggerPhraseString - String to use to trigger the job.  If empty, the PR is triggered by default.
+    //    triggerOnPhraseOnly - If true and trigger phrase string is non-empty, triggers only using the specified trigger
+    //                          phrase.
+    //    permittedOrgs - If permitAllSubmittters is false, permittedOrgs should be non-empty list of organizations
+    //    branchName - Branch that this trigger is specific to.  If a PR comes in from another branch, this trigger is ignored.
+    //
+    def static addPrivateGithubPRTriggerForBranch(def job, def branchName, String contextString, String triggerPhraseString, Iterable<String> permittedOrgs, Iterable<String> permittedUsers) {
+        assert contextString != ''
+        assert triggerPhraseString != ''
+        
+        Utilities.addGithubPRTriggerImpl(job, branchName, contextString, triggerPhraseString, true, false, permittedOrgs, permittedUsers)
+    }
 
     // Adds a github PR trigger for a job that is specific to a particular branch
     // Parameters:
