@@ -227,16 +227,8 @@ repos.each { repoInfo ->
                 }
             }
             
-            // Enable concurrent builds 
-            concurrentBuild()
-
-            // Enable the log rotator
-
-            logRotator {    
-                artifactDaysToKeep(7)
-                daysToKeep(21)
-                artifactNumToKeep(25)
-            }
+            // Disable concurrent builds
+            concurrentBuild(false)
         }
         
         if (isPRTest) {

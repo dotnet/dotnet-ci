@@ -256,7 +256,7 @@ class Utilities {
     def static standardJobSetup(def job, String project, boolean isPR, String defaultBranch = '*/master') {
         Utilities.addStandardParameters(job, project, isPR, defaultBranch)
         Utilities.addScm(job, project, isPR)
-        Utilities.addStandardOptions(job)
+        Utilities.addStandardOptions(job, isPR)
     }
   
     // Set the job timeout to the specified value.
@@ -272,21 +272,38 @@ class Utilities {
         }
     }
 
+    // Adds a retention policy for artifacts
+    //  job - Job to modify
+    //  isPR - True if the job is a pull request job, false otherwise.  If isPR is true,
+    //         a more restrictive retention policy is use.
+    def static addRetentionPolicy(def job, boolean isPR = false) {
+        job.with {
+            // Enable the log rotator
+            logRotator {
+                if (isPR) {
+                    artifactDaysToKeep(7)
+                    daysToKeep(14)
+                    artifactNumToKeep(25)
+                    numToKeep(100)
+                }
+                else {
+                    artifactDaysToKeep(14)
+                    daysToKeep(30)
+                    artifactNumToKeep(-1)
+                    numToKeep(100)
+                }
+            }
+        }
+    }
+    
+    
     // Add standard options to a job.
     // job - Input job
-    def static addStandardOptions(def job) {
+    // isPR - True if the job is a pull request job, false otherwise.
+    def static addStandardOptions(def job, def isPR = false) {
         job.with {
             // Enable concurrent builds 
             concurrentBuild()
-
-            // Enable the log rotator
-
-            logRotator {    
-                artifactDaysToKeep(14)
-                daysToKeep(30)
-                artifactNumToKeep(-1)
-                numToKeep(-1)
-            }
             
             wrappers {
                 timestamps()
@@ -308,6 +325,7 @@ class Utilities {
         // Add netci.groovy as default
         Utilities.addIgnoredPaths(job, ['netci.groovy']);
         Utilities.setJobTimeout(job, 120)
+        Utilities.addRetentionPolicy(job, isPR)
     }
     
     // Sets up the job to fast exit if only certain paths were edited.
