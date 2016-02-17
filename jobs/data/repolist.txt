@@ -27,4 +27,6 @@ Microsoft/msbuild
 Microsoft/xunit-performance
 Microsoft/Vipr
 Microsoft/visualfsharp branch=master
+Microsoft/visualfsharp branch=vs2015
+Microsoft/visualfsharp branch=coreclr
 Microsoft/PartsUnlimited
