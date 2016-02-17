@@ -26,5 +26,5 @@ Microsoft/ConcordExtensibilitySamples
 Microsoft/msbuild
 Microsoft/xunit-performance
 Microsoft/Vipr
-Microsoft/visualfsharp
+Microsoft/visualfsharp branch=master
 Microsoft/PartsUnlimited
