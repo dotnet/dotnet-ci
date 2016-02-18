@@ -11,7 +11,8 @@
 #       no branch folder is created.
 # Example: dotnet/coreclr
 
-dotnet/buildtools
+dotnet/buildtools branch=master
+dotnet/buildtools branch=release/1.0.0-rc2
 dotnet/cli branch=rel/1.0.0
 dotnet/codeformatter
 dotnet/coreclr
