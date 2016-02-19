@@ -12,7 +12,6 @@
 # Example: dotnet/coreclr
 
 dotnet/buildtools branch=master
-dotnet/buildtools branch=release/1.0.0-rc2
 dotnet/cli branch=rel/1.0.0
 dotnet/codeformatter
 dotnet/coreclr
@@ -21,7 +20,7 @@ dotnet/corefxlab
 dotnet/corert
 dotnet/orleans
 dotnet/roslyn folder=<root>
-dotnet/wcf
+dotnet/wcf branch=master
 Microsoft/ChakraCore
 Microsoft/ConcordExtensibilitySamples
 Microsoft/msbuild
