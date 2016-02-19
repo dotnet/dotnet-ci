@@ -322,8 +322,10 @@ class Utilities {
             }
         }
 
-        // Add netci.groovy as default
-        Utilities.addIgnoredPaths(job, ['netci.groovy']);
+        // Add netci.groovy as default.  Only add if it's a PR.
+        if (isPR) {
+            Utilities.addIgnoredPaths(job, ['netci.groovy']);
+        }
         Utilities.setJobTimeout(job, 120)
         Utilities.addRetentionPolicy(job, isPR)
     }
