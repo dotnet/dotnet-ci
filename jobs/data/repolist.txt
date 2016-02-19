@@ -29,4 +29,5 @@ Microsoft/Vipr
 Microsoft/visualfsharp branch=master
 Microsoft/visualfsharp branch=vs2015
 Microsoft/visualfsharp branch=coreclr
+Microsoft/visualfsharp branch=roslyn
 Microsoft/PartsUnlimited
