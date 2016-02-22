@@ -147,6 +147,15 @@ class Utilities {
                                 // the generic unversioned label except for special cases.
                                 'latest-or-auto':'windows'
                                 ],
+                            'Windows 2016' : 
+                                [
+                                // Generic version label
+                                '' : 'auto-win2016-20160222',
+                                // Latest auto image.  This will be used for transitioning
+                                // to the auto images, at which point we will move back to
+                                // the generic unversioned label except for special cases.
+                                'latest-or-auto':'auto-win2016-20160222'
+                                ],
                             'Windows 10' : 
                                 [
                                 // Generic version label
