@@ -156,6 +156,11 @@ class Utilities {
                                 // the generic unversioned label except for special cases.
                                 'latest-or-auto':'auto-win2016-20160222'
                                 ],
+                            'Windows Nano' :
+                                [
+                                // Generic version label
+                                '' : 'nanotp4'
+                                ],
                             'Windows 10' : 
                                 [
                                 // Generic version label
