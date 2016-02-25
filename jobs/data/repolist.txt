@@ -12,6 +12,7 @@
 # Example: dotnet/coreclr
 
 dotnet/buildtools branch=master
+dotnet/citest branch=master
 dotnet/cli branch=rel/1.0.0
 dotnet/codeformatter
 dotnet/coreclr
