@@ -419,9 +419,16 @@ class Utilities {
                     else {
                         assert permittedOrgs != null || permittedUsers != null
                         permitAll(false)
-                        orgWhitelist(permittedOrgs)
-                        userWhitelist(permittedUsers)
-                        allowMembersOfWhitelistedOrgsAsAdmin()
+                        if (permittedUsers != null) {
+                            permittedUsers.each { permittedUser ->
+                                admin(permittedUser)
+                            }
+                        }
+                        if (permittedOrgs != null) {
+                            permittedOrgs.each { permittedOrg ->
+                                admin(permittedOrg)
+                            }
+                        }
                     }
                     extensions {
                         commitStatus {
