@@ -111,13 +111,14 @@ class Utilities {
                                 '':'ubuntu',
                                 // Specific auto-image label
                                 '201626':'auto-ubuntu1404-201626',
-                                '201626test':'auto-ubuntu1404-201626test',
                                 // Contains an updated version of mono
                                 '20160211':'auto-ubuntu1404-20160211',
                                 // Latest auto image.  This will be used for transitioning
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
-                                'latest-or-auto':'auto-ubuntu1404-20160211'
+                                'latest-or-auto':'auto-ubuntu1404-20160211',
+                                // For outerloop runs.
+                                'outer-latest-or-auto':'auto-ubuntu1404-201626outer'
                                 ],
                             'Ubuntu15.10' :
                                 [
@@ -126,7 +127,9 @@ class Utilities {
                                 // Latest auto image.  This will be used for transitioning
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
-                                'latest-or-auto':'auto-ubuntu1510-20160131'
+                                'latest-or-auto':'auto-ubuntu1510-20160131',
+                                // For outerloop runs.
+                                'outer-latest-or-auto':'auto-ubuntu1510-20160131outer'
                                 ],
                             'OSX' :
                                 [
@@ -193,7 +196,9 @@ class Utilities {
                                 // Latest auto image.  This will be used for transitioning
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
-                                'latest-or-auto':'auto-rhel72-20160211'
+                                'latest-or-auto':'auto-rhel72-20160211',
+                                // For outerloop runs.
+                                'outer-latest-or-auto':'auto-rhel72-20160211outer'
                                 ],
                             'CentOS7.1' : 
                                 [
@@ -204,7 +209,9 @@ class Utilities {
                                 // Latest auto image.  This will be used for transitioning
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
-                                'latest-or-auto':'auto-centos71-20160211.1'
+                                'latest-or-auto':'auto-centos71-20160211.1',
+                                // For outerloop runs.
+                                'outer-latest-or-auto':'auto-centos71-20160211.1outer'
                                 ],
                             'OpenSUSE13.2' :
                                 [
@@ -215,7 +222,9 @@ class Utilities {
                                 // Latest auto image.  This will be used for transitioning
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
-                                'latest-or-auto':'auto-suse132-20160211'
+                                'latest-or-auto':'auto-suse132-20160211',
+                                // For outerloop runs
+                                'outer-latest-or-auto':'auto-suse132-20160211outer'
                                 ],
                             'Debian8.2' : 
                                 [
