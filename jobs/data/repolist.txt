@@ -21,6 +21,7 @@ dotnet/corefxlab
 dotnet/corert
 dotnet/orleans
 dotnet/roslyn folder=<root>
+dotnet/roslyn-analyzers branch=master
 dotnet/wcf branch=master
 Microsoft/ChakraCore
 Microsoft/ConcordExtensibilitySamples
