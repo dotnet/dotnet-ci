@@ -416,7 +416,7 @@ class Utilities {
     def private static addGithubPRTriggerImpl(def job, String branchName, String contextString, String triggerPhraseString, boolean triggerOnPhraseOnly, boolean permitAllSubmittters, Iterable<String> permittedOrgs, Iterable<String> permittedUsers) {
         job.with {
             triggers {
-                pullRequest {
+                githubPullRequest {
                     useGitHubHooks()
                     if (permitAllSubmittters) {
                         admin('Microsoft')
@@ -444,21 +444,16 @@ class Utilities {
                             context(contextString)
                         }
                     }
-                  
-                    onlyTriggerPhrase(triggerOnPhraseOnly)
+                    
+                    if (triggerOnPhraseOnly) {
+                        onlyTriggerPhrase(triggerOnPhraseOnly)
+                    }
                     triggerPhrase(triggerPhraseString)
-                }
-            }
-            
-            if (branchName != null) {
-                // We should only have a flat branch name, no wildcards
-                assert branchName.indexOf('*') == -1
-                
-                // Add option to ignore changes to netci.groovy when building
-               	// Add option to ignore changes to netci.groovy when building
-                configure { project ->
-                    def currentTrigger = project / 'triggers' / 'org.jenkinsci.plugins.ghprb.GhprbTrigger' / 'whiteListTargetBranches' / 'org.jenkinsci.plugins.ghprb.GhprbBranch' { 
-                        'branch'(branchName)
+                    
+                    if (branchName != null) {
+                        // We should only have a flat branch name, no wildcards
+                        assert branchName.indexOf('*') == -1
+                        whiteListTargetBranches([branchName])
                     }
                 }
             }
