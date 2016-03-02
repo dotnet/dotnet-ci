@@ -163,8 +163,9 @@ repos.each { repoInfo ->
                             refspec('+refs/pull/*:refs/remotes/origin/pr/*')
                         }
                     }
+                    def targetDir = Utilities.getProjectName(repoInfo.project)
                     // Want the relative to be just the project name
-                    relativeTargetDir(Utilities.getProjectName(repoInfo.project))
+                    relativeTargetDir(targetDir)
                     
                     // If PR, change to ${sha1} 
                     // If not a PR, then the branch name should be the target branch
@@ -173,6 +174,14 @@ repos.each { repoInfo ->
                     }
                     else {
                         branch("*/${repoInfo.branch}")
+                    }
+                    
+                    // Set up polling ignore
+                    configure { node ->
+                        node /'extensions' << 'hudson.plugins.git.extensions.impl.PathRestriction' {
+                            includedRegions "${targetDir}/netci.groovy\nnetci.groovy"
+                            excludedRegions ''
+                        }
                     }
                 }
             }
@@ -237,8 +246,14 @@ repos.each { repoInfo ->
             Utilities.addGithubPRTriggerForBranch(jobGenerator, repoInfo.branch, jobGenerator.name, '(?i).*test\\W+ci\\W+please.*')
         }
         else {
-            // Enable the github push trigger
-            Utilities.addGithubPushTrigger(jobGenerator)
+            // Enable the github push trigger.
+            jobGenerator.with {
+                triggers {
+                    scm {
+                        scm('H/15 * * * *')
+                    }
+                }
+            }
         }
     }
 }
