@@ -253,6 +253,7 @@ class Utilities {
     //  isPR - True if the job is a PR job, false otherwise
     //  prContext - If the job is a PR job, it will get a PR trigger.  This context will
     //              show up in github for the PR.  If left blank, will use the job name.
+    @Deprecated
     def static simpleInnerLoopJobSetup(def job, String project, boolean isPR, String prContext = '') {
         
         Utilities.standardJobSetup(job, project, isPR)
