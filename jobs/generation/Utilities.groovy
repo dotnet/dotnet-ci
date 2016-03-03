@@ -12,24 +12,6 @@ class Utilities {
     def static getFolderName(String project) {
         return project.replace('/', '_')
     }
-  
-    // Get the standard job name of a job given the base job name and whether the job is a PR
-    // or not.
-    //
-    // Parameters:
-    //  baseJobName: Base name of the job (e.g. ubuntu_debug).
-    //  isPR: True if PR job, false otherwise
-    //
-    // Returns:
-    //  Full job name, essentially the baseJobName + _prtest if isPR is true
-    def static getFullJobName(String baseJobName, boolean isPR) {
-        def jobSuffix = ''
-        if (isPR) { 
-            jobSuffix = '_prtest'
-        }
-
-        return "${baseJobName}_prtest"
-    }
     
     // Get the standard job name of a job given the base job name, project, whether the
     // job is a PR or not, and an optional folder
@@ -53,12 +35,17 @@ class Utilities {
             folderPrefix = "${folder}/"
         }
 
+        def fullJobName = ''
         if (jobName == '') {
-            return "${folderPrefix}innerloop${jobSuffix}"
+            fullJobName = "${folderPrefix}innerloop${jobSuffix}"
         }
         else {
-            return "${folderPrefix}${jobName}${jobSuffix}"
+            fullJobName = "${folderPrefix}${jobName}${jobSuffix}"
         }
+        
+        // Add the job to the overall jobs
+        JobReport.Report.addJob(fullJobName, isPR)
+        return fullJobName
     }
   
     // Given the github full project name (e.g. dotnet/coreclr), get the
@@ -430,8 +417,12 @@ class Utilities {
         job.with {
             triggers {
                 githubPush()
-            } 
+            }
         }
+        
+        // Record the push trigger.  We look up in the side table to see what branches this
+        // job was set up to build
+        JobReport.Report.addPushTriggeredJob(job.name)
     }
     
     // Adds a github PR trigger for a job
@@ -491,9 +482,11 @@ class Utilities {
                     }
                 }
             }
+            
+            JobReport.Report.addPRTriggeredJob(job.name, (String[])[branchName], contextString, triggerPhraseString, !triggerOnPhraseOnly)
         }
     }
-    
+
     // Adds a github PR trigger only triggerable by member of certain organizations
     // Parameters:
     //    job - Job to add the PR trigger for
@@ -590,6 +583,8 @@ class Utilities {
         }
         else {
             addStandardNonPRParameters(job, defaultBranch)
+            // Add the size map info for the reporting
+            JobReport.Report.addTargetBranchForJob(job.name, defaultBranch)
         }
     }
     
@@ -714,6 +709,8 @@ class Utilities {
                 cron(cronString)
             }
         }
+        
+        JobReport.Report.addCronTriggeredJob(job.name, cronString)
     }
     
     // Adds xunit.NET v2 test results.
@@ -790,3 +787,203 @@ class Utilities {
         }
     }
 }
+
+class JobReport {
+    class CronTriggerInfo {
+        String cronString
+        String[] branches
+    }
+    class PRTriggerInfo {
+        String context
+        String triggerPhrase
+        String[] branches
+        boolean isDefault
+    }
+    class PushTriggerInfo {
+        String[] branches
+    }
+    
+    def cronTriggeredJobs = [:]
+    def prTriggeredJobs = [:]        
+    def pushTriggeredJobs = [:]
+    def prJobs = []
+    def overallJobs = []
+    def referencedJobs = []
+    def targetBranchMap = [String:String[]]
+    
+    // Sets a job as being referenced.  The ref might have folder names in it.
+    // This makes things a bit tricky, since if they generated folders then
+    // we could have jobs in two separate folders with the same name.  However, we also don't know
+    // what the base folder.  So for now just strip out everything including/before the last '/' and
+    // then add a ref for that job
+    def addReference(def jobName) {
+        int lastSlash = jobName.lastIndexOf('/')
+        if (lastSlash != -1 && lastSlash != jobName.length()-1) {
+            referencedJobs += jobName.substring(lastSlash + 1)
+        }
+        else {
+            referencedJobs += jobName
+        }
+    }
+    
+    def addJob(def jobName, def isPR) {
+        if (overallJobs.find { it == jobName }) {
+            // The job has already been added.  We may have been using getFullJobName for other reasons
+            // (e.g. jobs names for dependencies)
+            return
+        }
+        overallJobs += jobName
+        
+        if (isPR) {
+            prJobs += jobName
+        }
+    }
+    
+    def addTargetBranchesForJob(String jobName, String[] targetBranches) {
+        if (targetBranchMap.containsKey(jobName)) {
+            targetBranchMap[jobName] += targetBranches
+        }
+        else {
+            targetBranchMap.put(jobName, targetBranches)
+        }
+    }
+    
+    def addTargetBranchForJob(String jobName, String targetBranch) {
+        addTargetBranchesForJob(jobName, (String[])[targetBranch])
+    }
+    
+    def String[] getTargetBranchesForJob(String jobName) {
+        if (targetBranchMap.containsKey(jobName)) {
+            return targetBranchMap[jobName]
+        }
+        else {
+            return ["Unknown Branch"]
+        }
+    }
+    
+    def addPushTriggeredJob(String jobName) {
+        def triggerInfo = new PushTriggerInfo()
+        triggerInfo.branches = getTargetBranchesForJob(jobName)
+        
+        pushTriggeredJobs += ["${jobName}":triggerInfo]
+        addReference(jobName)
+    }
+    
+    def addCronTriggeredJob(String jobName, String cronString) {
+        def triggerInfo = new CronTriggerInfo()
+        triggerInfo.cronString = cronString
+        triggerInfo.branches = getTargetBranchesForJob(jobName)
+        
+        cronTriggeredJobs += ["${jobName}":triggerInfo]
+        addReference(jobName)
+    }
+    
+    def addPRTriggeredJob(String jobName, String[] targetBranches, String context, String triggerPhrase, boolean isDefault) {
+    
+        def simplifiedTriggerPhraseString = triggerPhrase
+        // Replace case insensitivity string
+        simplifiedTriggerPhraseString = simplifiedTriggerPhraseString.replace("(?i)", "")
+        // Replace escaped .
+        simplifiedTriggerPhraseString = simplifiedTriggerPhraseString.replace("\\.", ".")
+        // Replace .* regex
+        simplifiedTriggerPhraseString = simplifiedTriggerPhraseString.replace(".*", "")
+        // Replace W+ regex with a single space
+        simplifiedTriggerPhraseString = simplifiedTriggerPhraseString.replace("\\W+", " ")
+            
+        def triggerInfo = new PRTriggerInfo()
+        triggerInfo.context = context
+        triggerInfo.branches = targetBranches
+        triggerInfo.triggerPhrase = simplifiedTriggerPhraseString
+        triggerInfo.isDefault = isDefault
+        
+        prTriggeredJobs += ["${jobName}":triggerInfo]
+        addReference(jobName)
+    }
+
+    def generateJobReport() {
+        // Grab the current directory so that we can write a file
+        String currentDir = new File(".").getAbsolutePath()
+        currentDir = currentDir.substring(0, currentDir.length()-1)
+        
+        // PR Job CSV report
+        
+        String prJobReportCsv = "${currentDir}PRJobReport.csv"
+        File prFile = new File(prJobReportCsv)
+        def prTriggerFormatString = "%s,%s,%s,%s,%s"
+        def newLine = System.getProperty('line.separator')
+        
+        prFile.write String.format(prTriggerFormatString, "Job Name", "Context", "Trigger", "Branches", "Runs by Default?")
+        prFile << newLine
+        
+        prTriggeredJobs.sort().each { jobName, triggerInfo -> 
+            String defaultString = triggerInfo.isDefault ? 'Yes' : 'No'
+            String branchString = triggerInfo.branches == null ? 'All' : triggerInfo.branches.join('; ')
+            prFile << String.format(prTriggerFormatString, jobName, triggerInfo.context, triggerInfo.triggerPhrase, branchString, defaultString) << newLine
+        }
+        
+        // Push job CSV report
+        
+        String pushJobReportCsv = "${currentDir}PushJobReport.csv"
+        File pushFile = new File(pushJobReportCsv)
+        def pushTriggerFormatString = "%s,%s"
+        
+        pushFile.write String.format(pushTriggerFormatString, "Job Name", "Branches")
+        pushFile << newLine
+        
+        pushTriggeredJobs.sort().each { jobName, triggerInfo -> 
+            String branchString = triggerInfo.branches == null ? 'All' : triggerInfo.branches.join('; ')
+            pushFile << String.format(pushTriggerFormatString, jobName, branchString) << newLine
+        }
+        
+        // Cron trigger CSV report
+        
+        String cronJobReportCsv = "${currentDir}CronJobReport.csv"
+        File cronFile = new File(cronJobReportCsv)
+        def cronTriggerFormatString = "%s,%s,%s"
+        
+        cronFile.write String.format(cronTriggerFormatString, "Job Name", "Cron", "Branches")
+        cronFile << newLine
+        
+        cronTriggeredJobs.sort().each { jobName, triggerInfo -> 
+            String branchString = triggerInfo.branches == null ? 'All' : triggerInfo.branches.join('; ')
+            cronFile << String.format(cronTriggerFormatString, jobName, triggerInfo.cronString, branchString) << newLine
+        }
+        
+        // Determine the unreferenced jobs
+        def unreferencedJobs = []
+        overallJobs.sort().each { jobName ->
+            // Check to see whether it was referenced
+            if (!referencedJobs.find { it == jobName }) {
+                unreferencedJobs += jobName
+            }
+        }
+        
+        // Print additional statistics.  What jobs didn't get a trigger or weren't referenced, total job count, etc.
+        println("Generate Job Report")
+        println("===================")
+        println("PR Job CSV file in: ${prJobReportCsv}")
+        println("Commit/Push Job CSV file in: ${pushJobReportCsv}")
+        println("Rolling/Cron Job CSV file in: ${cronJobReportCsv}")
+        println("Statistics:")
+        println("    Total jobs generated: ${overallJobs.size()}")
+        println("    PR jobs generated: ${prJobs.size()}")
+        println("    Non-PR jobs generated: ${overallJobs.size() - prJobs.size()}")
+        println("    Triggered PR jobs generated: ${prTriggeredJobs.size()}")
+        println("    Triggered Commit jobs generated: ${pushTriggeredJobs.size()}")
+        println("    Triggered cron (timed) jobs generated: ${cronTriggeredJobs.size()}")
+        print("Jobs without triggers/references: ${unreferencedJobs.size()}")
+        if (unreferencedJobs.size() > 0) {
+            print(newLine)
+            unreferencedJobs.each { jobName ->
+                println("    ${jobName}")
+            }
+        }
+        else {
+            print(newLine)
+        }
+    }
+    
+    public def static JobReport Report = new JobReport()
+}
+
+
