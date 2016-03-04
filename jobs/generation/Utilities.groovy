@@ -336,12 +336,12 @@ class Utilities {
             }
             
             // Add a post-build cleanup.  Order that this post-build step doesn't matter.
-            // It runs after everything.  Avoid cleaning when not succesful
+            // It runs after everything.
             publishers {
                 wsCleanup {
-                    cleanWhenFailure(false)
-                    cleanWhenAborted(false)
-                    cleanWhenUnstable(false)
+                    cleanWhenFailure(true)
+                    cleanWhenAborted(true)
+                    cleanWhenUnstable(true)
                 }
             }
         }
