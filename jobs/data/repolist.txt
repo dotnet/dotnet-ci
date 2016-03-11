@@ -16,6 +16,7 @@ dotnet/citest branch=master
 dotnet/cli branch=rel/1.0.0
 dotnet/codeformatter
 dotnet/coreclr branch=master
+dotnet/coreclr branch=release/1.0.0-rc2
 dotnet/corefx
 dotnet/corefxlab
 dotnet/corert
