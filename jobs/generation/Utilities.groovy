@@ -148,7 +148,7 @@ class Utilities {
                                 // Latest auto image.  This will be used for transitioning
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
-                                'latest-or-auto':'windows',
+                                'latest-or-auto':'windows || auto-win2012-20160311.1',
                                 // For testing and transition
                                 'latest-or-auto-temp':'windows || auto-win2012-20160311.1',
                                 // For elevated runs
