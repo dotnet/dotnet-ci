@@ -21,11 +21,13 @@ class Repo {
     String project;
     String[] folders;
     String branch;
+    String server;
     
-    def Repo(String project, String[] folders, String branch) {
+    def Repo(String project, String[] folders, String branch, String server) {
         this.project = project
         this.folders = folders
         this.branch = branch
+        this.server = server
     }
     
     // Parse the input string and return a Repo object
@@ -39,6 +41,8 @@ class Repo {
         String project = projectInfo[0]
         String[] folders = null
         String branch = null
+        // Server defaults to the primary server, dotnet-ci
+        String server = 'dotnet-ci'
         
         // Check whether it contains a single forward slash
         assert project.indexOf('/') != -1 && project.indexOf('/') == project.lastIndexOf('/')
@@ -64,6 +68,9 @@ class Repo {
             }
             else if(element.startsWith('branch=')) {
                 branch = element.substring('branch='.length())
+            }
+            else if(element.startsWith('server=')) {
+                server = element.substring('server='.length())
             }
             else {
                 println("Unknown element " + element);
@@ -98,7 +105,7 @@ class Repo {
         
         // Construct a new object and return
         
-        return new Repo(project, folders, branch)
+        return new Repo(project, folders, branch, server)
     }
 }
 
@@ -110,7 +117,7 @@ streamFileFromWorkspace('dotnet-ci/jobs/data/repolist.txt').eachLine { line ->
     line.trim()
     skip |= (line == '')
     if (skip) {
-        // Retunr from closure
+        // Return from closure
         return;
     }
     
@@ -119,6 +126,12 @@ streamFileFromWorkspace('dotnet-ci/jobs/data/repolist.txt').eachLine { line ->
 
 // Now that we have all the repos, generate the jobs
 repos.each { repoInfo ->
+
+    // Determine whether we should skip this repo becuase it resides on a different server
+    if (repoInfo.server != ServerName) {
+        return;
+    }
+    
     // Make the folders
     def generatorFolder = ''
     for (folderElement in repoInfo.folders) {

@@ -11,26 +11,26 @@
 #       no branch folder is created.
 # Example: dotnet/coreclr
 
-dotnet/buildtools branch=master
-dotnet/citest branch=master
-dotnet/cli branch=rel/1.0.0
-dotnet/codeformatter
-dotnet/coreclr branch=master
-dotnet/coreclr branch=release/1.0.0-rc2
-dotnet/corefx
-dotnet/corefxlab
-dotnet/corert
-dotnet/orleans
-dotnet/roslyn folder=<root>
-dotnet/roslyn-analyzers branch=master
-dotnet/wcf branch=master
-Microsoft/ChakraCore
-Microsoft/ConcordExtensibilitySamples
-Microsoft/msbuild
-Microsoft/xunit-performance
-Microsoft/Vipr
-Microsoft/visualfsharp branch=master
-Microsoft/visualfsharp branch=vs2015
-Microsoft/visualfsharp branch=coreclr
-Microsoft/visualfsharp branch=roslyn
-Microsoft/PartsUnlimited branch=master
+dotnet/buildtools branch=master server=dotnet-ci
+dotnet/citest branch=master server=dotnet-ci
+dotnet/cli branch=rel/1.0.0 server=dotnet-ci
+dotnet/codeformatter server=dotnet-ci
+dotnet/coreclr branch=master server=dotnet-ci
+dotnet/coreclr branch=release/1.0.0-rc2 server=dotnet-ci
+dotnet/corefx server=dotnet-ci
+dotnet/corefxlab server=dotnet-ci
+dotnet/corert server=dotnet-ci
+dotnet/orleans server=dotnet-ci
+dotnet/roslyn folder=<root> server=dotnet-ci
+dotnet/roslyn-analyzers branch=master server=dotnet-ci
+dotnet/wcf branch=master server=dotnet-ci
+Microsoft/ChakraCore server=dotnet-ci
+Microsoft/ConcordExtensibilitySamples server=dotnet-ci
+Microsoft/msbuild server=dotnet-ci
+Microsoft/xunit-performance server=dotnet-ci
+Microsoft/Vipr server=dotnet-ci
+Microsoft/visualfsharp branch=master server=dotnet-ci
+Microsoft/visualfsharp branch=vs2015 server=dotnet-ci
+Microsoft/visualfsharp branch=coreclr server=dotnet-ci
+Microsoft/visualfsharp branch=roslyn server=dotnet-ci
+Microsoft/PartsUnlimited branch=master server=dotnet-ci
