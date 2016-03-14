@@ -24,7 +24,7 @@ dotnet/orleans server=dotnet-ci
 dotnet/roslyn folder=<root> server=dotnet-ci
 dotnet/roslyn-analyzers branch=master server=dotnet-ci
 dotnet/wcf branch=master server=dotnet-ci
-Microsoft/ChakraCore server=dotnet-ci
+Microsoft/ChakraCore branch=master server=dotnet-ci
 Microsoft/ConcordExtensibilitySamples server=dotnet-ci
 Microsoft/msbuild server=dotnet-ci
 Microsoft/xunit-performance server=dotnet-ci
