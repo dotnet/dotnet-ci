@@ -9,6 +9,8 @@
     Directory to put combined netci file as well as the output xml
 .PARAMETER Project
     Project name.  Used to replace GithubProject.  If ommitted, "dotnet/test-project" is used
+.PARAMETER Branch
+    Branch name.  Used to replace GithubBranchName.  If ommitted, "master" is used
 .PARAMETER DotnetCIUtilities
     Utilities.groovy file from the dotnet-ci repo.  If omitted, will be downloaded from dotnet-ci repo
 .PARAMETER DotnetCIInternalUtilities
@@ -29,6 +31,7 @@ param (
     [Parameter(Mandatory=$True)]
     [string]$CIOutputDir = $(Read-Host -prompt "Directory for CI outputs"),
     [string]$Project = "dotnet/test-project",
+	[string]$Branch = "master",
     [string]$DotnetCIUtilities = "https://raw.githubusercontent.com/dotnet/dotnet-ci/master/jobs/generation/Utilities.groovy",
     [string]$DotnetCIInternalUtilities = $null,
     [string]$JobDslStandaloneJar = "https://github.com/dotnet/dotnet-ci/releases/download/1.40/job-dsl-core-1.40-SNAPSHOT-standalone.jar",
@@ -142,18 +145,19 @@ if ($groovyText -match "import jobs.generation.InternalUtilities;")
     $groovyText = $groovyText -replace "import jobs.generation.InternalUtilities;", $dotnetInternalCIContent
 }
 
-# GithubProject -> $Project
-if ((-not $Project.StartsWith('''')) -and (-not $Project.StartsWith('"')))
-{
-    $Project = '''' + $Project
-}
-
-if ((-not $Project.EndsWith('''')) -and (-not $Project.EndsWith('"')))
-{
-    $Project = $Project + ''''
-}
+$Project = '''' + $Project + ''''
+$Branch = '''' + $Branch + ''''
 
 $groovyText = $groovyText -replace "GithubProject", $Project
+$groovyText = $groovyText -replace "GithubBranchName", $Branch
+
+# WORKAROUNDS
+
+# Replace the use of githubPullRequest with pullRequest since githubPullRequest currently sits in
+# an extension.  There are other ways to potentially fix thisd.
+$groovyText = $groovyText -replace "githubPullRequest", "pullRequest"
+# Replace whitelist target branches with an empty line
+$groovyText = $groovyText -replace ".*whiteListTargetBranches.*", ""
 
 Write-Verbose "Writing combined script"
 
