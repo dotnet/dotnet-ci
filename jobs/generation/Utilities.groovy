@@ -100,6 +100,9 @@ class Utilities {
                                 '201626':'auto-ubuntu1404-201626',
                                 // Contains an updated version of mono
                                 '20160211':'auto-ubuntu1404-20160211',
+                                // Contains the rootfs setup for arm/arm64 builds.  Move this label forward
+                                // till we have the working build/test, then apply to everything.
+                                'arm-cross-latest':'auto-ubuntu1404-20160315',
                                 // Latest auto image.  This will be used for transitioning
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
