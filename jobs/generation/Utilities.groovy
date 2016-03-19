@@ -210,6 +210,14 @@ class Utilities {
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
                                 'latest-or-auto':'debian-82'
+                                ],
+                           'Fedora23' :
+                                [
+                                '' : 'auto-fedora23-20160319.1',
+                                // Latest auto image.  This will be used for transitioning
+                                // to the auto images, at which point we will move back to
+                                // the generic unversioned label except for special cases.
+                                'latest-or-auto':'auto-fedora23-20160319.1'
                                 ]
                             ]
         def versionLabelMap = machineMap.get(osName, null)
