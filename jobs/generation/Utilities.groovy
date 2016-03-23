@@ -324,13 +324,13 @@ class Utilities {
             logRotator {
                 if (isPR) {
                     artifactDaysToKeep(7)
-                    daysToKeep(14)
+                    daysToKeep(10)
                     artifactNumToKeep(25)
                     numToKeep(100)
                 }
                 else {
-                    artifactDaysToKeep(14)
-                    daysToKeep(30)
+                    artifactDaysToKeep(7)
+                    daysToKeep(14)
                     artifactNumToKeep(-1)
                     numToKeep(100)
                 }
