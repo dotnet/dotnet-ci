@@ -238,11 +238,12 @@ class Utilities {
                                 ],
                             'Debian8.2' : 
                                 [
-                                '' : 'debian-82',
+                                '' : 'auto-deb82-20160323',
+                                '20160323':'auto-deb82-20160323',
                                 // Latest auto image.  This will be used for transitioning
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
-                                'latest-or-auto':'debian-82'
+                                'latest-or-auto':'auto-deb82-20160323'
                                 ],
                            'Fedora23' :
                                 [
