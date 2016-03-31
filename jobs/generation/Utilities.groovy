@@ -655,6 +655,24 @@ class Utilities {
             }
         }
     }
+
+    // Adds private permissions to a job, making it visible only to certain users
+    // Parameters:
+    //
+    //  job - Job to modify
+    //  permitted - Array of groups and users that are permitted to view the job.
+    def static addPrivatePermissions(def job, def permitted = ['mmitche', 'Microsoft']) {
+        job.with {
+            authorization {
+                blocksInheritance()
+                permitted.each { user ->
+                    permissionAll(user)
+                }
+                permission('hudson.model.Item.Discover', 'anonymous')
+                permission('hudson.model.Item.ViewStatus', 'anonymous')
+            }
+        }
+    }
   
     def static addArchival(def job, String filesToArchive, String filesToExclude = '',
         def doNotFailIfNothingArchived = false, def archiveOnlyIfSuccessful = true) {
