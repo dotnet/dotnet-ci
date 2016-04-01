@@ -349,7 +349,7 @@ class Utilities {
             concurrentBuild()
             
             // 5 second quiet period before the job can be scheduled
-            quietPeriod(1)
+            quietPeriod(5)
             
             wrappers {
                 timestamps()
