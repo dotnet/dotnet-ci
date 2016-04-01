@@ -348,6 +348,9 @@ class Utilities {
             // Enable concurrent builds 
             concurrentBuild()
             
+            // 5 second quiet period before the job can be scheduled
+            quietPeriod(5)
+            
             wrappers {
                 timestamps()
                 // Add a pre-build wipe-out
