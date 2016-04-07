@@ -397,6 +397,7 @@ class Utilities {
     def static addIgnoredPaths(def job, Iterable<String> ignoredPaths) {
         // Doing this instead of String.join because for whatever reason it doesn't resolve
         // in CI.
+        /*
         def ignoredPathsString = ''
         def foundNetCi = false
         ignoredPaths.each { path ->
@@ -422,6 +423,7 @@ class Utilities {
                 }
             }
         }
+        */
     }
 
     def static addGithubPushTrigger(def job) {
