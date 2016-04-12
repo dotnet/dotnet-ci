@@ -29,6 +29,7 @@ dotnet/wcf branch=master server=dotnet-ci
 Microsoft/ChakraCore branch=master server=dotnet-ci
 Microsoft/ChakraCore branch=release/1.2 server=dotnet-ci
 Microsoft/ConcordExtensibilitySamples server=dotnet-ci
+Microsoft/MIEngine branch=master server=dotnet-ci
 Microsoft/msbuild server=dotnet-ci
 Microsoft/xunit-performance server=dotnet-ci
 Microsoft/Vipr server=dotnet-ci
