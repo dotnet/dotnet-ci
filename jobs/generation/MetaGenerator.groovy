@@ -251,6 +251,9 @@ repos.each { repoInfo ->
             
             // Disable concurrent builds
             concurrentBuild(false)
+            
+            // 5 second quiet period before the job can be scheduled
+            quietPeriod(5)
         }
         
         if (isPRTest) {
