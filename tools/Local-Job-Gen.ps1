@@ -63,6 +63,7 @@ $CIOutputDir = Resolve-Path $CIOutputDir
 $combinedCIFileName = [System.IO.Path]::Combine($CIOutputDir, "combinednetci.groovy")
 
 Write-Output "Processing $CIFile to $CIOutputDir.  Pre-processed groovy in $combinedCIFileName"
+Write-Output "Please wait, this may take a few moments depending on the number of jobs created"
 
 if ($RemovePreviousGeneratedFiles)
 {
@@ -158,6 +159,10 @@ $groovyText = $groovyText -replace "GithubBranchName", $Branch
 $groovyText = $groovyText -replace "githubPullRequest", "pullRequest"
 # Replace whitelist target branches with an empty line
 $groovyText = $groovyText -replace ".*whiteListTargetBranches.*", ""
+# Replace the Helix step with the batchFile
+$groovyText = $groovyText -replace "helix\(", "batchFile("
+# ViewStatus isn't available as a permission in the local jar, so change to Discover
+$groovyText = $groovyText -replace "hudson.model.Item.ViewStatus", "hudson.model.Item.Discover"
 
 Write-Verbose "Writing combined script"
 
@@ -171,5 +176,11 @@ Write-Verbose "Launching generator"
 # Pass only the file, not the full path to the combined CI file
 $combinedCIFileName = Split-Path $combinedCIFileName -leaf -resolve
 
-Start-Process -Wait -NoNewWindow -FilePath "java.exe" -ArgumentList @("-jar", $JobDslStandaloneJar, $combinedCIFileName) -WorkingDirectory $CIOutputDir
-
+try {
+    $currentLocation = Get-Location
+    Set-Location -Path $CIOutputDir
+    & java.exe "-jar" $JobDslStandaloneJar $combinedCIFileName 2>&1 | %{ $_ | Where { -not $_.ToString().Contains('JarClassLoader') -and -not  $_.ToString().Contains('Generated item:') } }
+}
+finally {
+    Set-Location -Path $currentLocation
+}
