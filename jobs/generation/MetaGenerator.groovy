@@ -274,6 +274,9 @@ repos.each { repoInfo ->
                     }
                 }
             }
+            
+            // If not a publisher, throw an email out to netciadmin if there is a generator failure
+            Utilities.addEmailPublisher(jobGenerator, 'netciadmin@microsoft.com')
         }
     }
 }

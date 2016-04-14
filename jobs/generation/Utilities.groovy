@@ -137,15 +137,13 @@ class Utilities {
                             'Windows_NT' :
                                 [
                                 // Generic version label
-                                '' : 'windows',
+                                '' : 'auto-win2012-20160325',
                                 // Latest auto image.  This will be used for transitioning
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
-                                'latest-or-auto':'windows || auto-win2012-20160325',
-                                // For testing and transition
-                                'latest-or-auto-temp':'windows || auto-win2012-20160325',
+                                'latest-or-auto':'auto-win2012-20160325',
                                 // For elevated runs
-                                'latest-or-auto-elevated-temp':'windows-elevated || auto-win2012-20160325-elevated'
+                                'latest-or-auto-elevated':'windows-elevated || auto-win2012-20160325-elevated'
                                 ],
                             'Windows_2016' : 
                                 [
@@ -786,4 +784,16 @@ class Utilities {
             }
         }
     }
+    
+    static void addEmailPublisher(def job, def recipient) {
+        job.with {
+            publishers {
+                extendedEmail(recipient, '$DEFAULT_SUBJECT', '$DEFAULT_CONTENT') {
+                    trigger('Aborted', '$PROJECT_DEFAULT_SUBJECT', '$PROJECT_DEFAULT_CONTENT', null, true, true, true, true)
+                    trigger('Failure', '$PROJECT_DEFAULT_SUBJECT', '$PROJECT_DEFAULT_CONTENT', null, true, true, true, true)
+                }
+            }
+        }
+    }
+
 }
