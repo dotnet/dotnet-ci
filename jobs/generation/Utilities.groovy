@@ -784,16 +784,4 @@ class Utilities {
             }
         }
     }
-    
-    static void addEmailPublisher(def job, def recipient) {
-        job.with {
-            publishers {
-                extendedEmail(recipient, '$DEFAULT_SUBJECT', '$DEFAULT_CONTENT') {
-                    trigger('Aborted', '$PROJECT_DEFAULT_SUBJECT', '$PROJECT_DEFAULT_CONTENT', null, true, true, true, true)
-                    trigger('Failure', '$PROJECT_DEFAULT_SUBJECT', '$PROJECT_DEFAULT_CONTENT', null, true, true, true, true)
-                }
-            }
-        }
-    }
-
 }
