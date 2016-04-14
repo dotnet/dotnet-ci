@@ -18,7 +18,8 @@ dotnet/cli branch=master server=dotnet-ci
 dotnet/codeformatter branch=master server=dotnet-ci
 dotnet/coreclr branch=master server=dotnet-ci
 dotnet/coreclr branch=release/1.0.0-rc2 server=dotnet-ci
-dotnet/corefx server=dotnet-ci
+dotnet/corefx branch=master server=dotnet-ci
+dotnet/corefx branch=release/1.0.0-rc2 server=dotnet-ci
 dotnet/corefxlab branch=master server=dotnet-ci
 dotnet/corert server=dotnet-ci
 dotnet/llilc branch=master server=dotnet-ci
