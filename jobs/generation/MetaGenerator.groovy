@@ -276,7 +276,27 @@ repos.each { repoInfo ->
             }
             
             // If not a publisher, throw an email out to netciadmin if there is a generator failure
-            Utilities.addEmailPublisher(jobGenerator, 'netciadmin@microsoft.com')
+            jobGenerator.with {
+                publishers {
+                    extendedEmail('netciadmin@microsoft.com', '$PROJECT_DEFAULT_SUBJECT', '$DEFAULT_CONTENT') {
+                        triggers {
+                            failure {
+                                sendTo {
+                                    culprits()
+                                    recipientList()
+                                }
+                            }
+                            
+                            aborted {
+                                sendTo {
+                                    culprits()
+                                    recipientList()
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
