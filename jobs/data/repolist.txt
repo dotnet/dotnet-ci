@@ -32,7 +32,7 @@ Microsoft/ConcordExtensibilitySamples branch=master server=dotnet-ci
 Microsoft/MIEngine branch=master server=dotnet-ci
 Microsoft/msbuild server=dotnet-ci
 Microsoft/xunit-performance server=dotnet-ci
-Microsoft/Vipr server=dotnet-ci
+Microsoft/Vipr branch=master server=dotnet-ci
 Microsoft/visualfsharp branch=master server=dotnet-ci
 Microsoft/visualfsharp branch=vs2015 server=dotnet-ci
 Microsoft/visualfsharp branch=coreclr server=dotnet-ci
