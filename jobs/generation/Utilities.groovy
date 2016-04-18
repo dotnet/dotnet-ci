@@ -179,11 +179,11 @@ class Utilities {
                                 ],
                             'FreeBSD' :
                                 [
-                                '' : 'auto-freebsd-20160415',
+                                '' : 'freebsd',
                                 // Latest auto image.  This will be used for transitioning
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
-                                'latest-or-auto':'auto-freebsd-20160415'
+                                'latest-or-auto':'freebsd'
                                 ],
                             'RHEL7.2' : 
                                 [
