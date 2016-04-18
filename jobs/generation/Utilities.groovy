@@ -281,9 +281,9 @@ class Utilities {
     //  project: Name of project
     //  isPR: True if job is PR job, false otherwise.
     //  defaultBranch: If not a PR job, the branch that we should be building.
-    def static standardJobSetup(def job, String project, boolean isPR, String defaultBranch = '*/master') {
+    def static standardJobSetup(def job, String project, boolean isPR, String defaultBranch = '*/master', String credentials = '') {
         Utilities.addStandardParameters(job, project, isPR, defaultBranch)
-        Utilities.addScm(job, project, isPR)
+        Utilities.addScm(job, project, isPR, credentials)
         Utilities.addStandardOptions(job, isPR)
     }
   
@@ -609,21 +609,22 @@ class Utilities {
         }
     }
   
-    def static addScm(def job, String project, boolean isPR, String buildBranch = '${GitBranchOrCommit}') {
+    def static addScm(def job, String project, boolean isPR, String buildBranch = '${GitBranchOrCommit}', String credentials = '') {
         if (isPR) {
-            addPRTestSCM(job, project)
+            addPRTestSCM(job, project, credentials)
         }
         else {
-            addScm(job, project, buildBranch)
+            addScm(job, project, buildBranch, credentials)
         }
     }
   
-    def static addScm(def job, String project, String buildBranch = '${GitBranchOrCommit}') {
+    def static addScm(def job, String project, String buildBranch = '${GitBranchOrCommit}', String creds = '') {
         job.with {
             scm {
                 git {
                     remote {
                         github(project)
+                        credentials(creds)
                     }
 
                     branch(buildBranch)
@@ -634,12 +635,13 @@ class Utilities {
   
     // Adds private job/PR test SCM.  This is slightly different than normal
     // SCM since we use the parameterized fields for the refspec, repo, and branch
-    def static addPRTestSCM(def job, String project) {
+    def static addPRTestSCM(def job, String project, String creds = '') {
         job.with {
             scm {
                 git {
                     remote {
                         github(project)
+                        credentials(creds)
 
                         // Set the refspec
                         refspec('${GitRefSpec}')
