@@ -260,6 +260,9 @@ repos.each { repoInfo ->
             }
         }
         
+        // Set the job to run on any generator enabled node.  Basically just has to have git.
+        Utilities.setMachineAffinity(jobGenerator, 'Generators', 'latest-or-auto')
+
         if (isPRTest) {
             // Enable the github PR trigger, but add a trigger phrase so
             // that it doesn't build on every change.

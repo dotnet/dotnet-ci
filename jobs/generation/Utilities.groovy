@@ -238,6 +238,13 @@ class Utilities {
                                 // the generic unversioned label except for special cases.
                                 'latest-or-auto':'auto-fedora23-20160319.1'
                                 ]
+                                // Some nodes don't have git, which is what is required for the
+                                // generators.
+                            'Generators' :
+                                [
+                                '' : '!nanotp4',
+                                'latest-or-auto':'!nanotp4'
+                                ]
                             ]
         def versionLabelMap = machineMap.get(osName, null)
         assert versionLabelMap != null : "Could not find os ${osName}"
