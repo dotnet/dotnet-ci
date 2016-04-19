@@ -237,7 +237,7 @@ class Utilities {
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
                                 'latest-or-auto':'auto-fedora23-20160319.1'
-                                ]
+                                ],
                                 // Some nodes don't have git, which is what is required for the
                                 // generators.
                             'Generators' :
