@@ -12,7 +12,7 @@
 # Example: dotnet/coreclr
 
 dotnet/buildtools branch=master server=dotnet-ci
-dotnet/citest branch=master server=dotnet-ci
+dotnet/citest branch=master server=dotnet-ci2
 dotnet/cli branch=rel/1.0.0 server=dotnet-ci
 dotnet/cli branch=master server=dotnet-ci
 dotnet/codeformatter branch=master server=dotnet-ci
