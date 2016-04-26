@@ -124,6 +124,17 @@ class Utilities {
                                 // For outerloop runs.
                                 'outer-latest-or-auto':'auto-ubuntu1510-20160131outer'
                                 ],
+                            'Ubuntu16.04' :
+                                [
+                                // Generic version label
+                                '' : 'auto-ubuntu1604-20160426',
+                                // Latest auto image.  This will be used for transitioning
+                                // to the auto images, at which point we will move back to
+                                // the generic unversioned label except for special cases.
+                                'latest-or-auto':'auto-ubuntu1604-20160426',
+                                // For outerloop runs.
+                                'outer-latest-or-auto':'auto-ubuntu1604-20160426outer'
+                                ],
                             'OSX' :
                                 [
                                 // Generic version label
