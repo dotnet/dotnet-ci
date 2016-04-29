@@ -33,6 +33,7 @@ param (
     [string]$Project = "dotnet/test-project",
 	[string]$Branch = "master",
     [string]$DotnetCIUtilities = "https://raw.githubusercontent.com/dotnet/dotnet-ci/master/jobs/generation/Utilities.groovy",
+    [string]$DotnetCIJobReport = "https://raw.githubusercontent.com/dotnet/dotnet-ci/master/jobs/generation/JobReport.groovy",
     [string]$DotnetCIInternalUtilities = $null,
     [string]$JobDslStandaloneJar = "https://github.com/dotnet/dotnet-ci/releases/download/1.40/job-dsl-core-1.40-SNAPSHOT-standalone.jar",
     [switch]$ForceJarDownload = $false,
@@ -96,7 +97,21 @@ if ($JobDslStandaloneJar.StartsWith("http"))
 
 # Replace the following lines in the file:
 
-# import jobs.generation.Utilities; -> With the groovy text from the DotnetCIUtilities
+# import jobs.generation.Utilities; -> With the groovy text from the DotnetCIUtilities as well as the data from the job report
+
+$jobReportContent = $null
+if ($DotnetCIJobReport.StartsWith("http"))
+{
+    Write-Verbose "Downloading Utilities.groovy from $DotnetCIUtilities"
+    # Grab online
+    $jobReport = Invoke-WebRequest $DotnetCIJobReport
+    $jobReportContent = $jobReport.Content
+}
+else
+{
+    $jobReportContent = Get-Content $DotnetCIJobReport
+    $jobReportContent = $jobReportContent -join [System.Environment]::Newline
+}
 
 $groovyText = Get-Content $combinedCIFileName
 
@@ -116,13 +131,12 @@ else
 
 Write-Verbose "Preprocessing Utilities"
 
-$groovyText = $groovyText -replace "import jobs.generation.Utilities;", $dotnetCIContent
+$groovyText = $groovyText -replace "import jobs.generation.Utilities;", $($dotnetCIContent + [System.Environment]::Newline + $jobReportContent)
 
 # import jobs.generation.InternalUtilities; -> With the groovy text from the DotnetCIInternalUtilities
 
 if ($groovyText -match "import jobs.generation.InternalUtilities;")
 {
-
     Write-Verbose "Preprocessing Internal Utilities"
 
     $dotnetInternalCIContent = $null
@@ -140,7 +154,7 @@ if ($groovyText -match "import jobs.generation.InternalUtilities;")
     else
     {
         $dotnetInternalCIContent = Get-Content $DotnetCIInternalUtilities
-        $dotnetInternalCIContent = $DotnetCIInternalUtilities -join [System.Environment]::Newline
+        $dotnetInternalCIContent = $dotnetInternalCIContent -join [System.Environment]::Newline
     }
 
     $groovyText = $groovyText -replace "import jobs.generation.InternalUtilities;", $dotnetInternalCIContent
@@ -151,6 +165,9 @@ $Branch = '''' + $Branch + ''''
 
 $groovyText = $groovyText -replace "GithubProject", $Project
 $groovyText = $groovyText -replace "GithubBranchName", $Branch
+
+# Need to remove the package section, which is only valid at the top of the file.
+$groovyText = $groovyText -replace "package jobs.generation;", ""
 
 # WORKAROUNDS
 
