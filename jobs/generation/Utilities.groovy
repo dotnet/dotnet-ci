@@ -2,6 +2,10 @@ package jobs.generation;
 
 class Utilities {
 
+    private static String DefaultGitBranchOrCommitPR = '${sha1}'
+    private static String DefaultGitBranchOrCommitPush = '*/master'
+    private static String DefaultGitRefSpec = '+refs/pull/*:refs/remotes/origin/pr/*'
+
     // Get the folder name for a job.
     //
     // Parameters:
@@ -300,9 +304,10 @@ class Utilities {
     //  job: Job to set up.
     //  project: Name of project
     //  isPR: True if job is PR job, false otherwise.
-    //  defaultBranch: If not a PR job, the branch that we should be building.
-    def static standardJobSetup(def job, String project, boolean isPR, String defaultBranch = '*/master') {
-        Utilities.addStandardParameters(job, project, isPR, defaultBranch)
+    //  gitBranchOrCommit: Commit / branch to build.  Defaults to */master for push jobs, and ${sha1} for PR jobs.
+    //  gitRefSpec: the refs that Jenkins must sync on a PR job.
+    def static standardJobSetup(def job, String project, boolean isPR, String gitBranchOrCommit = null, String gitRefSpec = null) {
+        Utilities.addStandardParameters(job, project, isPR, gitBranchOrCommit, gitRefSpec)
         Utilities.addScm(job, project, isPR)
         Utilities.addStandardOptions(job, isPR)
     }
@@ -594,24 +599,27 @@ class Utilities {
     //  job: Job to change
     //  project: Github project
     //  isPR: True if this is a PR job, false otherwise.
-    //  defaultBranch: Branch to build by default if this is NOT a PR job.  Defaults to */master.
-    def static addStandardParameters(def job, String project, boolean isPR, String defaultBranch = '*/master') {
+    //  gitBranchOrCommit: Commit / branch to build.  Defaults to */master for push jobs, and ${sha1} for PR jobs.
+    def static addStandardParameters(def job, String project, boolean isPR, String gitBranchOrCommit = null, String gitRefSpec = null) {
+        gitBranchOrCommit = getDefaultGitBranchOrCommit(isPR, gitBranchOrCommit)
+        gitRefSpec = getDefaultGitRefSpec(gitRefSpec)
         if (isPR) {
-            addStandardPRParameters(job, project)
+            addStandardPRParameters(job, project, gitBranchOrCommit, gitRefSpec)
         }
         else {
-            addStandardNonPRParameters(job, defaultBranch)
+            addStandardNonPRParameters(job, gitBranchOrCommit)
             // Add the size map info for the reporting
-            JobReport.Report.addTargetBranchForJob(job.name, defaultBranch)
+            JobReport.Report.addTargetBranchForJob(job.name, gitBranchOrCommit)
         }
     }
     
     // Adds parameters to a non-PR job.  Right now this is only the git branch or commit.
     // This is added so that downstream jobs get the same hash as the root job
-    def static addStandardNonPRParameters(def job, String defaultBranch = '*/master') {
+    def static addStandardNonPRParameters(def job, String gitBranchOrCommit = null) {
+        gitBranchOrCommit = getDefaultGitBranchOrCommit(false, gitBranchOrCommit)
         job.with {
             parameters {
-                stringParam('GitBranchOrCommit', defaultBranch, 'Git branch or commit to build.  If a branch, builds the HEAD of that branch.  If a commit, then checks out that specific commit.')
+                stringParam('GitBranchOrCommit', gitBranchOrCommit, 'Git branch or commit to build.  If a branch, builds the HEAD of that branch.  If a commit, then checks out that specific commit.')
             }
         }
     }
@@ -619,12 +627,14 @@ class Utilities {
     // Adds the private job/PR parameters to a job.  Note that currently this shouldn't used on a non-pr job because
     // push triggering may not work.
   
-    def static addStandardPRParameters(def job, String project) {
+    def static addStandardPRParameters(def job, String project, String gitBranchOrCommit = null, String gitRefSpec = null) {
+        gitBranchOrCommit = getDefaultGitBranchOrCommit(true, gitBranchOrCommit)
+        gitRefSpec = getDefaultGitRefSpec(gitRefSpec)
         job.with {
             parameters {
-                stringParam('GitBranchOrCommit', '${sha1}', 'Git branch or commit to build.  If a branch, builds the HEAD of that branch.  If a commit, then checks out that specific commit.')
+                stringParam('GitBranchOrCommit', gitBranchOrCommit, 'Git branch or commit to build.  If a branch, builds the HEAD of that branch.  If a commit, then checks out that specific commit.')
                 stringParam('GitRepoUrl', calculateGitURL(project), 'Git repo to clone.')
-                stringParam('GitRefSpec', '+refs/pull/*:refs/remotes/origin/pr/*', 'RefSpec.  WHEN SUBMITTING PRIVATE JOB FROM YOUR OWN REPO, CLEAR THIS FIELD (or it won\'t find your code)')
+                stringParam('GitRefSpec', gitRefSpec, 'RefSpec.  WHEN SUBMITTING PRIVATE JOB FROM YOUR OWN REPO, CLEAR THIS FIELD (or it won\'t find your code)')
             }
         }
     }
@@ -803,5 +813,26 @@ class Utilities {
                 }
             }
         }
+    }
+
+    def static String getDefaultGitBranchOrCommit(boolean isPR, String gitBranchOrCommit) {
+        if (gitBranchOrCommit != null) {
+            return gitBranchOrCommit;
+        }
+
+        if (isPR) { 
+            return DefaultGitBranchOrCommitPR;
+        }
+        else { 
+            return DefaultGitBranchOrCommitPush;
+        }
+    }
+
+    def static String getDefaultGitRefSpec(String gitRefSpec) {
+        if (gitRefSpec != null) {
+            return gitRefSpec;
+        }
+
+        return DefaultGitRefSpec;
     }
 }
