@@ -2,6 +2,10 @@ package jobs.generation;
 
 class Utilities {
 
+    private static String DefaultBranchOrCommitPR = '${sha1}'
+    private static String DefaultBranchOrCommitPush = '*/master'
+    private static String DefaultRefSpec = '+refs/pull/*:refs/remotes/origin/pr/*'
+
     // Get the folder name for a job.
     //
     // Parameters:
@@ -302,7 +306,50 @@ class Utilities {
     //  isPR: True if job is PR job, false otherwise.
     //  defaultBranch: If not a PR job, the branch that we should be building.
     def static standardJobSetup(def job, String project, boolean isPR, String defaultBranch = '*/master') {
-        Utilities.addStandardParameters(job, project, isPR, defaultBranch)
+        String defaultRefSpec = getDefaultRefSpec(null)
+        if (isPR) {
+            defaultBranch = getDefaultBranchOrCommitPR(null)
+        }
+        standardJobSetupEx(job, project, isPR, defaultBranch, defaultRefSpec)
+    }
+
+    // Performs standard job setup for a newly created push job.
+    // Includes: Basic parameters, Git SCM, and standard options
+    // 
+    // Parameters:
+    //  job: Job to set up.
+    //  project: Name of project
+    //  defaultBranch: Branch to build on push. 
+    def static standardJobSetupPush(def job, String project, String defaultBranch = null) {
+        defaultBranch = getDefaultBranchOrCommitPush(defaultBranch);
+        standardJobSetupEx(job, project, false, defaultBranch, null);
+    }
+
+    // Performs standard job setup for a newly created push job.
+    // Includes: Basic parameters, Git SCM, and standard options
+    // 
+    // Parameters:
+    //  job: Job to set up.
+    //  project: Name of project
+    //  defaultBranchOrCommit: Commit / branch to build. 
+    //  defaultRefSpec: the refs that Jenkins must sync on a PR job
+    def static standardJobSetupPR(def job, String project, String defaultBranchOrCommit = null, String defaultRefSpec = null) {
+        defaultBranchOrCommit = getDefaultBranchOrCommitPR(defaultBranchOrCommit)
+        defaultRefSpec = getDefaultRefSpec(defaultRefSpec)
+        standardJobSetupEx(job, project, true, defaultBranchOrCommit, defaultRefSpec)
+    }
+
+    // Performs standard job setup for a newly created job.
+    // Includes: Basic parameters, Git SCM, and standard options
+    // 
+    // Parameters:
+    //  job: Job to set up.
+    //  project: Name of project
+    //  isPR: True if job is PR job, false otherwise.
+    //  defaultBranchOrCommit: Commit / branch to build.  
+    //  defaultRefSpec: the refs that Jenkins must sync on a PR job
+    def private static standardJobSetupEx(def job, String project, boolean isPR, String defaultBranchOrCommit, String defaultRefSpec) {
+        Utilities.addStandardParametersEx(job, project, isPR, defaultBranchOrCommit, defaultRefSpec)
         Utilities.addScm(job, project, isPR)
         Utilities.addStandardOptions(job, isPR)
     }
@@ -588,7 +635,7 @@ class Utilities {
         return "${protocol}://github.com/${project}.git"
     }
 
-    // Adds the standard parameters for PR and non-PR jobs.
+    // Adds the standard parameters for PR and Push jobs.
     //
     // Parameters:
     //  job: Job to change
@@ -596,13 +643,30 @@ class Utilities {
     //  isPR: True if this is a PR job, false otherwise.
     //  defaultBranch: Branch to build by default if this is NOT a PR job.  Defaults to */master.
     def static addStandardParameters(def job, String project, boolean isPR, String defaultBranch = '*/master') {
+        String defaultRefSpec = getDefaultRefSpec(null)
         if (isPR) {
-            addStandardPRParameters(job, project)
+            defaultBranch = getDefaultBranchOrCommitPR(null)
+        }
+
+        addStandardParametersEx(job, project, isPR, defaultBranch, defaultRefSpec)
+    }
+
+    // Adds the standard parameters for PR and Push jobs.
+    //
+    // Parameters:
+    //  job: Job to set up.
+    //  project: Name of project
+    //  isPR: True if job is PR job, false otherwise.
+    //  defaultBranchOrCommit: Commit / branch to build.  
+    //  defaultRefSpec: the refs that Jenkins must sync on a PR job
+    def private static addStandardParametersEx(def job, String project, boolean isPR, String defaultBranchOrCommit, String defaultRefSpec) {
+        if (isPR) {
+            addStandardPRParameters(job, project, defaultBranchOrCommit, defaultRefSpec)
         }
         else {
-            addStandardNonPRParameters(job, defaultBranch)
+            addStandardNonPRParameters(job, defaultBranchOrCommit)
             // Add the size map info for the reporting
-            JobReport.Report.addTargetBranchForJob(job.name, defaultBranch)
+            JobReport.Report.addTargetBranchForJob(job.name, defaultBranchOrCommit)
         }
     }
     
@@ -618,13 +682,15 @@ class Utilities {
 
     // Adds the private job/PR parameters to a job.  Note that currently this shouldn't used on a non-pr job because
     // push triggering may not work.
-  
-    def static addStandardPRParameters(def job, String project) {
+    def static addStandardPRParameters(def job, String project, String defaultBranchOrCommit = null, String defaultRefSpec = null) {
+        defaultBranchOrCommit = getDefaultBranchOrCommitPR(defaultBranchOrCommit)
+        defaultRefSpec = getDefaultRefSpec(defaultRefSpec)
+
         job.with {
             parameters {
-                stringParam('GitBranchOrCommit', '${sha1}', 'Git branch or commit to build.  If a branch, builds the HEAD of that branch.  If a commit, then checks out that specific commit.')
+                stringParam('GitBranchOrCommit', defaultBranchOrCommit, 'Git branch or commit to build.  If a branch, builds the HEAD of that branch.  If a commit, then checks out that specific commit.')
                 stringParam('GitRepoUrl', calculateGitURL(project), 'Git repo to clone.')
-                stringParam('GitRefSpec', '+refs/pull/*:refs/remotes/origin/pr/*', 'RefSpec.  WHEN SUBMITTING PRIVATE JOB FROM YOUR OWN REPO, CLEAR THIS FIELD (or it won\'t find your code)')
+                stringParam('GitRefSpec', defaultRefSpec, 'RefSpec.  WHEN SUBMITTING PRIVATE JOB FROM YOUR OWN REPO, CLEAR THIS FIELD (or it won\'t find your code)')
             }
         }
     }
@@ -803,5 +869,34 @@ class Utilities {
                 }
             }
         }
+    }
+
+    def static String getDefaultBranchOrCommitPush(String defaultBranch) {
+        return getDefaultBranchOrCommit(false, defaultBranch);
+    }
+
+    def static String getDefaultBranchOrCommitPR(String defaultBranchOrCommit) {
+        return getDefaultBranchOrCommit(true, defaultBranchOrCommit);
+    }
+
+    def static String getDefaultBranchOrCommit(boolean isPR, String defaultBranchOrCommit) {
+        if (defaultBranchOrCommit != null) {
+            return defaultBranchOrCommit;
+        }
+
+        if (isPR) { 
+            return DefaultBranchOrCommitPR;
+        }
+        else { 
+            return DefaultBranchOrCommitPush;
+        }
+    }
+
+    def static String getDefaultRefSpec(String refSpec) {
+        if (refSpec != null) {
+            return refSpec;
+        }
+
+        return DefaultRefSpec;
     }
 }
