@@ -148,6 +148,7 @@ class Utilities {
                                 // the generic unversioned label except for special cases.
                                 'latest-or-auto':'mac'
                                 ],
+
                             // This is Windows Server 2012 R2
                             'Windows_NT' :
                                 [
@@ -157,6 +158,8 @@ class Utilities {
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
                                 'latest-or-auto':'auto-win2012-20160325',
+                                // Dev15 image
+                                'latest-dev15':'auto-win2012-20160506',
                                 // For internal runs
                                 'latest-or-auto-internal':'windows-internal || auto-win2012-20160325-internal',
                                 // For elevated runs
