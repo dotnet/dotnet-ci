@@ -552,7 +552,9 @@ class Utilities {
         }
     }
 
-    // Adds a github PR trigger only triggerable by member of certain organizations
+    // Adds a github PR trigger only triggerable by member of certain organizations. Either permittedOrgs or
+    // permittedUsers must be non-null.
+    //
     // Parameters:
     //    job - Job to add the PR trigger for
     //    contextString - String to use as the context (appears in github as the name of the test being run).
@@ -560,13 +562,14 @@ class Utilities {
     //    triggerPhraseString - String to use to trigger the job.  If empty, the PR is triggered by default.
     //    triggerOnPhraseOnly - If true and trigger phrase string is non-empty, triggers only using the specified trigger
     //                          phrase.
-    //    permittedOrgs - If permitAllSubmittters is false, permittedOrgs should be non-empty list of organizations
+    //    permittedOrgs - orgs permitted to trigger the job
+    //    permittedUsers - users permitted to trigger the job
     //
-    def static addPrivateGithubPRTrigger(def job, String contextString, String triggerPhraseString, Iterable<String> permittedOrgs, Iterable<String> permittedUsers) {
+    def static addPrivateGithubPRTrigger(def job, String contextString, String triggerPhraseString, boolean triggerPhraseOnly, Iterable<String> permittedOrgs, Iterable<String> permittedUsers) {
         assert contextString != ''
         assert triggerPhraseString != ''
         
-        Utilities.addGithubPRTriggerImpl(job, null, contextString, triggerPhraseString, true, false, permittedOrgs, permittedUsers)
+        Utilities.addGithubPRTriggerImpl(job, null, contextString, triggerPhraseString, triggerPhraseOnly, false, permittedOrgs, permittedUsers)
     }
     
     // Adds a github PR trigger only triggerable by member of certain organizations
