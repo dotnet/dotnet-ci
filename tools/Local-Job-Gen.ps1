@@ -131,7 +131,8 @@ else
 
 Write-Verbose "Preprocessing Utilities"
 
-$groovyText = $groovyText -replace "import jobs.generation.Utilities;", $($dotnetCIContent + [System.Environment]::Newline + $jobReportContent)
+$groovyText = $groovyText -replace "import jobs.generation.Utilities;", $($dotnetCIContent + [System.Environment]::Newline)
+$groovyText = $groovyText -replace "import jobs.generation.JobReport;", $($jobReportContent + [System.Environment]::Newline)
 
 # import jobs.generation.InternalUtilities; -> With the groovy text from the DotnetCIInternalUtilities
 
