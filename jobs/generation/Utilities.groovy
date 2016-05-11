@@ -428,6 +428,22 @@ class Utilities {
         Utilities.addRetentionPolicy(job, isPR)
     }
     
+    def private static String joinStrings(Iterable<String> strings, String combineDelim) {
+        // Doing this instead of String.join because for whatever reason it doesn't resolve
+        // in CI.
+        def combinedString = ''
+        strings.each { str ->
+            if (combinedString == '') {
+                combinedString = str
+            }
+            else {
+                combinedString += combineDelim + str
+            }
+        }
+        
+        return combinedString
+    }
+    
     // Sets up the job to fast exit if only certain paths were edited.
     //
     // Parameters:
@@ -441,16 +457,8 @@ class Utilities {
         // Doing this instead of String.join because for whatever reason it doesn't resolve
         // in CI.
         /*
-        def ignoredPathsString = ''
+        def ignoredPathsString = Utilities.joinStrings(ignoredPaths, ',')
         def foundNetCi = false
-        ignoredPaths.each { path ->
-            if (ignoredPathsString == '') {
-                ignoredPathsString = path
-            }
-            else {
-                ignoredPathsString += ',' + path
-            }
-        }
         // Put in the raw configure object
         job.with {
             // Add option to ignore changes to netci.groovy when building
@@ -499,9 +507,7 @@ class Utilities {
             triggers {
                 githubPullRequest {
                     useGitHubHooks()
-                    if (permitAllSubmittters) {
-                        admin('Microsoft')
-                    }
+                    // Add default individual admins here
                     admin('mmitche')
                     if (permitAllSubmittters) {
                         permitAll()
@@ -515,9 +521,9 @@ class Utilities {
                             }
                         }
                         if (permittedOrgs != null) {
-                            permittedOrgs.each { permittedOrg ->
-                                admin(permittedOrg)
-                            }
+                            String orgListString = Utilities.joinStrings(permittedOrgs, ',')
+                            orgWhitelist(orgListString)
+                            allowMembersOfWhitelistedOrgsAsAdmin(true)
                         }
                     }
                     extensions {
