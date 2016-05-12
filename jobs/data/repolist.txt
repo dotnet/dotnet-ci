@@ -9,10 +9,13 @@
 #       GithubBranchName is passed the value in branchName.
 #       Unless the folder name is specifically specified, a folder is created underneath the repo folder.  If no branch is specified,
 #       no branch folder is created.
+#   definitionScript=<file path> Path to the location of the groovy file that should be used for this
+#       entry.  Path is relative to the root of the repository.  Usually ommitted.  Can default to
 # Example: dotnet/coreclr
 
 dotnet/buildtools branch=master server=dotnet-ci
 dotnet/citest branch=master server=dotnet-ci2
+dotnet/citest folder=dotnet_citest/perf/master definitionScript=perf.groovy branch=master server=dotnet-ci2
 dotnet/cli branch=rel/1.0.0 server=dotnet-ci
 dotnet/cli branch=master server=dotnet-ci
 dotnet/codeformatter branch=master server=dotnet-ci

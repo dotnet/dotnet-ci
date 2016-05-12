@@ -18,16 +18,18 @@ import jobs.generation.Utilities
 //  generated jobs.
 
 class Repo {
-    String project;
-    String[] folders;
-    String branch;
-    String server;
+    String project
+    String[] folders
+    String branch
+    String server
+    String definitionScript
     
-    def Repo(String project, String[] folders, String branch, String server) {
+    def Repo(String project, String[] folders, String branch, String server, String definitionScript) {
         this.project = project
         this.folders = folders
         this.branch = branch
         this.server = server
+        this.definitionScript = definitionScript
     }
     
     // Parse the input string and return a Repo object
@@ -43,6 +45,8 @@ class Repo {
         String branch = null
         // Server defaults to the primary server, dotnet-ci
         String server = 'dotnet-ci'
+        // File name/path is usually netci.groovy, but can be set arbitrarily
+        String definitionScript = 'netci.groovy'
         
         // Check whether it contains a single forward slash
         assert project.indexOf('/') != -1 && project.indexOf('/') == project.lastIndexOf('/')
@@ -71,6 +75,9 @@ class Repo {
             }
             else if(element.startsWith('server=')) {
                 server = element.substring('server='.length())
+            }
+            else if(element.startsWith('definitionScript=')) {
+                definitionScript = element.substring('definitionScript='.length())
             }
             else {
                 println("Unknown element " + element);
@@ -105,7 +112,7 @@ class Repo {
         
         // Construct a new object and return
         
-        return new Repo(project, folders, branch, server)
+        return new Repo(project, folders, branch, server, definitionScript)
     }
 }
 
@@ -192,7 +199,9 @@ repos.each { repoInfo ->
                     // Set up polling ignore
                     configure { node ->
                         node /'extensions' << 'hudson.plugins.git.extensions.impl.PathRestriction' {
-                            includedRegions "${targetDir}/netci.groovy\nnetci.groovy"
+                            // Not sure whether polling takes into account the target dir, so just
+                            // put multiple entries
+                            includedRegions "${targetDir}/${repoInfo.definitionScript}\n${repoInfo.definitionScript}"
                             excludedRegions ''
                         }
                     }
@@ -200,18 +209,18 @@ repos.each { repoInfo ->
             }
             
             // Add a parameter for the project, so that gets passed to the
-            // netci.groovy file
+            // DSL groovy file
             parameters {
-                stringParam('GithubProject', repoInfo.project, 'Project name passed to the netci generator')
-                stringParam('GithubBranchName', repoInfo.branch, 'Branch name passed to the netci generator')
+                stringParam('GithubProject', repoInfo.project, 'Project name passed to the DSL generator')
+                stringParam('GithubBranchName', repoInfo.branch, 'Branch name passed to the DSL generator')
             }
             
             // Add in the job generator logic
             
             steps {
                 dsl {
-                    // Loads netci.groovy
-                    external(Utilities.getProjectName(repoInfo.project) + '/netci.groovy')
+                    // Loads DSL groovy file
+                    external(Utilities.getProjectName(repoInfo.project) + "/${repoInfo.definitionScript}")
                     
                     // Additional classpath should point to the utility repo
                     additionalClasspath('dotnet-ci')
