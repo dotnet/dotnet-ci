@@ -244,7 +244,9 @@ class Utilities {
                                 // Latest auto image.  This will be used for transitioning
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
-                                'latest-or-auto':'auto-deb84-20160513'
+                                'latest-or-auto':'auto-deb84-20160513',
+                                // For outerloop runs
+                                'outer-latest-or-auto':'auto-deb84-20160513outer'
                                 ],
                            'Fedora23' :
                                 [
