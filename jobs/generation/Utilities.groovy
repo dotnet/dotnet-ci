@@ -250,7 +250,7 @@ class Utilities {
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
                                 'latest-or-auto':'auto-deb84-20160513'
-                                ]
+                                ],
                            'Fedora23' :
                                 [
                                 '' : 'auto-fedora23-20160319.1',
