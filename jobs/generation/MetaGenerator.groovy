@@ -107,8 +107,8 @@ class Repo {
             }
         }
         
-        println("   folders = ${folders}")
-        println("   branch = ${branch}")
+        out.println("   folders = ${folders}")
+        out.println("   branch = ${branch}")
         
         // Construct a new object and return
         
@@ -144,20 +144,16 @@ repos.each { repoInfo ->
     for (folderElement in repoInfo.folders) {
         if (generatorFolder == '') {
             generatorFolder = folderElement
-            folder(generatorFolder) {}
         }
         else {
             // Append a new folder
             generatorFolder += "/${folderElement}"
         }
+        folder(generatorFolder) {}
     }
     
     // Make the PR test folder
     def generatorPRTestFolder = "${generatorFolder}/GenPRTest"
-    
-    if (generatorFolder != '') {
-      folder(generatorFolder) {}
-    }
     
     // Create a Folder for generator PR tests under that.
     folder(generatorPRTestFolder) {}
