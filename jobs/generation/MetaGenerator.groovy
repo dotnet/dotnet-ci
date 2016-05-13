@@ -278,7 +278,15 @@ repos.each { repoInfo ->
             jobGenerator.with {
                 triggers {
                     scm {
-                        scm('H/15 * * * *')
+                        // For the second CI server, the names have changed around a bit.
+                        // Special case that server for now
+                        if (ServerName == 'dotnet-ci2') {
+                            scmpoll_spec('H/15 * * * *')
+                            ignorePostCommitHooks(true)
+                        }
+                        else {
+                            scm('H/15 * * * *')
+                        }
                     }
                 }
             }
