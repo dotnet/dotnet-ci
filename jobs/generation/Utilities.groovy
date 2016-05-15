@@ -250,11 +250,13 @@ class Utilities {
                                 ],
                            'Fedora23' :
                                 [
-                                '' : 'auto-fedora23-20160319.1',
+                                '' : 'auto-fedora23-20160514',
                                 // Latest auto image.  This will be used for transitioning
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
-                                'latest-or-auto':'auto-fedora23-20160319.1'
+                                'latest-or-auto':'auto-fedora23-20160514',
+                                // For outerloop runs
+                                'outer-latest-or-auto':'auto-fedora23-20160514outer'
                                 ],
                                 // Some nodes don't have git, which is what is required for the
                                 // generators.
