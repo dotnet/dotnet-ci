@@ -28,6 +28,8 @@ dotnet/corert branch=master server=dotnet-ci
 dotnet/llilc branch=master server=dotnet-ci
 dotnet/orleans server=dotnet-ci
 dotnet/roslyn branch=master server=dotnet-ci
+dotnet/roslyn branch=future server=dotnet-ci
+dotnet/roslyn branch=stabilization server=dotnet-ci
 dotnet/roslyn-analyzers branch=master server=dotnet-ci
 dotnet/roslyn-project-system branch=master server=dotnet-ci
 dotnet/wcf branch=master server=dotnet-ci
