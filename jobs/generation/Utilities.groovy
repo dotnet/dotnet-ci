@@ -162,10 +162,10 @@ class Utilities {
                                 // the generic unversioned label except for special cases.
                                 'latest-or-auto':'auto-win2016-20160223'
                                 ],
-                            'Windows Nano' :
+                            'Windows Nano 2016' :
                                 [
                                 // Generic version label
-                                '' : 'windowsnano'
+                                '' : 'windowsnano16'
                                 ],
                             'Windows 10' : 
                                 [
@@ -262,8 +262,8 @@ class Utilities {
                                 // generators.
                             'Generators' :
                                 [
-                                '' : '!windowsnano',
-                                'latest-or-auto':'!windowsnano'
+                                '' : '!windowsnano16',
+                                'latest-or-auto':'!windowsnano16'
                                 ]
                             ]
         def versionLabelMap = machineMap.get(osName, null)
