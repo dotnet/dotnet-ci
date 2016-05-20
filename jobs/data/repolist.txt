@@ -33,6 +33,8 @@ dotnet/roslyn branch=stabilization server=dotnet-ci
 dotnet/roslyn branch=microupdate server=dotnet-ci
 dotnet/roslyn branch=future-stabilization server=dotnet-ci
 dotnet/roslyn branch=features/typeswitch server=dotnet-ci
+dotnet/roslyn branch=features/outvar server=dotnet-ci
+dotnet/roslyn branch=features/test-impact server=dotnet-ci
 dotnet/roslyn-analyzers branch=master server=dotnet-ci
 dotnet/roslyn-project-system branch=master server=dotnet-ci
 dotnet/wcf branch=master server=dotnet-ci
