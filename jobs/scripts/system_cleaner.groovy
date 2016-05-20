@@ -7,7 +7,7 @@ deleteDisabledNonRootChildren(Jenkins.instance.items, '')
 def deleteDisabledNonRootChildren(items, folder) {
   for (item in items) {
     if (item.class.canonicalName != 'com.cloudbees.hudson.plugins.folder.Folder') {
-      if (folder != '' && item.disabled) {
+      if (item.disabled) {
         println("About to delete " + folder + "/" + item.name)
         item.delete();
       }
