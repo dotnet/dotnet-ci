@@ -1,5 +1,55 @@
 package jobs.generation;
 
+class ArchivalSettings {
+    String[] filesToArchive = null;
+    String[] filesToExclude = null;
+    boolean failIfNothingArchived = true
+    private String[] archiveStatus = defaultSuccessArchiveStatus
+    private static String[] defaultSuccessArchiveStatus = ['SUCCESS', 'SUCCESS']
+    private static String[] defaultFailingArchiveStatus = ['ABORTED', 'FAILURE']
+    private static String[] defaultAlwaysArchiveStatus = ['FAILURE', 'SUCCESS']
+    
+    void setArchiveOnFailure() {
+        archiveStatus = defaultFailingArchiveStatus
+    }
+    
+    void setArchiveOnSuccess() {
+        archiveStatus = defaultSuccessArchiveStatus
+    }
+    
+    void setAlwaysArchive() {
+        archiveStatus = defaultAlwaysArchiveStatus
+    }
+    
+    String[] getArchiveStatusRange() {
+        return archiveStatus
+    }
+    
+    void addFiles(String archiveBlob) {
+        if (filesToArchive == null) {
+            filesToArchive = [archiveBlob]
+        } else {
+            filesToArchive += archiveBlob
+        }
+    }
+    
+    void excludeFiles(String archiveBlob) {
+        if (filesToExclude == null) {
+            filesToExclude = [archiveBlob]
+        } else {
+            filesToExclude += archiveBlob
+        }
+    }
+    
+    boolean setFailIfNothingArchived() {
+        failIfNothingArchived = true
+    }
+    
+    boolean setDoNotFailIfNothingArchived() {
+        failIfNothingArchived = false
+    }
+}
+    
 class Utilities {
 
     private static String DefaultBranchOrCommitPR = '${sha1}'
@@ -272,31 +322,6 @@ class Utilities {
         assert machineLabel != null : "Could not find version ${version} of ${osName}"
         job.with {
             label(machineLabel)
-        }
-    }
-  
-    // Does simple setup for a job.  Used for easy setup when building a
-    // bunch of jobs in a loop
-    // 
-    // Parameters:
-    //  job - Job to modify
-    //  project - Project the job belongs to
-    //  isPR - True if the job is a PR job, false otherwise
-    //  prContext - If the job is a PR job, it will get a PR trigger.  This context will
-    //              show up in github for the PR.  If left blank, will use the job name.
-    @Deprecated
-    def static simpleInnerLoopJobSetup(def job, String project, boolean isPR, String prContext = '') {
-        
-        Utilities.standardJobSetup(job, project, isPR)
-        
-        if (isPR) {
-            if (prContext == '') {
-                prContext = job.name
-            }
-            Utilities.addGithubPRTrigger(job, prContext)
-        }
-        else {
-            Utilities.addGithubPushTrigger(job)
         }
     }
     
@@ -769,20 +794,70 @@ class Utilities {
             }
         }
     }
-  
-    def static addArchival(def job, String filesToArchive, String filesToExclude = '',
-        def doNotFailIfNothingArchived = false, def archiveOnlyIfSuccessful = true) {
-
+     
+    // Archives data for a job when specific job result conditions are met.
+    // Parameters:
+    //
+    //  job - Job to modify
+    //  settings - Archival settings
+    def static addArchival(def job, ArchivalSettings settings) {
         job.with {
             publishers {
-                archiveArtifacts {
-                    pattern(filesToArchive)
-                    exclude(filesToExclude)
-                    onlyIfSuccessful(archiveOnlyIfSuccessful)
-                    allowEmpty(doNotFailIfNothingArchived)
+                flexiblePublish {
+                    conditionalAction {
+                        condition {
+                            status(settings.getArchiveStatusRange()[0],settings.getArchiveStatusRange()[1])
+                        }
+                        
+                        publishers {
+                            archiveArtifacts {
+                                allowEmpty(!settings.failIfNothingArchived)
+                                pattern(joinStrings(Arrays.asList(settings.filesToArchive), ','))
+                                if (settings.filesToExclude != null) {
+                                    exclude(joinStrings(Arrays.asList(settings.filesToExclude), ','))
+                                } else {
+                                    exclude('')
+                                }
+                                // Always archive so that the flexible publishing
+                                // handles pass/fail
+                                onlyIfSuccessful(false)
+                            }
+                        }
+                    }
                 }
             }
         }
+    }
+  
+    // Archives data for a job
+    // Parameters:
+    //
+    //  job - Job to modify
+    //  filesToArchive - Files to archive.  Comma separated glob syntax
+    //  filesToExclude - Files to exclude from archival.  Defaults to no files excluded.  Comma separated glob syntax
+    //  doNotFailIfNothingArchived - If true, and nothing is archived, will not fail the build.
+    //  archiveOnlyIfSuccessful - If true, will only archive if the build passes.  If false, then will archive always 
+    @Deprecated
+    def static addArchival(def job, String filesToArchive, String filesToExclude = '',
+        def doNotFailIfNothingArchived = false, def archiveOnlyIfSuccessful = true) {
+
+        ArchivalSettings settings = new ArchivalSettings();
+        settings.addFiles(filesToArchive);
+        if (filesToExclude != '') {
+            settings.excludeFiles(filesToExclude);
+        }
+        if (doNotFailIfNothingArchived) {
+            settings.setDoNotFailIfNothingArchived()
+        } else {
+            settings.setFailIfNothingArchived()
+        }
+        if (archiveOnlyIfSuccessful) {
+            settings.setArchiveOnSuccess()
+        } else {
+            settings.setAlwaysArchive()
+        }
+        
+        addArchival(job, settings)
     }
 
     def static addHtmlPublisher(def job, String reportDir, String name, String reportHtml, boolean keepAllReports = true) {
