@@ -35,7 +35,7 @@ param (
     [string]$DotnetCIUtilities = "https://raw.githubusercontent.com/dotnet/dotnet-ci/master/jobs/generation/Utilities.groovy",
     [string]$DotnetCIJobReport = "https://raw.githubusercontent.com/dotnet/dotnet-ci/master/jobs/generation/JobReport.groovy",
     [string]$DotnetCIInternalUtilities = $null,
-    [string]$JobDslStandaloneJar = "https://github.com/dotnet/dotnet-ci/releases/download/1.40/job-dsl-core-1.40-SNAPSHOT-standalone.jar",
+    [string]$JobDslStandaloneJar = "https://github.com/dotnet/dotnet-ci/releases/download/1.43/job-dsl-core-1.43-standalone.jar",
     [switch]$ForceJarDownload = $false,
     [switch]$RemovePreviousGeneratedFiles = $false
 )
