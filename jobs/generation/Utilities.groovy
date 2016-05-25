@@ -823,15 +823,28 @@ class Utilities {
             }
         }
     }
-
-    def static addPeriodicTrigger(def job, String cronString) {
+    
+    // Adds a trigger that causes the job to run on a schedule.
+    // If alwaysRuns is true, then this is a true cron trigger.  If false,
+    // then only runs if source control has changed
+    // Parameters:
+    //
+    //  job - Job to modify
+    //  cronString - Cron job string indicating the frequency
+    //  alwaysRuns - If true, the job will be a true cron job, if false, will run only when source has changed
+    def static addPeriodicTrigger(def job, String cronString, boolean alwaysRuns = false) {
         job.with {
             triggers {
-                cron(cronString)
+                if (alwaysRuns) {
+                    cron(cronString)
+                }
+                else {
+                    scm(cronString)
+                }
             }
         }
         
-        JobReport.Report.addCronTriggeredJob(job.name, cronString)
+        JobReport.Report.addCronTriggeredJob(job.name, cronString, alwaysRuns)
     }
     
     // Adds xunit.NET v2 test results.

@@ -4,6 +4,7 @@ class JobReport {
     class CronTriggerInfo {
         String cronString
         String[] branches
+        boolean alwaysRuns
     }
     class PRTriggerInfo {
         String context
@@ -81,10 +82,11 @@ class JobReport {
         addReference(jobName)
     }
     
-    def addCronTriggeredJob(String jobName, String cronString) {
+    def addCronTriggeredJob(String jobName, String cronString, boolean alwaysRuns) {
         def triggerInfo = new CronTriggerInfo()
         triggerInfo.cronString = cronString
         triggerInfo.branches = getTargetBranchesForJob(jobName)
+        triggerInfo.alwaysRuns = alwaysRuns
         
         cronTriggeredJobs += ["${jobName}":triggerInfo]
         addReference(jobName)
@@ -174,14 +176,15 @@ class JobReport {
         // Cron trigger CSV report
         
         outStream.println()
-        outStream.println("Push Job CSV")
+        outStream.println("Cron Job CSV")
         outStream.println("================================================================")
         
-        def cronTriggerFormatString = "%s,%s,%s"
-        outStream.println(String.format(cronTriggerFormatString, "Job Name", "Cron", "Branches"))
+        def cronTriggerFormatString = "%s,%s,%s,%s"
+        outStream.println(String.format(cronTriggerFormatString, "Job Name", "Cron", "Branches", "Always Runs?"))
         cronTriggeredJobs.sort().each { jobName, triggerInfo -> 
             String branchString = triggerInfo.branches == null ? 'All' : triggerInfo.branches.join('; ')
-            outStream.println(String.format(cronTriggerFormatString, jobName, triggerInfo.cronString, branchString))
+            String alwaysRunsString = triggerInfo.alwaysRuns ? 'Yes' : 'No'
+            outStream.println(String.format(cronTriggerFormatString, jobName, triggerInfo.cronString, branchString, alwaysRunsString))
         }
         outStream.println("================================================================")
     }
