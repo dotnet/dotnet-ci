@@ -413,6 +413,8 @@ class Utilities {
 
         Utilities.setJobTimeout(job, 120)
         Utilities.addRetentionPolicy(job, isPR)
+        // Add a webhook to gather job events for Jenkins monitoring
+        Utilities.addBuildEventWebHook(job, 'https://jaredpar.azurewebsites.net/api/BuildEvent?code=tts2pvyelahoiliwu7lo6flxr8ps9kaip4hyr4m0ofa3o3l3di77tzcdpk22kf9gex5m6cbrcnmi')
     }
     
     def private static String joinStrings(Iterable<String> strings, String combineDelim) {
@@ -916,6 +918,22 @@ class Utilities {
                     }
                     thresholdMode(ThresholdMode.PERCENT)
                     timeMargin(3000)
+                }
+            }
+        }
+    }
+
+    // Calls a web hook on Jenkins build events.  Allows our build monitoring jobs to be push notified
+    // vs. polling
+    //
+    // Parameters:
+    //  job - Job to add hook to
+    //  endPoint - Endpoint URL to receive the event
+    static void addBuildEventWebHook(def job, String endPoint) {
+        job.with {
+            notifications {
+                endpoint(endPoint) {
+                    event('all')
                 }
             }
         }
