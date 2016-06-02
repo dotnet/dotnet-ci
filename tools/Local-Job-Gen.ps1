@@ -34,11 +34,31 @@ param (
 	[string]$Branch = "master",
     [string]$DotnetCIUtilities = "https://raw.githubusercontent.com/dotnet/dotnet-ci/master/jobs/generation/Utilities.groovy",
     [string]$DotnetCIJobReport = "https://raw.githubusercontent.com/dotnet/dotnet-ci/master/jobs/generation/JobReport.groovy",
+    [string]$DotnetCIArchivalSettings = "https://raw.githubusercontent.com/dotnet/dotnet-ci/master/jobs/generation/ArchivalSettings.groovy",
     [string]$DotnetCIInternalUtilities = $null,
     [string]$JobDslStandaloneJar = "https://github.com/dotnet/dotnet-ci/releases/download/1.43/job-dsl-core-1.43-standalone.jar",
     [switch]$ForceJarDownload = $false,
     [switch]$RemovePreviousGeneratedFiles = $false
 )
+
+function Get-Text-From-Location {
+    param( [String]$fileLocation )
+    
+    if ($fileLocation.StartsWith("http"))
+    {
+        Write-Verbose "Downloading from $fileLocation"
+        # Grab online
+        $request = Invoke-WebRequest $fileLocation
+        $content = $request.Content
+    }
+    else
+    {
+        $content = Get-Content $fileLocation
+        $content = $content -join [System.Environment]::Newline
+    }
+    
+    return $content
+}
 
 if (Test-Path $CIOutputDir)
 {
@@ -99,40 +119,17 @@ if ($JobDslStandaloneJar.StartsWith("http"))
 
 # import jobs.generation.Utilities; -> With the groovy text from the DotnetCIUtilities as well as the data from the job report
 
-$jobReportContent = $null
-if ($DotnetCIJobReport.StartsWith("http"))
-{
-    Write-Verbose "Downloading Utilities.groovy from $DotnetCIUtilities"
-    # Grab online
-    $jobReport = Invoke-WebRequest $DotnetCIJobReport
-    $jobReportContent = $jobReport.Content
-}
-else
-{
-    $jobReportContent = Get-Content $DotnetCIJobReport
-    $jobReportContent = $jobReportContent -join [System.Environment]::Newline
-}
+$jobReportContent = Get-Text-From-Location($DotnetCIJobReport)
+$dotnetCIContent = Get-Text-From-Location($DotnetCIUtilities)
+$archivalSettingsContent = Get-Text-From-Location($DotnetCIArchivalSettings)
 
 $groovyText = Get-Content $combinedCIFileName
 
-$dotnetCIContent = $null
-if ($DotnetCIUtilities.StartsWith("http"))
-{
-    Write-Verbose "Downloading Utilities.groovy from $DotnetCIUtilities"
-    # Grab online
-    $dotnetCI = Invoke-WebRequest $DotnetCIUtilities
-    $dotnetCIContent = $dotnetCI.Content
-}
-else
-{
-    $dotnetCIContent = Get-Content $DotnetCIUtilities
-    $dotnetCIContent = $dotnetCIContent -join [System.Environment]::Newline
-}
-
 Write-Verbose "Preprocessing Utilities"
 
-$groovyText = $groovyText -replace "import jobs.generation.Utilities;", $($dotnetCIContent + [System.Environment]::Newline + $jobReportContent)
+$groovyText = $groovyText -replace "import jobs.generation.(\*|Utilities);", $($dotnetCIContent + [System.Environment]::Newline + $jobReportContent + [System.Environment]::Newline + $archivalSettingsContent)
 $groovyText = $groovyText -replace "import jobs.generation.JobReport;", ""
+$groovyText = $groovyText -replace "import jobs.generation.ArchivalSettngs;", ""
 
 # import jobs.generation.InternalUtilities; -> With the groovy text from the DotnetCIInternalUtilities
 
@@ -146,17 +143,7 @@ if ($groovyText -match "import jobs.generation.InternalUtilities;")
         throw "Please provide a file/URL for the internal utilities"
     }
 
-    if ($DotnetCIInternalUtilities.StartsWith("http"))
-    {
-        Write-Verbose "Downloading InternalUtilities.groovy from $DotnetCIInternalUtilities"
-        $dotnetInternalCI = Invoke-WebRequest $DotnetCIInternalUtilities
-        $dotnetInternalCIContent = $dotnetInternalCI.Content
-    }
-    else
-    {
-        $dotnetInternalCIContent = Get-Content $DotnetCIInternalUtilities
-        $dotnetInternalCIContent = $dotnetInternalCIContent -join [System.Environment]::Newline
-    }
+    $dotnetInternalCIContent = Get-Text-From-Location($DotnetCIInternalUtilities)
 
     $groovyText = $groovyText -replace "import jobs.generation.InternalUtilities;", $dotnetInternalCIContent
 }
