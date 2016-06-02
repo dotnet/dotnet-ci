@@ -21,6 +21,20 @@ class Utilities {
     // job is a PR or not, and an optional folder
     //
     // Parameters:
+    //  jobName: Base name of the job
+    //  isPR: True if PR job, false otherwise
+    //  folder (optional): If folder is specified, project is not used as the folder name
+    //
+    // Returns:
+    //  Full job name.  If folder prefix is specified, 
+    def static getFullJobName(String jobName, boolean isPR, String folder = '') {
+        return getFullJobName('', jobName, isPR, folder);
+    }
+    
+    // Get the standard job name of a job given the base job name, project, whether the
+    // job is a PR or not, and an optional folder
+    //
+    // Parameters:
     //  project: Project name (e.g. dotnet/coreclr)
     //  jobName: Base name of the job
     //  isPR: True if PR job, false otherwise
