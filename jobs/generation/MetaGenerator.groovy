@@ -164,7 +164,7 @@ repos.each { repoInfo ->
             multiscm {
                 git {
                     remote {
-                        github('dotnet/dotnet-ci')
+                        url('https://github.com/dotnet/dotnet-ci')
                     }
                     relativeTargetDir('dotnet-ci')
                     // dotnet-ci always pulls from master
