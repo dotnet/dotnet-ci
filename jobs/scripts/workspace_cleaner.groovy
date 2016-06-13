@@ -67,7 +67,7 @@ def static deleteDirContents(def computer, def directory, def output) {
   if (computer.isUnix()) {
     command = "/bin/sh -c 'rm -rf *'"
   } else {
-    command = "cmd.exe /C mkdir %USERPROFILE%\\emptydir & robocopy /MIR /NFL /NDL /NJH /NJS /nc /ns /np %USERPROFILE%\\emptydir ${directory}"
+    command = "cmd.exe /C mkdir %USERPROFILE%\\emptydir & robocopy /MIR /R:2 /NFL /NDL /NJH /NJS /nc /ns /np %USERPROFILE%\\emptydir ${directory}"
   }
       
   try {
