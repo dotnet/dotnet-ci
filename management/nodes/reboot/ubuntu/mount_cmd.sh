@@ -1,0 +1,1 @@
+sudo lsblk -o UUID,MOUNTPOINT,FSTYPE | grep SHARE | xargs printf "# shared drive\nUUID=%s %s %s defaults 0 2\n" | sudo tee -a /etc/fstab
