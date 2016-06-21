@@ -50,6 +50,7 @@ dotnet/roslyn branch=features/patterns server=dotnet-ci
 dotnet/roslyn branch=features/records server=dotnet-ci
 dotnet/roslyn branch=features/privateProtected server=dotnet-ci
 dotnet/roslyn branch=features/ioperation server=dotnet-ci
+dotnet/roslyn branch=features/extensionEverything server=dotnet-ci
 dotnet/roslyn-analyzers branch=master server=dotnet-ci
 dotnet/roslyn-project-system branch=master server=dotnet-ci
 dotnet/wcf branch=master server=dotnet-ci
