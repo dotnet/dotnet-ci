@@ -669,7 +669,7 @@ class Utilities {
             addStandardPRParameters(job, project, defaultBranchOrCommit, defaultRefSpec)
         }
         else {
-            addStandardNonPRParameters(job, defaultBranchOrCommit)
+            addStandardNonPRParameters(job, project, defaultBranchOrCommit)
             // Add the size map info for the reporting
             JobReport.Report.addTargetBranchForJob(job.name, defaultBranchOrCommit)
         }
@@ -677,10 +677,12 @@ class Utilities {
     
     // Adds parameters to a non-PR job.  Right now this is only the git branch or commit.
     // This is added so that downstream jobs get the same hash as the root job
-    def static addStandardNonPRParameters(def job, String defaultBranch = '*/master') {
+    def private static addStandardNonPRParameters(def job, String project, String defaultBranch = '*/master') {
         job.with {
             parameters {
                 stringParam('GitBranchOrCommit', defaultBranch, 'Git branch or commit to build.  If a branch, builds the HEAD of that branch.  If a commit, then checks out that specific commit.')
+                // Telemetry
+                stringParam('DOTNET_CLI_TELEMETRY_PROFILE', "IsInternal_CIServer;${project}", 'This is used to differentiate the internal CI usage of CLI in telemetry.  This gets exposed in the environment and picked up by the CLI product.')
             }
         }
     }
@@ -696,6 +698,7 @@ class Utilities {
                 stringParam('GitBranchOrCommit', defaultBranchOrCommit, 'Git branch or commit to build.  If a branch, builds the HEAD of that branch.  If a commit, then checks out that specific commit.')
                 stringParam('GitRepoUrl', calculateGitURL(project), 'Git repo to clone.')
                 stringParam('GitRefSpec', defaultRefSpec, 'RefSpec.  WHEN SUBMITTING PRIVATE JOB FROM YOUR OWN REPO, CLEAR THIS FIELD (or it won\'t find your code)')
+                stringParam('DOTNET_CLI_TELEMETRY_PROFILE', "IsInternal_CIServer;${project}", 'This is used to differentiate the internal CI usage of CLI in telemetry.  This gets exposed in the environment and picked up by the CLI product.')
             }
         }
     }
