@@ -162,6 +162,8 @@ class Utilities {
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
                                 'latest-or-auto':'auto-win2012-20160325',
+                                // VS2015.3 image:
+                                'latest-or-auto-update3':'auto-win2012-20160627',
                                 // Dev15 image
                                 'latest-dev15':'auto-win2012-20160506',
                                 // For internal runs
