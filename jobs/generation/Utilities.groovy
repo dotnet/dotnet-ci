@@ -111,7 +111,7 @@ class Utilities {
                                 '20160211':'auto-ubuntu1404-20160211',
                                 // Contains the rootfs setup for arm/arm64 builds.  Move this label forward
                                 // till we have the working build/test, then apply to everything.
-                                'arm-cross-latest':'auto-ubuntu1404-20160616',
+                                'arm-cross-latest':'auto-ubuntu1404-20160622',
                                 // Latest auto image.  This will be used for transitioning
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
@@ -162,6 +162,8 @@ class Utilities {
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
                                 'latest-or-auto':'auto-win2012-20160325',
+                                // VS2015.3 image:
+                                'latest-or-auto-update3':'auto-win2012-20160627',
                                 // Dev15 image
                                 'latest-dev15':'auto-win2012-20160506',
                                 // For internal runs
@@ -256,23 +258,23 @@ class Utilities {
                                 ],
                             'Debian8.4' :
                                 [
-                                '' : 'auto-deb84-20160513',
+                                '' : 'auto-deb84-20160623',
                                 // Latest auto image.  This will be used for transitioning
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
-                                'latest-or-auto':'auto-deb84-20160513',
+                                'latest-or-auto':'auto-deb84-20160623',
                                 // For outerloop runs
-                                'outer-latest-or-auto':'auto-deb84-20160513outer'
+                                'outer-latest-or-auto':'auto-deb84-20160623outer'
                                 ],
                            'Fedora23' :
                                 [
-                                '' : 'auto-fedora23-20160530',
+                                '' : 'auto-fedora23-20160622',
                                 // Latest auto image.  This will be used for transitioning
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
-                                'latest-or-auto':'auto-fedora23-20160530',
+                                'latest-or-auto':'auto-fedora23-20160622',
                                 // For outerloop runs
-                                'outer-latest-or-auto':'auto-fedora23-20160530outer'
+                                'outer-latest-or-auto':'auto-fedora23-20160622outer'
                                 ],
                                 // Some nodes don't have git, which is what is required for the
                                 // generators.
@@ -669,7 +671,7 @@ class Utilities {
             addStandardPRParameters(job, project, defaultBranchOrCommit, defaultRefSpec)
         }
         else {
-            addStandardNonPRParameters(job, defaultBranchOrCommit)
+            addStandardNonPRParameters(job, project, defaultBranchOrCommit)
             // Add the size map info for the reporting
             JobReport.Report.addTargetBranchForJob(job.name, defaultBranchOrCommit)
         }
@@ -677,10 +679,12 @@ class Utilities {
     
     // Adds parameters to a non-PR job.  Right now this is only the git branch or commit.
     // This is added so that downstream jobs get the same hash as the root job
-    def static addStandardNonPRParameters(def job, String defaultBranch = '*/master') {
+    def private static addStandardNonPRParameters(def job, String project, String defaultBranch = '*/master') {
         job.with {
             parameters {
                 stringParam('GitBranchOrCommit', defaultBranch, 'Git branch or commit to build.  If a branch, builds the HEAD of that branch.  If a commit, then checks out that specific commit.')
+                // Telemetry
+                stringParam('DOTNET_CLI_TELEMETRY_PROFILE', "IsInternal_CIServer;${project}", 'This is used to differentiate the internal CI usage of CLI in telemetry.  This gets exposed in the environment and picked up by the CLI product.')
             }
         }
     }
@@ -696,6 +700,7 @@ class Utilities {
                 stringParam('GitBranchOrCommit', defaultBranchOrCommit, 'Git branch or commit to build.  If a branch, builds the HEAD of that branch.  If a commit, then checks out that specific commit.')
                 stringParam('GitRepoUrl', calculateGitURL(project), 'Git repo to clone.')
                 stringParam('GitRefSpec', defaultRefSpec, 'RefSpec.  WHEN SUBMITTING PRIVATE JOB FROM YOUR OWN REPO, CLEAR THIS FIELD (or it won\'t find your code)')
+                stringParam('DOTNET_CLI_TELEMETRY_PROFILE', "IsInternal_CIServer;${project}", 'This is used to differentiate the internal CI usage of CLI in telemetry.  This gets exposed in the environment and picked up by the CLI product.')
             }
         }
     }
