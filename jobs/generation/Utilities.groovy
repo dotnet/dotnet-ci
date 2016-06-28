@@ -167,7 +167,7 @@ class Utilities {
                                 // Dev15 image
                                 'latest-dev15':'auto-win2012-20160506',
                                 // For internal runs
-                                'latest-or-auto-internal':'windows-internal || auto-win2012-20160325-internal',
+                                'latest-or-auto-internal':'windows-internal || auto-win2012-20160627-internal',
                                 // For elevated runs
                                 'latest-or-auto-elevated':'windows-elevated || auto-win2012-20160325-elevated'
                                 ],
