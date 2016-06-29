@@ -59,7 +59,6 @@ dotnet/roslyn-analyzers branch=master server=dotnet-ci
 dotnet/roslyn-project-system branch=master server=dotnet-ci
 dotnet/symreader-portable branch=master server=dotnet-ci
 dotnet/wcf branch=master server=dotnet-ci
-dotnet/wcf branch=release/1.0.0-rc2 server=dotnet-ci
 dotnet/wcf branch=release/1.0.0 server=dotnet-ci
 Microsoft/ChakraCore branch=master server=dotnet-ci
 Microsoft/ChakraCore branch=release/1.2 server=dotnet-ci
