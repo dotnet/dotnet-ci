@@ -127,9 +127,9 @@ $groovyText = Get-Content $combinedCIFileName
 
 Write-Verbose "Preprocessing Utilities"
 
-$groovyText = $groovyText -replace "import jobs.generation.(\*|Utilities);", $($dotnetCIContent + [System.Environment]::Newline + $jobReportContent + [System.Environment]::Newline + $archivalSettingsContent)
-$groovyText = $groovyText -replace "import jobs.generation.JobReport;", ""
-$groovyText = $groovyText -replace "import jobs.generation.ArchivalSettngs;", ""
+$groovyText = $groovyText -replace "import jobs.generation.(\*|Utilities);?", $($dotnetCIContent + [System.Environment]::Newline + $jobReportContent + [System.Environment]::Newline + $archivalSettingsContent)
+$groovyText = $groovyText -replace "import jobs.generation.JobReport;?", ""
+$groovyText = $groovyText -replace "import jobs.generation.ArchivalSettngs;?", ""
 
 # import jobs.generation.InternalUtilities; -> With the groovy text from the DotnetCIInternalUtilities
 
