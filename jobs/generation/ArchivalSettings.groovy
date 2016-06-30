@@ -8,23 +8,23 @@ class ArchivalSettings {
     private static String[] defaultSuccessArchiveStatus = ['SUCCESS', 'SUCCESS']
     private static String[] defaultFailingArchiveStatus = ['ABORTED', 'FAILURE']
     private static String[] defaultAlwaysArchiveStatus = ['FAILURE', 'SUCCESS']
-    
+
     void setArchiveOnFailure() {
         archiveStatus = defaultFailingArchiveStatus
     }
-    
+
     void setArchiveOnSuccess() {
         archiveStatus = defaultSuccessArchiveStatus
     }
-    
+
     void setAlwaysArchive() {
         archiveStatus = defaultAlwaysArchiveStatus
     }
-    
+
     String[] getArchiveStatusRange() {
         return archiveStatus
     }
-    
+
     void addFiles(String archiveBlob) {
         if (filesToArchive == null) {
             filesToArchive = [archiveBlob]
@@ -32,7 +32,7 @@ class ArchivalSettings {
             filesToArchive += archiveBlob
         }
     }
-    
+
     void excludeFiles(String archiveBlob) {
         if (filesToExclude == null) {
             filesToExclude = [archiveBlob]
@@ -40,11 +40,11 @@ class ArchivalSettings {
             filesToExclude += archiveBlob
         }
     }
-    
+
     boolean setFailIfNothingArchived() {
         failIfNothingArchived = true
     }
-    
+
     boolean setDoNotFailIfNothingArchived() {
         failIfNothingArchived = false
     }
