@@ -7,7 +7,7 @@ import jobs.generation.Utilities
 //
 //  This generator is designed to run every time there is a change to
 //    * The dotnet-ci repo's generation dir
-//    
+//
 //  A rerun of this could mean any number of things:
 //    * Updated repolist.txt
 //    * Updated utilities
@@ -23,7 +23,7 @@ class Repo {
     String branch
     String server
     String definitionScript
-    
+
     def Repo(String project, String[] folders, String branch, String server, String definitionScript) {
         this.project = project
         this.folders = folders
@@ -31,14 +31,14 @@ class Repo {
         this.server = server
         this.definitionScript = definitionScript
     }
-    
+
     // Parse the input string and return a Repo object
     def static parseInputString(String input, def out) {
-      	// First element is the repo name.  Should be in <org>/<repo> format
+        // First element is the repo name.  Should be in <org>/<repo> format
         def projectInfo = input.tokenize()
-        
+
         assert projectInfo.size() >= 1
-        
+
         // First element is the repo name
         String project = projectInfo[0]
         String[] folders = null
@@ -47,23 +47,23 @@ class Repo {
         String server = 'dotnet-ci'
         // File name/path is usually netci.groovy, but can be set arbitrarily
         String definitionScript = 'netci.groovy'
-        
+
         // Check whether it contains a single forward slash
         assert project.indexOf('/') != -1 && project.indexOf('/') == project.lastIndexOf('/')
-        
+
         // Now walk the rest of the elements and set the rest of the properties
         def i = 1
         while (i < (projectInfo.size())) {
             def element = projectInfo[i]
-            
+
             if (element.startsWith('folder=')) {
                 // Parse out the folder names
                 folders = element.substring('folder='.length()).tokenize('/')
-                
+
                 // If the folder name was root, just zero it out.  If they chose root, there should
                 // only be one element
                 assert folders.size() >= 1
-                
+
                 if (folders[0] == '<root>') {
                     assert folders.size() == 1
                     // Set an initial empty folder
@@ -85,10 +85,10 @@ class Repo {
             }
             i++
         }
-        
+
         // If the folder was unset but branch was set to something, then we set the folder to the
         // repo name plus branch subfolder
-        
+
         if (folders == null) {
             folders = [Utilities.getFolderName(project)]
             if (branch == null) {
@@ -106,12 +106,12 @@ class Repo {
                 branch = 'master'
             }
         }
-        
+
         out.println("   folders = ${folders}")
         out.println("   branch = ${branch}")
-        
+
         // Construct a new object and return
-        
+
         return new Repo(project, folders, branch, server, definitionScript)
     }
 }
@@ -127,7 +127,7 @@ streamFileFromWorkspace('dotnet-ci/jobs/data/repolist.txt').eachLine { line ->
         // Return from closure
         return;
     }
-    
+
     repos += Repo.parseInputString(line, out)
 }
 
@@ -138,7 +138,7 @@ repos.each { repoInfo ->
     if (repoInfo.server != ServerName) {
         return;
     }
-    
+
     // Make the folders
     def generatorFolder = ''
     for (folderElement in repoInfo.folders) {
@@ -151,13 +151,13 @@ repos.each { repoInfo ->
         }
         folder(generatorFolder) {}
     }
-    
+
     // Make the PR test folder
     def generatorPRTestFolder = "${generatorFolder}/GenPRTest"
-    
+
     // Create a Folder for generator PR tests under that.
     folder(generatorPRTestFolder) {}
-    
+
     [true, false].each { isPRTest ->
         def jobGenerator = job(Utilities.getFullJobName(repoInfo.project, 'generator', isPRTest, isPRTest ? generatorPRTestFolder : generatorFolder)) {
             // Need multiple scm's
@@ -170,11 +170,11 @@ repos.each { repoInfo ->
                     // dotnet-ci always pulls from master
                     branch('*/master')
                 }
-                // 
+                //
                 git {
                     remote {
                         github(repoInfo.project)
-                        
+
                         if (isPRTest) {
                             refspec('+refs/pull/*:refs/remotes/origin/pr/*')
                         }
@@ -182,8 +182,8 @@ repos.each { repoInfo ->
                     def targetDir = Utilities.getProjectName(repoInfo.project)
                     // Want the relative to be just the project name
                     relativeTargetDir(targetDir)
-                    
-                    // If PR, change to ${sha1} 
+
+                    // If PR, change to ${sha1}
                     // If not a PR, then the branch name should be the target branch
                     if (isPRTest) {
                         branch('${sha1}')
@@ -191,7 +191,7 @@ repos.each { repoInfo ->
                     else {
                         branch("*/${repoInfo.branch}")
                     }
-                    
+
                     // Set up polling ignore
                     configure { node ->
                         node /'extensions' << 'hudson.plugins.git.extensions.impl.PathRestriction' {
@@ -203,27 +203,27 @@ repos.each { repoInfo ->
                     }
                 }
             }
-            
+
             // Add a parameter for the project, so that gets passed to the
             // DSL groovy file
             parameters {
                 stringParam('GithubProject', repoInfo.project, 'Project name passed to the DSL generator')
                 stringParam('GithubBranchName', repoInfo.branch, 'Branch name passed to the DSL generator')
             }
-            
+
             // Add in the job generator logic
-            
+
             steps {
                 dsl {
                     // Loads DSL groovy file
                     external(Utilities.getProjectName(repoInfo.project) + "/${repoInfo.definitionScript}")
-                    
+
                     // Additional classpath should point to the utility repo
                     additionalClasspath('dotnet-ci')
-                    
-                    // Generate jobs relative to the seed job.        
+
+                    // Generate jobs relative to the seed job.
                     lookupStrategy('SEED_JOB')
-                    
+
                     // PR tests should do nothing with the other jobs.
                     // Non-PR tests should disable the jobs, which will get cleaned
                     // up later.
@@ -235,36 +235,36 @@ repos.each { repoInfo ->
                     }
                     removeViewAction('DELETE')
                 }
-                
+
                 // If this is a PR test job, we don't want the generated jobs
                 // to actually trigger (say on a github PR, since that will be confusing
                 // and wasteful.  We can accomplish this by adding another DSL step that does
                 // nothing.  It will generate no jobs, but the remove action is DISABLE so the
                 // jobs generated in the previous step will be disabled.
-                
+
                 if (isPRTest) {
                     dsl {
                          text('// Generate no jobs so the previously generated jobs are disabled')
-                    
-                         // Generate jobs relative to the seed job.        
+
+                         // Generate jobs relative to the seed job.
                          lookupStrategy('SEED_JOB')
                          removeAction('DISABLE')
                          removeViewAction('DELETE')
                     }
                 }
             }
-            
+
             // Disable concurrent builds
             concurrentBuild(false)
-            
+
             // 5 second quiet period before the job can be scheduled
             quietPeriod(5)
-            
+
             wrappers {
                 timestamps()
             }
         }
-        
+
         // Set the job to run on any generator enabled node.  Basically just has to have git.
         Utilities.setMachineAffinity(jobGenerator, 'Generators', 'latest-or-auto')
 
