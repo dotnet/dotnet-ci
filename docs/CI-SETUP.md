@@ -53,6 +53,6 @@ Below contains information on how to onboard your project onto Jenkins.
       - "Let me select individual events"
         - Pull request
         - Issue comment
-  6. PR this file, /cc @mmitche for review and comment "test ci please" to the PR thread.
+  6. PR this file, /cc @mmitche for review and comment "test ci please" to the PR thread. 
   7. Examine generated jobs for correctness.
   8. [Write your CI definition](WRITING-NETCI.md)
