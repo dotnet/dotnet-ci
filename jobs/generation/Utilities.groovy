@@ -164,10 +164,12 @@ class Utilities {
                                 'latest-or-auto':'auto-win2012-20160325',
                                 // VS2015.3 image:
                                 'latest-or-auto-update3':'auto-win2012-20160627',
+                                // Win2012.R2 + VS2013.5 + VS2015.3 + VS15.P3
+                                'latest-or-auto-dev15':'auto-win2012-20160707',
                                 // Dev15 image
                                 'latest-dev15':'auto-win2012-20160506',
                                 // For internal runs
-                                'latest-or-auto-internal':'windows-internal || auto-win2012-20160627-internal',
+                                'latest-or-auto-internal':'windows-internal || auto-win2012-20160707-internal',
                                 // For elevated runs
                                 'latest-or-auto-elevated':'windows-elevated || auto-win2012-20160325-elevated'
                                 ],
