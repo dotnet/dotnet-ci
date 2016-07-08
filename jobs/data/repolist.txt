@@ -55,6 +55,7 @@ dotnet/roslyn branch=features/ioperation server=dotnet-ci
 dotnet/roslyn branch=features/extensionEverything server=dotnet-ci
 dotnet/roslyn-analyzers branch=master server=dotnet-ci
 dotnet/roslyn-project-system branch=master server=dotnet-ci
+dotnet/symreader branch=master server=dotnet-ci
 dotnet/symreader-portable branch=master server=dotnet-ci
 dotnet/wcf branch=master server=dotnet-ci
 Microsoft/ChakraCore branch=master server=dotnet-ci
