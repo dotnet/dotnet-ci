@@ -55,7 +55,7 @@ dotnet/roslyn branch=perf-run folder=dotnet_roslyn/perf/perf-run definitionScrip
 dotnet/roslyn branch=features/extensionEverything server=dotnet-ci
 dotnet/roslyn branch=features/source-generators server=dotnet-ci
 dotnet/roslyn branch=features/vbTuples server=dotnet-ci
-dotnet/roslyn branch=features/tasklite server=dotnet-ci
+dotnet/roslyn branch=features/tasklike server=dotnet-ci
 dotnet/roslyn-analyzers branch=master server=dotnet-ci
 dotnet/roslyn-project-system branch=master server=dotnet-ci
 dotnet/symreader branch=master server=dotnet-ci
