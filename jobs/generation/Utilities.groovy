@@ -139,7 +139,9 @@ class Utilities {
                                 // the generic unversioned label except for special cases.
                                 'latest-or-auto':'auto-ubuntu1604-20160426',
                                 // For outerloop runs.
-                                'outer-latest-or-auto':'auto-ubuntu1604-20160426outer'
+                                'outer-latest-or-auto':'auto-ubuntu1604-20160426outer',
+                                // For outerloop runs, using Linux kernel version 4.6.2
+                                'outer-linux462': 'auto-auto-ubuntu1604-20160510-20160715outer'
                                 ],
                             'OSX' :
                                 [
@@ -234,7 +236,9 @@ class Utilities {
                                 // the generic unversioned label except for special cases.
                                 'latest-or-auto':'auto-centos71-20160211.1',
                                 // For outerloop runs.
-                                'outer-latest-or-auto':'auto-centos71-20160211.1outer'
+                                'outer-latest-or-auto':'auto-centos71-20160211.1outer',
+                                // For outerloop runs, using Linux kernel version 4.6.4
+                                'outer-linux464': 'auto-auto-centos71-20160609.1-20160715outer'
                                 ],
                             'OpenSUSE13.2' :
                                 [
