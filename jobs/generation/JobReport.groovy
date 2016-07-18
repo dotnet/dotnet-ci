@@ -15,15 +15,15 @@ class JobReport {
     class PushTriggerInfo {
         String[] branches
     }
-    
+
     def cronTriggeredJobs = [:]
-    def prTriggeredJobs = [:]        
+    def prTriggeredJobs = [:]
     def pushTriggeredJobs = [:]
     def prJobs = []
     def overallJobs = []
     def referencedJobs = []
     def targetBranchMap = [String:String[]]
-    
+
     // Sets a job as being referenced.  The ref might have folder names in it.
     // This makes things a bit tricky, since if they generated folders then
     // we could have jobs in two separate folders with the same name.  However, we also don't know
@@ -38,7 +38,7 @@ class JobReport {
             referencedJobs += jobName
         }
     }
-    
+
     def addJob(def jobName, def isPR) {
         if (overallJobs.find { it == jobName }) {
             // The job has already been added.  We may have been using getFullJobName for other reasons
@@ -46,12 +46,12 @@ class JobReport {
             return
         }
         overallJobs += jobName
-        
+
         if (isPR) {
             prJobs += jobName
         }
     }
-    
+
     def addTargetBranchesForJob(String jobName, String[] targetBranches) {
         if (targetBranchMap.containsKey(jobName)) {
             targetBranchMap[jobName] += targetBranches
@@ -60,11 +60,11 @@ class JobReport {
             targetBranchMap.put(jobName, targetBranches)
         }
     }
-    
+
     def addTargetBranchForJob(String jobName, String targetBranch) {
         addTargetBranchesForJob(jobName, (String[])[targetBranch])
     }
-    
+
     def String[] getTargetBranchesForJob(String jobName) {
         if (targetBranchMap.containsKey(jobName)) {
             return targetBranchMap[jobName]
@@ -73,27 +73,27 @@ class JobReport {
             return ["Unknown Branch"]
         }
     }
-    
+
     def addPushTriggeredJob(String jobName) {
         def triggerInfo = new PushTriggerInfo()
         triggerInfo.branches = getTargetBranchesForJob(jobName)
-        
+
         pushTriggeredJobs += ["${jobName}":triggerInfo]
         addReference(jobName)
     }
-    
+
     def addCronTriggeredJob(String jobName, String cronString, boolean alwaysRuns) {
         def triggerInfo = new CronTriggerInfo()
         triggerInfo.cronString = cronString
         triggerInfo.branches = getTargetBranchesForJob(jobName)
         triggerInfo.alwaysRuns = alwaysRuns
-        
+
         cronTriggeredJobs += ["${jobName}":triggerInfo]
         addReference(jobName)
     }
-    
+
     def addPRTriggeredJob(String jobName, String[] targetBranches, String context, String triggerPhrase, boolean isDefault) {
-    
+
         def simplifiedTriggerPhraseString = triggerPhrase
         // Replace case insensitivity string
         simplifiedTriggerPhraseString = simplifiedTriggerPhraseString.replace("(?i)", "")
@@ -103,13 +103,13 @@ class JobReport {
         simplifiedTriggerPhraseString = simplifiedTriggerPhraseString.replace(".*", "")
         // Replace W+ regex with a single space
         simplifiedTriggerPhraseString = simplifiedTriggerPhraseString.replace("\\W+", " ")
-            
+
         def triggerInfo = new PRTriggerInfo()
         triggerInfo.context = context
         triggerInfo.branches = targetBranches
         triggerInfo.triggerPhrase = simplifiedTriggerPhraseString
         triggerInfo.isDefault = isDefault
-        
+
         prTriggeredJobs += ["${jobName}":triggerInfo]
         addReference(jobName)
     }
@@ -125,7 +125,7 @@ class JobReport {
                 unreferencedJobs += jobName
             }
         }
-        
+
         // Print additional statistics.  What jobs didn't get a trigger or weren't referenced, total job count, etc.
         outStream.println()
         outStream.println("Job Report")
@@ -141,53 +141,53 @@ class JobReport {
         unreferencedJobs.each { jobName ->
             outStream.println("    ${jobName}")
         }
-        
+
         outStream.println()
         outStream.println("PR Job CSV")
         outStream.println("================================================================")
-        
+
         // Job DSL technically runs on the server.  Becuase of this, there are
         // security retrictions in writing files (you can't).  Instead, we just write
         // the output to the console.  The Local-Job-Gen tool could take this output and write it to separate files
-        
+
         def prTriggerFormatString = "%s,%s,%s,%s,%s"
         outStream.println(String.format(prTriggerFormatString, "Job Name", "Context", "Trigger", "Branches", "Runs by Default?"))
-        
-        prTriggeredJobs.sort().each { jobName, triggerInfo -> 
+
+        prTriggeredJobs.sort().each { jobName, triggerInfo ->
             String defaultString = triggerInfo.isDefault ? 'Yes' : 'No'
             String branchString = triggerInfo.branches == null ? 'All' : triggerInfo.branches.join('; ')
             outStream.println(String.format(prTriggerFormatString, jobName, triggerInfo.context, triggerInfo.triggerPhrase, branchString, defaultString))
         }
         outStream.println("================================================================")
-        
+
         outStream.println()
         outStream.println("Push Job CSV")
         outStream.println("================================================================")
-        
+
         // Push job CSV report
         def pushTriggerFormatString = "%s,%s"
         outStream.println(String.format(pushTriggerFormatString, "Job Name", "Branches"))
-        pushTriggeredJobs.sort().each { jobName, triggerInfo -> 
+        pushTriggeredJobs.sort().each { jobName, triggerInfo ->
             String branchString = triggerInfo.branches == null ? 'All' : triggerInfo.branches.join('; ')
             outStream.println(String.format(pushTriggerFormatString, jobName, branchString))
         }
         outStream.println("================================================================")
-        
+
         // Cron trigger CSV report
-        
+
         outStream.println()
         outStream.println("Cron Job CSV")
         outStream.println("================================================================")
-        
+
         def cronTriggerFormatString = "%s,%s,%s,%s"
         outStream.println(String.format(cronTriggerFormatString, "Job Name", "Cron", "Branches", "Always Runs?"))
-        cronTriggeredJobs.sort().each { jobName, triggerInfo -> 
+        cronTriggeredJobs.sort().each { jobName, triggerInfo ->
             String branchString = triggerInfo.branches == null ? 'All' : triggerInfo.branches.join('; ')
             String alwaysRunsString = triggerInfo.alwaysRuns ? 'Yes' : 'No'
             outStream.println(String.format(cronTriggerFormatString, jobName, triggerInfo.cronString, branchString, alwaysRunsString))
         }
         outStream.println("================================================================")
     }
-    
+
     public def static JobReport Report = new JobReport()
 }
