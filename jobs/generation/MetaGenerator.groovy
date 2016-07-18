@@ -189,9 +189,6 @@ repos.each { repoInfo ->
     }
     repoInfo.prTargetBranches += ((String[])[repoInfo.branch])
     
-    repoInfo.prTargetBranches = repoInfo.prTargetBranches.toUnique()
-    repoInfo.prSkipBranches = repoInfo.prSkipBranches.toUnique()
-    
     println("${repoInfo.project} - ${repoInfo.branch}\n    PR Target Branches = ${repoInfo.prTargetBranches}\n     PR Skip Branches = ${repoInfo.prSkipBranches}")
 }
 
