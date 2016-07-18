@@ -244,11 +244,11 @@ class TriggerBuilder {
                     triggerPhrase(this.triggerPhrase)
                     
                     if (targetBranches.size() != 0) {
-                        whiteListTargetBranches(targetBranches)
+                        whiteListTargetBranches((String[])targetBranches.flatten())
                     }
                     if (skipBranches.size() != 0) {
                         // When this is implemented and rolled out, enable
-                        blackListTargetBranches(skipBranches)
+                        blackListTargetBranches((String[])skipBranches.flatten())
                     }
                 }
             }
