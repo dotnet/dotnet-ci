@@ -7,7 +7,7 @@ job("dotnet_dotnet-ci_generator") {
     logRotator {
         daysToKeep(7)
     }
-    
+
     // Source is just basic git for dotnet-ci
     scm {
         git {
@@ -15,11 +15,11 @@ job("dotnet_dotnet-ci_generator") {
                 github("dotnet/dotnet-ci")
             }
             branch("*/master")
-            
-          	relativeTargetDir('dotnet-ci')
+
+            relativeTargetDir('dotnet-ci')
         }
     }
-    
+
     // Add a parameter which is the server name (incoming parameter to this job
     parameters {
         stringParam('ServerName', ServerName, "Server that this generator is running on")
@@ -34,24 +34,24 @@ job("dotnet_dotnet-ci_generator") {
         maxPerNode(1)
         categories(['job_generators'])
     }
-    
+
     // Trigger a build when a change is pushed
     triggers {
         githubPush()
     }
-    
+
     // Step is "process job dsls"
     steps {
         dsl {
             // Loads netci.groovy
             external('dotnet-ci/jobs/generation/MetaGenerator.groovy')
-            
+
             // Additional classpath should point to the utility repo
             additionalClasspath('dotnet-ci')
-            
-            // Generate jobs relative to the seed job.        
+
+            // Generate jobs relative to the seed job.
             lookupStrategy('JENKINS_ROOT')
-            
+
             removeAction('DISABLE')
             removeViewAction('DELETE')
         }
@@ -63,14 +63,14 @@ job('disable_jobs_in_folder') {
     logRotator {
         daysToKeep(7)
     }
-    
+
     // Set up parameters
     parameters {
         booleanParam('DryRunOnly', true, 'Do not actually disable jobs, just indicate what jobs would be disabled')
         booleanParam('DisableSubFolderItems', false, 'Disable items in subfolders of the target folder')
         stringParam('FolderName', '', 'Folder to disable.  Root folder not allowed')
     }
-    
+
     scm {
         git {
             remote {
@@ -79,7 +79,7 @@ job('disable_jobs_in_folder') {
             branch("*/master")
         }
     }
-    
+
     steps {
         systemGroovyScriptFile('jobs/scripts/disable_jobs_in_folder.groovy')
     }
@@ -90,11 +90,11 @@ job('workspace_cleaner') {
     logRotator {
         daysToKeep(7)
     }
-    
+
     logRotator {
         daysToKeep(7)
     }
-    
+
     scm {
         git {
             remote {
@@ -103,11 +103,11 @@ job('workspace_cleaner') {
             branch("*/master")
         }
     }
-    
+
     triggers {
         cron('0 0 * * *')
     }
-    
+
     steps {
         systemGroovyScriptFile('jobs/scripts/workspace_cleaner.groovy')
     }
@@ -118,7 +118,7 @@ job('system_cleaner') {
     logRotator {
         daysToKeep(7)
     }
-    
+
     scm {
         git {
             remote {
@@ -127,11 +127,11 @@ job('system_cleaner') {
             branch("*/master")
         }
     }
-    
+
     triggers {
         cron('0 0 * * *')
     }
-    
+
     steps {
         systemGroovyScriptFile('jobs/scripts/system_cleaner.groovy')
     }

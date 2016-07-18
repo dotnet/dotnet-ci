@@ -1,5 +1,5 @@
 package jobs.generation;
-    
+
 class Utilities {
 
     private static String DefaultBranchOrCommitPR = '${sha1}'
@@ -16,7 +16,7 @@ class Utilities {
     def static getFolderName(String project) {
         return project.replace('/', '_')
     }
-    
+
     // Get the standard job name of a job given the base job name, project, whether the
     // job is a PR or not, and an optional folder
     //
@@ -26,11 +26,11 @@ class Utilities {
     //  folder (optional): If folder is specified, project is not used as the folder name
     //
     // Returns:
-    //  Full job name.  If folder prefix is specified, 
+    //  Full job name.  If folder prefix is specified,
     def static getFullJobName(String jobName, boolean isPR, String folder = '') {
         return getFullJobName('', jobName, isPR, folder);
     }
-    
+
     // Get the standard job name of a job given the base job name, project, whether the
     // job is a PR or not, and an optional folder
     //
@@ -41,10 +41,10 @@ class Utilities {
     //  folder (optional): If folder is specified, project is not used as the folder name
     //
     // Returns:
-    //  Full job name.  If folder prefix is specified, 
+    //  Full job name.  If folder prefix is specified,
     def static getFullJobName(String project, String jobName, boolean isPR, String folder = '') {
         def jobSuffix = ''
-        if (isPR) { 
+        if (isPR) {
             jobSuffix = '_prtest'
         }
 
@@ -60,12 +60,12 @@ class Utilities {
         else {
             fullJobName = "${folderPrefix}${jobName}${jobSuffix}"
         }
-        
+
         // Add the job to the overall jobs
         JobReport.Report.addJob(fullJobName, isPR)
         return fullJobName
     }
-  
+
     // Given the github full project name (e.g. dotnet/coreclr), get the
     // project name (coreclr)
     //
@@ -76,7 +76,7 @@ class Utilities {
     def static getProjectName(String project) {
         return project.split('/')[1];
     }
-  
+
     // Given the github full project name (e.g. dotnet/coreclr), get the
     // org name (dotnet)
     //
@@ -87,7 +87,7 @@ class Utilities {
     def static getOrgName(String project) {
         return project.split('/')[0];
     }
-  
+
     // Given the name of an OS, set the nodes that this job runs on.
     //
     // Parameters:
@@ -99,7 +99,7 @@ class Utilities {
         if (osName == 'Ubuntu') {
             osName = 'Ubuntu14.04'
         }
-        
+
         def machineMap    = [
                             'Ubuntu14.04' :
                                 [
@@ -111,7 +111,7 @@ class Utilities {
                                 '20160211':'auto-ubuntu1404-20160211',
                                 // Contains the rootfs setup for arm/arm64 builds.  Move this label forward
                                 // till we have the working build/test, then apply to everything.
-                                'arm-cross-latest':'auto-ubuntu1404-20160616',
+                                'arm-cross-latest':'auto-ubuntu1404-20160711',
                                 // Latest auto image.  This will be used for transitioning
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
@@ -139,7 +139,9 @@ class Utilities {
                                 // the generic unversioned label except for special cases.
                                 'latest-or-auto':'auto-ubuntu1604-20160426',
                                 // For outerloop runs.
-                                'outer-latest-or-auto':'auto-ubuntu1604-20160426outer'
+                                'outer-latest-or-auto':'auto-ubuntu1604-20160426outer',
+                                // For outerloop runs, using Linux kernel version 4.6.2
+                                'outer-linux462': 'auto-auto-ubuntu1604-20160510-20160715outer'
                                 ],
                             'OSX' :
                                 [
@@ -162,14 +164,18 @@ class Utilities {
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
                                 'latest-or-auto':'auto-win2012-20160325',
+                                // VS2015.3 image:
+                                'latest-or-auto-update3':'auto-win2012-20160627',
+                                // Win2012.R2 + VS2013.5 + VS2015.3 + VS15.P3
+                                'latest-or-auto-dev15':'auto-win2012-20160707',
                                 // Dev15 image
                                 'latest-dev15':'auto-win2012-20160506',
                                 // For internal runs
-                                'latest-or-auto-internal':'windows-internal || auto-win2012-20160325-internal',
+                                'latest-or-auto-internal':'windows-internal || auto-win2012-20160707-internal',
                                 // For elevated runs
                                 'latest-or-auto-elevated':'windows-elevated || auto-win2012-20160325-elevated'
                                 ],
-                            'Windows_2016' : 
+                            'Windows_2016' :
                                 [
                                 // Generic version label
                                 '' : 'auto-win2016-20160223',
@@ -183,7 +189,7 @@ class Utilities {
                                 // Generic version label
                                 '' : 'windowsnano16'
                                 ],
-                            'Windows 10' : 
+                            'Windows 10' :
                                 [
                                 // Generic version label
                                 '' : 'windows10',
@@ -192,7 +198,7 @@ class Utilities {
                                 // the generic unversioned label except for special cases.
                                 'latest-or-auto':'windows10'
                                 ],
-                            'Windows 7' : 
+                            'Windows 7' :
                                 [
                                 // Generic version label
                                 '' : 'windows7',
@@ -209,7 +215,7 @@ class Utilities {
                                 // the generic unversioned label except for special cases.
                                 'latest-or-auto':'freebsd || auto-freebsd-20160415'
                                 ],
-                            'RHEL7.2' : 
+                            'RHEL7.2' :
                                 [
                                 '' : 'auto-rhel72-20160211',
                                 // Latest auto image.  This will be used for transitioning
@@ -219,7 +225,7 @@ class Utilities {
                                 // For outerloop runs.
                                 'outer-latest-or-auto':'auto-rhel72-20160211outer'
                                 ],
-                            'CentOS7.1' : 
+                            'CentOS7.1' :
                                 [
                                 '' : 'centos-71',
                                 // First functioning auto image.  Based directly off of the
@@ -230,7 +236,9 @@ class Utilities {
                                 // the generic unversioned label except for special cases.
                                 'latest-or-auto':'auto-centos71-20160211.1',
                                 // For outerloop runs.
-                                'outer-latest-or-auto':'auto-centos71-20160211.1outer'
+                                'outer-latest-or-auto':'auto-centos71-20160211.1outer',
+                                // For outerloop runs, using Linux kernel version 4.6.4
+                                'outer-linux464': 'auto-auto-centos71-20160609.1-20160715outer'
                                 ],
                             'OpenSUSE13.2' :
                                 [
@@ -245,7 +253,7 @@ class Utilities {
                                 // For outerloop runs
                                 'outer-latest-or-auto':'auto-suse132-20160211outer'
                                 ],
-                            'Debian8.2' : 
+                            'Debian8.2' :
                                 [
                                 '' : 'auto-deb82-20160323',
                                 '20160323':'auto-deb82-20160323',
@@ -256,23 +264,23 @@ class Utilities {
                                 ],
                             'Debian8.4' :
                                 [
-                                '' : 'auto-deb84-20160513',
+                                '' : 'auto-deb84-20160623',
                                 // Latest auto image.  This will be used for transitioning
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
-                                'latest-or-auto':'auto-deb84-20160513',
+                                'latest-or-auto':'auto-deb84-20160623',
                                 // For outerloop runs
-                                'outer-latest-or-auto':'auto-deb84-20160513outer'
+                                'outer-latest-or-auto':'auto-deb84-20160623outer'
                                 ],
                            'Fedora23' :
                                 [
-                                '' : 'auto-fedora23-20160530',
+                                '' : 'auto-fedora23-20160622',
                                 // Latest auto image.  This will be used for transitioning
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
-                                'latest-or-auto':'auto-fedora23-20160530',
+                                'latest-or-auto':'auto-fedora23-20160622',
                                 // For outerloop runs
-                                'outer-latest-or-auto':'auto-fedora23-20160530outer'
+                                'outer-latest-or-auto':'auto-fedora23-20160622outer'
                                 ],
                                 // Some nodes don't have git, which is what is required for the
                                 // generators.
@@ -290,10 +298,10 @@ class Utilities {
             label(machineLabel)
         }
     }
-    
+
     // Performs standard job setup for a newly created job.
     // Includes: Basic parameters, Git SCM, and standard options
-    // 
+    //
     // Parameters:
     //  job: Job to set up.
     //  project: Name of project
@@ -309,11 +317,11 @@ class Utilities {
 
     // Performs standard job setup for a newly created push job.
     // Includes: Basic parameters, Git SCM, and standard options
-    // 
+    //
     // Parameters:
     //  job: Job to set up.
     //  project: Name of project
-    //  defaultBranch: Branch to build on push. 
+    //  defaultBranch: Branch to build on push.
     def static standardJobSetupPush(def job, String project, String defaultBranch = null) {
         defaultBranch = getDefaultBranchOrCommitPush(defaultBranch);
         standardJobSetupEx(job, project, false, defaultBranch, null);
@@ -321,11 +329,11 @@ class Utilities {
 
     // Performs standard job setup for a newly created push job.
     // Includes: Basic parameters, Git SCM, and standard options
-    // 
+    //
     // Parameters:
     //  job: Job to set up.
     //  project: Name of project
-    //  defaultBranchOrCommit: Commit / branch to build. 
+    //  defaultBranchOrCommit: Commit / branch to build.
     //  defaultRefSpec: the refs that Jenkins must sync on a PR job
     def static standardJobSetupPR(def job, String project, String defaultBranchOrCommit = null, String defaultRefSpec = null) {
         defaultBranchOrCommit = getDefaultBranchOrCommitPR(defaultBranchOrCommit)
@@ -335,19 +343,19 @@ class Utilities {
 
     // Performs standard job setup for a newly created job.
     // Includes: Basic parameters, Git SCM, and standard options
-    // 
+    //
     // Parameters:
     //  job: Job to set up.
     //  project: Name of project
     //  isPR: True if job is PR job, false otherwise.
-    //  defaultBranchOrCommit: Commit / branch to build.  
+    //  defaultBranchOrCommit: Commit / branch to build.
     //  defaultRefSpec: the refs that Jenkins must sync on a PR job
     def private static standardJobSetupEx(def job, String project, boolean isPR, String defaultBranchOrCommit, String defaultRefSpec) {
         Utilities.addStandardParametersEx(job, project, isPR, defaultBranchOrCommit, defaultRefSpec)
         Utilities.addScm(job, project, isPR)
         Utilities.addStandardOptions(job, isPR)
     }
-  
+
     // Set the job timeout to the specified value.
     // job - Input job to modify
     // jobTimeout - Set the job timeout.
@@ -384,25 +392,25 @@ class Utilities {
             }
         }
     }
-    
-    
+
+
     // Add standard options to a job.
     // job - Input job
     // isPR - True if the job is a pull request job, false otherwise.
     def static addStandardOptions(def job, def isPR = false) {
         job.with {
-            // Enable concurrent builds 
+            // Enable concurrent builds
             concurrentBuild()
-            
+
             // 5 second quiet period before the job can be scheduled
             quietPeriod(5)
-            
+
             wrappers {
                 timestamps()
                 // Add a pre-build wipe-out
                 preBuildCleanup()
             }
-            
+
             // Add a post-build cleanup.  Order that this post-build step doesn't matter.
             // It runs after everything.
             publishers {
@@ -432,7 +440,7 @@ class Utilities {
         // Add a webhook to gather job events for Jenkins monitoring
         Utilities.addBuildEventWebHook(job, 'https://jaredpar.azurewebsites.net/api/BuildEvent?code=tts2pvyelahoiliwu7lo6flxr8ps9kaip4hyr4m0ofa3o3l3di77tzcdpk22kf9gex5m6cbrcnmi')
     }
-    
+
     def private static String joinStrings(Iterable<String> strings, String combineDelim) {
         // Doing this instead of String.join because for whatever reason it doesn't resolve
         // in CI.
@@ -445,10 +453,10 @@ class Utilities {
                 combinedString += combineDelim + str
             }
         }
-        
+
         return combinedString
     }
-    
+
     // Sets up the job to fast exit if only certain paths were edited.
     //
     // Parameters:
@@ -488,12 +496,12 @@ class Utilities {
                 githubPush()
             }
         }
-        
+
         // Record the push trigger.  We look up in the side table to see what branches this
         // job was set up to build
         JobReport.Report.addPushTriggeredJob(job.name)
     }
-    
+
     // Adds a github PR trigger for a job
     // Parameters:
     //    job - Job to add the PR trigger for
@@ -536,12 +544,12 @@ class Utilities {
                             context(contextString)
                         }
                     }
-                    
+
                     if (triggerOnPhraseOnly) {
                         onlyTriggerPhrase(triggerOnPhraseOnly)
                     }
                     triggerPhrase(triggerPhraseString)
-                    
+
                     if (branchName != null) {
                         // We should only have a flat branch name, no wildcards
                         assert branchName.indexOf('*') == -1
@@ -549,7 +557,7 @@ class Utilities {
                     }
                 }
             }
-            
+
             JobReport.Report.addPRTriggeredJob(job.name, (String[])[branchName], contextString, triggerPhraseString, !triggerOnPhraseOnly)
         }
     }
@@ -570,10 +578,10 @@ class Utilities {
     def static addPrivateGithubPRTrigger(def job, String contextString, String triggerPhraseString, boolean triggerPhraseOnly, Iterable<String> permittedOrgs, Iterable<String> permittedUsers) {
         assert contextString != ''
         assert triggerPhraseString != ''
-        
+
         Utilities.addGithubPRTriggerImpl(job, null, contextString, triggerPhraseString, triggerPhraseOnly, false, permittedOrgs, permittedUsers)
     }
-    
+
     // Adds a github PR trigger only triggerable by member of certain organizations
     // Parameters:
     //    job - Job to add the PR trigger for
@@ -588,7 +596,7 @@ class Utilities {
     def static addPrivateGithubPRTriggerForBranch(def job, def branchName, String contextString, String triggerPhraseString, Iterable<String> permittedOrgs, Iterable<String> permittedUsers) {
         assert contextString != ''
         assert triggerPhraseString != ''
-        
+
         Utilities.addGithubPRTriggerImpl(job, branchName, contextString, triggerPhraseString, true, false, permittedOrgs, permittedUsers)
     }
 
@@ -604,17 +612,17 @@ class Utilities {
     //
     def static addGithubPRTriggerForBranch(def job, String branchName, String contextString,
         String triggerPhraseString = '', boolean triggerOnPhraseOnly = true) {
-        
+
         assert contextString != ''
-        
+
         if (triggerPhraseString == '') {
             triggerOnPhraseOnly = false
             triggerPhraseString = "(?i).*test\\W+${contextString}.*"
         }
-        
+
         Utilities.addGithubPRTriggerImpl(job, branchName, contextString, triggerPhraseString, triggerOnPhraseOnly, true, null, null)
     }
-    
+
     // Adds a github PR trigger for a job
     // Parameters:
     //    job - Job to add the PR trigger for
@@ -626,12 +634,12 @@ class Utilities {
     //
     def static addGithubPRTrigger(def job, String contextString, String triggerPhraseString = '', boolean triggerOnPhraseOnly = true) {
         assert contextString != ''
-        
+
         if (triggerPhraseString == '') {
             triggerOnPhraseOnly = false
             triggerPhraseString = "(?i).*test\\W+${contextString}.*"
         }
-        
+
         Utilities.addGithubPRTriggerImpl(job, null, contextString, triggerPhraseString, triggerOnPhraseOnly, true, null, null)
     }
 
@@ -662,25 +670,27 @@ class Utilities {
     //  job: Job to set up.
     //  project: Name of project
     //  isPR: True if job is PR job, false otherwise.
-    //  defaultBranchOrCommit: Commit / branch to build.  
+    //  defaultBranchOrCommit: Commit / branch to build.
     //  defaultRefSpec: the refs that Jenkins must sync on a PR job
     def private static addStandardParametersEx(def job, String project, boolean isPR, String defaultBranchOrCommit, String defaultRefSpec) {
         if (isPR) {
             addStandardPRParameters(job, project, defaultBranchOrCommit, defaultRefSpec)
         }
         else {
-            addStandardNonPRParameters(job, defaultBranchOrCommit)
+            addStandardNonPRParameters(job, project, defaultBranchOrCommit)
             // Add the size map info for the reporting
             JobReport.Report.addTargetBranchForJob(job.name, defaultBranchOrCommit)
         }
     }
-    
+
     // Adds parameters to a non-PR job.  Right now this is only the git branch or commit.
     // This is added so that downstream jobs get the same hash as the root job
-    def static addStandardNonPRParameters(def job, String defaultBranch = '*/master') {
+    def private static addStandardNonPRParameters(def job, String project, String defaultBranch = '*/master') {
         job.with {
             parameters {
                 stringParam('GitBranchOrCommit', defaultBranch, 'Git branch or commit to build.  If a branch, builds the HEAD of that branch.  If a commit, then checks out that specific commit.')
+                // Telemetry
+                stringParam('DOTNET_CLI_TELEMETRY_PROFILE', "IsInternal_CIServer;${project}", 'This is used to differentiate the internal CI usage of CLI in telemetry.  This gets exposed in the environment and picked up by the CLI product.')
             }
         }
     }
@@ -696,10 +706,11 @@ class Utilities {
                 stringParam('GitBranchOrCommit', defaultBranchOrCommit, 'Git branch or commit to build.  If a branch, builds the HEAD of that branch.  If a commit, then checks out that specific commit.')
                 stringParam('GitRepoUrl', calculateGitURL(project), 'Git repo to clone.')
                 stringParam('GitRefSpec', defaultRefSpec, 'RefSpec.  WHEN SUBMITTING PRIVATE JOB FROM YOUR OWN REPO, CLEAR THIS FIELD (or it won\'t find your code)')
+                stringParam('DOTNET_CLI_TELEMETRY_PROFILE', "IsInternal_CIServer;${project}", 'This is used to differentiate the internal CI usage of CLI in telemetry.  This gets exposed in the environment and picked up by the CLI product.')
             }
         }
     }
-  
+
     def static addScm(def job, String project, boolean isPR, String buildBranch = '${GitBranchOrCommit}') {
         if (isPR) {
             addPRTestSCM(job, project)
@@ -708,7 +719,7 @@ class Utilities {
             addScm(job, project, buildBranch)
         }
     }
-  
+
     def static addScm(def job, String project, String buildBranch = '${GitBranchOrCommit}') {
         job.with {
             scm {
@@ -722,7 +733,7 @@ class Utilities {
             }
         }
     }
-  
+
     // Adds private job/PR test SCM.  This is slightly different than normal
     // SCM since we use the parameterized fields for the refspec, repo, and branch
     def static addPRTestSCM(def job, String project) {
@@ -762,7 +773,7 @@ class Utilities {
             }
         }
     }
-     
+
     // Archives data for a job when specific job result conditions are met.
     // Parameters:
     //
@@ -776,7 +787,7 @@ class Utilities {
                         condition {
                             status(settings.getArchiveStatusRange()[0],settings.getArchiveStatusRange()[1])
                         }
-                        
+
                         publishers {
                             archiveArtifacts {
                                 allowEmpty(!settings.failIfNothingArchived)
@@ -796,7 +807,7 @@ class Utilities {
             }
         }
     }
-  
+
     // Archives data for a job
     // Parameters:
     //
@@ -804,7 +815,7 @@ class Utilities {
     //  filesToArchive - Files to archive.  Comma separated glob syntax
     //  filesToExclude - Files to exclude from archival.  Defaults to no files excluded.  Comma separated glob syntax
     //  doNotFailIfNothingArchived - If true, and nothing is archived, will not fail the build.
-    //  archiveOnlyIfSuccessful - If true, will only archive if the build passes.  If false, then will archive always 
+    //  archiveOnlyIfSuccessful - If true, will only archive if the build passes.  If false, then will archive always
     @Deprecated
     def static addArchival(def job, String filesToArchive, String filesToExclude = '',
         def doNotFailIfNothingArchived = false, def archiveOnlyIfSuccessful = true) {
@@ -824,7 +835,7 @@ class Utilities {
         } else {
             settings.setAlwaysArchive()
         }
-        
+
         addArchival(job, settings)
     }
 
@@ -841,7 +852,7 @@ class Utilities {
             }
         }
     }
-    
+
     // Adds a trigger that causes the job to run on a schedule.
     // If alwaysRuns is true, then this is a true cron trigger.  If false,
     // then only runs if source control has changed
@@ -861,10 +872,10 @@ class Utilities {
                 }
             }
         }
-        
+
         JobReport.Report.addCronTriggeredJob(job.name, cronString, alwaysRuns)
     }
-    
+
     // Adds xunit.NET v2 test results.
     // Parameters:
     //
@@ -882,7 +893,7 @@ class Utilities {
                         deleteOutputFiles(true)
                         stopProcessingIfError(true)
                     }
-                    
+
                     failedThresholds {
                         unstable(0)
                         unstableNew(0)
@@ -901,7 +912,7 @@ class Utilities {
             }
         }
     }
-    
+
     // Adds MSTest test results.
     // Parameters:
     //
@@ -919,7 +930,7 @@ class Utilities {
                         deleteOutputFiles(true)
                         stopProcessingIfError(true)
                     }
-                    
+
                     failedThresholds {
                         unstable(0)
                         unstableNew(0)
@@ -968,10 +979,10 @@ class Utilities {
             return defaultBranchOrCommit;
         }
 
-        if (isPR) { 
+        if (isPR) {
             return DefaultBranchOrCommitPR;
         }
-        else { 
+        else {
             return DefaultBranchOrCommitPush;
         }
     }
