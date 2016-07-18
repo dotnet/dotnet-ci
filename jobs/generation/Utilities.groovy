@@ -516,50 +516,32 @@ class Utilities {
     //    branchName - If null, all branches are tested.  If not null, then is the target branch of this trigger
     //
     def private static addGithubPRTriggerImpl(def job, String branchName, String contextString, String triggerPhraseString, boolean triggerOnPhraseOnly, boolean permitAllSubmittters, Iterable<String> permittedOrgs, Iterable<String> permittedUsers) {
-        job.with {
-            triggers {
-                githubPullRequest {
-                    useGitHubHooks()
-                    // Add default individual admins here
-                    admin('mmitche')
-                    if (permitAllSubmittters) {
-                        permitAll()
-                    }
-                    else {
-                        assert permittedOrgs != null || permittedUsers != null
-                        permitAll(false)
-                        if (permittedUsers != null) {
-                            permittedUsers.each { permittedUser ->
-                                admin(permittedUser)
-                            }
-                        }
-                        if (permittedOrgs != null) {
-                            String orgListString = Utilities.joinStrings(permittedOrgs, ',')
-                            orgWhitelist(orgListString)
-                            allowMembersOfWhitelistedOrgsAsAdmin(true)
-                        }
-                    }
-                    extensions {
-                        commitStatus {
-                            context(contextString)
-                        }
-                    }
-
-                    if (triggerOnPhraseOnly) {
-                        onlyTriggerPhrase(triggerOnPhraseOnly)
-                    }
-                    triggerPhrase(triggerPhraseString)
-
-                    if (branchName != null) {
-                        // We should only have a flat branch name, no wildcards
-                        assert branchName.indexOf('*') == -1
-                        whiteListTargetBranches([branchName])
-                    }
-                }
+        // Build up the trigger 
+        TriggerBuilder newTrigger = TriggerBuilder.triggerOnPullRequest()
+        if (!permitAllSubmittters) {
+            assert permittedOrgs != null || permittedUsers != null
+            if (permittedOrgs != null) {
+                newTrigger.permitOrgs((String[])permittedOrgs.toArray())
             }
-
-            JobReport.Report.addPRTriggeredJob(job.name, (String[])[branchName], contextString, triggerPhraseString, !triggerOnPhraseOnly)
+            if (permittedUsers != null) {
+                newTrigger.permitUsers((String[])permittedUsers.toArray())
+            }
         }
+        newTrigger.setGithubContext(contextString)
+        newTrigger.setCustomTriggerPhrase(triggerPhraseString)
+        if (triggerOnPhraseOnly) {
+            newTrigger.triggerOnlyOnComment()
+        }
+        else {
+            newTrigger.triggerByDefault()
+        }
+        
+        if (branchName != null) {
+            newTrigger.triggerForBranch(branchName)
+        }
+        
+        // Emit the trigger
+        newTrigger.emitTrigger(job)
     }
 
     // Adds a github PR trigger only triggerable by member of certain organizations. Either permittedOrgs or
