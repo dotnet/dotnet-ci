@@ -33,7 +33,7 @@ class SummaryBuilder {
 
                 String links = linkFile.readToString()
                 links.eachLine { linksToAdd ->
-                    newSummary.appendText("<li><a href=\"\$linksToAdd\">\$linksToAdd</a></li>", false)
+                    newSummary.appendText("<li><a href=\\\"\$linksToAdd\\\">\$linksToAdd</a></li>", false)
                 }
             }
         }
