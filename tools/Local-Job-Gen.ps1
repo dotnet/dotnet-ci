@@ -36,6 +36,7 @@ param (
     [string]$DotnetCIJobReport = "https://raw.githubusercontent.com/dotnet/dotnet-ci/master/jobs/generation/JobReport.groovy",
     [string]$DotnetCIArchivalSettings = "https://raw.githubusercontent.com/dotnet/dotnet-ci/master/jobs/generation/ArchivalSettings.groovy",
     [string]$DotnetCITriggerBuilder = "https://raw.githubusercontent.com/dotnet/dotnet-ci/master/jobs/generation/TriggerBuilder.groovy",
+    [string]$DotnetCISummaryBuilder = "https://raw.githubusercontent.com/dotnet/dotnet-ci/master/jobs/generation/SummaryBuilder.groovy",
     [string]$DotnetCIInternalUtilities = $null,
     [string]$JobDslStandaloneJar = "https://github.com/dotnet/dotnet-ci/releases/download/1.43/job-dsl-core-1.43-standalone.jar",
     [switch]$ForceJarDownload = $false,
@@ -124,6 +125,7 @@ $jobReportContent = Get-Text-From-Location($DotnetCIJobReport)
 $dotnetCIContent = Get-Text-From-Location($DotnetCIUtilities)
 $archivalSettingsContent = Get-Text-From-Location($DotnetCIArchivalSettings)
 $triggerBuilderContent = Get-Text-From-Location($DotnetCITriggerBuilder)
+$summaryBuilderContent = Get-Text-From-Location($DotnetCISummaryBuilder)
 
 $groovyText = Get-Content $combinedCIFileName
 
@@ -133,10 +135,12 @@ $groovyText = $groovyText -replace "import jobs.generation.(\*|Utilities);?",
     $($dotnetCIContent + [System.Environment]::Newline + 
       $jobReportContent + [System.Environment]::Newline + 
       $archivalSettingsContent + [System.Environment]::Newline + 
-      $triggerBuilderContent)
+      $triggerBuilderContent + [System.Environment]::Newline + 
+      $summaryBuilderContent)
 $groovyText = $groovyText -replace "import jobs.generation.JobReport;?", ""
 $groovyText = $groovyText -replace "import jobs.generation.ArchivalSettngs;?", ""
 $groovyText = $groovyText -replace "import jobs.generation.TriggerBuilder;", ""
+$groovyText = $groovyText -replace "import jobs.generation.SummaryBuilder;", ""
 
 # import jobs.generation.InternalUtilities; -> With the groovy text from the DotnetCIInternalUtilities
 
