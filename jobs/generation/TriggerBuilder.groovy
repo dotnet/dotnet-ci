@@ -22,10 +22,10 @@ class TriggerBuilder {
     String triggerPhrase = null
     boolean alwaysTrigger = true
     boolean alwaysTriggerModified = false
-    String[] targetBranches = []
-    String[] skipBranches = []
-    String[] permittedOrgs = []
-    String[] permittedUsers = []
+    List<String> targetBranches = []
+    List<String> skipBranches = []
+    List<String> permittedOrgs = []
+    List<String> permittedUsers = []
     private boolean used = false;
     
     private def TriggerBuilder(TriggerType triggerType) {
@@ -112,17 +112,16 @@ class TriggerBuilder {
     def triggerForBranch(String branch) {
         assert triggerType == TriggerType.PULLREQUEST
         assert !used
-        triggerForBranches((String[])[branch])
+        triggerForBranches([branch])
     }
     
     // Set the job to trigger on the specified branches (adds to list)
     // Parameters:
     //  branches - Array of branches to trigger on. Regular expressions
-    def triggerForBranches(String[] branches) {
+    def triggerForBranches(List<String> branches) {
         assert triggerType == TriggerType.PULLREQUEST
         assert !used
-        targetBranches += branches
-        targetBranches = targetBranches.flatten()
+        targetBranches.addAll(branches)
     }
     
     // Set the job to not trigger on the specified branch (adds to list)
@@ -137,18 +136,17 @@ class TriggerBuilder {
     // Set the job to not trigger on the specified branches (adds to list)
     // Parameters:
     //  branches - Branches to not trigger on.  Regular expressions
-    def doNotTriggerForBranches(String[] branches) {
+    def doNotTriggerForBranches(List<String> branches) {
         assert triggerType == TriggerType.PULLREQUEST
         assert !used
-        targetBranches += branches
-        targetBranches = targetBranches.flatten()
+        skipBranches.addAll(branches)
     }
     
     // Set the job to trigger on the specified branches and not on another set.
     // Parameters:
     //  triggerBranches - Branches to trigger on.  Regular expressions
     //  doNotTriggerForBranches - Branches to not trigger on.  Regular expressions
-    def setTriggerBranches(String[] triggerBranches, String[] notTriggerForBranches) {
+    def setTriggerBranches(List<String> triggerBranches, List<String> notTriggerForBranches) {
         assert triggerType == TriggerType.PULLREQUEST
         assert !used
         triggerForBranches(triggerBranches)
@@ -171,7 +169,7 @@ class TriggerBuilder {
     //  orgs - Array of Github organizations to permit
     // Notes:
     //  By default, jobs are runnable by all submitters 
-    def permitOrgs(String[] orgs) {
+    def permitOrgs(List<String> orgs) {
         assert triggerType == TriggerType.PULLREQUEST
         assert !used
         permittedOrgs += org
@@ -194,7 +192,7 @@ class TriggerBuilder {
     //  users - Array of users allowed to trigger the PR job
     // Notes:
     //  By default, jobs are runnable by all submitters 
-    def permitUsers(String[] users) {
+    def permitUsers(List<String> users) {
         assert triggerType == TriggerType.PULLREQUEST
         assert !used
         permittedUsers += users
@@ -244,16 +242,16 @@ class TriggerBuilder {
                     triggerPhrase(this.triggerPhrase)
                     
                     if (targetBranches.size() != 0) {
-                        whiteListTargetBranches((String[])targetBranches.flatten())
+                        whiteListTargetBranches(targetBranches)
                     }
                     if (skipBranches.size() != 0) {
                         // When this is implemented and rolled out, enable
-                        blackListTargetBranches((String[])skipBranches.flatten())
+                        blackListTargetBranches(skipBranches)
                     }
                 }
             }
             
-            JobReport.Report.addPRTriggeredJob(job.name, (String[])[targetBranches], this.context, this.triggerPhrase, alwaysTrigger)
+            JobReport.Report.addPRTriggeredJob(job.name, targetBranches, this.context, this.triggerPhrase, alwaysTrigger)
         }
     }
 }
