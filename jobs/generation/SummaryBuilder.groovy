@@ -20,7 +20,8 @@ class SummaryBuilder {
     //
     def addLinksSummaryFromFile(String header, String fileName, String summaryIcon = "terminal.gif") {
         groovyScript += """
-        {
+        // We use the if true to mimic a scoping block
+        if (true) {
             // Check whether the file exists:
             def linkFile = manager.build.getWorkspace().child("$fileName")
             if (linkFile.exists()) {
