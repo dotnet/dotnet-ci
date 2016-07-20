@@ -542,7 +542,6 @@ class Utilities {
                     extensions {
                         commitStatus {
                             context(contextString)
-                            updateQueuePosition(true)
                         }
                     }
 
