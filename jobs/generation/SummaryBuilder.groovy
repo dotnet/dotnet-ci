@@ -48,7 +48,11 @@ class SummaryBuilder {
         assert groovyScript != ''
         job.with {
             publishers {
-                groovyPostBuild(groovyScript, Behavior.MarkFailed)
+                groovyPostBuild {
+                    script(groovyScript)
+                    behavior(Behavior.MarkFailed)
+                    sandbox(true)
+                }
             }
         }
     }
