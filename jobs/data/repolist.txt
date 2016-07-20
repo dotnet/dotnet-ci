@@ -23,6 +23,7 @@ dotnet/buildtools branch=release/1.0.0 server=dotnet-ci
 dotnet/citest branch=master server=dotnet-ci2
 dotnet/citest branch=testBranch server=dotnet-ci2
 dotnet/citest folder=dotnet_citest/perf/master definitionScript=perf.groovy branch=master server=dotnet-ci2
+dotnet/citest definitionScript=dotnet-ci-citest.groovy branch=master server=dotnet-ci
 dotnet/cli branch=feature/msbuild server=dotnet-ci
 dotnet/cli branch=rel/1.0.0-preview2 server=dotnet-ci
 dotnet/cli branch=rel/1.0.0-preview1 server=dotnet-ci
