@@ -252,7 +252,7 @@ class TriggerBuilder {
                 }
             }
             
-            JobReport.Report.addPRTriggeredJob(job.name, targetBranches.toArray(), this.context, this.triggerPhrase, alwaysTrigger)
+            JobReport.Report.addPRTriggeredJob(job.name, (String[])targetBranches.toArray(), this.context, this.triggerPhrase, alwaysTrigger)
         }
     }
 }
