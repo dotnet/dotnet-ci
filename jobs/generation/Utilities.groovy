@@ -807,6 +807,41 @@ class Utilities {
             }
         }
     }
+    
+    // Archives data in Azure for a job when specific job result conditions are met.
+    // Parameters:
+    //
+    // job - Job to modify
+    // storageAccount - Storage account to use
+    // settings - Archival settings
+    def static addAzureArchival(def job, String storageAccount, ArchivalSettings settings) {
+        job.with {
+            publishers {
+                flexiblePublish {
+                    conditionalAction {
+                        condition {
+                            status(settings.getArchiveStatusRange()[0],settings.getArchiveStatusRange()[1])
+                        }
+
+                        publishers {
+                            azureStorageUpload {
+                                doNotFailIfArchivingReturnsNothing(!settings.failIfNothingArchived)
+                                filesToUpload(joinStrings(Arrays.asList(settings.filesToArchive), ','))
+                                if (settings.filesToExclude != null) {
+                                    excludeFilesPattern(joinStrings(Arrays.asList(settings.filesToExclude), ','))
+                                }
+                                storageAccountName(storageAccount)
+                                allowAnonymousAccess(true)
+                                uploadArtifactsOnlyIfSuccessful(false)
+                                manageArtifacts(true)
+                                uploadZips(false)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     // Archives data for a job
     // Parameters:
