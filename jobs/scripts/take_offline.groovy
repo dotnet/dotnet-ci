@@ -13,9 +13,9 @@ for (node in Hudson.getInstance().getNodes())
       continue
     }
     
-   	computer.setTemporarilyOffline(true);
+    computer.setTemporarilyOffline(true);
     if (!computer.isIdle()) {
-      	println("  Not idle after offline, skipping!");
+        println("  Not idle after offline, skipping!");
         computer.setTemporarilyOffline(false);
         continue;
     }
