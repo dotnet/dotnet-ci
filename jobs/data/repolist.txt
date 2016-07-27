@@ -63,6 +63,7 @@ dotnet/roslyn branch=features/extensionEverything server=dotnet-ci
 dotnet/roslyn branch=features/source-generators server=dotnet-ci
 dotnet/roslyn branch=features/vbTuples server=dotnet-ci
 dotnet/roslyn branch=features/tasklike server=dotnet-ci
+dotnet/roslyn branch=features/local-functions server=dotnet-ci
 dotnet/roslyn branch=run server=dotnet-ci
 dotnet/roslyn-analyzers branch=master server=dotnet-ci
 dotnet/roslyn-project-system branch=master server=dotnet-ci
