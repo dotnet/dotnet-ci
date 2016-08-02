@@ -104,42 +104,42 @@ class Utilities {
                             'Ubuntu14.04' :
                                 [
                                 // Generic version label
-                                '':'ubuntu',
+                                '':'auto-ubuntu1404-20160211',
                                 // Specific auto-image label
                                 '201626':'auto-ubuntu1404-201626',
                                 // Contains an updated version of mono
-                                '20160211':'auto-ubuntu1404-20160211',
+                                '20160211':'auto-ubuntu1404-20160211.1',
                                 // Contains the rootfs setup for arm/arm64 builds.  Move this label forward
                                 // till we have the working build/test, then apply to everything.
                                 'arm-cross-latest':'auto-ubuntu1404-20160711',
                                 // Latest auto image.  This will be used for transitioning
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
-                                'latest-or-auto':'auto-ubuntu1404-20160211',
+                                'latest-or-auto':'auto-ubuntu1404-20160211.1',
                                 // For outerloop runs.
                                 'outer-latest-or-auto':'auto-ubuntu1404-201626outer'
                                 ],
                             'Ubuntu15.10' :
                                 [
                                 // Generic version label
-                                '' : 'auto-ubuntu1510-20160131',
+                                '' : 'auto-ubuntu1510-20160307',
                                 // Latest auto image.  This will be used for transitioning
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
-                                'latest-or-auto':'auto-ubuntu1510-20160131',
+                                'latest-or-auto':'auto-ubuntu1510-20160307',
                                 // For outerloop runs.
-                                'outer-latest-or-auto':'auto-ubuntu1510-20160131outer'
+                                'outer-latest-or-auto':'auto-ubuntu1510-20160307outer'
                                 ],
                             'Ubuntu16.04' :
                                 [
                                 // Generic version label
-                                '' : 'auto-ubuntu1604-20160426',
+                                '' : 'auto-ubuntu1604-20160510',
                                 // Latest auto image.  This will be used for transitioning
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
-                                'latest-or-auto':'auto-ubuntu1604-20160426',
+                                'latest-or-auto':'auto-ubuntu1604-20160510',
                                 // For outerloop runs.
-                                'outer-latest-or-auto':'auto-ubuntu1604-20160426outer',
+                                'outer-latest-or-auto':'auto-ubuntu1604-20160510outer',
                                 // For outerloop runs, using Linux kernel version 4.6.2
                                 'outer-linux462': 'auto-auto-ubuntu1604-20160510-20160715outer'
                                 ],
@@ -225,35 +225,29 @@ class Utilities {
                                 // the generic unversioned label except for special cases.
                                 'latest-or-auto':'auto-rhel72-20160211',
                                 // For outerloop runs.
-                                'outer-latest-or-auto':'auto-rhel72-20160211outer'
+                                'outer-latest-or-auto':'auto-rhel72-20160412.1outer'
                                 ],
                             'CentOS7.1' :
                                 [
-                                '' : 'centos-71',
-                                // First functioning auto image.  Based directly off of the
-                                // existing centos image
-                                '20160211.1':'auto-centos71-20160211.1',
+                                '' : 'auto-centos71-20160211.1',
                                 // Latest auto image.  This will be used for transitioning
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
                                 'latest-or-auto':'auto-centos71-20160211.1',
                                 // For outerloop runs.
-                                'outer-latest-or-auto':'auto-centos71-20160211.1outer',
+                                'outer-latest-or-auto':'auto-centos71-20160609.1outer',
                                 // For outerloop runs, using Linux kernel version 4.6.4
                                 'outer-linux464': 'auto-auto-centos71-20160609.1-20160715outer'
                                 ],
                             'OpenSUSE13.2' :
                                 [
-                                '' : 'openSuSE-132',
-                                // First functioning auto image.  Based directly off of the
-                                // existing suse image
-                                '20160211':'auto-suse132-20160211',
+                                '' : 'auto-suse132-20160315',
                                 // Latest auto image.  This will be used for transitioning
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
-                                'latest-or-auto':'auto-suse132-20160211',
+                                'latest-or-auto':'auto-suse132-20160315',
                                 // For outerloop runs
-                                'outer-latest-or-auto':'auto-suse132-20160211outer'
+                                'outer-latest-or-auto':'auto-suse132-20160315outer'
                                 ],
                             'Debian8.2' :
                                 [
