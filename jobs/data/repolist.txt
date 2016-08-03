@@ -91,3 +91,4 @@ Microsoft/visualfsharp branch=roslyn server=dotnet-ci
 Microsoft/PartsUnlimited branch=master server=dotnet-ci
 jaredpar/roslyn branch=jenkins server=dotnet-ci2
 jaredpar/roslyn branch=features/other server=dotnet-ci2
+smile21prc/coreclr branch=coreclr-perf server=dotnet-ci2 definitionScript=perf.groovy
