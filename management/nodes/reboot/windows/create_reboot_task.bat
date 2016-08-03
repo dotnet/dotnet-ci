@@ -1,0 +1,2 @@
+powershell -command "& { [IO.File]::ReadAllText('create_reboot_task.xml') -f (Get-Date -UFormat '%%Y-%%m-%%dT%%T.0000000'), [Environment]::MachineName, [Environment]::UserName, '%userprofile%\Desktop\reboot\reboot_script.bat', '%userprofile%\Desktop\reboot' | Out-File create_reboot_task_output.xml }"
+schtasks /Create /XML create_reboot_task_output.xml /TN RebootScript
