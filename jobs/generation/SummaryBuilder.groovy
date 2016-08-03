@@ -72,7 +72,7 @@ class SummaryBuilder {
         if (${linksVar}.size() > 0) {
             ${linksVar}.each { linkToAdd ->
                 resolvedLinkToAdd = ${resolveString("linkToAdd")}
-                newSummary.appendText("<li><a href=\\\"/\$resolvedLinkToAdd\\\">\$resolvedLinkToAdd</a></li>", false)
+                newSummary.appendText("<li><a href=\\\"\$resolvedLinkToAdd\\\">\$resolvedLinkToAdd</a></li>", false)
             }
         }
         else {
