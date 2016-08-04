@@ -249,6 +249,16 @@ class Utilities {
                                 // For outerloop runs
                                 'outer-latest-or-auto':'auto-suse132-20160315outer'
                                 ],
+                            'OpenSUSE42.1' :
+                                [
+                                '' : 'auto-suse421-20160803',
+                                // Latest auto image.  This will be used for transitioning
+                                // to the auto images, at which point we will move back to
+                                // the generic unversioned label except for special cases.
+                                'latest-or-auto':'auto-suse421-20160803',
+                                // For outerloop runs
+                                'outer-latest-or-auto':'auto-suse421-20160803outer'
+                                ],
                             'Debian8.2' :
                                 [
                                 '' : 'auto-deb82-20160323',
