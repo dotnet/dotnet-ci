@@ -117,7 +117,9 @@ class Utilities {
                                 // the generic unversioned label except for special cases.
                                 'latest-or-auto':'auto-ubuntu1404-20160211.1',
                                 // For outerloop runs.
-                                'outer-latest-or-auto':'auto-ubuntu1404-201626outer'
+                                'outer-latest-or-auto':'auto-ubuntu1404-201626outer',
+                                // For internal Ubuntu runs
+                                'latest-or-auto-internal':'auto-ubuntu1404-20160211.1-internal'
                                 ],
                             'Ubuntu15.10' :
                                 [
@@ -805,7 +807,7 @@ class Utilities {
             }
         }
     }
-    
+
     // Archives data in Azure for a job when specific job result conditions are met.
     // Parameters:
     //
