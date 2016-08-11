@@ -175,7 +175,9 @@ class Utilities {
                                 // For internal runs which don't need/want the static 'windows-internal' pool
                                 'latest-dev15-internal':'auto-win2012-20160707-internal',
                                 // For elevated runs
-                                'latest-or-auto-elevated':'windows-elevated || auto-win2012-20160325-elevated'
+                                'latest-or-auto-elevated':'windows-elevated || auto-win2012-20160325-elevated',
+                                // For perf runs
+                                'latest-or-auto-perf':'windows-perf-internal'
                                 ],
                             'Windows_2016' :
                                 [
