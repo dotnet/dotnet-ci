@@ -26,3 +26,23 @@ This section contains answers to frequently asked questions about how to do cert
   // Below we pull in test results in all files named TestRun*.xml anywhere under the tree rooted at bin.
   Utilities.addXUnitDotNETResults(newJob, 'bin/**/TestRun*.xml')
   ```
+  
+  * Add a private github PR trigger - Sometimes you need to restrict a PR trigger to a specific set of users.  The new TriggerBuilder class can achieve this for you.
+
+  For reference, this is useing the new TriggerBuilder class. See [Trigger Builder](../jobs/generation/TriggerBuilder.groovy).
+  ```
+  // Create a new TriggerBuilder
+  TriggerBuilder prTrigger = TriggerBuilder.triggerOnPullRequest()
+  // Permit anyone in the Microsoft org (can be called multiple times)
+  prTigger.permitOrg('Microsoft')
+  // Permit a specific user (can be called multiple times)
+  prTrigger.permitUser('mmitche')
+  prTrigger.permitUser('smile21prc')
+  // Maybe we only want a specific phrase (this is regex)
+  prTrigger.setCustomTriggerPhrase("(?i).*test\\W+test my sweet new job.*")
+  // And, enable for the branch we are targeting in this CI definition file
+  prTrigger.triggerForBranch(GithubBranch)
+  // Set up what shows up in Github:
+  prTrigger.setGithubContext('My New Job')
+  prTrigger.emitTrigger(myNewJob)
+  ```
