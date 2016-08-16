@@ -225,8 +225,9 @@ class TriggerBuilder {
                             }
                         }
                         if (permittedOrgs.size() != 0) {
-                            String orgListString = Utilities.joinStrings(permittedOrgs, ',')
-                            orgWhitelist(orgListString)
+                            permittedOrgs.each { permittedOrg ->
+                                orgWhitelist(permittedOrg)
+                            }
                             allowMembersOfWhitelistedOrgsAsAdmin(true)
                         }
                     }
