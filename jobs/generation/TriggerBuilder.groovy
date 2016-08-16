@@ -172,7 +172,7 @@ class TriggerBuilder {
     def permitOrgs(List<String> orgs) {
         assert triggerType == TriggerType.PULLREQUEST
         assert !used
-        permittedOrgs += org
+        permittedOrgs += orgs
         permittedOrgs = permittedOrgs.flatten()
     }
     
