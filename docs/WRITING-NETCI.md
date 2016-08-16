@@ -29,6 +29,7 @@ This section contains answers to frequently asked questions about how to do cert
   
   * Add a private github PR trigger - Sometimes you need to restrict a PR trigger to a specific set of users.  The new TriggerBuilder class can achieve this for you.
 
+  For reference, this is useing the new TriggerBuilder class. See [Trigger Builder](../jobs/generation/TriggerBuilder.groovy).
   ```
   // Create a new TriggerBuilder
   TriggerBuilder prTrigger = TriggerBuilder.triggerOnPullRequest()
