@@ -111,7 +111,7 @@ class Utilities {
                                 '20160211':'auto-ubuntu1404-20160211.1',
                                 // Contains the rootfs setup for arm/arm64 builds.  Move this label forward
                                 // till we have the working build/test, then apply to everything.
-                                'arm-cross-latest':'auto-ubuntu1404-20160711',
+                                'arm-cross-latest':'auto-ubuntu1404-20160818',
                                 // Latest auto image.  This will be used for transitioning
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
