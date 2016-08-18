@@ -88,6 +88,24 @@ class Utilities {
         return project.split('/')[0];
     }
 
+    // Define a set of OS names which can resore and use managed build tools with a non-default RID.
+    // This controls the __PUBLISH_RID environment variable which affects init-tools behavior.
+    // Entries placed in this list are temporary, and should be removed when NuGet packages are published
+    // for the new OS.
+    //
+    // Parameters:
+    //  os: The name of the operating system. Ex: Windows_NT, OSX, openSUSE42.1.
+    //
+    // Returns: The name of an alternate RID to use while bootstrapping. If no RID mapping exists, returns null.
+    def static getBoostrapPublishRid(def os) {
+        def bootstrapRidMap = [
+            'openSUSE42.1': 'opensuse.13.2-x64',
+            'Ubuntu16.10': 'ubuntu.16.04-x64',
+            'Fedora24': 'fedora.23-x64'
+        ]
+        return bootstrapRidMap.get(os, null)
+    }
+
     // Given the name of an OS, set the nodes that this job runs on.
     //
     // Parameters:
