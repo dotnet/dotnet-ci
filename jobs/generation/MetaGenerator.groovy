@@ -30,6 +30,10 @@ class Repo {
     // Indicates this branch provides PR coverage for the listed branches.  If set, the GithubPRTargetBranches will be
     // set to this branch + prsForBranches.  GithubPRSkipBranches remains empty
     String[] additionalPRBranches = []
+    // The location of the Utilities repo
+    String utilitiesRepo
+    // The branch for the utilities repo
+    String utilitiesRepoBranch
     
     // Lazily set up data
     // Branches that should be targeted for PRs against this job definition
@@ -43,7 +47,9 @@ class Repo {
              String server,
              String definitionScript,
              boolean isDefaultPRBranch,
-             String[] additionalPRBranches) {
+             String[] additionalPRBranches,
+             String utilitiesRepo,
+             String utilitiesRepoBranch) {
         this.project = project
         this.folders = folders
         this.branch = branch
@@ -51,6 +57,8 @@ class Repo {
         this.definitionScript = definitionScript
         this.isDefaultPRBranch = isDefaultPRBranch
         this.additionalPRBranches = additionalPRBranches
+        this.utilitiesRepo = utilitiesRepo
+        this.utilitiesRepoBranch = utilitiesRepoBranch
     }    
 
     // Parse the input string and return a Repo object
@@ -64,14 +72,18 @@ class Repo {
         String project = projectInfo[0]
         String[] folders = null
         String branch = null
-        // Server defaults to the primary server, dotnet-ci
-        String server = 'dotnet-ci'
+        // Server name.
+        String server = null
         // File name/path is usually netci.groovy, but can be set arbitrarily
         String definitionScript = 'netci.groovy'
         // Additional PR branches
         String[] additionalPRBranches = []
         // Is the default PR branch?
         boolean isDefaultPRBranch = false
+        // Repo for Utilities that are used by the job
+        boolean utilitiesRepo = 'dotnet/dotnet-ci'
+        // Branch that the utilities should be read from
+        boolean utilitiesRepoBranch = 'master'
 
         // Check whether it contains a single forward slash
         assert project.indexOf('/') != -1 && project.indexOf('/') == project.lastIndexOf('/')
@@ -112,6 +124,14 @@ class Repo {
                 // Parse out the folder names
                 isDefaultPRBranch = element.substring('isDefaultPRBranch='.length()).toBoolean()
             }
+            else if(element.startsWith('utilitiesRepo=')) {
+                // Parse out the folder names
+                utilitiesRepo = element.substring('utilitiesRepo='.length())
+            }
+            else if(element.startsWith('utilitiesRepoBranch=')) {
+                // Parse out the folder names
+                utilitiesRepoBranch = element.substring('utilitiesRepoBranch='.length())
+            }
             else {
                 println("Unknown element " + element);
                 assert false
@@ -140,9 +160,14 @@ class Repo {
             }
         }
         
-        // Construct a new object and return
+        // Checks
+        assert utilitiesRepo != null && utilitiesRepo != ''
+        assert utilitiesRepoBranch != null && utilitiesRepoBranch != ''
+        assert server != null && server != ''
+        assert branch != null && branch != ''
         
-        return new Repo(project, folders, branch, server, definitionScript, isDefaultPRBranch, additionalPRBranches)
+        // Construct a new object and return
+        return new Repo(project, folders, branch, server, definitionScript, isDefaultPRBranch, additionalPRBranches, utilitiesRepo, utilitiesRepoBranch)
     }
 }
 
@@ -188,8 +213,6 @@ repos.each { repoInfo ->
         repoInfo.prSkipBranches = otherRepos.branch + otherRepos.additionalPRBranches.flatten()
     }
     repoInfo.prTargetBranches += ((String[])[repoInfo.branch])
-    
-    println("${repoInfo.project} - ${repoInfo.branch}\n    PR Target Branches = ${repoInfo.prTargetBranches}\n     PR Skip Branches = ${repoInfo.prSkipBranches}")
 }
 
 // Now that we have all the repos, generate the jobs
@@ -225,11 +248,11 @@ repos.each { repoInfo ->
             multiscm {
                 git {
                     remote {
-                        url('https://github.com/dotnet/dotnet-ci')
+                        url("https://github.com/${repoInfo.utilitiesRepo}")
                     }
                     relativeTargetDir('dotnet-ci')
                     // dotnet-ci always pulls from master
-                    branch('*/master')
+                    branch("*/${repoInfo.utilitiesRepoBranch}")
                 }
                 //
                 git {
