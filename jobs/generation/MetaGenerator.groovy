@@ -81,9 +81,9 @@ class Repo {
         // Is the default PR branch?
         boolean isDefaultPRBranch = false
         // Repo for Utilities that are used by the job
-        boolean utilitiesRepo = 'dotnet/dotnet-ci'
+        String utilitiesRepo = 'dotnet/dotnet-ci'
         // Branch that the utilities should be read from
-        boolean utilitiesRepoBranch = 'master'
+        String utilitiesRepoBranch = 'master'
 
         // Check whether it contains a single forward slash
         assert project.indexOf('/') != -1 && project.indexOf('/') == project.lastIndexOf('/')
