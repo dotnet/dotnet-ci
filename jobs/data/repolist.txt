@@ -59,7 +59,7 @@ dotnet/roslyn branch=features/patterns server=dotnet-ci
 dotnet/roslyn branch=features/records server=dotnet-ci
 dotnet/roslyn branch=features/privateProtected server=dotnet-ci
 dotnet/roslyn branch=features/ioperation server=dotnet-ci
-dotnet/roslyn branch=perf-run folder=dotnet_roslyn/perf/perf-run definitionScript=perf.groovy server=dotnet-ci2
+dotnet/roslyn branch=master folder=dotnet_roslyn/perf/perf-run definitionScript=perf.groovy server=dotnet-ci2
 dotnet/roslyn branch=features/extensionEverything server=dotnet-ci
 dotnet/roslyn branch=features/source-generators server=dotnet-ci
 dotnet/roslyn branch=features/vbTuples server=dotnet-ci
