@@ -72,8 +72,8 @@ class Repo {
         String project = projectInfo[0]
         String[] folders = null
         String branch = null
-        // Server defaults to the primary server, dotnet-ci
-        String server = 'dotnet-ci'
+        // Server name.
+        String server = null
         // File name/path is usually netci.groovy, but can be set arbitrarily
         String definitionScript = 'netci.groovy'
         // Additional PR branches
