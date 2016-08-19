@@ -99,7 +99,7 @@ class Utilities {
     // Returns: The name of an alternate RID to use while bootstrapping. If no RID mapping exists, returns null.
     def static getBoostrapPublishRid(def os) {
         def bootstrapRidMap = [
-            'openSUSE42.1': 'opensuse.13.2-x64',
+            'OpenSUSE42.1': 'opensuse.13.2-x64',
             'Ubuntu16.10': 'ubuntu.16.04-x64',
             'Fedora24': 'fedora.23-x64'
         ]
