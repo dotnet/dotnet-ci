@@ -41,11 +41,10 @@ Below contains information on how to onboard your project onto Jenkins.
     * Python
     * Powershell
     * Bash/Shell scripting
-  Let the .NET CI administrators know what will be needed (@mmitche, @tannergooding)
+  Let the .NET CI administrators know what will be needed (@mmitche, netciadmin alias)
   3. Send a PR to dotnet-ci adding your repo to jobs\data\repolist.txt.
-  4. Implement your netci.groovy.
-  5. Ensure your repo is accessible by @dotnet-bot and @mmitche.
-  6. Configure repo hooks and services for the CI.  You need two types.
+  4. Ensure your repo is accessible by @dotnet-bot and @mmitche.
+  5. Configure repo hooks and services for the CI.  You need two types.
     * A Jenkins (GitHub) services hook.  Go into the repo settings, click "Webhooks & Services", then click "Add service".  Type "Jenkins" and select "Jenkins (GitHub plugin)".  Set the hook URL to http://dotnet-ci.cloudapp.net/github-webhook/
     * Repo hooks for pull requests.  Go into the repo settings, click "Webhooks & Services", then click "Add webhook".
       - Payload URL: http://dotnet-ci.cloudapp.net/ghprbhook/
@@ -53,6 +52,7 @@ Below contains information on how to onboard your project onto Jenkins.
       - "Let me select individual events"
         - Pull request
         - Issue comment
-  6. PR this file, /cc @mmitche for review and comment "test ci please" to the PR thread.
-  7. Examine generated jobs for correctness.
-  8. [Write your CI definition](WRITING-NETCI.md)
+  6. Create a file called netci.groovy in root of your repo in the target branch (this could also be named something different based on the line in the repolist.txt file).
+  7. [Write your CI definition](WRITING-NETCI.md)
+  8. PR the netci.groovy file, /cc @mmitche for review and comment "test ci please" to the PR thread.
+  9. Once the test generation completes, you may examine the jobs for correctness by clicking on the Details link of the job.
