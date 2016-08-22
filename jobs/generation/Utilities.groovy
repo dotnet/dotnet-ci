@@ -158,6 +158,9 @@ class Utilities {
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
                                 'latest-or-auto':'auto-ubuntu1604-20160510',
+                                // auto-ubuntu1604-20160510 + docker.
+                                // Move this to latest-or-auto after validation
+                                'latest-or-auto-docker':'auto-ubuntu1604-20160803',
                                 // For outerloop runs.
                                 'outer-latest-or-auto':'auto-ubuntu1604-20160510outer',
                                 // For outerloop runs, using Linux kernel version 4.6.2
