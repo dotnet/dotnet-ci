@@ -318,7 +318,7 @@ class Utilities {
                             'Generators' :
                                 [
                                 '' : '!windowsnano16',
-                                'latest-or-auto':'!windowsnano16 && !arm64'
+                                'latest-or-auto':'!windowsnano16 && !arm64 && !performance'
                                 ]
                             ]
         def versionLabelMap = machineMap.get(osName, null)
