@@ -179,6 +179,7 @@ $groovyText = $groovyText -replace ".*whiteListTargetBranches.*", ""
 $groovyText = $groovyText -replace "helix\(", "batchFile("
 # ViewStatus isn't available as a permission in the local jar, so change to Discover
 $groovyText = $groovyText -replace "hudson.model.Item.ViewStatus", "hudson.model.Item.Discover"
+$groovyText = $groovyText -replace ".*updateQueuePosition.*", ""
 
 Write-Verbose "Writing combined script"
 
