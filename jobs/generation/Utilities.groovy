@@ -186,7 +186,9 @@ class Utilities {
                                 // Latest auto image.  This will be used for transitioning
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
-                                'latest-or-auto':'auto-win2012-20160325',
+                                'latest-or-auto':'auto-win2012-20160627',
+                                // Legacy VS2015.1 image
+                                'latest-or-auto-update1':'auto-win2012-20160325',
                                 // VS2015.3 image:
                                 'latest-or-auto-update3':'auto-win2012-20160627',
                                 // Win2012.R2 + VS2013.5 + VS2015.3 + VS15.P3
@@ -198,7 +200,7 @@ class Utilities {
                                 // For internal runs which don't need/want the static 'windows-internal' pool
                                 'latest-dev15-internal':'auto-win2012-20160707-internal',
                                 // For elevated runs
-                                'latest-or-auto-elevated':'windows-elevated || auto-win2012-20160325-elevated',
+                                'latest-or-auto-elevated':'auto-win2012-20160627-elevated',
                                 // For perf runs
                                 'latest-or-auto-perf':'windows-perf-internal'
                                 ],
