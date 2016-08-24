@@ -91,7 +91,6 @@ Microsoft/xunit-performance branch=citest server=dotnet-ci
 Microsoft/Vipr branch=master server=dotnet-ci
 Microsoft/visualfsharp branch=master server=dotnet-ci
 Microsoft/visualfsharp branch=vs2015 server=dotnet-ci
-Microsoft/visualfsharp branch=coreclr server=dotnet-ci
 Microsoft/visualfsharp branch=roslyn server=dotnet-ci
 Microsoft/PartsUnlimited branch=master server=dotnet-ci
 jaredpar/roslyn branch=jenkins server=dotnet-ci2
