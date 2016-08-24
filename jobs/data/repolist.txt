@@ -39,7 +39,6 @@ dotnet/corefx branch=dev/cms_unix server=dotnet-ci
 dotnet/corefx branch=master server=dotnet-ci
 dotnet/corefx branch=release/1.0.0-rc2 server=dotnet-ci
 dotnet/corefx branch=release/1.0.0 server=dotnet-ci
-dotnet/corefx branch=release/1.0.1 server=dotnet-ci
 dotnet/corefxlab branch=master server=dotnet-ci
 dotnet/corert branch=master server=dotnet-ci
 dotnet/dotnet-docker-nightly branch=dev server=dotnet-ci
