@@ -76,11 +76,15 @@ dotnet/symstore branch=master server=dotnet-ci
 dotnet/wcf branch=master server=dotnet-ci
 dotnet/wcf branch=release/1.0.0 server=dotnet-ci
 Microsoft/ChakraCore branch=master server=dotnet-ci
-Microsoft/ChakraCore branch=release/1.2 server=dotnet-ci
-Microsoft/ChakraCore branch=linux server=dotnet-ci
 Microsoft/ChakraCore branch=master-ci server=dotnet-ci
-Microsoft/ChakraCore branch=release/1.2-ci server=dotnet-ci
+Microsoft/ChakraCore branch=linux server=dotnet-ci
 Microsoft/ChakraCore branch=linux-ci server=dotnet-ci
+Microsoft/ChakraCore branch=xplat server=dotnet-ci
+Microsoft/ChakraCore branch=xplat-ci server=dotnet-ci
+Microsoft/ChakraCore branch=release/1.2 server=dotnet-ci
+Microsoft/ChakraCore branch=release/1.2-ci server=dotnet-ci
+Microsoft/ChakraCore branch=release/1.3 server=dotnet-ci
+Microsoft/ChakraCore branch=release/1.3-ci server=dotnet-ci
 Microsoft/ConcordExtensibilitySamples branch=master server=dotnet-ci
 Microsoft/MIEngine branch=master server=dotnet-ci
 Microsoft/msbuild server=dotnet-ci
