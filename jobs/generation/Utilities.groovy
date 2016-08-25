@@ -160,6 +160,15 @@ class Utilities {
                                 // For outerloop runs, using Linux kernel version 4.6.2
                                 'outer-linux462': 'auto-auto-ubuntu1604-20160510-20160715outer'
                                 ],
+                            'Ubuntu16.10' :
+                                [
+                                // Latest auto image.  This will be used for transitioning
+                                // to the auto images, at which point we will move back to
+                                // the generic unversioned label except for special cases.
+                                'latest-or-auto':'auto-ubuntu1610-20160825',
+                                // For outerloop runs.
+                                'outer-latest-or-auto':'auto-ubuntu1610-20160825outer',
+                                ],
                             'OSX' :
                                 [
                                 // Generic version label
@@ -257,11 +266,10 @@ class Utilities {
                                 ],
                             'OpenSUSE42.1' :
                                 [
-                                '' : 'auto-suse421-20160803',
                                 // Latest auto image.
-                                'latest-or-auto':'auto-suse421-20160803',
+                                'latest-or-auto':'auto-suse421-20160825',
                                 // For outerloop runs
-                                'outer-latest-or-auto':'auto-suse421-20160803outer'
+                                'outer-latest-or-auto':'auto-suse421-20160825outer'
                                 ],
                             'Debian8.2' :
                                 [
