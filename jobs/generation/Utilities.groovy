@@ -130,9 +130,7 @@ class Utilities {
                                 // Contains the rootfs setup for arm/arm64 builds.  Move this label forward
                                 // till we have the working build/test, then apply to everything.
                                 'arm-cross-latest':'auto-ubuntu1404-20160818',
-                                // Latest auto image.  This will be used for transitioning
-                                // to the auto images, at which point we will move back to
-                                // the generic unversioned label except for special cases.
+                                // Latest auto image.
                                 'latest-or-auto':'auto-ubuntu1404-20160211.1',
                                 // For outerloop runs.
                                 'outer-latest-or-auto':'auto-ubuntu1404-201626outer',
@@ -143,9 +141,7 @@ class Utilities {
                                 [
                                 // Generic version label
                                 '' : 'auto-ubuntu1510-20160307',
-                                // Latest auto image.  This will be used for transitioning
-                                // to the auto images, at which point we will move back to
-                                // the generic unversioned label except for special cases.
+                                // Latest auto image.
                                 'latest-or-auto':'auto-ubuntu1510-20160307',
                                 // For outerloop runs.
                                 'outer-latest-or-auto':'auto-ubuntu1510-20160307outer'
@@ -154,9 +150,7 @@ class Utilities {
                                 [
                                 // Generic version label
                                 '' : 'auto-ubuntu1604-20160510',
-                                // Latest auto image.  This will be used for transitioning
-                                // to the auto images, at which point we will move back to
-                                // the generic unversioned label except for special cases.
+                                // Latest auto image.
                                 'latest-or-auto':'auto-ubuntu1604-20160510',
                                 // auto-ubuntu1604-20160510 + docker.
                                 // Move this to latest-or-auto after validation
@@ -170,9 +164,7 @@ class Utilities {
                                 [
                                 // Generic version label
                                 '' : 'mac',
-                                // Latest auto image.  This will be used for transitioning
-                                // to the auto images, at which point we will move back to
-                                // the generic unversioned label except for special cases.
+                                // Latest auto image.
                                 'latest-or-auto':'mac',
                                 // For elevated runs
                                 'latest-or-auto-elevated':'mac-elevated'
@@ -181,16 +173,17 @@ class Utilities {
                             // This is Windows Server 2012 R2
                             'Windows_NT' :
                                 [
-                                // Generic version label
-                                '' : 'auto-win2012-20160325',
-                                // Latest auto image.  This will be used for transitioning
-                                // to the auto images, at which point we will move back to
+                                // Older images.  VS update 1
+                                '20160325' : 'auto-win2012-20160325',
+                                // Older images.  VS update 1
+                                '20160325-elevated' : 'auto-win2012-20160325-elevated',
+                                // Older images.  VS update 3
+                                '20160627' : 'auto-win2012-20160627',
+                                // Older images.  VS update 3
+                                '20160627-elevated' : 'auto-win2012-20160627-elevated',
+                                // Latest auto image.
                                 // the generic unversioned label except for special cases.
-                                'latest-or-auto':'auto-win2012-20160627',
-                                // Legacy VS2015.1 image
-                                'latest-or-auto-update1':'auto-win2012-20160325',
-                                // VS2015.3 image:
-                                'latest-or-auto-update3':'auto-win2012-20160627',
+                                'latest-or-auto':'auto-win2012-20160824',
                                 // Win2012.R2 + VS2013.5 + VS2015.3 + VS15.P3
                                 'latest-or-auto-dev15':'auto-win2012-20160707',
                                 // Dev15 image
@@ -200,7 +193,7 @@ class Utilities {
                                 // For internal runs which don't need/want the static 'windows-internal' pool
                                 'latest-dev15-internal':'auto-win2012-20160707-internal',
                                 // For elevated runs
-                                'latest-or-auto-elevated':'auto-win2012-20160627-elevated',
+                                'latest-or-auto-elevated':'auto-win2012-20160824-elevated',
                                 // For perf runs
                                 'latest-or-auto-perf':'windows-perf-internal'
                                 ],
@@ -208,9 +201,7 @@ class Utilities {
                                 [
                                 // Generic version label
                                 '' : 'auto-win2016-20160223',
-                                // Latest auto image.  This will be used for transitioning
-                                // to the auto images, at which point we will move back to
-                                // the generic unversioned label except for special cases.
+                                // Latest auto image.
                                 'latest-or-auto':'auto-win2016-20160223'
                                 ],
                             'Windows Nano 2016' :
@@ -222,34 +213,26 @@ class Utilities {
                                 [
                                 // Generic version label
                                 '' : 'windows10',
-                                // Latest auto image.  This will be used for transitioning
-                                // to the auto images, at which point we will move back to
-                                // the generic unversioned label except for special cases.
+                                // Latest auto image.
                                 'latest-or-auto':'windows10'
                                 ],
                             'Windows 7' :
                                 [
                                 // Generic version label
                                 '' : 'windows7',
-                                // Latest auto image.  This will be used for transitioning
-                                // to the auto images, at which point we will move back to
-                                // the generic unversioned label except for special cases.
+                                // Latest auto image.
                                 'latest-or-auto':'windows7'
                                 ],
                             'FreeBSD' :
                                 [
                                 '' : 'freebsd || auto-freebsd-20160415',
-                                // Latest auto image.  This will be used for transitioning
-                                // to the auto images, at which point we will move back to
-                                // the generic unversioned label except for special cases.
+                                // Latest auto image.
                                 'latest-or-auto':'freebsd || auto-freebsd-20160415'
                                 ],
                             'RHEL7.2' :
                                 [
                                 '' : 'auto-rhel72-20160211',
-                                // Latest auto image.  This will be used for transitioning
-                                // to the auto images, at which point we will move back to
-                                // the generic unversioned label except for special cases.
+                                // Latest auto image.
                                 'latest-or-auto':'auto-rhel72-20160211',
                                 // For outerloop runs.
                                 'outer-latest-or-auto':'auto-rhel72-20160412.1outer'
@@ -257,9 +240,7 @@ class Utilities {
                             'CentOS7.1' :
                                 [
                                 '' : 'auto-centos71-20160211.1',
-                                // Latest auto image.  This will be used for transitioning
-                                // to the auto images, at which point we will move back to
-                                // the generic unversioned label except for special cases.
+                                // Latest auto image.
                                 'latest-or-auto':'auto-centos71-20160211.1',
                                 // For outerloop runs.
                                 'outer-latest-or-auto':'auto-centos71-20160609.1outer',
@@ -269,9 +250,7 @@ class Utilities {
                             'OpenSUSE13.2' :
                                 [
                                 '' : 'auto-suse132-20160315',
-                                // Latest auto image.  This will be used for transitioning
-                                // to the auto images, at which point we will move back to
-                                // the generic unversioned label except for special cases.
+                                // Latest auto image.
                                 'latest-or-auto':'auto-suse132-20160315',
                                 // For outerloop runs
                                 'outer-latest-or-auto':'auto-suse132-20160315outer'
@@ -279,9 +258,7 @@ class Utilities {
                             'OpenSUSE42.1' :
                                 [
                                 '' : 'auto-suse421-20160803',
-                                // Latest auto image.  This will be used for transitioning
-                                // to the auto images, at which point we will move back to
-                                // the generic unversioned label except for special cases.
+                                // Latest auto image.
                                 'latest-or-auto':'auto-suse421-20160803',
                                 // For outerloop runs
                                 'outer-latest-or-auto':'auto-suse421-20160803outer'
@@ -290,17 +267,13 @@ class Utilities {
                                 [
                                 '' : 'auto-deb82-20160323',
                                 '20160323':'auto-deb82-20160323',
-                                // Latest auto image.  This will be used for transitioning
-                                // to the auto images, at which point we will move back to
-                                // the generic unversioned label except for special cases.
+                                // Latest auto image.
                                 'latest-or-auto':'auto-deb82-20160323'
                                 ],
                             'Debian8.4' :
                                 [
                                 '' : 'auto-deb84-20160623',
-                                // Latest auto image.  This will be used for transitioning
-                                // to the auto images, at which point we will move back to
-                                // the generic unversioned label except for special cases.
+                                // Latest auto image.
                                 'latest-or-auto':'auto-deb84-20160623',
                                 // For outerloop runs
                                 'outer-latest-or-auto':'auto-deb84-20160623outer'
@@ -308,9 +281,7 @@ class Utilities {
                            'Fedora23' :
                                 [
                                 '' : 'auto-fedora23-20160622',
-                                // Latest auto image.  This will be used for transitioning
-                                // to the auto images, at which point we will move back to
-                                // the generic unversioned label except for special cases.
+                                // Latest auto image.
                                 'latest-or-auto':'auto-fedora23-20160622',
                                 // For outerloop runs
                                 'outer-latest-or-auto':'auto-fedora23-20160622outer'
