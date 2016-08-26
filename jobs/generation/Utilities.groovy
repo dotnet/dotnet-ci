@@ -220,10 +220,8 @@ class Utilities {
                                 ],
                             'Windows 10' :
                                 [
-                                // Generic version label
-                                '' : 'windows10',
                                 // Latest auto image.
-                                'latest-or-auto':'windows10'
+                                'latest-or-auto':'auto-win2016-20160825'
                                 ],
                             'Windows 7' :
                                 [
