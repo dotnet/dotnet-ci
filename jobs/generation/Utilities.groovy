@@ -1039,4 +1039,110 @@ class Utilities {
 
         return DefaultRefSpec;
     }
+
+    // Emits a helper job.  This job prints a help message to the GitHub comments section
+    // Should only be emitted if the system has "ignore comments from bot" enabled.  The job is triggered
+    // by commenting '@dotnet-bot help please'
+    //
+    // This function should be called at the *end* of the groovy file (it needs a list of the 
+    // generated jobs obtained through the reporting framework.
+    //
+    // Parameters:
+    //  dslFactory - Factory object that can be used to create new jobs.  In your primary groovy
+    //               definitions, this parameter is "this".
+    //  project - Current project (required)
+    //  branchName - Branch this help message is defined for.
+    //  customHeader - Custom header message prepended to the help message.
+    //  customFooter - Footer message appended. Could be used to provide repo specific info (bug reports, known issues, etc.)
+    //
+    // Example:
+    //  At the end of the netci.groovy:
+    //  Utilities.createHelperJob(this, 'Welcome to CoreFX CI')
+    //
+    def static createHelperJob(def dslFactory, String project, String branchName, String customHeader, String customFooter = '') {
+        String defaultLegList = ""
+        String nonDefaultLegList = ""
+        // Construct a formatted leg list
+        JobReport.Report.prTriggeredJobs.sort().each { jobName, triggerInfo ->
+            if (triggerInfo.isDefault) {
+                defaultLegList += "@dotnet-bot ${triggerInfo.triggerPhrase} | ${triggerInfo.context}\n"
+            }
+            else {
+                nonDefaultLegList += "@dotnet-bot ${triggerInfo.triggerPhrase} | Queues ${triggerInfo.context}\n"
+            }
+        }
+
+        // Construct the help message.
+        String helpMessage = """${customHeader}
+
+The following is a list of valid commands on this PR.  To invoke a command, comment the indicated phrase on the PR
+
+**The following commands are valid for all PRs and repositories.**
+
+Comment Phrase | Action
+-------------- | ------
+@dotnet-bot test this please | Re-run all legs.  Use sparingly
+@dotnet-bot test ci please | Generates (but does not run) jobs based on changes to the groovy job definitions in this branch
+@dotnet-bot help | Print this help message
+"""
+
+        if (defaultLegList != "") {
+            helpMessage += """
+**The following jobs are launched by default for each PR against ${project}:${branchName}.**
+
+Comment Phrase | Job Launched
+-------------- | ------------
+${defaultLegList}
+"""
+        }
+
+        if (nonDefaultLegList != "") {
+            helpMessage += """
+**The following optional jobs are available in PRs against ${project}:${branchName}.**
+
+Comment Phrase | Job Launched
+-------------- | ------------
+${nonDefaultLegList}
+"""
+        }
+
+        helpMessage += """
+${customFooter}"""
+
+        def newJob = dslFactory.job('help_message') {
+            // This job does nothing except update a build status message
+            triggers {
+                githubPullRequest {
+                    useGitHubHooks()
+                    // Add default individual admins here
+                    admin('mmitche')
+                    permitAll()
+                    onlyTriggerPhrase(true)
+                    triggerPhrase('(?i).*@dotnet-bot\\W+help.*')
+                    extensions {
+                        commitStatus {
+                            context('Help Message')
+                        }
+                        buildStatus {
+                            completedStatus('SUCCESS', helpMessage)
+                        }
+                    }
+
+                    // We should only have a flat branch name, no wildcards
+                    assert branchName.indexOf('*') == -1
+                    whiteListTargetBranches([branchName])
+                }
+            }
+            
+            // Directly set the Github project property so that we don't have to actually clone source
+            configure { node ->
+                node / 'properties' / 'com.coravy.hudson.plugins.github.GithubProjectProperty' {
+                    'projectUrl'("https://github.com/${project}")
+                }
+            }
+            
+            quietPeriod(0)
+        }
+    }
 }
+
