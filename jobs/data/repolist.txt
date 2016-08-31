@@ -21,6 +21,7 @@
 dotnet/buildtools branch=master server=dotnet-ci
 dotnet/buildtools branch=release/1.0.0 server=dotnet-ci
 dotnet/citest branch=master server=dotnet-ci2 utilitiesRepo=mmitche/dotnet-ci utilitiesRepoBranch=azure-archiving
+dotnet/citest branch=help-job server=dotnet-ci2 utilitiesRepo=mmitche/dotnet-ci utilitiesRepoBranch=help-job
 dotnet/citest folder=dotnet_citest/perf/master definitionScript=perf.groovy branch=master server=dotnet-ci2
 dotnet/citest definitionScript=dotnet_ci_citest.groovy branch=master server=dotnet-ci
 dotnet/cli branch=feature/msbuild server=dotnet-ci
