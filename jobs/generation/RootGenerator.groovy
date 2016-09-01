@@ -56,6 +56,18 @@ job("dotnet_dotnet-ci_generator") {
             removeViewAction('DELETE')
         }
     }
+
+    // After we're done, trigger the cleaner job
+    downstreamParameterized {
+        publishers {
+            trigger('generator_cleaner')
+            condition('SUCCESS')
+            parameters {
+                predefinedProp('GeneratorBuildNumber', '${BUILD_NUMBER}')
+                predefinedProp('GeneratorJobName', '${JOB_NAME}')
+            }
+        }
+    }
 }
 
 // Create the job disabler
@@ -134,5 +146,21 @@ job('system_cleaner') {
 
     steps {
         systemGroovyScriptFile('jobs/scripts/system_cleaner.groovy')
+    }
+}
+
+// Create the generator cleaner job
+job('generator_cleaner') {
+    logRotator {
+        daysToKeep(7)
+    }
+
+    parameters {
+        stringParam('GeneratorBuildNumber', '')
+        stringParam('GeneratorJobName', '')
+    }
+
+    steps {
+        systemGroovyScriptFile('jobs/scripts/generator_cleaner.groovy')
     }
 }
