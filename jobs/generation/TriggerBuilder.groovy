@@ -203,6 +203,31 @@ class TriggerBuilder {
     // Parameters:
     //  job - Job to emit the trigger for.
     def emitTrigger(def job) {
+    
+        if (triggerType == TriggerType.PULLREQUEST) {
+            this.emitPRTrigger(job)
+        }
+        else if (triggerType == TriggerType.COMMIT) {
+            this.emitCommitTrigger(job)
+        }
+        else {
+            assert false
+        }
+    }
+    
+    def private emitCommitTrigger(def job) {
+        job.with {
+            triggers {
+                githubPush()
+            }
+        }
+
+        // Record the push trigger.  We look up in the side table to see what branches this
+        // job was set up to build
+        JobReport.Report.addPushTriggeredJob(job.name)
+    }
+    
+    def private emitPRTrigger(def job) {
         assert !used
         
         def boolean permitAllSubmitters = (permittedUsers.size() == 0 && permittedOrgs.size() == 0)
