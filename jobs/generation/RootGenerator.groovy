@@ -60,11 +60,12 @@ job("dotnet_dotnet-ci_generator") {
     publishers {
         // After we're done, trigger the cleaner job
         downstreamParameterized {
-            trigger('generator_cleaner')
-            condition('SUCCESS')
-            parameters {
-                predefinedProp('GeneratorBuildNumber', '${BUILD_NUMBER}')
-                predefinedProp('GeneratorJobName', '${JOB_NAME}')
+            trigger('generator_cleaner') {
+                condition('SUCCESS')
+                parameters {
+                    predefinedProp('GeneratorBuildNumber', '${BUILD_NUMBER}')
+                    predefinedProp('GeneratorJobName', '${JOB_NAME}')
+                }
             }
         }
     }
