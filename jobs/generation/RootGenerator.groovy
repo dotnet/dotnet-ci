@@ -155,6 +155,16 @@ job('generator_cleaner') {
     logRotator {
         daysToKeep(7)
     }
+    
+    // Source is just basic git for dotnet-ci
+    scm {
+        git {
+            remote {
+                github("dotnet/dotnet-ci")
+            }
+            branch("*/master")
+        }
+    }
 
     parameters {
         stringParam('GeneratorBuildNumber', '')
