@@ -57,9 +57,9 @@ job("dotnet_dotnet-ci_generator") {
         }
     }
 
-    // After we're done, trigger the cleaner job
-    downstreamParameterized {
-        publishers {
+    publishers {
+        // After we're done, trigger the cleaner job
+        downstreamParameterized {
             trigger('generator_cleaner')
             condition('SUCCESS')
             parameters {
