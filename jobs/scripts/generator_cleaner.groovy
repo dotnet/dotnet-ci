@@ -121,7 +121,8 @@ def disableItemsUnderFolderNotInList(items, currentItems) {
                 if (!isGeneratorAndFoundInCurrent) {
                     // Disable
                     println("  " + item.fullName)
-                    item.disabled = true
+                    // Reenable when we're sure this works properly
+                    // item.disabled = true
                 }
                 else if (item.name == "generator") {
                     // Requeue
