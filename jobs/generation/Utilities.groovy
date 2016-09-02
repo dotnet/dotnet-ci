@@ -148,10 +148,8 @@ class Utilities {
                                 ],
                             'Ubuntu16.04' :
                                 [
-                                // Generic version label
-                                '' : 'auto-ubuntu1604-20160510',
                                 // Latest auto image.
-                                'latest-or-auto':'auto-ubuntu1604-20160510',
+                                'latest-or-auto':'auto-ubuntu1604-20160803',
                                 // auto-ubuntu1604-20160510 + docker.
                                 // Move this to latest-or-auto after validation
                                 'latest-or-auto-docker':'auto-ubuntu1604-20160803',
