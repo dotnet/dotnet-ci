@@ -1064,11 +1064,14 @@ class Utilities {
         String nonDefaultLegList = ""
         // Construct a formatted leg list
         JobReport.Report.prTriggeredJobs.sort().each { jobName, triggerInfo ->
+            // Since we're in a table, ensure that the | char is replaced by \|
+            def processedTriggerPhrase = triggerInfo.triggerPhrase.replace("\|", "\\|")
+            def processedContext = triggerInfo.context.replace("\|", "\\|")
             if (triggerInfo.isDefault) {
-                defaultLegList += "@dotnet-bot ${triggerInfo.triggerPhrase} | ${triggerInfo.context}\n"
+                defaultLegList += "@dotnet-bot ${processedTriggerPhrase} | ${processedContext}\n"
             }
             else {
-                nonDefaultLegList += "@dotnet-bot ${triggerInfo.triggerPhrase} | Queues ${triggerInfo.context}\n"
+                nonDefaultLegList += "@dotnet-bot ${processedTriggerPhrase} | Queues ${processedContext}\n"
             }
         }
 
