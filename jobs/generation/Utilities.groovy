@@ -1065,8 +1065,8 @@ class Utilities {
         // Construct a formatted leg list
         JobReport.Report.prTriggeredJobs.sort().each { jobName, triggerInfo ->
             // Since we're in a table, ensure that the | char is replaced by \|
-            def processedTriggerPhrase = triggerInfo.triggerPhrase.replace("\\|", "\\|")
-            def processedContext = triggerInfo.context.replace("\\|", "\\|")
+            def processedTriggerPhrase = triggerInfo.triggerPhrase.replace("\\|", "\\\\|")
+            def processedContext = triggerInfo.context.replace("\\|", "\\\\|")
             if (triggerInfo.isDefault) {
                 defaultLegList += "@dotnet-bot ${processedTriggerPhrase} | ${processedContext}\n"
             }
