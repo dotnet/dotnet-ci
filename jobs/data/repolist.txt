@@ -46,11 +46,9 @@ dotnet/corefxlab branch=master server=dotnet-ci
 dotnet/corert branch=master server=dotnet-ci
 dotnet/dotnet-docker-nightly branch=master server=dotnet-ci
 # TODO: Change to master branch once initial tests merged
-dotnet/dotnet-ci branch=refined-help server=dotnet-ci2 definitionScript=jobs\generation\tests.groovy
-# TODO: Change to master branch once initial tests merged
+mmitche/dotnet-ci branch=refined-help server=dotnet-ci2 definitionScript=jobs\generation\tests.groovy utilitiesRepo=mmitche/dotnet-ci utilitiesRepoBranch=refined-help
 # TODO: Enable this line on other server once tests are working to ensure that we have testing across both servers
-# dotnet/dotnet-ci branch=refined-help server=dotnet-ci definitionScript=jobs\generation\tests.groovy
-dotnet/llilc branch=master server=dotnet-ci
+# dotnet/dotnet-ci branch=master server=dotnet-ci definitionScript=jobs\generation\tests.groovy
 dotnet/orleans server=dotnet-ci
 dotnet/roslyn branch=master server=dotnet-ci
 dotnet/roslyn branch=dev15-preview-4 server=dotnet-ci
