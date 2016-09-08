@@ -321,8 +321,12 @@ repos.each { repoInfo ->
 
             steps {
                 dsl {
-                    // Loads DSL groovy file
+                    // Loads the PreGen groovy file
+                    external("dotnet-ci/jobs/generation/PreGen.groovy")
+                    // Loads DSL groovy file from the repo
                     external(Utilities.getProjectName(repoInfo.project) + "/${repoInfo.definitionScript}")
+                    // Loads the PostGen groovy file
+                    external("dotnet-ci/jobs/generation/PostGen.groovy")
 
                     // Additional classpath should point to the utility repo
                     additionalClasspath('dotnet-ci')
