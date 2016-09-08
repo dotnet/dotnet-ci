@@ -14,9 +14,13 @@ def deleteDisabledNonRootChildren(items) {
                 println (item.fullName + " cannot be deleted or disabled (is workflow job)!")
                 continue
             }
-            if (item.disabled) {
+            // Delete everything that's disabled
+            boolean doDelete = item.disabled
+            // Also delete if it's not disabled, but is somewhere under GenPRTest and is NOT a generator
+            doDelete |= (item.fullName.indexOf('GenPRTest') != -1 && item.name.indexOf('generator') == -1)
+            if (item.disabled || item.fullName ) {
                 println("About to delete " + item.fullName)
-                item.delete();
+                // item.delete();
             } else {
                 removedAllItems = false
             }
