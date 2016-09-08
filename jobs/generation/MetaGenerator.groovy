@@ -71,6 +71,7 @@ class Repo {
         // First element is the repo name
         String project = projectInfo[0]
         String[] folders = null
+        String[] subFolders = null
         String branch = null
         // Server name.
         String server = null
@@ -93,19 +94,13 @@ class Repo {
         while (i < (projectInfo.size())) {
             def element = projectInfo[i]
 
-            if (element.startsWith('folder=')) {
+            if (element.startsWith('subFolder=')) {
                 // Parse out the folder names
-                folders = element.substring('folder='.length()).tokenize('/')
+                subFolders = element.substring('subFolder='.length()).tokenize('/')
 
                 // If the folder name was root, just zero it out.  If they chose root, there should
                 // only be one element
-                assert folders.size() >= 1
-
-                if (folders[0] == '<root>') {
-                    assert folders.size() == 1
-                    // Set an initial empty folder
-                    folders = []
-                }
+                assert subFolders.size() >= 1
             }
             else if(element.startsWith('branch=')) {
                 branch = element.substring('branch='.length())
@@ -133,38 +128,32 @@ class Repo {
                 utilitiesRepoBranch = element.substring('utilitiesRepoBranch='.length())
             }
             else {
-                println("Unknown element " + element);
+                out.println("Unknown element " + element);
                 assert false
             }
             i++
         }
-
-        // If the folder was unset but branch was set to something, then we set the folder to the
-        // repo name plus branch subfolder
-
-        if (folders == null) {
-            folders = [Utilities.getFolderName(project)]
-            if (branch == null) {
-                branch = 'master'
-            }
-            else {
-                // Append the branch name to the folder list
-                folders += Utilities.getFolderName(branch)
-            }
+        
+        if (branch == null || branch == '') {
+            out.println("Line '${input}' invalid")
+            out.println("branch must be specified")
+            assert false
         }
-        else {
-            // Folder already set, but set a default value for branch if it's not specified
-            // Branch name is not appended to the folder list.
-            if (branch == null) {
-                branch = 'master'
-            }
+        if (server == null || server == '') {
+            out.println("Line '${input}' invalid")
+            out.println("server must be specified")
+            assert false
         }
         
-        // Checks
-        assert utilitiesRepo != null && utilitiesRepo != ''
-        assert utilitiesRepoBranch != null && utilitiesRepoBranch != ''
-        assert server != null && server != ''
-        assert branch != null && branch != ''
+        folders = [Utilities.getFolderName(project)]
+        
+        // If they asked for subfolders, add them
+        if (subFolders != null) {
+            folders += subFolders
+        }
+        
+        // Add the branch after
+        folders += Utilities.getFolderName(branch)
         
         // Construct a new object and return
         return new Repo(project, folders, branch, server, definitionScript, isDefaultPRBranch, additionalPRBranches, utilitiesRepo, utilitiesRepoBranch)
@@ -198,12 +187,26 @@ repos.each { repoInfo ->
         searchRepoInfo.branch != repoInfo.branch
     }
     
+    // Consistency check
+    // Find other projects that have the same project, same branch, and same definition script
+    
+    assert repos.find { searchRepoInfo -> 
+        // Not the exact same item
+        repoInfo != searchRepoInfo &&
+        // Same project
+        searchRepoInfo.project == repoInfo.project &&
+        // Same branch
+        searchRepoInfo.branch == repoInfo.branch &&
+        // Same CI file.  Note this isn't perfect, since there could be overlap
+        // based on glob syntax.  But it should prevent most errors.
+        searchRepoInfo.definitionScript == repoInfo.definitionScript
+    } == null
+    
     repoInfo.prTargetBranches = []
     repoInfo.prSkipBranches = []
     
     // Determine the prTargetBranches and prSkipBranches
     if (repoInfo.isDefaultPRBranch) {
-        // If we're the default PR branch, the pr target branch is set to .*
         repoInfo.prTargetBranches = ['.*']
         repoInfo.prSkipBranches = otherRepos.branch + otherRepos.additionalPRBranches.flatten()
     }
@@ -241,9 +244,26 @@ repos.each { repoInfo ->
 
     // Create a Folder for generator PR tests under that.
     folder(generatorPRTestFolder) {}
+    
+    // Generator folder is based on the name of the definition script name.  Now,
+    // the definition script is a glob syntax, so we need to do a little processing
+    def generatorJobBaseName = 'generator_'
+    def definitionScriptSuffix = repoInfo.definitionScript
+    
+    // Strip out before the last \ or /
+    def lastSlash = Math.max(definitionScriptSuffix.lastIndexOf('/'), definitionScriptSuffix.lastIndexOf('\\'))
+    
+    if (lastSlash != -1) {
+        definitionScriptSuffix = definitionScriptSuffix.substring(lastSlash+1)
+    }
+    
+    // Now remove * and .groovy
+    definitionScriptSuffix = definitionScriptSuffix.replace("*", "")
+    definitionScriptSuffix = definitionScriptSuffix.replace(".groovy", "")
+    
 
     [true, false].each { isPRTest ->
-        def jobGenerator = job(Utilities.getFullJobName(repoInfo.project, 'generator', isPRTest, isPRTest ? generatorPRTestFolder : generatorFolder)) {
+        def jobGenerator = job(Utilities.getFullJobName(generatorJobBaseName + definitionScriptSuffix, isPRTest, isPRTest ? generatorPRTestFolder : generatorFolder)) {
             // Need multiple scm's
             multiscm {
                 git {
