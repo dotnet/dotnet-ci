@@ -75,7 +75,7 @@ folder('GenPRTest') {}
                     
                     extensions {
                         commitStatus {
-                            context('MetaGeneration test')
+                            context("${ServerName} MetaGeneration Test")
                             updateQueuePosition(true)
                         }
                     }
