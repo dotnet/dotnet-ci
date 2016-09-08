@@ -52,6 +52,7 @@ dotnet/orleans server=dotnet-ci
 dotnet/roslyn branch=master server=dotnet-ci
 dotnet/roslyn branch=dev15-preview-4 server=dotnet-ci
 dotnet/roslyn branch=dev15-preview4-df server=dotnet-ci
+dotnet/roslyn branch=dev15-preview-5 server=dotnet-ci
 dotnet/roslyn branch=future server=dotnet-ci
 dotnet/roslyn branch=microupdate server=dotnet-ci
 dotnet/roslyn branch=features/typeswitch server=dotnet-ci
@@ -67,7 +68,6 @@ dotnet/roslyn branch=features/extensionEverything server=dotnet-ci
 dotnet/roslyn branch=features/source-generators server=dotnet-ci
 dotnet/roslyn branch=features/vbTuples server=dotnet-ci
 dotnet/roslyn branch=features/tasklike server=dotnet-ci
-dotnet/roslyn branch=features/local-functions server=dotnet-ci
 dotnet/roslyn branch=features/default server=dotnet-ci
 dotnet/roslyn branch=run server=dotnet-ci
 dotnet/roslyn-analyzers branch=master server=dotnet-ci
