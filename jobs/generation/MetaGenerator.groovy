@@ -247,7 +247,7 @@ repos.each { repoInfo ->
     
     // Generator folder is based on the name of the definition script name.  Now,
     // the definition script is a glob syntax, so we need to do a little processing
-    def generatorJobBaseName = 'generator_'
+    def generatorJobBaseName = 'generator'
     def definitionScriptSuffix = repoInfo.definitionScript
     
     // Strip out before the last \ or /
@@ -263,7 +263,7 @@ repos.each { repoInfo ->
     
 
     [true, false].each { isPRTest ->
-        def jobGenerator = job(Utilities.getFullJobName(generatorJobBaseName + definitionScriptSuffix, isPRTest, isPRTest ? generatorPRTestFolder : generatorFolder)) {
+        def jobGenerator = job(Utilities.getFullJobName(generatorJobBaseName, isPRTest, isPRTest ? generatorPRTestFolder : generatorFolder)) {
             // Need multiple scm's
             multiscm {
                 git {
