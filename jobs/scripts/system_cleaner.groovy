@@ -18,9 +18,11 @@ def deleteDisabledNonRootChildren(items) {
             boolean doDelete = item.disabled
             // Also delete if it's not disabled, but is somewhere under GenPRTest and is NOT a generator
             doDelete |= (item.fullName.indexOf('GenPRTest') != -1 && item.name.indexOf('generator') == -1)
-            if (item.disabled || item.fullName ) {
+            // Also delete it if the full path starts with /GenPRTest and it's name is not 'dotnet_dotnet-ci_generator_prtest'
+            doDelete |= item.fullName.indexOf('GenPRTest') == 0 && item.name != 'dotnet_dotnet-ci_generator_prtest'
+            if (doDelete) {
                 println("About to delete " + item.fullName)
-                // item.delete();
+                item.delete();
             } else {
                 removedAllItems = false
             }
