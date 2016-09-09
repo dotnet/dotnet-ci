@@ -22,7 +22,7 @@ def deleteDisabledNonRootChildren(items) {
             doDelete |= item.fullName.indexOf('GenPRTest') == 0 && item.name != 'dotnet_dotnet-ci_generator_prtest'
             if (doDelete) {
                 println("About to delete " + item.fullName)
-                item.delete();
+                // item.delete();
             } else {
                 removedAllItems = false
             }
@@ -32,7 +32,7 @@ def deleteDisabledNonRootChildren(items) {
             if (removedAllItemsFromFolder) {
                 println("About to delete " + item.fullName)
                 // Delete the folder too
-                item.delete()
+                // item.delete()
             }
             else {
                 // We didn't remove everything from the folder, so make sure removeAllItems is updated
