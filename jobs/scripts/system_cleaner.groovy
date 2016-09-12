@@ -1,11 +1,31 @@
 import hudson.model.*
 import jenkins.model.*
 
+// This denotes a value by which if we are about to delete more than X items,
+// that don't have GenPRTest in their full name, then we should break and fail the job.
+// This is to prevent cases where some component might go haywire and cause deletion of a lot of data.
+def nonGenPRTestSafetyBreak = 100
+def genPRTestSafetyBreak = 1000
 
-deleteDisabledNonRootChildren(Jenkins.instance.items)
+(removedAllItemsFromFolder, nonGenPRTestCount, genPRTestCount) = deleteDisabled(Jenkins.instance.items, true)
 
-def deleteDisabledNonRootChildren(items) {
+println ("About to delete:")
+println ("  " + genPRTestCount + " generation test items")
+println ("  " + nonGenPRTestCount + " real items")
+println ("  " + nonGenPRTestCount + genPRTestCount + " total")
+
+// Safety break checks
+assert nonGenPRTestCount < nonGenPRTestSafetyBreak
+assert genPRTestCount < genPRTestSafetyBreak
+
+(removedAllItemsFromFolder, nonGenPRTestCount, genPRTestCount) = deleteDisabled(Jenkins.instance.items, false)
+
+return true
+
+def deleteDisabled(items, calculateOnly) {
     def removedAllItems = true
+    def nonGenPRTestCount = 0
+    def genPRTestCount = 0
     for (item in items) {
         if (item.class.canonicalName != 'com.cloudbees.hudson.plugins.folder.Folder') {
             if (item.class.canonicalName == 'org.jenkinsci.plugins.workflow.job.WorkflowJob') {
@@ -21,18 +41,43 @@ def deleteDisabledNonRootChildren(items) {
             // Also delete it if the full path starts with /GenPRTest and it's name is not 'dotnet_dotnet-ci_generator_prtest'
             doDelete |= item.fullName.indexOf('GenPRTest') == 0 && item.name != 'dotnet_dotnet-ci_generator_prtest'
             if (doDelete) {
-                println("About to delete " + item.fullName)
-                // item.delete();
+                if (item.fullName.indexOf('GenPRTest') != -1) {
+                    genPRTestCount++
+                } else {
+                    nonGenPRTestCount++
+                }
+                if (!calculateOnly) {
+                    println("About to delete " + item.fullName)
+                    item.delete();
+                }
+                else {
+                    println("Would delete " + item.fullName)
+                }
             } else {
                 removedAllItems = false
             }
         } else {
-            def removedAllItemsFromFolder = 
-                deleteDisabledNonRootChildren(((com.cloudbees.hudson.plugins.folder.Folder) item).getItems())
+            def removedAllItemsFromFolder
+            def nonGenDeleted
+            def genDeleted
+            (removedAllItemsFromFolder, nonGenDeleted, genDeleted) = 
+                deleteDisabled(((com.cloudbees.hudson.plugins.folder.Folder) item).getItems(), calculateOnly)
+            nonGenPRTestCount += nonGenDeleted
+            genPRTestCount += genDeleted
             if (removedAllItemsFromFolder) {
-                println("About to delete " + item.fullName)
+                if (item.fullName.indexOf('GenPRTest') != -1) {
+                    genPRTestCount++
+                } else {
+                    nonGenPRTestCount++
+                }
                 // Delete the folder too
-                // item.delete()
+                if (!calculateOnly) {
+                    println("About to delete " + item.fullName)
+                    item.delete()
+                }
+                else {
+                    println("Would delete " + item.fullName)
+                }
             }
             else {
                 // We didn't remove everything from the folder, so make sure removeAllItems is updated
@@ -41,5 +86,5 @@ def deleteDisabledNonRootChildren(items) {
         }
     }
     
-    return removedAllItems
+    return [removedAllItems, nonGenPRTestCount, genPRTestCount]
 }
