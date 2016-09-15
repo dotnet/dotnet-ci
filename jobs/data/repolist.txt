@@ -79,6 +79,7 @@ dotnet/symreader-portable branch=master server=dotnet-ci
 dotnet/symstore branch=master server=dotnet-ci
 dotnet/wcf branch=master server=dotnet-ci
 dotnet/wcf branch=release/1.0.0 server=dotnet-ci
+dotnet/wcf branch=release/1.1.0 server=dotnet-ci
 dotnet/wcf branch=ws-trust server=dotnet-ci
 Microsoft/ChakraCore branch=master server=dotnet-ci
 Microsoft/ChakraCore branch=master-ci server=dotnet-ci
