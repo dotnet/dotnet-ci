@@ -162,8 +162,8 @@ if ($groovyText -match "import jobs.generation.InternalUtilities;")
 $Project = '''' + $Project + ''''
 $Branch = '''' + $Branch + ''''
 
-$groovyText = $groovyText -replace "\\bGithubProject\\b", $Project
-$groovyText = $groovyText -replace "\\bGithubBranchName\\b", $Branch
+$groovyText = $groovyText -replace "\bGithubProject\b", $Project
+$groovyText = $groovyText -replace "\bGithubBranchName\b", $Branch
 
 # Need to remove the package section, which is only valid at the top of the file.
 $groovyText = $groovyText -replace "package jobs.generation;", ""
