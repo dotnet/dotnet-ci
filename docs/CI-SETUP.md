@@ -45,8 +45,8 @@ Below contains information on how to onboard your project onto Jenkins.
   3. Send a PR to dotnet-ci adding your repo to jobs\data\repolist.txt.
   4. Ensure your repo is accessible by @dotnet-bot and @mmitche.
   5. Configure repo hooks and services for the CI.  You need two types.
-    * A Jenkins (GitHub) services hook.  Go into the repo settings, click "Webhooks & Services", then click "Add service".  Type "Jenkins" and select "Jenkins (GitHub plugin)".  Set the hook URL to http://dotnet-ci.cloudapp.net/github-webhook/
-    * Repo hooks for pull requests.  Go into the repo settings, click "Webhooks & Services", then click "Add webhook".
+    * A Jenkins (GitHub) services hook.  Go into the repo settings, click "Integrations & services", then click "Add service".  Type "Jenkins" and select "Jenkins (GitHub plugin)".  Set the hook URL to http://dotnet-ci.cloudapp.net/github-webhook/
+    * Repo hooks for pull requests.  Go into the repo settings, click "Webhooks", then click "Add webhook".
       - Payload URL: http://dotnet-ci.cloudapp.net/ghprbhook/
       - Content type: application/x-www-form-urlencoded
       - "Let me select individual events"
