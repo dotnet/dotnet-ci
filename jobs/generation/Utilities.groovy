@@ -195,6 +195,8 @@ class Utilities {
                                 'latest-or-auto-dev15':'auto-win2012-20160707',
                                 // Win2012.R2 + VS2013.5 + VS2015.3 + VS15.P4
                                 'latest-or-auto-dev15-preview4':'auto-win2012-20160912',
+                                // Win2012.R2 + VS15.P5
+                                'latest-or-auto-dev15-preview5':'auto-win2012-20160927',
                                 // Dev15 image
                                 'latest-dev15':'auto-win2012-20160506',
                                 // For internal runs
