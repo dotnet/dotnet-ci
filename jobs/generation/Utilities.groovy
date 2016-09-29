@@ -250,7 +250,7 @@ class Utilities {
                                 [
                                 '' : 'auto-centos71-20160211.1',
                                 // Latest auto image.
-                                'latest-or-auto':'auto-centos71-20160211.1',
+                                'latest-or-auto':'auto-centos71-20160929',
                                 // For outerloop runs.
                                 'outer-latest-or-auto':'auto-centos71-20160609.1outer',
                                 // For outerloop runs, using Linux kernel version 4.6.4
