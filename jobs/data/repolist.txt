@@ -81,6 +81,7 @@ dotnet/interactive-window branch=master server=dotnet-ci
 dotnet/symreader branch=master server=dotnet-ci
 dotnet/symreader-portable branch=master server=dotnet-ci
 dotnet/symstore branch=master server=dotnet-ci
+dotnet/versions branch=master server=dotnet-ci
 dotnet/wcf branch=master server=dotnet-ci
 dotnet/wcf branch=release/1.0.0 server=dotnet-ci
 dotnet/wcf branch=release/1.1.0 server=dotnet-ci
