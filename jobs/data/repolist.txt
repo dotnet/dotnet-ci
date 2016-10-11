@@ -55,9 +55,7 @@ dotnet/dotnet-docker branch=master server=dotnet-ci
 dotnet/dotnet-docker-nightly branch=master server=dotnet-ci
 dotnet/orleans branch=master server=dotnet-ci
 dotnet/roslyn branch=master server=dotnet-ci
-dotnet/roslyn branch=dev15-preview-4 server=dotnet-ci
-dotnet/roslyn branch=dev15-preview4-df server=dotnet-ci
-dotnet/roslyn branch=dev15-preview-5 server=dotnet-ci
+dotnet/roslyn branch=dev15-rc server=dotnet-ci
 dotnet/roslyn branch=future server=dotnet-ci
 dotnet/roslyn branch=microupdate server=dotnet-ci
 dotnet/roslyn branch=features/typeswitch server=dotnet-ci
