@@ -196,13 +196,13 @@ class Utilities {
                                 // Win2012.R2 + VS2013.5 + VS2015.3 + VS15.P4
                                 'latest-or-auto-dev15-preview4':'auto-win2012-20160912',
                                 // Win2012.R2 + VS15.P5
-                                'latest-or-auto-dev15-preview5':'auto-win2012-20160927',
+                                'latest-or-auto-dev15-preview5':'win2012-20161011-1',
                                 // Dev15 image
                                 'latest-dev15':'auto-win2012-20160506',
                                 // For internal runs
                                 'latest-or-auto-internal':'windows-internal || auto-win2012-20160707-internal',
                                 // For internal runs - Win2012.R2 + VS15.P5
-                                'latest-or-auto-dev15-internal':'auto-win2012-20160927-internal',
+                                'latest-or-auto-dev15-internal':'win2012-20161011-1-internal',
                                 // For internal runs which don't need/want the static 'windows-internal' pool
                                 'latest-dev15-internal':'auto-win2012-20160707-internal',
                                 // For elevated runs
