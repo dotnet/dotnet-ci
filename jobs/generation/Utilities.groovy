@@ -503,6 +503,40 @@ class Utilities {
         }
         */
     }
+    
+    // Adds an auto-retry to a job
+    def private static addJobRetry(def job) {
+        List<String> expressionsToRetry = [
+            'channel is already closed',
+            'Connection aborted',
+            'Cannot delete workspace',
+            'failed to mkdirs'
+            ]
+        def regex = '(?i).*('
+        regex += Utilities.joinStrings(expressionsToRetry, '|')
+        regex += ').*'
+        
+        def naginatorNode = new NodeBuilder().'com.chikli.hudson.plugin.naginator.NaginatorPublisher' {
+            regexpForRerun(regex)
+            rerunIfUnstable(false)
+            rerunMatrixPart(false)
+            checkRegexp(true)
+            maxSchedule(3)
+        }
+        
+        def delayNode = new NodeBuilder().delay(class: 'com.chikli.hudson.plugin.naginator.FixedDelay') {
+            delegate.delay(15)
+        }
+        
+        naginatorNode.append(delayNode)
+        
+        job.with {
+            configure { proj ->
+                def currentPublishers = proj / publishers
+                currentPublishers << naginatorNode
+            }
+        }
+    }
 
     def static addGithubPushTrigger(def job) {
         job.with {
@@ -514,6 +548,7 @@ class Utilities {
         // Record the push trigger.  We look up in the side table to see what branches this
         // job was set up to build
         JobReport.Report.addPushTriggeredJob(job.name)
+        addJobRetry(job)
     }
 
     // Adds a github PR trigger for a job
@@ -574,6 +609,8 @@ class Utilities {
             }
             JobReport.Report.addPRTriggeredJob(job.name, (String[])[branchName], contextString, triggerPhraseString, !triggerOnPhraseOnly)
         }
+        
+        addJobRetry(job)
     }
 
     // Adds a github PR trigger only triggerable by member of certain organizations. Either permittedOrgs or
@@ -923,6 +960,7 @@ class Utilities {
         }
 
         JobReport.Report.addCronTriggeredJob(job.name, cronString, alwaysRuns)
+        addJobRetry(job)
     }
 
     // Adds xunit.NET v2 test results.
