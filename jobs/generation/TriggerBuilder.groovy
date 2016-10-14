@@ -225,6 +225,7 @@ class TriggerBuilder {
         // Record the push trigger.  We look up in the side table to see what branches this
         // job was set up to build
         JobReport.Report.addPushTriggeredJob(job.name)
+        Utilities.addJobRetry(job)
     }
     
     def private emitPRTrigger(def job) {
@@ -280,5 +281,6 @@ class TriggerBuilder {
             
             JobReport.Report.addPRTriggeredJob(job.name, (String[])targetBranches.toArray(), this.context, this.triggerPhrase, alwaysTrigger)
         }
+        Utilities.addJobRetry(job)
     }
 }
