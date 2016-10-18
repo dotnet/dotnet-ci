@@ -4,13 +4,13 @@
 # Optional elements:
 #   subFolder=folderName Subfolder (under repo/branch) that the generator job should be created
 #   branch=branchName (branch that should be generated).  Should be bare branch name.
-#       If ommitted, repo is not branch specific.  **Do not change this unless you know what you're doing**.
+#       If omitted, repo is not branch specific.  **Do not change this unless you know what you're doing**.
 #       Talk to @mmitche first.
 #       GithubBranchName is passed the value in branchName.
 #       Unless the folder name is specifically specified, a folder is created underneath the repo folder.  If no branch is specified,
 #       no branch folder is created.
 #   definitionScript=<file path> Path to the location of the groovy file that should be used for this
-#       entry.  Path is relative to the root of the repository.  Usually ommitted.  Can default to
+#       entry.  Path is relative to the root of the repository.  Usually omitted.  Can default to netci.groovy
 #   isDefaultPRBranch=true/false (default: false)- If true, then:
 #       GithubPRTargetBranches = .* + current branch
 #       GithubPRSkipBranches = other tracked branches + other PR branches
@@ -98,6 +98,7 @@ Microsoft/ConcordExtensibilitySamples branch=master server=dotnet-ci
 Microsoft/dotnet-apiport branch=master server=dotnet-ci2
 Microsoft/MIEngine branch=master server=dotnet-ci
 Microsoft/msbuild branch=master server=dotnet-ci
+Microsoft/TypeScript branch=master server=dotnet-ci2
 Microsoft/xunit-performance branch=master server=dotnet-ci
 Microsoft/xunit-performance branch=citest server=dotnet-ci
 Microsoft/Vipr branch=master server=dotnet-ci
