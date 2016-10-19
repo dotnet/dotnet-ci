@@ -4,7 +4,7 @@ This document contains information on how to set up Jenkins CI for your repo.
 
 ## Overview
 
-The CI system located at http://dotnet-ci.cloudapp.net serves a large number of projects in the .NET Foundation and Microsoft.  It is a fairly standard Jenkins instance running in Azure with a variety of execution nodes including:
+The CI systems located at https://ci.dot.net and https://ci2.dot.net serve a large number of projects in the .NET Foundation and Microsoft.  It is a fairly standard Jenkins instance running in Azure with a variety of execution nodes including:
   * Windows Server 2012 2
   * Ubunutu 14.04
   * Centos 7.1
@@ -42,12 +42,15 @@ Below contains information on how to onboard your project onto Jenkins.
     * Powershell
     * Bash/Shell scripting
   Let the .NET CI administrators know what will be needed (@mmitche, netciadmin alias)
-  3. Send a PR to dotnet-ci adding your repo to jobs\data\repolist.txt.
+  3. Send a PR to dotnet-ci adding your repo to jobs\data\repolist.txt.  The server (dotnet-ci or dotnet-ci2) is specified in the line.  Typically dotnet-ci is used, though newer repos may use dotnet-ci2.
   4. Ensure your repo is accessible by @dotnet-bot and @mmitche.
-  5. Configure repo hooks and services for the CI.  You need two types.
-    * A Jenkins (GitHub) services hook.  Go into the repo settings, click "Integrations & services", then click "Add service".  Type "Jenkins" and select "Jenkins (GitHub plugin)".  Set the hook URL to http://dotnet-ci.cloudapp.net/github-webhook/
-    * Repo hooks for pull requests.  Go into the repo settings, click "Webhooks", then click "Add webhook".
-      - Payload URL: http://dotnet-ci.cloudapp.net/ghprbhook/
+  5. Configure web hooks for the CI.  You need two entries:
+    * A GitHub webhook for push events - Go into the repo settings, click "Webhooks", then click "Add webhook".
+        - Payload URL: https://ci.dot.net/github-webhook/ (For projects on dotnet-ci2, use https://ci2.dot.net/github-webhook/)
+        - Content type: application/x-www-form-urlencoded
+        - "Just send me the push event"
+    * A GitHub webhook for pull request events - Go into the repo settings, click "Webhooks", then click "Add webhook".
+      - Payload URL: https://ci.dot.net/ghprbhook/ (For projects on dotnet-ci2, use https://ci2.dot.net/github-webhook/)
       - Content type: application/x-www-form-urlencoded
       - "Let me select individual events"
         - Pull request
