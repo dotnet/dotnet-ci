@@ -50,7 +50,7 @@ Below contains information on how to onboard your project onto Jenkins.
         - Content type: application/x-www-form-urlencoded
         - "Just send me the push event"
     * A GitHub webhook for pull request events - Go into the repo settings, click "Webhooks", then click "Add webhook".
-      - Payload URL: https://ci.dot.net/ghprbhook/ (For projects on dotnet-ci2, use https://ci2.dot.net/github-webhook/)
+      - Payload URL: https://ci.dot.net/ghprbhook/ (For projects on dotnet-ci2, use https://ci2.dot.net/ghprbhook/)
       - Content type: application/x-www-form-urlencoded
       - "Let me select individual events"
         - Pull request
