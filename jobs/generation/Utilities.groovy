@@ -212,8 +212,10 @@ class Utilities {
                                 ],
                             'Windows_2016' :
                                 [
+                                // First working containers image
+                                'win2016-20161018-1':'win2016-20161018-1',
                                 // Latest auto image w/docker (move to latest-or-auto when possible)
-                                'latest-or-auto-docker':'auto-win2016-20160825',
+                                'latest-containers':'win2016-20161018-1',
                                 // Latest auto image.
                                 'latest-or-auto':'auto-win2016-20160223'
                                 ],
