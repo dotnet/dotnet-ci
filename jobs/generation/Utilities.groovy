@@ -127,6 +127,8 @@ class Utilities {
                                 '201626':'auto-ubuntu1404-201626',
                                 // Contains an updated version of mono
                                 '20160211':'auto-ubuntu1404-20160211.1',
+                                // Contains npm, njs, nvm
+                                '20161020':'ubuntu1404-20161020',
                                 // Contains the rootfs setup for arm/arm64 builds.  Move this label forward
                                 // till we have the working build/test, then apply to everything.
                                 'arm-cross-latest':'auto-ubuntu1404-20161019',
@@ -512,7 +514,8 @@ class Utilities {
             'channel is already closed',
             'Connection aborted',
             'Cannot delete workspace',
-            'failed to mkdirs'
+            'failed to mkdirs',
+            'ERROR: Timeout after 10 minutes'
             ]
         def regex = '(?i).*('
         regex += Utilities.joinStrings(expressionsToRetry, '|')
