@@ -300,6 +300,13 @@ class Utilities {
                                 // For outerloop runs
                                 'outer-latest-or-auto':'auto-fedora23-20160622outer'
                                 ],
+                            'Fedora24' :
+                                [
+                                // Latest auto image.
+                                'latest':'fedora24-20161024',
+                                // For outerloop runs
+                                'outer-latest':'fedora24-20161024-outer'
+                                ],
                                 // Some nodes don't have git, which is what is required for the
                                 // generators.
                             'Generators' :
