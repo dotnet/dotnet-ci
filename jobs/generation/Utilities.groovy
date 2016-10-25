@@ -522,7 +522,8 @@ class Utilities {
             'Connection aborted',
             'Cannot delete workspace',
             'failed to mkdirs',
-            'ERROR: Timeout after 10 minutes'
+            'ERROR: Timeout after 10 minutes',
+            '\'type_traits\' file not found' // This is here for certain flavors of clang on Ubuntu, which can exhibit odd errors.
             ]
         def regex = '(?i).*('
         regex += Utilities.joinStrings(expressionsToRetry, '|')
