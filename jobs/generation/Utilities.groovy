@@ -190,6 +190,8 @@ class Utilities {
                                 '20160627' : 'auto-win2012-20160627',
                                 // Older images.  VS update 3
                                 '20160627-elevated' : 'auto-win2012-20160627-elevated',
+                                // auto-win2012-20160824 + .NET 4.6.2
+                                '20161027' : 'win2012-20161027',
                                 // Latest auto image.
                                 // the generic unversioned label except for special cases.
                                 'latest-or-auto':'auto-win2012-20160824',
@@ -240,9 +242,8 @@ class Utilities {
                                 ],
                             'FreeBSD' :
                                 [
-                                '' : 'freebsd || auto-freebsd-20160415',
                                 // Latest auto image.
-                                'latest-or-auto':'freebsd || auto-freebsd-20160415'
+                                'latest-or-auto':'freebsd-20161026'
                                 ],
                             'RHEL7.2' :
                                 [
