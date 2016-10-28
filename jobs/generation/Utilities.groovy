@@ -412,7 +412,7 @@ class Utilities {
                 else {
                     artifactDaysToKeep(7)
                     daysToKeep(14)
-                    artifactNumToKeep(50)
+                    artifactNumToKeep(25)
                     numToKeep(100)
                 }
             }
