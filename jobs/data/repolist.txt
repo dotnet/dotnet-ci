@@ -37,7 +37,6 @@ dotnet/coreclr branch=master server=dotnet-ci2 definitionScript=perf.groovy subF
 dotnet/coreclr branch=release/1.0.0-rc2 server=dotnet-ci
 dotnet/coreclr branch=release/1.0.0 server=dotnet-ci
 dotnet/coreclr branch=release/1.1.0 server=dotnet-ci
-dotnet/corefx branch=dev/api server=dotnet-ci
 dotnet/corefx branch=dev/cms_unix server=dotnet-ci
 dotnet/corefx branch=master server=dotnet-ci
 dotnet/corefx branch=release/1.0.0-rc2 server=dotnet-ci
@@ -85,15 +84,8 @@ dotnet/wcf branch=release/1.0.0 server=dotnet-ci
 dotnet/wcf branch=release/1.1.0 server=dotnet-ci
 dotnet/wcf branch=ws-trust server=dotnet-ci
 Microsoft/ChakraCore branch=master server=dotnet-ci
-Microsoft/ChakraCore branch=master-ci server=dotnet-ci
-Microsoft/ChakraCore branch=linux server=dotnet-ci
-Microsoft/ChakraCore branch=linux-ci server=dotnet-ci
-Microsoft/ChakraCore branch=xplat server=dotnet-ci
-Microsoft/ChakraCore branch=xplat-ci server=dotnet-ci
 Microsoft/ChakraCore branch=release/1.2 server=dotnet-ci
-Microsoft/ChakraCore branch=release/1.2-ci server=dotnet-ci
 Microsoft/ChakraCore branch=release/1.3 server=dotnet-ci
-Microsoft/ChakraCore branch=release/1.3-ci server=dotnet-ci
 Microsoft/ConcordExtensibilitySamples branch=master server=dotnet-ci
 Microsoft/dotnet-apiport branch=master server=dotnet-ci2
 Microsoft/MIEngine branch=master server=dotnet-ci
@@ -103,8 +95,6 @@ Microsoft/xunit-performance branch=master server=dotnet-ci
 Microsoft/xunit-performance branch=citest server=dotnet-ci
 Microsoft/Vipr branch=master server=dotnet-ci
 Microsoft/visualfsharp branch=master server=dotnet-ci
-Microsoft/visualfsharp branch=vs2015 server=dotnet-ci
-Microsoft/visualfsharp branch=roslyn server=dotnet-ci
 Microsoft/PartsUnlimited branch=master server=dotnet-ci
 smile21prc/coreclr branch=coreclr-perf server=dotnet-ci2 definitionScript=perf.groovy
 dotnet/templating branch=master server=dotnet-ci
