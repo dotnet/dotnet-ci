@@ -46,9 +46,7 @@ folder('GenPRTest') {}
 
                     branch("*/master")
                     
-                    extensions {
-                        relativeTargetDir('dotnet-ci-repolist')
-                    }
+                    relativeTargetDir('dotnet-ci-repolist')
                 }
                 git {
                     remote {
@@ -60,9 +58,7 @@ folder('GenPRTest') {}
 
                     branch('${sha1}')
                     
-                    extensions {
-                        relativeTargetDir('dotnet-ci-sdk')
-                    }
+                    relativeTargetDir('dotnet-ci-sdk')
                 }
             }
         }
