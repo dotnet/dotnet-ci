@@ -1,6 +1,18 @@
 // This file generates all of the root jobs in a repo.  Basic generators, cleaners, etc.
 // Does not use any utility functionality to make setup easy
 
+// By default we use the master branch (empty impl version)
+def sdkImplBranchSuffix = ''
+// But, if the SDKImplementationVersion variable was set, then that gets passed down.
+// It's the branch suffix we use, so 
+def differentSDKImplVersion = binding.variables.get("SDKImplementationVersion")
+if (differentSDKImplVersion) {
+    sdkImplBranchSuffix = "-${differentSDKImplVersion}"
+}
+
+// Grab the branch name for the sdk impl.  Metagenerator is run on master. 
+def sdkImplBranchName = "master${sdkImplBranchSuffix}"
+
 // Create a folder for the PR generation of the dotnet-ci generation
 folder('GenPRTest') {}
 
@@ -20,8 +32,24 @@ folder('GenPRTest') {}
             daysToKeep(7)
         }
 
+        // Multi-scm.  Master pulls the repo list (kept in one place), the sdk implementation etc. is
+        // pulled from master<sdk impl suffix>
         if (isPR) {
-            scm {
+            multiscm {
+                git {
+                    remote {
+                        github("dotnet/dotnet-ci")
+
+                        // Set the refspec
+                        refspec('+refs/pull/*:refs/remotes/origin/pr/*')
+                    }
+
+                    branch("*/master")
+                    
+                    extensions {
+                        relativeTargetDir('dotnet-ci-repolist')
+                    }
+                }
                 git {
                     remote {
                         github("dotnet/dotnet-ci")
@@ -32,20 +60,32 @@ folder('GenPRTest') {}
 
                     branch('${sha1}')
                     
-                    relativeTargetDir('dotnet-ci')
+                    extensions {
+                        relativeTargetDir('dotnet-ci-sdk')
+                    }
                 }
             }
         }
         else {
-            // Source is just basic git for dotnet-ci
-            scm {
+            multiscm {
                 git {
                     remote {
                         github("dotnet/dotnet-ci")
                     }
-                    branch("*/master")
 
-                    relativeTargetDir('dotnet-ci')
+                    // Repolist is always on master
+                    branch("*/master")
+                    
+                    relativeTargetDir('dotnet-ci-repolist')
+                }
+                git {
+                    remote {
+                        github("dotnet/dotnet-ci")
+                    }
+
+                    branch("*/${sdkImplBranchName}")
+                    
+                    relativeTargetDir('dotnet-ci-sdk')
                 }
             }
         }
@@ -53,6 +93,8 @@ folder('GenPRTest') {}
         // Add a parameter which is the server name (incoming parameter to this job
         parameters {
             stringParam('ServerName', ServerName, "Server that this generator is running on")
+            stringParam('SDKImplementationBranchSuffix', sdkImplBranchSuffix, "Suffix of branch for the metageneration that should be used for the SDK implementation")
+            stringParam('RepoListLocation', 'dotnet-ci-repolist/jobs/data/repolist.txt', "Location of the repo list relative to the workspace root.")
         }
 
         // No concurrency, throttle among the other generators.
@@ -94,11 +136,11 @@ folder('GenPRTest') {}
         // Step is "process job dsls"
         steps {
             dsl {
-                // Loads netci.groovy
-                external('dotnet-ci/jobs/generation/MetaGenerator.groovy')
+                // Generates the generator jobs
+                external('dotnet-ci-sdk/jobs/generation/MetaGenerator.groovy')
 
-                // Additional classpath should point to the utility repo
-                additionalClasspath('dotnet-ci')
+                // Additional classpath should point to the sdk repo
+                additionalClasspath('dotnet-ci-sdk')
 
                 // Generate jobs relative to the seed job.
                 lookupStrategy('SEED_JOB')
