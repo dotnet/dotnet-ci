@@ -48,7 +48,7 @@ folder('GenPRTest') {}
                     
                     // On older versions of DSL this is a top level git element called relativeTargetDir
                     extensions {
-                        relativeTargetDir('dotnet-ci-repolist')
+                        relativeTargetDirectory('dotnet-ci-repolist')
                     }
                 }
                 git {
@@ -63,7 +63,7 @@ folder('GenPRTest') {}
                     
                     // On older versions of DSL this is a top level git element called relativeTargetDir
                     extensions {
-                        relativeTargetDir('dotnet-ci-sdk')
+                        relativeTargetDirectory('dotnet-ci-sdk')
                     }
                 }
             }
@@ -80,7 +80,7 @@ folder('GenPRTest') {}
                     
                     // On older versions of DSL this is a top level git element called relativeTargetDir
                     extensions {
-                        relativeTargetDir('dotnet-ci-repolist')
+                        relativeTargetDirectory('dotnet-ci-repolist')
                     }
                 }
                 git {
