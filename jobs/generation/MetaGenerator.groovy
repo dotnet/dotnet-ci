@@ -162,7 +162,8 @@ class Repo {
 
 Repo[] repos = []
 
-streamFileFromWorkspace('dotnet-ci/jobs/data/repolist.txt').eachLine { line ->
+// Stream in the repo list (passed in by parameter).
+streamFileFromWorkspace(RepoListLocation).eachLine { line ->
     // Skip comment lines
     boolean skip = (line ==~ / *#.*/);
     line.trim()
@@ -267,12 +268,13 @@ repos.each { repoInfo ->
             // Need multiple scm's
             multiscm {
                 git {
+                    // We grab the utilities repo, the add a suffix of the sdk implementation version
                     remote {
                         url("https://github.com/${repoInfo.utilitiesRepo}")
                     }
                     relativeTargetDir('dotnet-ci')
                     // dotnet-ci always pulls from master
-                    branch("*/${repoInfo.utilitiesRepoBranch}")
+                    branch("*/${repoInfo.utilitiesRepoBranch}${SDKImplementationBranchSuffix}")
                 }
                 //
                 git {
