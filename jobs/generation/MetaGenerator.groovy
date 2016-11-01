@@ -272,7 +272,10 @@ repos.each { repoInfo ->
                     remote {
                         url("https://github.com/${repoInfo.utilitiesRepo}")
                     }
-                    relativeTargetDir('dotnet-ci')
+                    // On older versions of DSL this is a top level git element called relativeTargetDir
+                    extensions {
+                        relativeTargetDirectory('dotnet-ci')
+                    }
                     // dotnet-ci always pulls from master
                     branch("*/${repoInfo.utilitiesRepoBranch}${SDKImplementationBranchSuffix}")
                 }
@@ -287,7 +290,10 @@ repos.each { repoInfo ->
                     }
                     def targetDir = Utilities.getProjectName(repoInfo.project)
                     // Want the relative to be just the project name
-                    relativeTargetDir(targetDir)
+                    // On older versions of DSL this is a top level git element called relativeTargetDir
+                    extensions {
+                        relativeTargetDirectory(targetDir)
+                    }
 
                     // If PR, change to ${sha1}
                     // If not a PR, then the branch name should be the target branch
