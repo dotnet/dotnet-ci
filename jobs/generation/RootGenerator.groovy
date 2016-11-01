@@ -46,7 +46,10 @@ folder('GenPRTest') {}
 
                     branch("*/master")
                     
-                    relativeTargetDir('dotnet-ci-repolist')
+                    // On older versions of DSL this is a top level git element called relativeTargetDir
+                    extensions {
+                        relativeTargetDir('dotnet-ci-repolist')
+                    }
                 }
                 git {
                     remote {
@@ -58,7 +61,10 @@ folder('GenPRTest') {}
 
                     branch('${sha1}')
                     
-                    relativeTargetDir('dotnet-ci-sdk')
+                    // On older versions of DSL this is a top level git element called relativeTargetDir
+                    extensions {
+                        relativeTargetDir('dotnet-ci-sdk')
+                    }
                 }
             }
         }
@@ -72,7 +78,10 @@ folder('GenPRTest') {}
                     // Repolist is always on master
                     branch("*/master")
                     
-                    relativeTargetDir('dotnet-ci-repolist')
+                    // On older versions of DSL this is a top level git element called relativeTargetDir
+                    extensions {
+                        relativeTargetDir('dotnet-ci-repolist')
+                    }
                 }
                 git {
                     remote {
@@ -80,8 +89,11 @@ folder('GenPRTest') {}
                     }
 
                     branch("*/${sdkImplBranchName}")
-                    
-                    relativeTargetDir('dotnet-ci-sdk')
+                 
+                    // On older versions of DSL this is a top level git element called relativeTargetDir
+                    extensions {
+                        relativeTargetDirectory('dotnet-ci-sdk')
+                    }
                 }
             }
         }
