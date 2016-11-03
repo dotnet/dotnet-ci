@@ -204,7 +204,7 @@ class Utilities {
                                 // Dev15 image
                                 'latest-dev15':'auto-win2012-20160506',
                                 // For internal runs
-                                'latest-or-auto-internal':'windows-internal || auto-win2012-20160707-internal',
+                                'latest-or-auto-internal':'auto-win2012-20160707-internal',
                                 // For internal runs - Win2016 + VS15.P5
                                 'latest-or-auto-dev15-internal':'win2016-20161013-1-internal',
                                 // For internal runs which don't need/want the static 'windows-internal' pool
