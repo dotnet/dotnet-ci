@@ -102,4 +102,4 @@ john-soklaski/roslyn branch=benchview_integration server=dotnet-ci2 definitionSc
 drewscoggins/corefx branch=master server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 drewscoggins/coreclr branch=coreclr-perf server=dotnet-ci2 definitionScript=perf.groovy
 dotnet/core branch=master server=dotnet-ci2
-dotnet/netcorecli-fsc branch=master server=dotnet-ci
+dotnet/netcorecli-fsc branch=master server=dotnet-ci2
