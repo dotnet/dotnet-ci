@@ -235,7 +235,7 @@ class Utilities {
                                 ],
                             'Windows 7' :
                                 [
-                                '20161104','win2008-20161104'
+                                '20161104','win2008-20161104',
                                 // Latest auto image.
                                 'latest-or-auto':'win2008-20161104'
                                 ],
