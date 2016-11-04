@@ -208,7 +208,7 @@ class Utilities {
                                 // For internal runs
                                 'latest-or-auto-internal':'auto-win2012-20160707-internal',
                                 // For internal runs - Win2016 + VS15.RC
-                                'latest-or-auto-dev15-internal':'win2016-20161104',
+                                'latest-or-auto-dev15-internal':'win2016-20161104-internal',
                                 // For internal runs which don't need/want the static 'windows-internal' pool
                                 'latest-dev15-internal':'auto-win2012-20160707-internal',
                                 // For elevated runs
