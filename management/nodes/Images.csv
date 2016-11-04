@@ -33,7 +33,7 @@ ubuntu1604-20160510-outer,auto-ubuntu1604-20160510outer,Linux,system,Microsoft.C
 ubuntu1604-20160803,auto-ubuntu1604-20160803,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1604-20160803.vhd,All,./startupScripts/ubuntu1604-20160803.sh,/mnt/j
 ubuntu1610-20160927,auto-ubuntu1610-20160927,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1610-20160927.vhd,All,./startupScripts/ubuntu1610-20160927.sh,/mnt/j
 ubuntu1610-20160927-outer,auto-ubuntu1610-20160927outer,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1610-20160927.vhd,All,./startupScripts/ubuntu1610-20160927-outer.sh,/mnt/j
-win2008-20161026,win2008-20161026,Windows,system,Microsoft.Compute/Images/dotnetci/win2008-20161026.vhd,All,./startupScripts/win2008-20161026.ps1,D:\j
+win2008-20161104,win2008-20161104,Windows,system,Microsoft.Compute/Images/dotnetci/win2008-20161104-osDisk.520438fd-e6a7-4889-8769-95093c1f3c56.vhd,All,./startupScripts/win2008-20161104.ps1,D:\j
 win2012-20160506,auto-win2012-20160506,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20160506.vhd,All,./startupScripts/win2012-20160506.ps1,D:\j
 win2012-20160707,auto-win2012-20160707,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20160707.vhd,All,./startupScripts/win2012-20160707.ps1,D:\j
 win2012-20160707-internal,auto-win2012-20160707-internal,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20160707.vhd,All,./startupScripts/win2012-20160707-internal.ps1,D:\j
