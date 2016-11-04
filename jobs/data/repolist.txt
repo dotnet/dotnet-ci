@@ -60,6 +60,7 @@ dotnet/roslyn branch=microupdate server=dotnet-ci
 dotnet/roslyn branch=features/typeswitch server=dotnet-ci
 dotnet/roslyn branch=features/outvar server=dotnet-ci
 dotnet/roslyn branch=features/tuples server=dotnet-ci
+dotnet/roslyn branch=features/wildcard server=dotnet-ci
 dotnet/roslyn branch=features/test-impact server=dotnet-ci
 dotnet/roslyn branch=features/patterns server=dotnet-ci
 dotnet/roslyn branch=features/records server=dotnet-ci
