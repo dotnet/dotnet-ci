@@ -41,7 +41,7 @@ $content | Out-File -FilePath $jenkinsLaunchCmd -Encoding ascii -Force
 Write-Output 'Registering dotnet-bot for auto-login' | Out-File -Append $machineSetupLog
 
 New-ItemProperty -Path $winLogonRegistryPath -Name 'DefaultUserName' -Value 'dotnet-bot' -PropertyType string -Force
-New-ItemProperty -Path $winLogonRegistryPath -Name 'DefaultPassword' -Value 'Z!gh0mHG' -PropertyType string -Force
+New-ItemProperty -Path $winLogonRegistryPath -Name 'DefaultPassword' -Value '<pass>' -PropertyType string -Force
 
 New-ItemProperty -Path $winLogonRegistryPath -Name 'AutoAdminLogon' -Value '1' -PropertyType string -Force
 
