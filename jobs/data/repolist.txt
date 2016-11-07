@@ -1,4 +1,4 @@
-# List of repositories that are under control of .NET CI.  
+# List of repositories that are under control of .NET CI.
 # Format is:
 # One repo per line (org/repo format).
 # Optional elements:
@@ -76,6 +76,7 @@ dotnet/roslyn branch=features/default server=dotnet-ci
 dotnet/roslyn branch=run server=dotnet-ci
 dotnet/roslyn-analyzers branch=master server=dotnet-ci
 dotnet/roslyn-project-system branch=master server=dotnet-ci
+dotnet/roslyn-project-system branch=dev15-rc server=dotnet-ci
 dotnet/interactive-window branch=master server=dotnet-ci
 dotnet/symreader branch=master server=dotnet-ci
 dotnet/symreader-portable branch=master server=dotnet-ci
