@@ -201,12 +201,14 @@ class Utilities {
                                 'latest-or-auto-dev15-preview4':'auto-win2012-20160912',
                                 // Win2016 + VS15.P5
                                 'latest-or-auto-dev15-preview5':'win2016-20161013-1',
+                                // Win2016 + VS15.RC
+                                'latest-or-auto-dev15-rc':'win2016-20161104',
                                 // Dev15 image
                                 'latest-dev15':'auto-win2012-20160506',
                                 // For internal runs
-                                'latest-or-auto-internal':'windows-internal || auto-win2012-20160707-internal',
-                                // For internal runs - Win2016 + VS15.P5
-                                'latest-or-auto-dev15-internal':'win2016-20161013-1-internal',
+                                'latest-or-auto-internal':'auto-win2012-20160707-internal',
+                                // For internal runs - Win2016 + VS15.RC
+                                'latest-or-auto-dev15-internal':'win2016-20161104-internal',
                                 // For internal runs which don't need/want the static 'windows-internal' pool
                                 'latest-dev15-internal':'auto-win2012-20160707-internal',
                                 // For elevated runs
@@ -303,9 +305,9 @@ class Utilities {
                             'Fedora24' :
                                 [
                                 // Latest auto image.
-                                'latest':'fedora24-20161024',
+                                'latest-or-auto':'fedora24-20161024',
                                 // For outerloop runs
-                                'outer-latest':'fedora24-20161024-outer'
+                                'outer-latest-or-auto':'fedora24-20161024-outer'
                                 ],
                                 // Some nodes don't have git, which is what is required for the
                                 // generators.
