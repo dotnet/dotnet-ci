@@ -462,8 +462,10 @@ class Utilities {
 
         Utilities.setJobTimeout(job, 120)
         Utilities.addRetentionPolicy(job, isPR)
-        // Add a webhook to gather job events for Jenkins monitoring
-        Utilities.addBuildEventWebHook(job, 'https://jaredpar.azurewebsites.net/api/BuildEvent?code=tts2pvyelahoiliwu7lo6flxr8ps9kaip4hyr4m0ofa3o3l3di77tzcdpk22kf9gex5m6cbrcnmi')
+        // Add a webhook to gather job events for Jenkins monitoring.
+        // The event hook is the id of the event hook URL in the Jenkins store
+        Utilities.addBuildEventWebHook(job, 'helix-int-notification-url')
+        Utilities.addBuildEventWebHook(job, 'helix-prod-notification-url')
     }
 
     def private static String joinStrings(Iterable<String> strings, String combineDelim) {
