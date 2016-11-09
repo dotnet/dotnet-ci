@@ -466,8 +466,7 @@ class Utilities {
         Utilities.addRetentionPolicy(job, isPR)
         // Add a webhook to gather job events for Jenkins monitoring.
         // The event hook is the id of the event hook URL in the Jenkins store
-        Utilities.addBuildEventWebHook(job, 'helix-int-notification-url')
-        Utilities.addBuildEventWebHook(job, 'helix-prod-notification-url')
+        Utilities.setBuildEventWebHooks(job, ['helix-int-notification-url', 'helix-prod-notification-url'])
     }
 
     def private static String joinStrings(Iterable<String> strings, String combineDelim) {
@@ -1055,16 +1054,20 @@ class Utilities {
     }
 
     // Calls a web hook on Jenkins build events.  Allows our build monitoring jobs to be push notified
-    // vs. polling
+    // vs. polling.
+    //
+    // Each call to this overwrites the previous set of notifications
     //
     // Parameters:
     //  job - Job to add hook to
-    //  endPoint - Endpoint URL to receive the event
-    static void addBuildEventWebHook(def job, String endPoint) {
+    //  endPoints - List of credential IDs of the endpoints to run
+    private static void setBuildEventWebHooks(def job, def endPoints) {
         job.with {
             notifications {
-                endpoint(endPoint) {
-                    event('all')
+                endPoints.each { endPoint -> 
+                    endpoint(endPoint) {
+                        event('all')
+                    }
                 }
             }
         }
