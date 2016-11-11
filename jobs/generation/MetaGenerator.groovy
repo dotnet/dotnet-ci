@@ -365,6 +365,10 @@ repos.each { repoInfo ->
             wrappers {
                 timestamps()
             }
+            
+            // ISSUE - Currently jobs aren't being disabled properly in GenPRTest
+            // Disable the test generator until this gets fixed
+            disabled(isPRTest)
         }
 
         // Set the job to run on any generator enabled node.  Basically just has to have git.
