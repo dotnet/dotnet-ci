@@ -1,5 +1,5 @@
 package jobs.generation;
-
+    
 class Utilities {
 
     private static String DefaultBranchOrCommitPR = '${sha1}'
@@ -454,6 +454,11 @@ class Utilities {
                     def buildNeedsWorkspace = it / 'buildNeedsWorkspace'
                     buildNeedsWorkspace.setValue('true')
                 }
+            }
+            
+            // If the settings say to generate disabled, generate disabled here
+            if (GenerationState.generateDisabled) {
+                disabled()
             }
         }
 

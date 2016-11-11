@@ -323,6 +323,7 @@ repos.each { repoInfo ->
                 stringParam('GithubBranchName', repoInfo.branch, 'Branch name passed to the DSL generator')
                 stringParam('GithubPRTargetBranches', repoInfo.prTargetBranches.join(','), 'Branches that should be tracked for PRs')
                 stringParam('GithubPRSkipBranches', repoInfo.prSkipBranches.join(','), 'Branches that should be skipped for PRs')
+                booleanParam('GenerateDisabled', isPRTest, 'Generate jobs as disabled (for testing)')
             }
 
             // Add in the job generator logic
@@ -352,23 +353,6 @@ repos.each { repoInfo ->
                         removeAction('DISABLE')
                     }
                     removeViewAction('DELETE')
-                }
-
-                // If this is a PR test job, we don't want the generated jobs
-                // to actually trigger (say on a github PR, since that will be confusing
-                // and wasteful.  We can accomplish this by adding another DSL step that does
-                // nothing.  It will generate no jobs, but the remove action is DISABLE so the
-                // jobs generated in the previous step will be disabled.
-
-                if (isPRTest) {
-                    dsl {
-                         text('// Generate no jobs so the previously generated jobs are disabled')
-
-                         // Generate jobs relative to the seed job.
-                         lookupStrategy('SEED_JOB')
-                         removeAction('DISABLE')
-                         removeViewAction('DELETE')
-                    }
                 }
             }
 
