@@ -7,3 +7,9 @@
 // job to run for everyone.
 
 println("Running PreGen")
+
+// Set up disabled generation if asked.
+if (GenerateDisabled) {
+    println("Setting jobs to generate disabled")
+    GenerationSettings.generateDisabled = true
+}
