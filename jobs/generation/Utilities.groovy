@@ -457,7 +457,7 @@ class Utilities {
             }
             
             // If the settings say to generate disabled, generate disabled here
-            if (GenerationState.generateDisabled) {
+            if (GenerationSettings.generateDisabled) {
                 disabled()
             }
         }
