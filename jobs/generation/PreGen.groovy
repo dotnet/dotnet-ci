@@ -6,6 +6,8 @@
 // generated jobs can be left un-disabled, but the default trigger options won't cause the
 // job to run for everyone.
 
+import jobs.generation.GenerationSettings
+
 println("Running PreGen")
 
 // Set up disabled generation if asked.
