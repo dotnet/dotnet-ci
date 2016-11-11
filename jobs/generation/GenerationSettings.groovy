@@ -1,5 +1,5 @@
 package jobs.generation;
 
-class GenerationState {
+class GenerationSettings {
     public static boolean generateDisabled = false;
 }
