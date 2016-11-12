@@ -462,13 +462,7 @@ class Utilities {
             Utilities.addIgnoredPaths(job, ['netci.groovy']);
         }
 
-        if (GenerationSettings.generateDisabled) {
-            Utilities.setJobTimeout(job, 120)
-            job.with { 
-                disabled(true)
-            }
-        }
-        
+        Utilities.setJobTimeout(job, 120)
         Utilities.addRetentionPolicy(job, isPR)
         // Add a webhook to gather job events for Jenkins monitoring.
         // The event hook is the id of the event hook URL in the Jenkins store
