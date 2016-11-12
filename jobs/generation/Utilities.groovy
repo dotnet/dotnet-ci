@@ -463,7 +463,9 @@ class Utilities {
         
         // Check Generate Disabled setting (for pr tests)
         if (GenerationSettings.isTestGeneration()) {
-            disabled(true)
+            job.with {
+                disabled(true)
+            }
         }
 
         Utilities.setJobTimeout(job, 120)
