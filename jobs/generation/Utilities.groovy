@@ -420,7 +420,6 @@ class Utilities {
         }
     }
 
-
     // Add standard options to a job.
     // job - Input job
     // isPR - True if the job is a pull request job, false otherwise.
@@ -460,6 +459,11 @@ class Utilities {
         // Add netci.groovy as default.  Only add if it's a PR.
         if (isPR) {
             Utilities.addIgnoredPaths(job, ['netci.groovy']);
+        }
+        
+        // Check Generate Disabled setting (for pr tests)
+        if (GenerationSettings.isTestGeneration()) {
+            disabled(true)
         }
 
         Utilities.setJobTimeout(job, 120)
