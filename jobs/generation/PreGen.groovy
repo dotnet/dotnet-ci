@@ -10,8 +10,7 @@ import jobs.generation.GenerationSettings
 
 println("Running PreGen")
 
-// Set up disabled generation if asked.
-if (GenerateDisabled) {
-    println("Setting jobs to generate disabled")
-    GenerationSettings.generateDisabled = true
+// Output the settings we're using
+if (GenerationSettings.isTestGeneration()) {
+    println("Setting up for a generation test")
 }

@@ -323,7 +323,7 @@ repos.each { repoInfo ->
                 stringParam('GithubBranchName', repoInfo.branch, 'Branch name passed to the DSL generator')
                 stringParam('GithubPRTargetBranches', repoInfo.prTargetBranches.join(','), 'Branches that should be tracked for PRs')
                 stringParam('GithubPRSkipBranches', repoInfo.prSkipBranches.join(','), 'Branches that should be skipped for PRs')
-                booleanParam('GenerateDisabled', isPRTest, 'Generate jobs as disabled (for testing)')
+                booleanParam('IsTestGeneration', isPRTest, 'Is this a test generation?')
             }
 
             // Add in the job generator logic
@@ -365,10 +365,6 @@ repos.each { repoInfo ->
             wrappers {
                 timestamps()
             }
-            
-            // ISSUE - Currently jobs aren't being disabled properly in GenPRTest
-            // Disable the test generator until this gets fixed
-            disabled(isPRTest)
         }
 
         // Set the job to run on any generator enabled node.  Basically just has to have git.
