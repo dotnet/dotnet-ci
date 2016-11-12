@@ -1,5 +1,8 @@
 package jobs.generation;
 
+import hudson.EnvVars;
+import hudson.model.Executor;
+
 class GenerationSettings {
     // Retrieves a setting value through the environment of the current build
     private static String getSetting(String setting) {
