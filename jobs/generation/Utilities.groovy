@@ -1,5 +1,5 @@
 package jobs.generation;
-
+    
 class Utilities {
 
     private static String DefaultBranchOrCommitPR = '${sha1}'
@@ -407,19 +407,18 @@ class Utilities {
                 if (isPR) {
                     artifactDaysToKeep(7)
                     daysToKeep(10)
-                    artifactNumToKeep(25)
-                    numToKeep(100)
+                    artifactNumToKeep(50)
+                    numToKeep(200)
                 }
                 else {
-                    artifactDaysToKeep(7)
-                    daysToKeep(14)
-                    artifactNumToKeep(25)
+                    artifactDaysToKeep(14)
+                    daysToKeep(21)
+                    artifactNumToKeep(100)
                     numToKeep(100)
                 }
             }
         }
     }
-
 
     // Add standard options to a job.
     // job - Input job
@@ -461,11 +460,19 @@ class Utilities {
         if (isPR) {
             Utilities.addIgnoredPaths(job, ['netci.groovy']);
         }
+        
+        // Check Generate Disabled setting (for pr tests)
+        if (GenerationSettings.isTestGeneration()) {
+            job.with {
+                disabled(true)
+            }
+        }
 
         Utilities.setJobTimeout(job, 120)
         Utilities.addRetentionPolicy(job, isPR)
-        // Add a webhook to gather job events for Jenkins monitoring
-        Utilities.addBuildEventWebHook(job, 'https://jaredpar.azurewebsites.net/api/BuildEvent?code=tts2pvyelahoiliwu7lo6flxr8ps9kaip4hyr4m0ofa3o3l3di77tzcdpk22kf9gex5m6cbrcnmi')
+        // Add a webhook to gather job events for Jenkins monitoring.
+        // The event hook is the id of the event hook URL in the Jenkins store
+        Utilities.setBuildEventWebHooks(job, ['helix-int-notification-url', 'helix-prod-notification-url', 'legacy-notification-url'])
     }
 
     def private static String joinStrings(Iterable<String> strings, String combineDelim) {
@@ -1053,16 +1060,20 @@ class Utilities {
     }
 
     // Calls a web hook on Jenkins build events.  Allows our build monitoring jobs to be push notified
-    // vs. polling
+    // vs. polling.
+    //
+    // Each call to this overwrites the previous set of notifications
     //
     // Parameters:
     //  job - Job to add hook to
-    //  endPoint - Endpoint URL to receive the event
-    static void addBuildEventWebHook(def job, String endPoint) {
+    //  endPoints - List of credential IDs of the endpoints to run
+    private static void setBuildEventWebHooks(def job, def endPoints) {
         job.with {
             notifications {
-                endpoint(endPoint) {
-                    event('all')
+                endPoints.each { endPoint -> 
+                    endpoint(endPoint) {
+                        event('all')
+                    }
                 }
             }
         }
@@ -1205,4 +1216,3 @@ ${customFooter}"""
         }
     }
 }
-
