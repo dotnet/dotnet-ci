@@ -532,6 +532,7 @@ class Utilities {
             'Cannot delete workspace',
             'failed to mkdirs',
             'ERROR: Timeout after 10 minutes',
+            'Slave went offline during the build',
             '\'type_traits\' file not found' // This is here for certain flavors of clang on Ubuntu, which can exhibit odd errors.
             ]
         def regex = '(?i).*('
