@@ -110,4 +110,6 @@ drewscoggins/corefx branch=master server=dotnet-ci2 definitionScript=perf.groovy
 drewscoggins/coreclr branch=coreclr-perf server=dotnet-ci2 definitionScript=perf.groovy
 dotnet/core branch=master server=dotnet-ci2
 dotnet/netcorecli-fsc branch=master server=dotnet-ci2
+dotnet/netcorecli-fsc branch=rel/1.0.0-preview2.1 server=dotnet-ci2
+dotnet/netcorecli-fsc branch=rel/1.0.0-preview2 server=dotnet-ci2
 mono/linker branch=master server=dotnet-ci2
