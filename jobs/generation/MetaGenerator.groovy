@@ -358,6 +358,14 @@ repos.each { repoInfo ->
 
             // Disable concurrent builds
             concurrentBuild(false)
+            
+            // Throttle to reduce thread load
+            throttleConcurrentBuilds {
+                throttleDisabled(false)
+                maxTotal(0)
+                maxPerNode(1)
+                categories(['job_generators'])
+            }
 
             // 5 second quiet period before the job can be scheduled
             quietPeriod(5)
@@ -369,6 +377,9 @@ repos.each { repoInfo ->
 
         // Set the job to run on any generator enabled node.  Basically just has to have git.
         Utilities.setMachineAffinity(jobGenerator, 'Generators', 'latest-or-auto')
+        
+        // Set the timeout to 10 minutes.
+        Utilities.setJobTimeout(jobGenerator, 10)
 
         if (isPRTest) {
             // Enable the github PR trigger, but add a trigger phrase so
