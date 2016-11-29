@@ -803,6 +803,13 @@ class Utilities {
                     }
 
                     branch(buildBranch)
+                    
+                    // Raise up the timeout
+                    extensions {
+                        cloneOptions {
+                            timeout(30)
+                        }
+                    }
                 }
             }
         }
@@ -825,6 +832,14 @@ class Utilities {
                     }
 
                     branch('${GitBranchOrCommit}')
+                    
+                    // Raise up the timeout
+                    extensions {
+                        cloneOptions {
+                            timeout(30)
+                            shallow(true)
+                        }
+                    }
                 }
             }
         }

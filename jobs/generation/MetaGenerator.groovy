@@ -275,6 +275,12 @@ repos.each { repoInfo ->
                     // On older versions of DSL this is a top level git element called relativeTargetDir
                     extensions {
                         relativeTargetDirectory('dotnet-ci')
+                        cloneOptions {
+                            timeout(30)
+                            if (isPRTest) {
+                                shallow(true)
+                            }
+                        }
                     }
                     // dotnet-ci always pulls from master
                     branch("*/${repoInfo.utilitiesRepoBranch}${SDKImplementationBranchSuffix}")
@@ -293,6 +299,12 @@ repos.each { repoInfo ->
                     // On older versions of DSL this is a top level git element called relativeTargetDir
                     extensions {
                         relativeTargetDirectory(targetDir)
+                        cloneOptions {
+                            timeout(30)
+                            if (isPRTest) {
+                                shallow(true)
+                            }
+                        }
                     }
 
                     // If PR, change to ${sha1}
