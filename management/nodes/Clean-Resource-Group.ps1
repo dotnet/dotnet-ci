@@ -8,10 +8,11 @@
 #>
 
 param (
+    [Parameter(Mandatory=$true)]
     [string]$ResourceGroupName,
     [switch]$RunForever = $false,
     $Servers = @("https://ci.dot.net","https://ci2.dot.net"),
-    [string]$Regex = '.*-[a-f0-9]+$',
+    [string]$Regex = '.*[a-f0-9]{6}$',
     [switch]$DryRun = $false
 )
 
@@ -75,5 +76,17 @@ do {
     }
 
     Write-Host "Removed: $removedList"
+    
+    # Remove public IPs and NICs
+    
+    if ($DryRun) {
+        Write-Host "Would delete the following NICs"
+        Get-AzureRmNetworkInterface -ResourceGroupName $ResourceGroupName | Where-Object { $_.VirtualMachine -eq $null } | Select-Object $_.Name
+        Write-Host "Would delete the following PIPs"
+        Get-AzureRmPublicIpAddress -ResourceGroupName $ResourceGroupName | Where-Object { $_.IpConfiguration -eq $null } | Select-Object $_.Name
+    } else {
+        Get-AzureRmNetworkInterface -ResourceGroupName $ResourceGroupName | Where-Object { $_.VirtualMachine -eq $null } | Remove-AzureRmNetworkInterface
+        Get-AzureRmPublicIpAddress -ResourceGroupName $ResourceGroupName | Where-Object { $_.IpConfiguration -eq $null } | Remove-AzureRmPublicIpAddress
+    }
 }
 while ($RunForever)
