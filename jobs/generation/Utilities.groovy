@@ -844,7 +844,6 @@ class Utilities {
                     extensions {
                         cloneOptions {
                             timeout(30)
-                            shallow(true)
                         }
                     }
                 }
