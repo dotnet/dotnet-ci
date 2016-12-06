@@ -376,6 +376,10 @@ repos.each { repoInfo ->
 
             wrappers {
                 timestamps()
+                // 10 minute execution timeout
+                timeout {
+                    absolute(10)
+                }
             }
         }
 
