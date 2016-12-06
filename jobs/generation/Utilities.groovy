@@ -324,6 +324,13 @@ class Utilities {
         job.with {
             label(machineLabel)
         }
+        
+        // Temporary during machine move.  Disable mac jobs.
+        if (osName == 'OSX') {
+            job.with {
+                disable(true)
+            }
+        }
     }
 
     // Performs standard job setup for a newly created job.
