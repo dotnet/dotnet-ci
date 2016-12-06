@@ -328,7 +328,7 @@ class Utilities {
         // Temporary during machine move.  Disable mac jobs.
         if (osName == 'OSX') {
             job.with {
-                disable(true)
+                disabled(true)
             }
         }
     }
