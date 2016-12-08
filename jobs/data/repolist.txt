@@ -109,3 +109,4 @@ drewscoggins/coreclr branch=coreclr-perf server=dotnet-ci2 definitionScript=perf
 dotnet/core branch=master server=dotnet-ci2
 dotnet/netcorecli-fsc branch=master server=dotnet-ci2
 mono/linker branch=master server=dotnet-ci2
+sbomer/linker branch=master server=dotnet-ci2
