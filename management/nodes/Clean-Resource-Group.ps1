@@ -81,12 +81,12 @@ do {
     
     if ($DryRun) {
         Write-Host "Would delete the following NICs"
-        Get-AzureRmNetworkInterface -ResourceGroupName $ResourceGroupName | Where-Object { $_.VirtualMachine -eq $null } | Select-Object $_.Name
+        Get-AzureRmNetworkInterface -ResourceGroupName $ResourceGroupName | Where-Object { $_.VirtualMachine -eq $null } | Select-Object Name
         Write-Host "Would delete the following PIPs"
-        Get-AzureRmPublicIpAddress -ResourceGroupName $ResourceGroupName | Where-Object { $_.IpConfiguration -eq $null } | Select-Object $_.Name
+        Get-AzureRmPublicIpAddress -ResourceGroupName $ResourceGroupName | Where-Object { $_.IpConfiguration -eq $null } | Select-Object Name
     } else {
-        Get-AzureRmNetworkInterface -ResourceGroupName $ResourceGroupName | Where-Object { $_.VirtualMachine -eq $null } | Remove-AzureRmNetworkInterface
-        Get-AzureRmPublicIpAddress -ResourceGroupName $ResourceGroupName | Where-Object { $_.IpConfiguration -eq $null } | Remove-AzureRmPublicIpAddress
+        Get-AzureRmNetworkInterface -ResourceGroupName $ResourceGroupName | Where-Object { $_.VirtualMachine -eq $null } | Remove-AzureRmNetworkInterface -Force
+        Get-AzureRmPublicIpAddress -ResourceGroupName $ResourceGroupName | Where-Object { $_.IpConfiguration -eq $null } | Remove-AzureRmPublicIpAddress -Force
     }
 }
 while ($RunForever)
