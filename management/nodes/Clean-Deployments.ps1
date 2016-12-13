@@ -11,36 +11,23 @@
 #>
 
 param (
-    [string]$ResourceGroupName = $null,
-    [switch]$RunForever = $false
+    [Parameter(Mandatory=$true)]
+    [string]$ResourceGroupName,
+    [switch]$RunForever = $false,
+    [switch]$DryRun = $false
 )
-
-workflow CleanDeployments {
-    param(
-        $ResourceGroups,
-        $RunForever
-    )
    
-    foreach -parallel ($resourceGroup in $ResourceGroups) {
-        # Need to login to each process.
-        Login-AzureRmAccount
-        do {
-            $deployments = Get-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroup
-            # Delete from oldest first
-            $deployments = $deployments | Sort-Object Timestamp
-            foreach ($deployment in $deployments) {
-                Write-Output "Deleting $($deployment.DeploymentName) from $resourceGroup"
-                Remove-AzureRmResourceGroupDeployment -Name $deployment.DeploymentName -ResourceGroupName $resourceGroup
-            }
+do {
+    $deployments = Get-AzureRmResourceGroupDeployment -ResourceGroupName $ResourceGroupName
+    # Delete from oldest first
+    $deployments = $deployments | Sort-Object Timestamp
+    foreach ($deployment in $deployments) {
+        if ($DryRun) {
+            Write-Output "Would delete $($deployment.DeploymentName) from $ResourceGroupName"
+        } else {
+            Write-Output "Deleting $($deployment.DeploymentName) from $ResourceGroupName"
+            Remove-AzureRmResourceGroupDeployment -Name $deployment.DeploymentName -ResourceGroupName $ResourceGroupName
         }
-        while($RunForever)
     }
 }
-
-# If the RG was not specified, read from the list
-$resourceGroups = @($ResourceGroupName)
-if (!$ResourceGroupName) {
-    $resourceGroups = .\Get-Available-Resource-Groups.ps1
-}
-
-CleanDeployments -ResourceGroups $ResourceGroups -RunForever $RunForever
+while($RunForever)
