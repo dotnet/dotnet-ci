@@ -324,6 +324,13 @@ class Utilities {
         job.with {
             label(machineLabel)
         }
+        
+        // Temporary, nano isn't working on TP5 any longer.  Getting random restarts.
+        if (osName.equals('Windows Nano 2016')) {
+            job.with {
+                disabled(true)
+            }
+        }
     }
 
     // Performs standard job setup for a newly created job.
