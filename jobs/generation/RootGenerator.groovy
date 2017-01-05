@@ -297,3 +297,29 @@ job('generator_cleaner') {
         systemGroovyScriptFile('jobs/scripts/generator_cleaner.groovy')
     }
 }
+
+// Create the temporary backlog cleaner. This cleans up the asynchronous backlog which
+// causes memory leaks due to a problem with the workspace cleaner plugin.
+job('temporary_backlog_cleaner') {
+    logRotator {
+        daysToKeep(7)
+    }
+    
+    // Source is just basic git for dotnet-ci
+    scm {
+        git {
+            remote {
+                github("dotnet/dotnet-ci")
+            }
+            branch("*/master")
+        }
+    }
+    
+    triggers {
+        cron('0 0 * * *')
+    }
+
+    steps {
+        systemGroovyScriptFile('jobs/scripts/backlog_cleaner.groovy')
+    }
+}
