@@ -316,7 +316,7 @@ job('temporary_backlog_cleaner') {
     }
     
     triggers {
-        cron('0 0 * * *')
+        cron('@hourly')
     }
 
     steps {
