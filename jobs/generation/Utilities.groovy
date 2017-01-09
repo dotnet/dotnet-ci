@@ -129,6 +129,8 @@ class Utilities {
                                 '20160211':'auto-ubuntu1404-20160211.1',
                                 // Contains npm, njs, nvm
                                 '20161020':'ubuntu1404-20161020',
+                                // Contains 20160211-1 + gdb + mono 4.6.2.16
+                                '20170109':'ubuntu1404-20170109',
                                 // Contains the rootfs setup for arm/arm64 builds.  Move this label forward
                                 // till we have the working build/test, then apply to everything.
                                 'arm-cross-latest':'auto-ubuntu1404-20161019',
@@ -150,6 +152,8 @@ class Utilities {
                                 ],
                             'Ubuntu16.04' :
                                 [
+                                // Contains auto-ubuntu1604-20160803 + gdb + mono 4.6.2.16
+                                '20170109':'ubuntu1604-20170109',
                                 // Latest auto image.
                                 'latest-or-auto':'auto-ubuntu1604-20160803',
                                 // auto-ubuntu1604-20160510 + docker.
