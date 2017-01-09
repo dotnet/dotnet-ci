@@ -24,6 +24,7 @@ dotnet/citest branch=master server=dotnet-ci2
 dotnet/citest subFolder=perf definitionScript=perf.groovy branch=master server=dotnet-ci2
 dotnet/cli branch=feature/msbuild server=dotnet-ci
 dotnet/cli branch=feature/antares server=dotnet-ci
+dotnet/cli branch=master server=dotnet-ci
 dotnet/cli branch=rel/1.0.0-preview4 server=dotnet-ci
 dotnet/cli branch=rel/1.0.0-preview3 server=dotnet-ci
 dotnet/cli branch=rel/1.0.0-preview2.1 server=dotnet-ci
