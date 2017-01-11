@@ -1207,20 +1207,28 @@ The following is a list of valid commands on this PR.  To invoke a command, comm
 
 **The following commands are valid for all PRs and repositories.**
 
+<details>
+  <summary>Click to expand</summary>
+
 Comment Phrase | Action
 -------------- | ------
 @dotnet-bot test this please | Re-run all legs.  Use sparingly
 @dotnet-bot test ci please | Generates (but does not run) jobs based on changes to the groovy job definitions in this branch
 @dotnet-bot help | Print this help message
+</details>
 """
 
         if (defaultLegList != "") {
             helpMessage += """
 **The following jobs are launched by default for each PR against ${project}:${branchName}.**
 
+<details>
+  <summary>Click to expand</summary>
+
 Comment Phrase | Job Launched
 -------------- | ------------
 ${defaultLegList}
+</details>
 """
         }
 
@@ -1228,9 +1236,13 @@ ${defaultLegList}
             helpMessage += """
 **The following optional jobs are available in PRs against ${project}:${branchName}.**
 
+<details>
+  <summary>Click to expand</summary>
+
 Comment Phrase | Job Launched
 -------------- | ------------
 ${nonDefaultLegList}
+</details>
 """
         }
 
