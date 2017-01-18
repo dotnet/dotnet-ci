@@ -131,6 +131,8 @@ class Utilities {
                                 '20161020':'ubuntu1404-20161020',
                                 // Contains 20160211-1 + gdb + mono 4.6.2.16
                                 '20170109':'ubuntu1404-20170109',
+                                // Contains 20160211-1 + clang 3.9
+                                '20170118':'ubuntu1404-20170118',
                                 // Contains the rootfs setup for arm/arm64 builds.  Move this label forward
                                 // till we have the working build/test, then apply to everything.
                                 'arm-cross-latest':'auto-ubuntu1404-20161019',
