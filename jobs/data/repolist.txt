@@ -80,6 +80,7 @@ dotnet/roslyn branch=run server=dotnet-ci
 dotnet/roslyn-analyzers branch=master server=dotnet-ci
 dotnet/roslyn-project-system branch=master server=dotnet-ci
 dotnet/roslyn-project-system branch=dev15-rc3 server=dotnet-ci
+dotnet/roslyn-project-system branch=post-dev15 server=dotnet-ci
 dotnet/interactive-window branch=master server=dotnet-ci
 dotnet/symreader branch=master server=dotnet-ci
 dotnet/symreader-portable branch=master server=dotnet-ci
