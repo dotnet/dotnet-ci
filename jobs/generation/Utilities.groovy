@@ -703,7 +703,7 @@ class Utilities {
     def static addDefaultPrivateGithubPRTriggerForBranch(def job, def branchName, String contextString, Iterable<String> permittedOrgs, Iterable<String> permittedUsers) {
         assert contextString != ''
 
-        triggerPhraseString = "(?i).*test\\W+${contextString}.*"
+        String triggerPhraseString = "(?i).*test\\W+${contextString}.*"
 
         Utilities.addGithubPRTriggerImpl(job, branchName, contextString, triggerPhraseString, false, false, permittedOrgs, permittedUsers)
     }
