@@ -708,7 +708,6 @@ class Utilities {
         Utilities.addGithubPRTriggerImpl(job, branchName, contextString, triggerPhraseString, false, false, permittedOrgs, permittedUsers)
     }
 
-
     // Adds a github PR trigger for a job that is specific to a particular branch
     // Parameters:
     //    job - Job to add the PR trigger for
