@@ -105,15 +105,14 @@ Microsoft/xunit-performance branch=citest server=dotnet-ci
 Microsoft/Vipr branch=master server=dotnet-ci
 Microsoft/visualfsharp branch=master server=dotnet-ci2
 Microsoft/PartsUnlimited branch=master server=dotnet-ci
-smile21prc/coreclr branch=coreclr-perf server=dotnet-ci2 definitionScript=perf.groovy
 dotnet/templating branch=master server=dotnet-ci
 john-soklaski/roslyn branch=benchview_integration server=dotnet-ci2 definitionScript=perf.groovy
 drewscoggins/corefx branch=master server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
-drewscoggins/coreclr branch=coreclr-perf server=dotnet-ci2 definitionScript=perf.groovy
 dotnet/core branch=master server=dotnet-ci2
 dotnet/netcorecli-fsc branch=master server=dotnet-ci2
 dotnet/netcorecli-fsc branch=rel/1.0.0-preview2.1 server=dotnet-ci2
 dotnet/netcorecli-fsc branch=rel/1.0.0-preview2 server=dotnet-ci2
+dotnet/citest branch=master server=dotnet-ci2 definitionScript=perf.groovy subFolder=stability
 mono/linker branch=master server=dotnet-ci2
 Microsoft/vstest branch=master server=dotnet-ci
 Microsoft/vstest branch=future server=dotnet-ci
