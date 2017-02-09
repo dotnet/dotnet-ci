@@ -115,7 +115,7 @@ dotnet/core branch=master server=dotnet-ci2
 dotnet/netcorecli-fsc branch=master server=dotnet-ci2
 dotnet/netcorecli-fsc branch=rel/1.0.0-preview2.1 server=dotnet-ci2
 dotnet/netcorecli-fsc branch=rel/1.0.0-preview2 server=dotnet-ci2
-dotnet/citest branch=master server=dotnet-ci2 definitionScript=perf.groovy subFolder=stability
+dotnet/perf-infra branch=master server=dotnet-ci2 definitionScript=stability.groovy subFolder=stability
 mono/linker branch=master server=dotnet-ci2
 Microsoft/vstest branch=master server=dotnet-ci
 Microsoft/vstest branch=future server=dotnet-ci
