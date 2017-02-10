@@ -74,6 +74,7 @@ dotnet/roslyn branch=features/source-generators server=dotnet-ci
 dotnet/roslyn branch=features/vbTuples server=dotnet-ci
 dotnet/roslyn branch=features/tasklike server=dotnet-ci
 dotnet/roslyn branch=features/default server=dotnet-ci
+dotnet/roslyn branch=features/readonly-ref server=dotnet-ci
 dotnet/roslyn branch=run server=dotnet-ci
 dotnet/roslyn-analyzers branch=master server=dotnet-ci
 dotnet/roslyn-project-system branch=master server=dotnet-ci
