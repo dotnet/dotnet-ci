@@ -552,6 +552,7 @@ class Utilities {
             'Slave went offline during the build',
             '\'type_traits\' file not found', // This is here for certain flavors of clang on Ubuntu, which can exhibit odd errors.
             'Only AMD64 and I386 are supported', // Appears to be a flaky CMAKE failure
+            'java.util.concurrent.ExecutionException: Invalid object ID'
             ]
         def regex = '(?i).*('
         regex += Utilities.joinStrings(expressionsToRetry, '|')
