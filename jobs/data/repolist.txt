@@ -56,8 +56,10 @@ mmitche/dotnet-ci branch=scm-builder server=dotnet-ci2 definitionScript=jobs/gen
 dotnet/dotnet-docker branch=master server=dotnet-ci
 dotnet/dotnet-docker-nightly branch=master server=dotnet-ci
 dotnet/orleans branch=master server=dotnet-ci
+dotnet/roslyn branch=dev15.0.x server=dotnet-ci
+dotnet/roslyn branch=dev15.1.x server=dotnet-ci
+dotnet/roslyn branch=dev16 server=dotnet-ci
 dotnet/roslyn branch=master server=dotnet-ci
-dotnet/roslyn branch=dev15-rc3 server=dotnet-ci
 dotnet/roslyn branch=microupdate server=dotnet-ci
 dotnet/roslyn branch=post-dev15 server=dotnet-ci
 dotnet/roslyn branch=features/typeswitch server=dotnet-ci
