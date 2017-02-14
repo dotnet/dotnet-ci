@@ -210,7 +210,7 @@ class Utilities {
                                 // Win2016 + VS15.RC2
                                 'latest-or-auto-dev15-rc2':'win2016-20170105',
                                 // Win2016 + VS15.RC4
-                                'latest-or-auto-dev15-rc':'win2016-20170213',
+                                'latest-or-auto-dev15-rc':'win2016-20170214',
                                 // Dev15 image
                                 'latest-dev15':'auto-win2012-20160506',
                                 // For internal runs
@@ -218,13 +218,17 @@ class Utilities {
                                 // For internal runs - Win2016 + VS15.RC2
                                 'latest-or-auto-dev15-rc2-internal':'win2016-20170105-internal',
                                 // For internal runs - Win2016 + VS15.RC4
-                                'latest-or-auto-dev15-internal':'win2016-20170213-internal',
+                                'latest-or-auto-dev15-internal':'win2016-20170214-internal',
                                 // For internal runs which don't need/want the static 'windows-internal' pool
                                 'latest-dev15-internal':'auto-win2012-20160707-internal',
                                 // For elevated runs
                                 'latest-or-auto-elevated':'auto-win2012-20160824-elevated',
                                 // For perf runs
-                                'latest-or-auto-perf':'windows-perf-internal'
+                                'latest-or-auto-perf':'windows-perf-internal',
+                                // Win2016
+                                'win2016-base': 'win2016-base',
+                                // Win2016
+                                'win2016-base-internal': 'win2016-base-internal'
                                 ],
                             'Windows_2016' :
                                 [
