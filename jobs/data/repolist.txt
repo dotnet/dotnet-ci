@@ -86,6 +86,7 @@ dotnet/sdk branch=dev15-rc3 server=dotnet-ci
 dotnet/interactive-window branch=master server=dotnet-ci
 dotnet/symreader branch=master server=dotnet-ci
 dotnet/symreader-portable branch=master server=dotnet-ci
+dotnet/symreader-converter branch=master server=dotnet-ci
 dotnet/symstore branch=master server=dotnet-ci
 dotnet/versions branch=master server=dotnet-ci
 dotnet/wcf branch=master server=dotnet-ci
