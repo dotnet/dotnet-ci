@@ -1,7 +1,7 @@
-# Temporary.  List of images names, the storage account sub-path for each one, and the list of storage accounts that
-# contain the image.
-# Format:
-# Image Name,Labels,Storage Account Sub Path,Semi-colon delimited list of storage accounts, or All for all storage accounts in StorageAccounts.txt
+# Temporary.  List of images names, the storage account sub-path for each one, and the list of storage accounts that,,,,,
+# contain the image.,,,,,,,
+# Format:,,,,,,,
+# Image Name,Labels,Storage Account Sub Path,Semi-colon delimited list of storage accounts, or All for all storage accounts in StorageAccounts.txt,,,
 ImageName,Labels,OSType,Container,BlobName,StorageAccounts,StartupScriptPath,AgentWorkspace
 centos71-20160609-1-outer,auto-centos71-20160609.1outer,Linux,system,Microsoft.Compute/Images/dotnetci/centos71-20160609-1.vhd,All,./startupScripts/centos71-20160609-1-outer.sh,/mnt/resource/j
 centos71-20160929,auto-centos71-20160929,Linux,system,Microsoft.Compute/Images/dotnetci/centos71-20160929.vhd,All,./startupScripts/centos71-20160929.sh,/mnt/resource/j
@@ -9,6 +9,8 @@ deb82-20160323,auto-deb82-20160323,Linux,system,Microsoft.Compute/Images/dotnetc
 deb82-20160323-outer,auto-deb82-20160323outer,Linux,system,Microsoft.Compute/Images/dotnetci/deb82-20160323.vhd,All,./startupScripts/deb82-20160323-outer.sh,/mnt/resource/j
 deb84-20160623,auto-deb84-20160623,Linux,system,Microsoft.Compute/Images/dotnetci/deb84-20160623.vhd,All,./startupScripts/deb84-20160623.sh,/mnt/resource/j
 deb84-20160623-outer,auto-deb84-20160623outer,Linux,system,Microsoft.Compute/Images/dotnetci/deb84-20160623.vhd,All,./startupScripts/deb84-20160623-outer.sh,/mnt/resource/j
+deb84-20170214,deb84-20170214,Linux,system,Microsoft.Compute/Images/dotnetci/deb84-20170214-osDisk.eafffa28-eaf1-4b38-b963-1c9287dce321.vhd,All,./startupScripts/deb84-20170214.sh,/mnt/resource/j
+deb84-20170214-outer,deb84-20170214-outer,Linux,system,Microsoft.Compute/Images/dotnetci/deb84-20170214-osDisk.eafffa28-eaf1-4b38-b963-1c9287dce321.vhd,All,./startupScripts/deb84-20170214-outer.sh,/mnt/resource/j
 fedora23-20160622,auto-fedora23-20160622,Linux,system,Microsoft.Compute/Images/dotnetci/fedora23-20160622.vhd,All,./startupScripts/fedora23-20160622.sh,/mnt/resource/j
 fedora23-20160622-outer,auto-fedora23-20160622outer,Linux,system,Microsoft.Compute/Images/dotnetci/fedora23-20160622.vhd,All,./startupScripts/fedora23-20160622-outer.sh,/mnt/resource/j
 fedora24-20161024,fedora24-20161024,Linux,system,Microsoft.Compute/Images/dotnetci/fedora24-20161024.vhd,All,./startupScripts/fedora24-20161024.sh,/mnt/resource/j
