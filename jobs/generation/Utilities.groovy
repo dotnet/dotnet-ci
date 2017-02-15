@@ -302,11 +302,11 @@ class Utilities {
                                 ],
                             'Debian8.4' :
                                 [
-                                '' : 'auto-deb84-20160623',
+                                '' : 'deb84-20170214',
                                 // Latest auto image.
-                                'latest-or-auto':'auto-deb84-20160623',
+                                'latest-or-auto':'deb84-20170214',
                                 // For outerloop runs
-                                'outer-latest-or-auto':'auto-deb84-20160623outer'
+                                'outer-latest-or-auto':'deb84-20170214-outer'
                                 ],
                            'Fedora23' :
                                 [
