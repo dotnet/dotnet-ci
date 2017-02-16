@@ -24,6 +24,8 @@ suse132-20160315,auto-suse132-20160315,Linux,system,Microsoft.Compute/Images/dot
 suse132-20160315-outer,auto-suse132-20160315outer,Linux,system,Microsoft.Compute/Images/dotnetci/suse132-20160315.vhd,All,./startupScripts/suse132-20160315-outer.sh,/mnt/resource/j
 suse421-20160920,auto-suse421-20160920,Linux,system,Microsoft.Compute/Images/dotnetci/suse421-20160920.vhd,All,./startupScripts/suse421-20160920.sh,/mnt/resource/j
 suse421-20160920-outer,auto-suse421-20160920outer,Linux,system,Microsoft.Compute/Images/dotnetci/suse421-20160920.vhd,All,./startupScripts/suse421-20160920-outer.sh,/mnt/resource/j
+suse421-20170216,suse421-20170216,Linux,system,Microsoft.Compute/Images/dotnetci/suse421-20170216-osDisk.22ce4549-5a9b-4b3b-b6b1-21ed52487d94.vhd,All,./startupScripts/suse421-20170216.sh,/mnt/resource/j
+suse421-20170216-outer,suse421-20170216-outer,Linux,system,Microsoft.Compute/Images/dotnetci/suse421-20170216-osDisk.22ce4549-5a9b-4b3b-b6b1-21ed52487d94.vhd,All,./startupScripts/suse421-20170216-outer.sh,/mnt/resource/j
 ubuntu1404-20160206-outer,auto-ubuntu1404-201626outer,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1404-20160206.vhd,All,./startupScripts/ubuntu1404-20160206-outer.sh,/mnt/j
 ubuntu1404-20160211-1,auto-ubuntu1404-20160211.1,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1404-20160211-1.vhd,All,./startupScripts/ubuntu1404-20160211-1.sh,/mnt/j
 ubuntu1404-20160211-1-internal,auto-ubuntu1404-20160211.1-internal,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1404-20160211-1.vhd,All,./startupScripts/ubuntu1404-20160211-1-internal.sh,/mnt/j

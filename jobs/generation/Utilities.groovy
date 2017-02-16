@@ -288,9 +288,9 @@ class Utilities {
                             'OpenSUSE42.1' :
                                 [
                                 // Latest auto image.
-                                'latest-or-auto':'auto-suse421-20160920',
+                                'latest-or-auto':'suse421-20170216',
                                 // For outerloop runs
-                                'outer-latest-or-auto':'auto-suse421-20160920outer'
+                                'outer-latest-or-auto':'suse421-20170216-outer'
                                 ],
                             'Debian8.2' :
                                 [
