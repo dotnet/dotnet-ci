@@ -45,6 +45,7 @@ dotnet/corefx branch=dev/eng server=dotnet-ci
 dotnet/corefx branch=master server=dotnet-ci
 dotnet/corefx branch=release/1.0.0 server=dotnet-ci
 dotnet/corefx branch=release/1.1.0 server=dotnet-ci
+dotnet/corefx branch=master server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/corefxlab branch=master server=dotnet-ci
 dotnet/corert branch=master server=dotnet-ci
 # TODO: Change to master branch once initial tests merged
