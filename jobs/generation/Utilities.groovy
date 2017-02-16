@@ -157,12 +157,12 @@ class Utilities {
                                 // Contains auto-ubuntu1604-20160803 + gdb + mono 4.6.2.16
                                 '20170109':'ubuntu1604-20170109',
                                 // Latest auto image.
-                                'latest-or-auto':'auto-ubuntu1604-20160803',
+                                'latest-or-auto':'ubuntu1604-20170216',
                                 // auto-ubuntu1604-20160510 + docker.
                                 // Move this to latest-or-auto after validation
-                                'latest-or-auto-docker':'auto-ubuntu1604-20160803',
+                                'latest-or-auto-docker':'ubuntu1604-20170216',
                                 // For outerloop runs.
-                                'outer-latest-or-auto':'auto-ubuntu1604-20160510outer',
+                                'outer-latest-or-auto':'ubuntu1604-20170216-outer',
                                 // For outerloop runs, using Linux kernel version 4.6.2
                                 'outer-linux462': 'auto-auto-ubuntu1604-20160510-20160715outer'
                                 ],
