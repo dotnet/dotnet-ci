@@ -156,11 +156,11 @@ class Utilities {
                                 [
                                 // Contains auto-ubuntu1604-20160803 + gdb + mono 4.6.2.16
                                 '20170109':'ubuntu1604-20170109',
-                                // Older base image, for archival
-                                '20160803':'auto-ubuntu1604-20160803',
-                                // 20160803 with clang3.8 dev package
-                                'latest-or-auto':'ubuntu1604-20170215',
-                                'latest-or-auto-docker':'ubuntu1604-20170215',
+                                // Latest auto image.
+                                'latest-or-auto':'auto-ubuntu1604-20160803',
+                                // auto-ubuntu1604-20160510 + docker.
+                                // Move this to latest-or-auto after validation
+                                'latest-or-auto-docker':'auto-ubuntu1604-20160803',
                                 // For outerloop runs.
                                 'outer-latest-or-auto':'auto-ubuntu1604-20160510outer',
                                 // For outerloop runs, using Linux kernel version 4.6.2
