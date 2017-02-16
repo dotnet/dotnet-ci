@@ -5,6 +5,8 @@
 ImageName,Labels,OSType,Container,BlobName,StorageAccounts,StartupScriptPath,AgentWorkspace
 centos71-20160609-1-outer,auto-centos71-20160609.1outer,Linux,system,Microsoft.Compute/Images/dotnetci/centos71-20160609-1.vhd,All,./startupScripts/centos71-20160609-1-outer.sh,/mnt/resource/j
 centos71-20160929,auto-centos71-20160929,Linux,system,Microsoft.Compute/Images/dotnetci/centos71-20160929.vhd,All,./startupScripts/centos71-20160929.sh,/mnt/resource/j
+centos71-20170216,centos71-20170216,Linux,system,Microsoft.Compute/Images/dotnetci/centos71-20170216-osDisk.e1f4e207-9ce5-4a27-9b69-451296734595.vhd,All,./startupScripts/centos71-20170216.sh,/mnt/resource/j
+centos71-20170216-outer,centos71-20170216-outer,Linux,system,Microsoft.Compute/Images/dotnetci/centos71-20170216-osDisk.e1f4e207-9ce5-4a27-9b69-451296734595.vhd,All,./startupScripts/centos71-20170216-outer.sh,/mnt/resource/j
 deb82-20160323,auto-deb82-20160323,Linux,system,Microsoft.Compute/Images/dotnetci/deb82-20160323.vhd,All,./startupScripts/deb82-20160323.sh,/mnt/resource/j
 deb82-20160323-outer,auto-deb82-20160323outer,Linux,system,Microsoft.Compute/Images/dotnetci/deb82-20160323.vhd,All,./startupScripts/deb82-20160323-outer.sh,/mnt/resource/j
 deb84-20160623,auto-deb84-20160623,Linux,system,Microsoft.Compute/Images/dotnetci/deb84-20160623.vhd,All,./startupScripts/deb84-20160623.sh,/mnt/resource/j
