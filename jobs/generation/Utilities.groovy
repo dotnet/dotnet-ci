@@ -171,9 +171,9 @@ class Utilities {
                                 // Latest auto image.  This will be used for transitioning
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
-                                'latest-or-auto':'auto-ubuntu1610-20160927',
+                                'latest-or-auto':'ubuntu1610-20170216',
                                 // For outerloop runs.
-                                'outer-latest-or-auto':'auto-ubuntu1610-20160927outer',
+                                'outer-latest-or-auto':'ubuntu1610-20170216-outer',
                                 ],
                             'OSX' :
                                 [
