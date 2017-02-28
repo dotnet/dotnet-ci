@@ -321,6 +321,15 @@ class Utilities {
                                 // For outerloop runs
                                 'outer-latest-or-auto':'fedora24-20161024-outer'
                                 ],
+                            'Tizen' :
+                                [
+                                // Use ubuntu14.04 images
+                                // Contains the rootfs setup for arm/arm64 builds.  Move this label forward
+                                // till we have the working build/test, then apply to everything.
+                                'arm-cross-latest':'auto-ubuntu1404-20170120',
+                                // Latest auto image.
+                                'latest-or-auto':'auto-ubuntu1404-20170120',
+                                ],
                                 // Some nodes don't have git, which is what is required for the
                                 // generators.
                             'Generators' :
