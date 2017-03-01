@@ -117,6 +117,11 @@ class Utilities {
         if (osName == 'Ubuntu') {
             osName = 'Ubuntu14.04'
         }
+        // Special case OSX.  We did not use to have
+        // an OS version.  Current OSX job run against 10.11
+        if (osName == 'OSX') {
+            osName = 'OSX10.11'
+        }
 
         def machineMap    = [
                             'Ubuntu14.04' :
@@ -175,7 +180,7 @@ class Utilities {
                                 // For outerloop runs.
                                 'outer-latest-or-auto':'ubuntu1610-20170216-outer',
                                 ],
-                            'OSX' :
+                            'OSX10.11' :
                                 [
                                 // Generic version label
                                 '' : 'mac',
@@ -184,7 +189,26 @@ class Utilities {
                                 // For elevated runs
                                 'latest-or-auto-elevated':'mac-elevated'
                                 ],
-
+                            // El Capitan
+                            'OSX10.11' :
+                                [
+                                // Generic version label
+                                '' : 'osx-10.11',
+                                // Latest auto image.
+                                'latest-or-auto':'osx-10.11',
+                                // For elevated runs
+                                'latest-or-auto-elevated':'osx-10.11-elevated'
+                                ],
+                            // Sierra
+                            'OSX10.12' :
+                                [
+                                // Generic version label
+                                '' : 'osx-10.12',
+                                // Latest auto image.
+                                'latest-or-auto':'osx-10.12',
+                                // For elevated runs
+                                'latest-or-auto-elevated':'osx-10.12-elevated'
+                                ],
                             // This is Windows Server 2012 R2
                             'Windows_NT' :
                                 [
