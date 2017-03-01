@@ -53,7 +53,7 @@ if ($enableDumps)
     $dumpPath = '%TMP%\CoreRunCrashDumps'
     $dumpCount = 5
     $dumpType = 2
-    $executablesToDump = @('corerun.exe', 'java.exe')
+    $executablesToDump = @('corerun.exe', 'java.exe', 'dotnet.exe')
 
     foreach ($executable in $executablesToDump)
     {
