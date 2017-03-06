@@ -224,7 +224,7 @@ class Utilities {
                                 '20161027' : 'win2012-20161027',
                                 // Latest auto image.
                                 // the generic unversioned label except for special cases.
-                                'latest-or-auto':'win2012-20170302',
+                                'latest-or-auto':'win2012-20170303',
                                 // Win2012.R2 + VS2013.5 + VS2015.3 + VS15.P3
                                 'latest-or-auto-dev15':'auto-win2012-20160707',
                                 // Win2012.R2 + VS2013.5 + VS2015.3 + VS15.P4
@@ -246,7 +246,7 @@ class Utilities {
                                 // For internal runs which don't need/want the static 'windows-internal' pool
                                 'latest-dev15-internal':'auto-win2012-20160707-internal',
                                 // For elevated runs
-                                'latest-or-auto-elevated':'win2012-20170302-elevated',
+                                'latest-or-auto-elevated':'win2012-20170303-elevated',
                                 // For perf runs
                                 'latest-or-auto-perf':'windows-perf-internal',
                                 // Win2016
@@ -271,13 +271,13 @@ class Utilities {
                             'Windows 10' :
                                 [
                                 // Latest auto image.
-                                'latest-or-auto':'win2016-20170302'
+                                'latest-or-auto':'win2016-20170303'
                                 ],
                             'Windows 7' :
                                 [
-                                '20161104':'win2008-20170302',
+                                '20161104':'win2008-20170303',
                                 // Latest auto image.
-                                'latest-or-auto':'win2008-20170302'
+                                'latest-or-auto':'win2008-20170303'
                                 ],
                             'FreeBSD' :
                                 [
