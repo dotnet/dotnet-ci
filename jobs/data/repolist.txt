@@ -69,6 +69,7 @@ dotnet/roslyn branch=microupdate server=dotnet-ci
 dotnet/roslyn branch=features/patterns server=dotnet-ci
 dotnet/roslyn branch=features/privateProtected server=dotnet-ci
 dotnet/roslyn branch=features/ioperation server=dotnet-ci
+dotnet/roslyn branch=features/refout server=dotnet-ci
 dotnet/roslyn branch=master subFolder=perf definitionScript=perf.groovy server=dotnet-ci2
 dotnet/roslyn branch=dev15.0.x subFolder=perf definitionScript=perf.groovy server=dotnet-ci2
 dotnet/roslyn branch=dev15.1.x subFolder=perf definitionScript=perf.groovy server=dotnet-ci2
