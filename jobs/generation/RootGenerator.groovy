@@ -108,12 +108,6 @@ folder('GenPRTest') {}
         // No concurrency, throttle among the other generators.
         // Not entirely sure this is required, but this is how it is today
         concurrentBuild(false)
-        throttleConcurrentBuilds {
-            throttleDisabled(false)
-            maxTotal(0)
-            maxPerNode(1)
-            categories(['job_generators'])
-        }
 
         if (isPR) {
             // Trigger on a PR test from the dotnet-ci repo
