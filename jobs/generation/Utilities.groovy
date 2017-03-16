@@ -182,12 +182,18 @@ class Utilities {
                                 ],
                             'OSX10.11' :
                                 [
-                                // Generic version label
-                                '' : 'mac',
-                                // Latest auto image.
-                                'latest-or-auto':'mac',
-                                // For elevated runs
-                                'latest-or-auto-elevated':'mac-elevated'
+                                // 10.11 (El Capitan) image.
+                                '10.11':'osx-10.11',
+                                // 10.11 (El Capitan) image.
+                                '10.11-elevated':'osx-10.11-elevated',
+                                // 10.11 (El Capitan) image.
+                                '10.12':'osx-10.12',
+                                // 10.11 (El Capitan) image.
+                                '10.12-elevated':'osx-10.12-elevated',
+                                // Latest auto image.  For temporary backwards compatibility
+                                'latest-or-auto':'osx-10.11',
+                                // For elevated runs. For temporary backwards compatibility
+                                'latest-or-auto-elevated':'osx-10.11-elevated'
                                 ],
                             // El Capitan
                             'OSX10.11' :
