@@ -463,13 +463,13 @@ class Utilities {
                 if (isPR) {
                     artifactDaysToKeep(7)
                     daysToKeep(10)
-                    artifactNumToKeep(100)
-                    numToKeep(200)
+                    artifactNumToKeep(50)
+                    numToKeep(150)
                 }
                 else {
                     artifactDaysToKeep(10)
                     daysToKeep(21)
-                    artifactNumToKeep(100)
+                    artifactNumToKeep(50)
                     numToKeep(100)
                 }
             }
