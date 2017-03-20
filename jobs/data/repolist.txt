@@ -50,12 +50,6 @@ dotnet/corefx branch=release/1.1.0 server=dotnet-ci
 dotnet/corefx branch=master server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/corefxlab branch=master server=dotnet-ci
 dotnet/corert branch=master server=dotnet-ci
-# TODO: Change to master branch once initial tests merged
-dotnet/dotnet-ci branch=master server=dotnet-ci2 definitionScript=jobs/generation/tests/tests*.groovy
-mmitche/dotnet-ci branch=refined-help server=dotnet-ci2 definitionScript=jobs/generation/tests/tests*.groovy utilitiesRepo=mmitche/dotnet-ci utilitiesRepoBranch=refined-help
-mmitche/dotnet-ci branch=scm-builder server=dotnet-ci2 definitionScript=jobs/generation/tests/tests*.groovy utilitiesRepo=mmitche/dotnet-ci utilitiesRepoBranch=scm-builder
-# TODO: Enable this line on other server once tests are working to ensure that we have testing across both servers
-# dotnet/dotnet-ci branch=master server=dotnet-ci definitionScript=jobs/generation/tests/tests*.groovy
 dotnet/dotnet-docker branch=master server=dotnet-ci
 dotnet/dotnet-docker-nightly branch=master server=dotnet-ci
 dotnet/dotnet-docker-nightly branch=sdk-1.0.0 server=dotnet-ci
@@ -130,3 +124,4 @@ dotnet/perf-infra branch=master server=dotnet-ci2 definitionScript=startup.groov
 mono/linker branch=master server=dotnet-ci
 Microsoft/vstest branch=master server=dotnet-ci
 Microsoft/vstest branch=future server=dotnet-ci
+mmitche/corefx branch=dev/pipeline server=dotnet-ci3 definitionScript=pipelinejobs.groovy utilitiesRepoBranch=dev/pipelinesupport
