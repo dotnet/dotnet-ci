@@ -54,10 +54,11 @@ win2012-20160506,auto-win2012-20160506,Windows,system,Microsoft.Compute/Images/d
 win2012-20160707,auto-win2012-20160707,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20160707.vhd,All,./startupScripts/win2012-20160707.ps1,D:\j
 win2012-20160707-internal,auto-win2012-20160707-internal,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20160707.vhd,All,./startupScripts/win2012-20160707-internal.ps1,D:\j
 win2012-20160824,auto-win2012-20160824,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20160824.vhd,All,./startupScripts/win2012-20160824.ps1,D:\j
+win2012-20161027,win2012-20161027,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20161027-osDisk.040bfe4c-ae78-4703-ac8c-d3a8f839fee3.vhd,All,./startupScripts/win2012-20161027.ps1,D:\j
 win2012-20170302,win2012-20170302,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20170302-osDisk.78e8cd9e-ea53-43ec-a91c-aa20f0dcb8d1.vhd,All,./startupScripts/win2012-20170302.ps1,D:\j
 win2012-20170303,win2012-20170303,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20170303-osDisk.5d62809d-1e1c-42f7-beea-7b871fa0fc8a.vhd,All,./startupScripts/win2012-20170302.ps1,D:\j
 win2012-20170307,win2012-20170307,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20170307.vhd,All,./startupScripts/win2012-20170307.ps1,D:\j
-win2012-20161027,win2012-20161027,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20161027-osDisk.040bfe4c-ae78-4703-ac8c-d3a8f839fee3.vhd,All,./startupScripts/win2012-20161027.ps1,D:\j
+win2012-20170328,win2012-20170328,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20170328-osDisk.0c904514-d905-42c0-9196-6bb7abb060d0.vhd,All,./startupScripts/win2012-20170328.ps1,D:\j
 win2016-base,win2016-base,Windows,system,Microsoft.Compute/Images/dotnetci/Microsoft.Compute/Images/dotnetci/win2016-20170214-osDisk.bb90cfd5-b990-4acf-86e6-cfd35a9aae81.vhd,All,./startupScripts/win2016-base.ps1,D:\j
 win2016-base-internal,win2016-base-internal,Windows,system,Microsoft.Compute/Images/dotnetci/Microsoft.Compute/Images/dotnetci/win2016-20170214-osDisk.bb90cfd5-b990-4acf-86e6-cfd35a9aae81.vhd,All,./startupScripts/win2016-base-internal.ps1,D:\j
 win2016-20161018-1,win2016-20161018-1,Windows,system,Microsoft.Compute/Images/dotnetci/win2016-20161018-1-osDisk.98497130-7742-4c2c-872b-5aadf2065311.vhd,All,./startupScripts/win2016-20161018-1.ps1,D:\j
