@@ -251,6 +251,8 @@ class Utilities {
                                 'latest-dev15-internal':'auto-win2012-20160707-internal',
                                 // For elevated runs
                                 'latest-or-auto-elevated':'win2012-20170303-elevated',
+								// For arm64 builds
+                                'latest-arm64':'win2012-20170328',
                                 // For perf runs
                                 'latest-or-auto-perf':'windows-perf-internal',
                                 // Win2016
@@ -363,7 +365,7 @@ class Utilities {
                             'Generators' :
                                 [
                                 '' : '!windowsnano16',
-                                'latest-or-auto':'!windowsnano16 && !arm64 && !performance'
+                                'latest-or-auto':'!windowsnano16 && !performance'
                                 ]
                             ]
         def versionLabelMap = machineMap.get(osName, null)
