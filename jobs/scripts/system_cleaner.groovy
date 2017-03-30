@@ -4,8 +4,8 @@ import jenkins.model.*
 // This denotes a value by which if we are about to delete more than X items,
 // that don't have GenPRTest in their full name, then we should break and fail the job.
 // This is to prevent cases where some component might go haywire and cause deletion of a lot of data.
-def nonGenPRTestSafetyBreak = 200
-def genPRTestSafetyBreak = 2000
+def nonGenPRTestSafetyBreak = 500
+def genPRTestSafetyBreak = 5000
 
 (removedAllItemsFromFolder, nonGenPRTestCount, genPRTestCount) = deleteDisabled(Jenkins.instance.items, true)
 
