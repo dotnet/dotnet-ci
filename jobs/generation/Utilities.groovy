@@ -1210,7 +1210,7 @@ class Utilities {
                 batchFile("powershell -Command \"Add-Type -Assembly 'System.IO.Compression.FileSystem'; [System.IO.Compression.ZipFile]::ExtractToDirectory('cross-integration.zip', 'cross-tool')\"")
                 def orgName = Utilities.getOrgName(project)
                 def repoName = Utilities.getProjectName(project)
-                batchFile("cd cross-tool && cross --organization ${orgName} --repository ${repoName} --token %UPDATE_TOKEN% --writecomments %ghprbPullId%")
+                batchFile("cd cross-tool && cross --organization ${orgName} --repository ${repoName} --token %UPDATE_TOKEN% --logfile cross-log.json %ghprbPullId% ")
             }
             
             // Ensure credentials are bound
@@ -1229,6 +1229,7 @@ class Utilities {
         Utilities.addPrivatePermissions(crossJob, ['Microsoft'])
         Utilities.standardJobSetup(crossJob, project, true, "*/${branch}")
         Utilities.addGithubPRTriggerForBranch(crossJob, branch, 'CROSS Check', '(?i).*test\\W+cross\\W+please.*', !runByDefault)
+        Utilities.addArchival(crossJob, '**/cross-log.json')
     }
 
     // Emits a helper job.  This job prints a help message to the GitHub comments section
