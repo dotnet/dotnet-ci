@@ -132,3 +132,4 @@ Microsoft/vstest branch=master server=dotnet-ci
 Microsoft/vstest branch=future server=dotnet-ci
 mmitche/corefx branch=dev/pipeline server=dotnet-ci3 definitionScript=pipelinejobs.groovy utilitiesRepoBranch=dev/pipelinesupport
 mmitche/corefx branch=master server=dotnet-ci-ddljenkinssrvgh01
+Microsoft/testfx branch=master server=dotnet-ci
