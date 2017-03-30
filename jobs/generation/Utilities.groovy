@@ -1348,6 +1348,11 @@ ${customFooter}"""
             }
             
             quietPeriod(0)
+            
+            // Check Generate Disabled setting (for pr tests)
+            if (GenerationSettings.isTestGeneration()) {
+                disabled(true)
+            }
         }
     }
 }
