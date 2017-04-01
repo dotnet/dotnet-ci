@@ -227,11 +227,13 @@ repos.each { repoInfo ->
         return;
     }
 
-    // Make the folders
+    // Make the folders. Save the root folder for overview generation
     def generatorFolder = ''
+    def projectFolder = ''
     for (folderElement in repoInfo.folders) {
         if (generatorFolder == '') {
             generatorFolder = folderElement
+            projectFolder = folderElement
         }
         else {
             // Append a new folder
@@ -240,28 +242,91 @@ repos.each { repoInfo ->
         folder(generatorFolder) {}
     }
 
+    // Create a view for all jobs in this folder that don't end with prtest
+    dashboardView("${projectFolder}/Official Builds") {
+        recurse()
+        jobs {
+            regex(/.*(?<!prtest)$/)
+        }
+
+        columns {
+            status()
+            weather()
+            name()
+            lastSuccess()
+            lastFailure()
+            lastDuration()
+        }
+
+        topPortlets {
+            jenkinsJobsList {
+                defaultName = "${projectFolder} jobs"
+            }
+        }
+
+        rightPortlets {
+            buildStatistics {
+                displayName 'Build Statistics'
+            }
+        }
+
+        def createPortletId = {
+            def random = new Random()
+            return "dashboard_portlet_${random.nextInt(32000)}"
+        }
+
+        configure { view ->
+            view / 'leftPortlets' / 'hudson.plugins.view.dashboard.stats.StatJobs' {
+                id createPortletId()
+                name 'Job Statistics'
+            }
+
+            def bottomPortlets = view / NodeBuilder.newInstance()
+
+            bottomPortlets << 'hudson.plugins.view.dashboard.core.UnstableJobsPortlet' {
+                id createPortletId()
+                name 'Unstable Jobs'
+                showOnlyFailedJobs 'false'
+                recurse 'true'
+            }
+            bottomPortlets << 'hudson.plugins.view.dashboard.test.TestStatisticsPortlet' {
+                id createPortletId()
+                name 'Test Statistics'
+                hideZeroTestProjects 'true'
+            }
+            bottomPortlets << 'hudson.plugins.view.dashboard.test.TestTrendChart' {
+                id createPortletId()
+                name 'Test Trends'
+                graphWidth 300
+                graphHeight 220
+                dateRange 0
+                dateShift 0
+                displayStatus 'ALL'
+            }
+        }
+    }
+
     // Make the PR test folder
     def generatorPRTestFolder = "${generatorFolder}/GenPRTest"
 
     // Create a Folder for generator PR tests under that.
     folder(generatorPRTestFolder) {}
-    
+
     // Generator folder is based on the name of the definition script name.  Now,
     // the definition script is a glob syntax, so we need to do a little processing
     def generatorJobBaseName = 'generator'
     def definitionScriptSuffix = repoInfo.definitionScript
-    
+
     // Strip out before the last \ or /
     def lastSlash = Math.max(definitionScriptSuffix.lastIndexOf('/'), definitionScriptSuffix.lastIndexOf('\\'))
-    
+
     if (lastSlash != -1) {
         definitionScriptSuffix = definitionScriptSuffix.substring(lastSlash+1)
     }
-    
+
     // Now remove * and .groovy
     definitionScriptSuffix = definitionScriptSuffix.replace("*", "")
     definitionScriptSuffix = definitionScriptSuffix.replace(".groovy", "")
-    
 
     [true, false].each { isPRTest ->
         def jobGenerator = job(Utilities.getFullJobName(generatorJobBaseName, isPRTest, isPRTest ? generatorPRTestFolder : generatorFolder)) {
