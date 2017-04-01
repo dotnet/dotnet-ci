@@ -281,7 +281,7 @@ repos.each { repoInfo ->
                 name 'Job Statistics'
             }
 
-            def bottomPortlets = view / NodeBuilder.newInstance()
+            def bottomPortlets = view / NodeBuilder.newInstance().bottomPortlets {}
 
             bottomPortlets << 'hudson.plugins.view.dashboard.core.UnstableJobsPortlet' {
                 id createPortletId()
