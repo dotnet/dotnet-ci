@@ -248,6 +248,7 @@ repos.each { repoInfo ->
         jobs {
             regex(/.*(?<!prtest)$/)
         }
+        statusFilter(StatusFilter.ENABLED)
 
         columns {
             status()
@@ -293,15 +294,6 @@ repos.each { repoInfo ->
                 id createPortletId()
                 name 'Test Statistics'
                 hideZeroTestProjects 'true'
-            }
-            bottomPortlets << 'hudson.plugins.view.dashboard.test.TestTrendChart' {
-                id createPortletId()
-                name 'Test Trends'
-                graphWidth 300
-                graphHeight 220
-                dateRange 0
-                dateShift 0
-                displayStatus 'ALL'
             }
         }
     }
