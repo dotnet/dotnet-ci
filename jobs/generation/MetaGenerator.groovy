@@ -34,14 +34,14 @@ class Repo {
     String utilitiesRepo
     // The branch for the utilities repo
     String utilitiesRepoBranch
-    
+
     // Lazily set up data
     // Branches that should be targeted for PRs against this job definition
-    String[] prTargetBranches 
+    String[] prTargetBranches
     // Branches that should be skipped for PRs against this job definition
-    String[] prSkipBranches 
-    
-    def Repo(String project, 
+    String[] prSkipBranches
+
+    def Repo(String project,
              String[] folders,
              String branch,
              String server,
@@ -59,7 +59,7 @@ class Repo {
         this.additionalPRBranches = additionalPRBranches
         this.utilitiesRepo = utilitiesRepo
         this.utilitiesRepoBranch = utilitiesRepoBranch
-    }    
+    }
 
     // Parse the input string and return a Repo object
     def static parseInputString(String input, def out) {
@@ -133,7 +133,7 @@ class Repo {
             }
             i++
         }
-        
+
         if (branch == null || branch == '') {
             out.println("Line '${input}' invalid")
             out.println("branch must be specified")
@@ -144,17 +144,17 @@ class Repo {
             out.println("server must be specified")
             assert false
         }
-        
+
         folders = [Utilities.getFolderName(project)]
-        
+
         // If they asked for subfolders, add them
         if (subFolders != null) {
             folders += subFolders
         }
-        
+
         // Add the branch after
         folders += Utilities.getFolderName(branch)
-        
+
         // Construct a new object and return
         return new Repo(project, folders, branch, server, definitionScript, isDefaultPRBranch, additionalPRBranches, utilitiesRepo, utilitiesRepoBranch)
     }
@@ -181,17 +181,17 @@ streamFileFromWorkspace(RepoListLocation).eachLine { line ->
 // and the PR skip branches
 
 repos.each { repoInfo ->
-    def otherRepos = repos.findAll { searchRepoInfo -> 
+    def otherRepos = repos.findAll { searchRepoInfo ->
         // Same project
         searchRepoInfo.project == repoInfo.project &&
         // Different branch
         searchRepoInfo.branch != repoInfo.branch
     }
-    
+
     // Consistency check
     // Find other projects that have the same project, same branch, and same definition script
-    
-    assert repos.find { searchRepoInfo -> 
+
+    assert repos.find { searchRepoInfo ->
         // Not the exact same item
         repoInfo != searchRepoInfo &&
         // Same project
@@ -202,10 +202,10 @@ repos.each { repoInfo ->
         // based on glob syntax.  But it should prevent most errors.
         searchRepoInfo.definitionScript == repoInfo.definitionScript
     } == null
-    
+
     repoInfo.prTargetBranches = []
     repoInfo.prSkipBranches = []
-    
+
     // Determine the prTargetBranches and prSkipBranches
     if (repoInfo.isDefaultPRBranch) {
         repoInfo.prTargetBranches = ['.*']
@@ -227,11 +227,13 @@ repos.each { repoInfo ->
         return;
     }
 
-    // Make the folders
+    // Make the folders. Save the root folder for overview generation
     def generatorFolder = ''
+    def projectFolder = ''
     for (folderElement in repoInfo.folders) {
         if (generatorFolder == '') {
             generatorFolder = folderElement
+            projectFolder = folderElement
         }
         else {
             // Append a new folder
@@ -240,28 +242,91 @@ repos.each { repoInfo ->
         folder(generatorFolder) {}
     }
 
+    // Create a view for all jobs in this folder that don't end with prtest
+    dashboardView("${projectFolder}/Official Builds") {
+        recurse()
+        jobs {
+            regex(/.*(?<!prtest)$/)
+        }
+
+        columns {
+            status()
+            weather()
+            name()
+            lastSuccess()
+            lastFailure()
+            lastDuration()
+        }
+
+        topPortlets {
+            jenkinsJobsList {
+                defaultName = "${projectFolder} jobs"
+            }
+        }
+
+        rightPortlets {
+            buildStatistics {
+                displayName 'Build Statistics'
+            }
+        }
+
+        def createPortletId = {
+            def random = new Random()
+            return "dashboard_portlet_${random.nextInt(32000)}"
+        }
+
+        configure { view ->
+            view / 'leftPortlets' / 'hudson.plugins.view.dashboard.stats.StatJobs' {
+                id createPortletId()
+                name 'Job Statistics'
+            }
+
+            def bottomPortlets = view / NodeBuilder.newInstance().bottomPortlets {}
+
+            bottomPortlets << 'hudson.plugins.view.dashboard.core.UnstableJobsPortlet' {
+                id createPortletId()
+                name 'Unstable Jobs'
+                showOnlyFailedJobs 'false'
+                recurse 'true'
+            }
+            bottomPortlets << 'hudson.plugins.view.dashboard.test.TestStatisticsPortlet' {
+                id createPortletId()
+                name 'Test Statistics'
+                hideZeroTestProjects 'true'
+            }
+            bottomPortlets << 'hudson.plugins.view.dashboard.test.TestTrendChart' {
+                id createPortletId()
+                name 'Test Trends'
+                graphWidth 300
+                graphHeight 220
+                dateRange 0
+                dateShift 0
+                displayStatus 'ALL'
+            }
+        }
+    }
+
     // Make the PR test folder
     def generatorPRTestFolder = "${generatorFolder}/GenPRTest"
 
     // Create a Folder for generator PR tests under that.
     folder(generatorPRTestFolder) {}
-    
+
     // Generator folder is based on the name of the definition script name.  Now,
     // the definition script is a glob syntax, so we need to do a little processing
     def generatorJobBaseName = 'generator'
     def definitionScriptSuffix = repoInfo.definitionScript
-    
+
     // Strip out before the last \ or /
     def lastSlash = Math.max(definitionScriptSuffix.lastIndexOf('/'), definitionScriptSuffix.lastIndexOf('\\'))
-    
+
     if (lastSlash != -1) {
         definitionScriptSuffix = definitionScriptSuffix.substring(lastSlash+1)
     }
-    
+
     // Now remove * and .groovy
     definitionScriptSuffix = definitionScriptSuffix.replace("*", "")
     definitionScriptSuffix = definitionScriptSuffix.replace(".groovy", "")
-    
 
     [true, false].each { isPRTest ->
         def jobGenerator = job(Utilities.getFullJobName(generatorJobBaseName, isPRTest, isPRTest ? generatorPRTestFolder : generatorFolder)) {
