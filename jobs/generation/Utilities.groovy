@@ -1276,16 +1276,17 @@ class Utilities {
     /**
      * Creates the standard job view for a given folder. This does not create the folder.
      *
+     * @param dslFactory The factory that is creating the view. In your primary groovy definitions, the parameter is 'this'
      * @param folderName The folder to create a view for.
      * @param jobName The name of the job, to use in customizing text. Defaults to folderName if not specified.
      * @param viewName The name to give the standard view. Defaults to 'Official Builds'.
      * @param filterRegex The regex that determines what jobs should display in the view.
      * @return The created view
      */
-    def static registerFolderView(String folderName, String jobName = null, String viewName = 'Official Builds', String filterRegex = /.*(?<!prtest)$/) {
+    def static addStandardFolderView(def dslFactory, String folderName, String jobName = null, String viewName = 'Official Builds', String filterRegex = /.*(?<!prtest)$/) {
         jobName = jobName ?: folderName
         // Create a view for all jobs in this folder that don't end with prtest
-        return dashboardView("${folderName}/${viewName}") {
+        return dslFactory.dashboardView("${folderName}/${viewName}") {
             recurse()
             jobs {
                 regex(filterRegex)

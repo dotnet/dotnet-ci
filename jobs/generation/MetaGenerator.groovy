@@ -220,6 +220,7 @@ repos.each { repoInfo ->
 }
 
 // Now that we have all the repos, generate the jobs
+def dslFactory = this
 repos.each { repoInfo ->
 
     // Determine whether we should skip this repo becuase it resides on a different server
@@ -240,7 +241,7 @@ repos.each { repoInfo ->
             generatorFolder += "/${folderElement}"
         }
         folder(generatorFolder) {}
-        registerFolderView(generatorFolder, projectName)
+        addStandardFolderView(dslFactory, generatorFolder, projectName)
     }
 
     // Make the PR test folder
