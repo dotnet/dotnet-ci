@@ -229,16 +229,18 @@ repos.each { repoInfo ->
 
     // Make the folders. Save the root folder for overview generation
     def generatorFolder = ''
+    def projectName = ''
     for (folderElement in repoInfo.folders) {
         if (generatorFolder == '') {
             generatorFolder = folderElement
+            projectName = folderElement
         }
         else {
             // Append a new folder
             generatorFolder += "/${folderElement}"
         }
         folder(generatorFolder) {}
-        registerFolderView(generatorFolder)
+        registerFolderView(generatorFolder, projectName)
     }
 
     // Make the PR test folder
