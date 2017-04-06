@@ -1304,7 +1304,7 @@ class Utilities {
 
             topPortlets {
                 jenkinsJobsList {
-                    defaultName = "${jobName} jobs"
+                    displayName = "${jobName} jobs"
                 }
             }
 
