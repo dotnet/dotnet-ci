@@ -1274,6 +1274,74 @@ class Utilities {
     }
 
     /**
+     * Creates the standard job view for a given folder. This does not create the folder.
+     *
+     * @param folderName The folder to create a view for.
+     * @param jobName The name of the job, to use in customizing text. Defaults to folderName if not specified.
+     * @param viewName The name to give the standard view. Defaults to 'Official Builds'.
+     * @param filterRegex The regex that determines what jobs should display in the view.
+     * @return The created view
+     */
+    def static registerFolderView(String folderName, String jobName = null, String viewName = 'Official Builds', String filterRegex = /.*(?<!prtest)$/) {
+        jobName = jobName ?: folderName
+        // Create a view for all jobs in this folder that don't end with prtest
+        return dashboardView("${folderName}/${viewName}") {
+            recurse()
+            jobs {
+                regex(filterRegex)
+            }
+            statusFilter(StatusFilter.ENABLED)
+
+            columns {
+                status()
+                weather()
+                name()
+                lastSuccess()
+                lastFailure()
+                lastDuration()
+            }
+
+            topPortlets {
+                jenkinsJobsList {
+                    defaultName = "${jobName} jobs"
+                }
+            }
+
+            rightPortlets {
+                buildStatistics {
+                    displayName 'Build Statistics'
+                }
+            }
+
+            def createPortletId = {
+                def random = new Random()
+                return "dashboard_portlet_${random.nextInt(32000)}"
+            }
+
+            configure { view ->
+                view / 'leftPortlets' / 'hudson.plugins.view.dashboard.stats.StatJobs' {
+                    id createPortletId()
+                    name 'Job Statistics'
+                }
+
+                def bottomPortlets = view / NodeBuilder.newInstance().bottomPortlets {}
+
+                bottomPortlets << 'hudson.plugins.view.dashboard.core.UnstableJobsPortlet' {
+                    id createPortletId()
+                    name 'Unstable Jobs'
+                    showOnlyFailedJobs 'false'
+                    recurse 'true'
+                }
+                bottomPortlets << 'hudson.plugins.view.dashboard.test.TestStatisticsPortlet' {
+                    id createPortletId()
+                    name 'Test Statistics'
+                    hideZeroTestProjects 'true'
+                }
+            }
+        }
+    }
+
+    /**
      * Emits a helper job.  This job prints a help message to the GitHub comments section
      * Should only be emitted if the system has "ignore comments from bot" enabled.  The job is triggered
      * by commenting '@dotnet-bot help please'
