@@ -884,7 +884,7 @@ class Utilities {
                     // Raise up the timeout
                     extensions {
                         cloneOptions {
-                            timeout(30)
+                            timeout(90)
                         }
                     }
                 }
@@ -913,7 +913,7 @@ class Utilities {
                     // Raise up the timeout
                     extensions {
                         cloneOptions {
-                            timeout(30)
+                            timeout(90)
                         }
                     }
                 }
