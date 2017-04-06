@@ -220,6 +220,7 @@ repos.each { repoInfo ->
 }
 
 // Now that we have all the repos, generate the jobs
+def dslFactory = this
 repos.each { repoInfo ->
 
     // Determine whether we should skip this repo becuase it resides on a different server
@@ -229,73 +230,18 @@ repos.each { repoInfo ->
 
     // Make the folders. Save the root folder for overview generation
     def generatorFolder = ''
-    def projectFolder = ''
+    def projectName = ''
     for (folderElement in repoInfo.folders) {
         if (generatorFolder == '') {
             generatorFolder = folderElement
-            projectFolder = folderElement
+            projectName = folderElement
         }
         else {
             // Append a new folder
             generatorFolder += "/${folderElement}"
         }
         folder(generatorFolder) {}
-    }
-
-    // Create a view for all jobs in this folder that don't end with prtest
-    dashboardView("${projectFolder}/Official Builds") {
-        recurse()
-        jobs {
-            regex(/.*(?<!prtest)$/)
-        }
-        statusFilter(StatusFilter.ENABLED)
-
-        columns {
-            status()
-            weather()
-            name()
-            lastSuccess()
-            lastFailure()
-            lastDuration()
-        }
-
-        topPortlets {
-            jenkinsJobsList {
-                defaultName = "${projectFolder} jobs"
-            }
-        }
-
-        rightPortlets {
-            buildStatistics {
-                displayName 'Build Statistics'
-            }
-        }
-
-        def createPortletId = {
-            def random = new Random()
-            return "dashboard_portlet_${random.nextInt(32000)}"
-        }
-
-        configure { view ->
-            view / 'leftPortlets' / 'hudson.plugins.view.dashboard.stats.StatJobs' {
-                id createPortletId()
-                name 'Job Statistics'
-            }
-
-            def bottomPortlets = view / NodeBuilder.newInstance().bottomPortlets {}
-
-            bottomPortlets << 'hudson.plugins.view.dashboard.core.UnstableJobsPortlet' {
-                id createPortletId()
-                name 'Unstable Jobs'
-                showOnlyFailedJobs 'false'
-                recurse 'true'
-            }
-            bottomPortlets << 'hudson.plugins.view.dashboard.test.TestStatisticsPortlet' {
-                id createPortletId()
-                name 'Test Statistics'
-                hideZeroTestProjects 'true'
-            }
-        }
+        addStandardFolderView(dslFactory, generatorFolder, projectName)
     }
 
     // Make the PR test folder
