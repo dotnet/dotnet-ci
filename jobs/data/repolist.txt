@@ -42,6 +42,7 @@ dotnet/coreclr branch=master server=dotnet-ci
 dotnet/coreclr branch=master server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/coreclr branch=release/1.0.0 server=dotnet-ci
 dotnet/coreclr branch=release/1.1.0 server=dotnet-ci
+dotnet/coreclr branch=dev/unix_test_workflow server=dotnet-ci
 dotnet/corefx branch=master server=dotnet-ci
 dotnet/corefx branch=release/1.0.0 server=dotnet-ci
 dotnet/corefx branch=release/1.1.0 server=dotnet-ci
