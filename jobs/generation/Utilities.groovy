@@ -1,47 +1,45 @@
 package jobs.generation;
-    
+
 class Utilities {
 
     private static String DefaultBranchOrCommitPR = '${sha1}'
     private static String DefaultBranchOrCommitPush = '*/master'
     private static String DefaultRefSpec = '+refs/pull/*:refs/remotes/origin/pr/*'
 
-    // Get the folder name for a job.
-    //
-    // Parameters:
-    //  project: Project name (e.g. dotnet/coreclr)
-    //
-    // Returns:
-    //  Folder name for the project.  Typically project name with / turned to _
+    /**
+     * Get the folder name for a job.
+     *
+     * @param project Project name (e.g. dotnet/coreclr)
+     * @return Folder name for the project. Typically project name with / turned to _
+     */
     def static getFolderName(String project) {
         return project.replace('/', '_')
     }
 
-    // Get the standard job name of a job given the base job name, project, whether the
-    // job is a PR or not, and an optional folder
-    //
-    // Parameters:
-    //  jobName: Base name of the job
-    //  isPR: True if PR job, false otherwise
-    //  folder (optional): If folder is specified, project is not used as the folder name
-    //
-    // Returns:
-    //  Full job name.  If folder prefix is specified,
+    /**
+     * Get the standard job name of a job given the base job name, project, whether the
+     * job is a PR or not, and an optional folder
+     *
+     * @param jobName Base name of the job
+     * @param isPR True if PR job, false otherwise
+     * @param folder (optional) If folder is specified, project is not used as the folder name
+     * @return Full job name.  If folder prefix is specified,
+     */
     def static getFullJobName(String jobName, boolean isPR, String folder = '') {
         return getFullJobName('', jobName, isPR, folder);
     }
 
-    // Get the standard job name of a job given the base job name, project, whether the
-    // job is a PR or not, and an optional folder
-    //
-    // Parameters:
-    //  project: Project name (e.g. dotnet/coreclr)
-    //  jobName: Base name of the job
-    //  isPR: True if PR job, false otherwise
-    //  folder (optional): If folder is specified, project is not used as the folder name
-    //
-    // Returns:
-    //  Full job name.  If folder prefix is specified,
+    /**
+     * Get the standard job name of a job given the base job name, project, whether the
+     * job is a PR or not, and an optional folder
+     *
+     * @param project Project name (e.g. dotnet/coreclr)
+     * @param jobName Base name of the job
+     * @param isPR True if PR job, false otherwise
+     * @param folder (optional) If folder is specified, project is not used as the folder name
+     *
+     * @return Full job name.  If folder prefix is specified,
+     */
     def static getFullJobName(String project, String jobName, boolean isPR, String folder = '') {
         def jobSuffix = ''
         if (isPR) {
@@ -66,37 +64,40 @@ class Utilities {
         return fullJobName
     }
 
-    // Given the github full project name (e.g. dotnet/coreclr), get the
-    // project name (coreclr)
-    //
-    // Parameters:
-    //  project: Qualified project name
-    //
-    // Returns: Project name
+    /**
+     * Given the github full project name (e.g. dotnet/coreclr), get the
+     * project name (coreclr)
+     *
+     * @param project Qualified project name
+     *
+     * @return Project name
+     */
     def static getProjectName(String project) {
         return project.split('/')[1];
     }
 
-    // Given the github full project name (e.g. dotnet/coreclr), get the
-    // org name (dotnet)
-    //
-    // Parameters:
-    //  project: Qualified project name
-    //
-    // Returns: Org name
+    /**
+     * Given the github full project name (e.g. dotnet/coreclr), get the
+     * org name (dotnet)
+     *
+     * @param project Qualified project name
+     *
+     * @return Org name
+     */
     def static getOrgName(String project) {
         return project.split('/')[0];
     }
 
-    // Define a set of OS names which can resore and use managed build tools with a non-default RID.
-    // This controls the __PUBLISH_RID environment variable which affects init-tools behavior.
-    // Entries placed in this list are temporary, and should be removed when NuGet packages are published
-    // for the new OS.
-    //
-    // Parameters:
-    //  os: The name of the operating system. Ex: Windows_NT, OSX, openSUSE42.1.
-    //
-    // Returns: The name of an alternate RID to use while bootstrapping. If no RID mapping exists, returns null.
+    /**
+     * Define a set of OS names which can resore and use managed build tools with a non-default RID.
+     * This controls the __PUBLISH_RID environment variable which affects init-tools behavior.
+     * Entries placed in this list are temporary, and should be removed when NuGet packages are published
+     * for the new OS.
+     *
+     * @param os The name of the operating system. Ex: Windows_NT, OSX, openSUSE42.1.
+     *
+     * @return The name of an alternate RID to use while bootstrapping. If no RID mapping exists, returns null.
+     */
     def static getBoostrapPublishRid(def os) {
         def bootstrapRidMap = [
             'OpenSUSE42.1': 'opensuse.13.2-x64',
@@ -106,13 +107,14 @@ class Utilities {
         return bootstrapRidMap.get(os, null)
     }
 
-    // Given the name of an OS, set the nodes that this job runs on.
-    //
-    // Parameters:
-    //  job: Job to set affinity for
-    //  osName: Name of OS to to run on.
-    //  version: Optional version of the image.  This version can be the date potentially followed
-    //           by .1, .2, etc. or it could be a static image version (like a perf label).
+    /**
+     * Given the name of an OS, set the nodes that this job runs on.
+     *
+     * @param job Job to set affinity for
+     * @param osName Name of OS to to run on.
+     * @param version Optional version of the image.  This version can be the date potentially followed
+     *                by .1, .2, etc. or it could be a static image version (like a perf label).
+     */
     def static setMachineAffinity(def job, String osName, String version = '') {
         if (osName == 'Ubuntu') {
             osName = 'Ubuntu14.04'
@@ -375,7 +377,7 @@ class Utilities {
         job.with {
             label(machineLabel)
         }
-        
+
         // Temporary, nano isn't working on TP5 any longer.  Getting random restarts.
         if (osName.equals('Windows Nano 2016')) {
             job.with {
@@ -384,14 +386,15 @@ class Utilities {
         }
     }
 
-    // Performs standard job setup for a newly created job.
-    // Includes: Basic parameters, Git SCM, and standard options
-    //
-    // Parameters:
-    //  job: Job to set up.
-    //  project: Name of project
-    //  isPR: True if job is PR job, false otherwise.
-    //  defaultBranch: If not a PR job, the branch that we should be building.
+    /**
+     * Performs standard job setup for a newly created job.
+     * Includes: Basic parameters, Git SCM, and standard options
+     *
+     * @param job Job to set up.
+     * @param project Name of project
+     * @param isPR True if job is PR job, false otherwise.
+     * @param defaultBranch If not a PR job, the branch that we should be building.
+     */
     def static standardJobSetup(def job, String project, boolean isPR, String defaultBranch = '*/master') {
         String defaultRefSpec = getDefaultRefSpec(null)
         if (isPR) {
@@ -400,50 +403,56 @@ class Utilities {
         standardJobSetupEx(job, project, isPR, defaultBranch, defaultRefSpec)
     }
 
-    // Performs standard job setup for a newly created push job.
-    // Includes: Basic parameters, Git SCM, and standard options
-    //
-    // Parameters:
-    //  job: Job to set up.
-    //  project: Name of project
-    //  defaultBranch: Branch to build on push.
+    /**
+     * Performs standard job setup for a newly created push job.
+     * Includes: Basic parameters, Git SCM, and standard options
+     *
+     * @param job Job to set up.
+     * @param project Name of project
+     * @param defaultBranch Branch to build on push.
+     */
     def static standardJobSetupPush(def job, String project, String defaultBranch = null) {
         defaultBranch = getDefaultBranchOrCommitPush(defaultBranch);
         standardJobSetupEx(job, project, false, defaultBranch, null);
     }
 
-    // Performs standard job setup for a newly created push job.
-    // Includes: Basic parameters, Git SCM, and standard options
-    //
-    // Parameters:
-    //  job: Job to set up.
-    //  project: Name of project
-    //  defaultBranchOrCommit: Commit / branch to build.
-    //  defaultRefSpec: the refs that Jenkins must sync on a PR job
+    /**
+     * Performs standard job setup for a newly created push job.
+     * Includes: Basic parameters, Git SCM, and standard options
+     *
+     * @param job Job to set up.
+     * @param project Name of project
+     * @param defaultBranchOrCommit Commit / branch to build.
+     * @param defaultRefSpec the refs that Jenkins must sync on a PR job
+     */
     def static standardJobSetupPR(def job, String project, String defaultBranchOrCommit = null, String defaultRefSpec = null) {
         defaultBranchOrCommit = getDefaultBranchOrCommitPR(defaultBranchOrCommit)
         defaultRefSpec = getDefaultRefSpec(defaultRefSpec)
         standardJobSetupEx(job, project, true, defaultBranchOrCommit, defaultRefSpec)
     }
 
-    // Performs standard job setup for a newly created job.
-    // Includes: Basic parameters, Git SCM, and standard options
-    //
-    // Parameters:
-    //  job: Job to set up.
-    //  project: Name of project
-    //  isPR: True if job is PR job, false otherwise.
-    //  defaultBranchOrCommit: Commit / branch to build.
-    //  defaultRefSpec: the refs that Jenkins must sync on a PR job
+    /**
+     * Performs standard job setup for a newly created job.
+     * Includes: Basic parameters, Git SCM, and standard options
+     *
+     * @param job Job to set up.
+     * @param project Name of project
+     * @param isPR True if job is PR job, false otherwise.
+     * @param defaultBranchOrCommit Commit / branch to build.
+     * @param defaultRefSpec the refs that Jenkins must sync on a PR job
+     */
     def private static standardJobSetupEx(def job, String project, boolean isPR, String defaultBranchOrCommit, String defaultRefSpec) {
         Utilities.addStandardParametersEx(job, project, isPR, defaultBranchOrCommit, defaultRefSpec)
         Utilities.addScm(job, project, isPR)
         Utilities.addStandardOptions(job, isPR)
     }
 
-    // Set the job timeout to the specified value.
-    // job - Input job to modify
-    // jobTimeout - Set the job timeout.
+    /**
+     * Set the job timeout to the specified value.
+     *
+     * @param job Input job to modify
+     * @param jobTimeout Set the job timeout.
+     */
     def static setJobTimeout(def job, int jobTimeout) {
         job.with {
             wrappers {
@@ -454,10 +463,13 @@ class Utilities {
         }
     }
 
-    // Adds a retention policy for artifacts
-    //  job - Job to modify
-    //  isPR - True if the job is a pull request job, false otherwise.  If isPR is true,
-    //         a more restrictive retention policy is use.
+    /**
+     * Adds a retention policy for artifacts
+     *
+     * @param job Job to modify
+     * @param isPR True if the job is a pull request job, false otherwise.  If isPR is true,
+     *             a more restrictive retention policy is use.
+     */
     def static addRetentionPolicy(def job, boolean isPR = false) {
         job.with {
             // Enable the log rotator
@@ -478,9 +490,12 @@ class Utilities {
         }
     }
 
-    // Add standard options to a job.
-    // job - Input job
-    // isPR - True if the job is a pull request job, false otherwise.
+    /**
+     * Add standard options to a job.
+     *
+     * @param job Input job
+     * @param isPR True if the job is a pull request job, false otherwise.
+     */
     def static addStandardOptions(def job, def isPR = false) {
         job.with {
             // Enable concurrent builds
@@ -518,7 +533,7 @@ class Utilities {
         if (isPR) {
             Utilities.addIgnoredPaths(job, ['netci.groovy']);
         }
-        
+
         // Check Generate Disabled setting (for pr tests)
         if (GenerationSettings.isTestGeneration()) {
             job.with {
@@ -549,15 +564,17 @@ class Utilities {
         return combinedString
     }
 
-    // Sets up the job to fast exit if only certain paths were edited.
-    //
-    // Parameters:
-    //  job - Input job to modify
-    //  ignoredPaths - Array of strings containing paths that should be ignored
-    // Description:
-    //  If only files in the paths were changed (these paths are evaluated as globs)
-    //  then the build exits early.  Multiple calls to this function will replace the original
-    //  ignored paths.
+    /**
+     * Sets up the job to fast exit if only certain paths were edited.
+    * <p>
+     * If only files in the paths were changed (these paths are evaluated as globs)
+     * then the build exits early. Multiple calls to this function will replace the original
+     * ignored paths.
+     * </p>
+     *
+     * @param job Input job to modify
+     * @param ignoredPaths Array of strings containing paths that should be ignored
+     */
     def static addIgnoredPaths(def job, Iterable<String> ignoredPaths) {
         // Doing this instead of String.join because for whatever reason it doesn't resolve
         // in CI.
@@ -581,8 +598,10 @@ class Utilities {
         }
         */
     }
-    
-    // Adds an auto-retry to a job
+
+    /**
+     * Adds an auto-retry to a job
+     */
     def private static addJobRetry(def job) {
         List<String> expressionsToRetry = [
             'channel is already closed',
@@ -599,7 +618,7 @@ class Utilities {
         def regex = '(?i).*('
         regex += Utilities.joinStrings(expressionsToRetry, '|')
         regex += ').*'
-        
+
         def naginatorNode = new NodeBuilder().'com.chikli.hudson.plugin.naginator.NaginatorPublisher' {
             regexpForRerun(regex)
             rerunIfUnstable(false)
@@ -607,13 +626,13 @@ class Utilities {
             checkRegexp(true)
             maxSchedule(3)
         }
-        
+
         def delayNode = new NodeBuilder().delay(class: 'com.chikli.hudson.plugin.naginator.FixedDelay') {
             delegate.delay(15)
         }
-        
+
         naginatorNode.append(delayNode)
-        
+
         job.with {
             configure { proj ->
                 def currentPublishers = proj / publishers
@@ -635,19 +654,20 @@ class Utilities {
         addJobRetry(job)
     }
 
-    // Adds a github PR trigger for a job
-    // Parameters:
-    //    job - Job to add the PR trigger for
-    //    contextString - String to use as the context (appears in github as the name of the test being run).
-    //                    If empty, the job name is used.
-    //    triggerPhraseString - String to use to trigger the job.  If empty, the PR is triggered by default.
-    //    triggerOnPhraseOnly - If true and trigger phrase string is non-empty, triggers only using the specified trigger
-    //                          phrase.
-    //    permitAllSubmitters - If true all PR submitters may run the job
-    //    permittedOrgs - If permitAllSubmitters is false, at least permittedOrgs or permittedUsers should be non-empty.
-    //    permittedUsers - If permitAllSubmitters is false, at least permittedOrgs or permittedUsers should be non-empty.
-    //    branchName - If null, all branches are tested.  If not null, then is the target branch of this trigger
-    //
+    /**
+     * Adds a github PR trigger for a job
+     *
+     * @param job Job to add the PR trigger for
+     * @param contextString String to use as the context (appears in github as the name of the test being run).
+     *                      If empty, the job name is used.
+     * @param triggerPhraseString String to use to trigger the job.  If empty, the PR is triggered by default.
+     * @param triggerOnPhraseOnly If true and trigger phrase string is non-empty, triggers only using the specified trigger
+     *                            phrase.
+     * @param permitAllSubmitters If true all PR submitters may run the job
+     * @param permittedOrgs If permitAllSubmitters is false, at least permittedOrgs or permittedUsers should be non-empty.
+     * @param permittedUsers If permitAllSubmitters is false, at least permittedOrgs or permittedUsers should be non-empty.
+     * @param branchName If null, all branches are tested.  If not null, then is the target branch of this trigger
+     */
     def private static addGithubPRTriggerImpl(def job, String branchName, String contextString, String triggerPhraseString, boolean triggerOnPhraseOnly, boolean permitAllSubmitters, Iterable<String> permittedOrgs, Iterable<String> permittedUsers) {
         job.with {
             triggers {
@@ -693,23 +713,22 @@ class Utilities {
             }
             JobReport.Report.addPRTriggeredJob(job.name, (String[])[branchName], contextString, triggerPhraseString, !triggerOnPhraseOnly)
         }
-        
+
         addJobRetry(job)
     }
 
-    // Adds a github PR trigger only triggerable by member of certain organizations. Either permittedOrgs or
-    // permittedUsers must be non-null.
-    //
-    // Parameters:
-    //    job - Job to add the PR trigger for
-    //    contextString - String to use as the context (appears in github as the name of the test being run).
-    //                    If empty, the job name is used.
-    //    triggerPhraseString - String to use to trigger the job.  If empty, the PR is triggered by default.
-    //    triggerOnPhraseOnly - If true and trigger phrase string is non-empty, triggers only using the specified trigger
-    //                          phrase.
-    //    permittedOrgs - orgs permitted to trigger the job
-    //    permittedUsers - users permitted to trigger the job
-    //
+    /**
+     * Adds a github PR trigger only triggerable by member of certain organizations. Either permittedOrgs or
+     * permittedUsers must be non-null.
+     *
+     * @param job Job to add the PR trigger for
+     * @param  contextString String to use as the context (appears in github as the name of the test being run).
+     *                       If empty, the job name is used.
+     * @param triggerPhraseString String to use to trigger the job.  If empty, the PR is triggered by default.
+     * @param triggerOnPhraseOnly If true and trigger phrase string is non-empty, triggers only using the specified trigger phrase.
+     * @param permittedOrgs orgs permitted to trigger the job
+     * @param permittedUsers users permitted to trigger the job
+     */
     def static addPrivateGithubPRTrigger(def job, String contextString, String triggerPhraseString, boolean triggerPhraseOnly, Iterable<String> permittedOrgs, Iterable<String> permittedUsers) {
         assert contextString != ''
         assert triggerPhraseString != ''
@@ -717,16 +736,17 @@ class Utilities {
         Utilities.addGithubPRTriggerImpl(job, null, contextString, triggerPhraseString, triggerPhraseOnly, false, permittedOrgs, permittedUsers)
     }
 
-    // Adds a github PR trigger only triggerable by member of certain organizations
-    // Parameters:
-    //    job - Job to add the PR trigger for
-    //    branchName - If the target branch for the PR message matches this target branch, then the trigger is run.
-    //    contextString - String to use as the context (appears in github as the name of the test being run).
-    //                    If empty, the job name is used.
-    //    triggerPhraseString - String to use to trigger the job.  If empty, the PR is triggered by default.
-    //    permittedOrgs - If permitAllSubmitters is false, permittedOrgs should be non-empty list of organizations
-    //    branchName - Branch that this trigger is specific to.  If a PR comes in from another branch, this trigger is ignored.
-    //
+    /**
+     * Adds a github PR trigger only triggerable by member of certain organizations
+     *
+     * @param job Job to add the PR trigger for
+     * @param branchName If the target branch for the PR message matches this target branch, then the trigger is run.
+     * @param contextString String to use as the context (appears in github as the name of the test being run).
+     *                      If empty, the job name is used.
+     * @param triggerPhraseString String to use to trigger the job.  If empty, the PR is triggered by default.
+     * @param permittedOrgs If permitAllSubmitters is false, permittedOrgs should be non-empty list of organizations
+     * @param branchName Branch that this trigger is specific to.  If a PR comes in from another branch, this trigger is ignored.
+     */
     def static addPrivateGithubPRTriggerForBranch(def job, def branchName, String contextString, String triggerPhraseString, Iterable<String> permittedOrgs, Iterable<String> permittedUsers) {
         assert contextString != ''
         assert triggerPhraseString != ''
@@ -734,15 +754,16 @@ class Utilities {
         Utilities.addGithubPRTriggerImpl(job, branchName, contextString, triggerPhraseString, true, false, permittedOrgs, permittedUsers)
     }
 
-    // Adds a github PR trigger only triggerable by member of certain organizations
-    // Parameters:
-    //    job - Job to add the PR trigger for
-    //    branchName - If the target branch for the PR message matches this target branch, then the trigger is run.
-    //    contextString - String to use as the context (appears in github as the name of the test being run).
-    //                    If empty, the job name is used.
-    //    permittedOrgs - If permitAllSubmitters is false, permittedOrgs should be non-empty list of organizations
-    //    branchName - Branch that this trigger is specific to.  If a PR comes in from another branch, this trigger is ignored.
-    //
+    /**
+     * Adds a github PR trigger only triggerable by member of certain organizations
+     *
+     * @param job Job to add the PR trigger for
+     * @param branchName If the target branch for the PR message matches this target branch, then the trigger is run.
+     * @param contextString String to use as the context (appears in github as the name of the test being run).
+     *                      If empty, the job name is used.
+     * @param permittedOrgs If permitAllSubmitters is false, permittedOrgs should be non-empty list of organizations
+     * @param branchName Branch that this trigger is specific to.  If a PR comes in from another branch, this trigger is ignored.
+     */
     def static addDefaultPrivateGithubPRTriggerForBranch(def job, def branchName, String contextString, Iterable<String> permittedOrgs, Iterable<String> permittedUsers) {
         assert contextString != ''
 
@@ -751,16 +772,17 @@ class Utilities {
         Utilities.addGithubPRTriggerImpl(job, branchName, contextString, triggerPhraseString, false, false, permittedOrgs, permittedUsers)
     }
 
-    // Adds a github PR trigger for a job that is specific to a particular branch
-    // Parameters:
-    //    job - Job to add the PR trigger for
-    //    branchName - If the target branch for the PR message matches this target branch, then the trigger is run.
-    //    contextString - String to use as the context (appears in github as the name of the test being run).
-    //                    If empty, the job name is used.
-    //    triggerPhraseString - String to use to trigger the job.  If empty, the PR is triggered by default.
-    //    triggerOnPhraseOnly - If true and trigger phrase string is non-empty, triggers only using the specified trigger
-    //                          phrase.
-    //
+    /**
+     * Adds a github PR trigger for a job that is specific to a particular branch
+     *
+     * @param job Job to add the PR trigger for
+     * @param branchName If the target branch for the PR message matches this target branch, then the trigger is run.
+     * @param contextString String to use as the context (appears in github as the name of the test being run).
+     *                      If empty, the job name is used.
+     * @param triggerPhraseString String to use to trigger the job.  If empty, the PR is triggered by default.
+     * @param triggerOnPhraseOnly If true and trigger phrase string is non-empty, triggers only using the specified trigger
+     *                            phrase.
+     */
     def static addGithubPRTriggerForBranch(def job, String branchName, String contextString,
         String triggerPhraseString = '', boolean triggerOnPhraseOnly = true) {
 
@@ -774,15 +796,16 @@ class Utilities {
         Utilities.addGithubPRTriggerImpl(job, branchName, contextString, triggerPhraseString, triggerOnPhraseOnly, true, null, null)
     }
 
-    // Adds a github PR trigger for a job
-    // Parameters:
-    //    job - Job to add the PR trigger for
-    //    contextString - String to use as the context (appears in github as the name of the test being run).
-    //                    If empty, the job name is used.
-    //    triggerPhraseString - String to use to trigger the job.  If empty, the PR is triggered by default.
-    //    triggerOnPhraseOnly - If true and trigger phrase string is non-empty, triggers only using the specified trigger
-    //                          phrase.
-    //
+    /**
+     * Adds a github PR trigger for a job
+     *
+     * @param job Job to add the PR trigger for
+     * @param contextString String to use as the context (appears in github as the name of the test being run).
+     *                      If empty, the job name is used.
+     * @param triggerPhraseString String to use to trigger the job.  If empty, the PR is triggered by default.
+     * @param triggerOnPhraseOnly If true and trigger phrase string is non-empty, triggers only using the specified trigger
+     *                            phrase.
+     */
     def static addGithubPRTrigger(def job, String contextString, String triggerPhraseString = '', boolean triggerOnPhraseOnly = true) {
         assert contextString != ''
 
@@ -799,13 +822,14 @@ class Utilities {
         return "${protocol}://github.com/${project}.git"
     }
 
-    // Adds the standard parameters for PR and Push jobs.
-    //
-    // Parameters:
-    //  job: Job to change
-    //  project: Github project
-    //  isPR: True if this is a PR job, false otherwise.
-    //  defaultBranch: Branch to build by default if this is NOT a PR job.  Defaults to */master.
+    /**
+     * Adds the standard parameters for PR and Push jobs.
+     *
+     * @param job Job to change
+     * @param project Github project
+     * @param isPR True if this is a PR job, false otherwise.
+     * @param defaultBranch Branch to build by default if this is NOT a PR job. Defaults to *&#x2215;master.
+     */
     def static addStandardParameters(def job, String project, boolean isPR, String defaultBranch = '*/master') {
         String defaultRefSpec = getDefaultRefSpec(null)
         if (isPR) {
@@ -815,14 +839,15 @@ class Utilities {
         addStandardParametersEx(job, project, isPR, defaultBranch, defaultRefSpec)
     }
 
-    // Adds the standard parameters for PR and Push jobs.
-    //
-    // Parameters:
-    //  job: Job to set up.
-    //  project: Name of project
-    //  isPR: True if job is PR job, false otherwise.
-    //  defaultBranchOrCommit: Commit / branch to build.
-    //  defaultRefSpec: the refs that Jenkins must sync on a PR job
+    /**
+     * Adds the standard parameters for PR and Push jobs.
+     *
+     * @param job Job to set up.
+     * @param project Name of project
+     * @param isPR True if job is PR job, false otherwise.
+     * @param defaultBranchOrCommit Commit / branch to build.
+     * @param defaultRefSpec the refs that Jenkins must sync on a PR job
+     */
     def private static addStandardParametersEx(def job, String project, boolean isPR, String defaultBranchOrCommit, String defaultRefSpec) {
         if (isPR) {
             addStandardPRParameters(job, project, defaultBranchOrCommit, defaultRefSpec)
@@ -834,8 +859,10 @@ class Utilities {
         }
     }
 
-    // Adds parameters to a non-PR job.  Right now this is only the git branch or commit.
-    // This is added so that downstream jobs get the same hash as the root job
+    /**
+     * Adds parameters to a non-PR job.  Right now this is only the git branch or commit.
+     * This is added so that downstream jobs get the same hash as the root job
+     */
     def private static addStandardNonPRParameters(def job, String project, String defaultBranch = '*/master') {
         job.with {
             parameters {
@@ -846,8 +873,10 @@ class Utilities {
         }
     }
 
-    // Adds the private job/PR parameters to a job.  Note that currently this shouldn't used on a non-pr job because
-    // push triggering may not work.
+    /**
+     * Adds the private job/PR parameters to a job.  Note that currently this shouldn't used on a non-pr job because
+     * push triggering may not work.
+     */
     def static addStandardPRParameters(def job, String project, String defaultBranchOrCommit = null, String defaultRefSpec = null) {
         defaultBranchOrCommit = getDefaultBranchOrCommitPR(defaultBranchOrCommit)
         defaultRefSpec = getDefaultRefSpec(defaultRefSpec)
@@ -880,7 +909,7 @@ class Utilities {
                     }
 
                     branch(buildBranch)
-                    
+
                     // Raise up the timeout
                     extensions {
                         cloneOptions {
@@ -892,8 +921,10 @@ class Utilities {
         }
     }
 
-    // Adds private job/PR test SCM.  This is slightly different than normal
-    // SCM since we use the parameterized fields for the refspec, repo, and branch
+    /**
+     * Adds private job/PR test SCM.  This is slightly different than normal
+     * SCM since we use the parameterized fields for the refspec, repo, and branch
+     */
     def static addPRTestSCM(def job, String project) {
         job.with {
             scm {
@@ -909,7 +940,7 @@ class Utilities {
                     }
 
                     branch('${GitBranchOrCommit}')
-                    
+
                     // Raise up the timeout
                     extensions {
                         cloneOptions {
@@ -921,11 +952,12 @@ class Utilities {
         }
     }
 
-    // Adds private permissions to a job, making it visible only to certain users
-    // Parameters:
-    //
-    //  job - Job to modify
-    //  permitted - Array of groups and users that are permitted to view the job.
+    /**
+     * Adds private permissions to a job, making it visible only to certain users
+     *
+     * @param job Job to modify
+     * @param permitted Array of groups and users that are permitted to view the job.
+     */
     def static addPrivatePermissions(def job, def permitted = ['mmitche', 'Microsoft']) {
         job.with {
             authorization {
@@ -939,11 +971,12 @@ class Utilities {
         }
     }
 
-    // Archives data for a job when specific job result conditions are met.
-    // Parameters:
-    //
-    //  job - Job to modify
-    //  settings - Archival settings
+    /**
+     * Archives data for a job when specific job result conditions are met.
+     *
+     * @param job Job to modify
+     * @param settings Archival settings
+     */
     def static addArchival(def job, ArchivalSettings settings) {
         job.with {
             publishers {
@@ -973,12 +1006,13 @@ class Utilities {
         }
     }
 
-    // Archives data in Azure for a job when specific job result conditions are met.
-    // Parameters:
-    //
-    // job - Job to modify
-    // storageAccount - Storage account to use
-    // settings - Archival settings
+    /**
+     * Archives data in Azure for a job when specific job result conditions are met.
+     *
+     * @param job Job to modify
+     * @param storageAccount Storage account to use
+     * @param settings Archival settings
+     */
     def static addAzureArchival(def job, String storageAccount, ArchivalSettings settings) {
         job.with {
             publishers {
@@ -1008,14 +1042,15 @@ class Utilities {
         }
     }
 
-    // Archives data for a job
-    // Parameters:
-    //
-    //  job - Job to modify
-    //  filesToArchive - Files to archive.  Comma separated glob syntax
-    //  filesToExclude - Files to exclude from archival.  Defaults to no files excluded.  Comma separated glob syntax
-    //  doNotFailIfNothingArchived - If true, and nothing is archived, will not fail the build.
-    //  archiveOnlyIfSuccessful - If true, will only archive if the build passes.  If false, then will archive always
+    /**
+     * Archives data for a job
+     *
+     * @param job Job to modify
+     * @param filesToArchive Files to archive. Comma separated glob syntax
+     * @param filesToExclude Files to exclude from archival. Defaults to no files excluded. Comma separated glob syntax
+     * @param doNotFailIfNothingArchived If true, and nothing is archived, will not fail the build.
+     * @param archiveOnlyIfSuccessful If true, will only archive if the build passes. If false, then will archive always
+     */
     @Deprecated
     def static addArchival(def job, String filesToArchive, String filesToExclude = '',
         def doNotFailIfNothingArchived = false, def archiveOnlyIfSuccessful = true) {
@@ -1053,14 +1088,15 @@ class Utilities {
         }
     }
 
-    // Adds a trigger that causes the job to run on a schedule.
-    // If alwaysRuns is true, then this is a true cron trigger.  If false,
-    // then only runs if source control has changed
-    // Parameters:
-    //
-    //  job - Job to modify
-    //  cronString - Cron job string indicating the frequency
-    //  alwaysRuns - If true, the job will be a true cron job, if false, will run only when source has changed
+    /**
+     * Adds a trigger that causes the job to run on a schedule.
+     * If alwaysRuns is true, then this is a true cron trigger.  If false,
+     * then only runs if source control has changed
+     *
+     * @param job Job to modify
+     * @param cronString Cron job string indicating the frequency
+     * @param alwaysRuns If true, the job will be a true cron job, if false, will run only when source has changed
+     */
     def static addPeriodicTrigger(def job, String cronString, boolean alwaysRuns = false) {
         job.with {
             triggers {
@@ -1077,12 +1113,13 @@ class Utilities {
         addJobRetry(job)
     }
 
-    // Adds xunit.NET v2 test results.
-    // Parameters:
-    //
-    //  job - Job to modify
-    //  resultFilePattern - Ant style pattern of test results.  Defaults to **/testResults.xml
-    //  skipIfNoTestFiles - Do not fail the build if there were no test files found.
+    /**
+     * Adds xunit.NET v2 test results.
+     *
+     * @param job Job to modify
+     * @param resultFilePattern Ant style pattern of test results. Defaults to **&#x2215;testResults.xml
+     * @param skipIfNoTestFiles Do not fail the build if there were no test files found.
+     */
     def static addXUnitDotNETResults(def job, String resultFilePattern = '**/testResults.xml', boolean skipIfNoTestFiles = false) {
         job.with {
             publishers {
@@ -1114,12 +1151,13 @@ class Utilities {
         }
     }
 
-    // Adds MSTest test results.
-    // Parameters:
-    //
-    //  job - Job to modify
-    //  resultFilePattern - Ant style pattern of test results.  Defaults to **/testResults.xml
-    //  skipIfNoTestFiles - Do not fail the build if there were no test files found.
+    /**
+     * Adds MSTest test results.
+     *
+     * @param job Job to modify
+     * @param resultFilePattern Ant style pattern of test results.  Defaults to **&#x2215;testResults.xml
+     * @param skipIfNoTestFiles - Do not fail the build if there were no test files found.
+     */
     def static addMSTestResults(def job, String resultFilePattern = '**/testResults.xml', boolean skipIfNoTestFiles = false) {
         job.with {
             publishers {
@@ -1151,18 +1189,19 @@ class Utilities {
         }
     }
 
-    // Calls a web hook on Jenkins build events.  Allows our build monitoring jobs to be push notified
-    // vs. polling.
-    //
-    // Each call to this overwrites the previous set of notifications
-    //
-    // Parameters:
-    //  job - Job to add hook to
-    //  endPoints - List of credential IDs of the endpoints to run
+    /**
+     * Calls a web hook on Jenkins build events.  Allows our build monitoring jobs to be push notified
+     * vs. polling.
+     *
+     * Each call to this overwrites the previous set of notifications
+     *
+     * @param job Job to add hook to
+     * @param endPoints List of credential IDs of the endpoints to run
+     */
     private static void setBuildEventWebHooks(def job, def endPoints) {
         job.with {
             notifications {
-                endPoints.each { endPoint -> 
+                endPoints.each { endPoint ->
                     endpoint(endPoint) {
                         event('all')
                     }
@@ -1199,8 +1238,10 @@ class Utilities {
 
         return DefaultRefSpec;
     }
-    
-    // Adds cross integration to this repo
+
+    /**
+     * Adds cross integration to this repo
+     */
     def static addCROSSCheck(def dslFactory, String project, String branch, boolean runByDefault = true) {
         def crossJob = dslFactory.job(Utilities.getFullJobName(project, 'CROSS_check', true)) {
             steps {
@@ -1212,7 +1253,7 @@ class Utilities {
                 def repoName = Utilities.getProjectName(project)
                 batchFile("cd cross-tool && cross --organization ${orgName} --repository ${repoName} --token %UPDATE_TOKEN% --logfile cross-log.json %ghprbPullId% ")
             }
-            
+
             // Ensure credentials are bound
             wrappers {
                 // SAAS URL
@@ -1222,8 +1263,8 @@ class Utilities {
                 }
             }
         }
-        
-        
+
+
         // Cross tool currently works on Windows only
         Utilities.setMachineAffinity(crossJob, 'Windows_NT', 'latest-or-auto')
         Utilities.addPrivatePermissions(crossJob, ['Microsoft'])
@@ -1232,25 +1273,26 @@ class Utilities {
         Utilities.addArchival(crossJob, '**/cross-log.json')
     }
 
-    // Emits a helper job.  This job prints a help message to the GitHub comments section
-    // Should only be emitted if the system has "ignore comments from bot" enabled.  The job is triggered
-    // by commenting '@dotnet-bot help please'
-    //
-    // This function should be called at the *end* of the groovy file (it needs a list of the 
-    // generated jobs obtained through the reporting framework.
-    //
-    // Parameters:
-    //  dslFactory - Factory object that can be used to create new jobs.  In your primary groovy
-    //               definitions, this parameter is "this".
-    //  project - Current project (required)
-    //  branchName - Branch this help message is defined for.
-    //  customHeader - Custom header message prepended to the help message.
-    //  customFooter - Footer message appended. Could be used to provide repo specific info (bug reports, known issues, etc.)
-    //
-    // Example:
-    //  At the end of the netci.groovy:
-    //  Utilities.createHelperJob(this, 'Welcome to CoreFX CI')
-    //
+    /**
+     * Emits a helper job.  This job prints a help message to the GitHub comments section
+     * Should only be emitted if the system has "ignore comments from bot" enabled.  The job is triggered
+     * by commenting '@dotnet-bot help please'
+     *
+     * This function should be called at the *end* of the groovy file (it needs a list of the
+     * generated jobs obtained through the reporting framework.
+     *
+     * Example
+     * At the end of the netci.groovy:
+     *  Utilities.createHelperJob(this, 'Welcome to CoreFX CI')
+     *
+     * Parameters:
+     * @param dslFactory Factory object that can be used to create new jobs.  In your primary groovy
+     *                   definitions, this parameter is "this".
+     * @param project Current project (required)
+     * @param branchName Branch this help message is defined for.
+     * @param customHeader Custom header message prepended to the help message.
+     * @param customFooter Footer message appended. Could be used to provide repo specific info (bug reports, known issues, etc.)
+     */
     def static createHelperJob(def dslFactory, String project, String branchName, String customHeader, String customFooter = '') {
         String defaultLegList = ""
         String nonDefaultLegList = ""
@@ -1340,16 +1382,16 @@ ${customFooter}"""
                     whiteListTargetBranches([branchName])
                 }
             }
-            
+
             // Directly set the Github project property so that we don't have to actually clone source
             configure { node ->
                 node / 'properties' / 'com.coravy.hudson.plugins.github.GithubProjectProperty' {
                     'projectUrl'("https://github.com/${project}")
                 }
             }
-            
+
             quietPeriod(0)
-            
+
             // Check Generate Disabled setting (for pr tests)
             if (GenerationSettings.isTestGeneration()) {
                 disabled(true)
