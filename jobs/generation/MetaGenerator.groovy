@@ -241,7 +241,7 @@ repos.each { repoInfo ->
             generatorFolder += "/${folderElement}"
         }
         folder(generatorFolder) {}
-        addStandardFolderView(dslFactory, generatorFolder, projectName)
+        Utilities.addStandardFolderView(dslFactory, generatorFolder, projectName)
     }
 
     // Make the PR test folder
