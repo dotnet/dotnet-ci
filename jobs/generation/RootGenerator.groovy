@@ -114,6 +114,8 @@ folder('GenPRTest') {}
             maxPerNode(1)
             categories(['job_generators'])
         }
+        
+        label('!windowsnano16 && !performance && !dtap')
 
         if (isPR) {
             // Trigger on a PR test from the dotnet-ci repo
