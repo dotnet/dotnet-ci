@@ -79,6 +79,7 @@ dotnet/project-system branch=master server=dotnet-ci
 dotnet/project-system branch=dev15.0.x server=dotnet-ci
 dotnet/project-system branch=dev15.1.x server=dotnet-ci
 dotnet/project-system branch=dev15.2.x server=dotnet-ci
+dotnet/project-system branch=dev15.3.x server=dotnet-ci
 dotnet/sdk branch=master server=dotnet-ci
 dotnet/sdk branch=dev15.0.x server=dotnet-ci
 dotnet/sdk branch=dev15.1.x server=dotnet-ci
