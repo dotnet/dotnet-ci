@@ -12,7 +12,7 @@
 #>
 
 param (
-    [ValidateSet('ubuntu1404','ubuntu1504', 'ubuntu1604', 'ubuntu1610', 'win2008', 'win2012', 'win2016', 'centos71', 'rhel72', 'freebsd', 'suse132', 'suse421', 'deb82', 'fedora23', 'deb84')]
+    [ValidateSet('ubuntu1404','ubuntu1504', 'ubuntu1604', 'ubuntu1610', 'win2008', 'win2012', 'win2016', 'centos71', 'rhel72', 'freebsd', 'suse132', 'suse421', 'deb82', 'fedora23', 'fedora24', 'deb84')]
     [string]$ImageBaseName = $(Read-Host -prompt "VM image base name of image to capture."),
     [string]$ResourceGroupName = $null,
     [string]$VMName = $(Read-Host -prompt "VM name to capture"),

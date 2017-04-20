@@ -353,9 +353,9 @@ class Utilities {
                             'Fedora24' :
                                 [
                                 // Latest auto image.
-                                'latest-or-auto':'fedora24-20161024',
+                                'latest-or-auto':'fedora24-20170420',
                                 // For outerloop runs
-                                'outer-latest-or-auto':'fedora24-20161024-outer'
+                                'outer-latest-or-auto':'fedora24-20170420-outer'
                                 ],
                             'Tizen' :
                                 [
