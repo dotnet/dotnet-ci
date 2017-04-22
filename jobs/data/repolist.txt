@@ -29,6 +29,7 @@ dotnet/cli branch=rel/1.0.0-preview2 server=dotnet-ci
 dotnet/cli branch=rel/1.0.0-preview1 server=dotnet-ci
 dotnet/cli branch=rel/1.0.0 server=dotnet-ci
 dotnet/cli branch=rel/1.0.1 server=dotnet-ci
+dotnet/cli branch=release/2.0.0 server=dotnet-ci
 dotnet/CliCommandLineParser branch=master server=dotnet-ci
 dotnet/xliff-tasks branch=master server=dotnet-ci
 dotnet/cli-migrate branch=master server=dotnet-ci
@@ -86,6 +87,7 @@ dotnet/project-system branch=dev15.2.x server=dotnet-ci
 dotnet/project-system branch=dev15.3.x server=dotnet-ci
 dotnet/sdk branch=master server=dotnet-ci
 dotnet/sdk branch=rel/1.0.0 server=dotnet-ci
+dotnet/sdk branch=release/2.0.0 server=dotnet-ci
 dotnet/sdk branch=dev15.0.x server=dotnet-ci
 dotnet/sdk branch=dev15.1.x server=dotnet-ci
 dotnet/standard branch=master server=dotnet-ci
