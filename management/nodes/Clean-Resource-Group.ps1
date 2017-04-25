@@ -22,7 +22,9 @@ do {
 
     $provisionedVMs = Get-AzureRmVM $ResourceGroupName
     foreach ($vm in $provisionedVMs) {
-        if ($vm.ProvisioningState -ne "Succeeded") {
+        $vmState = $vm.ProvisioningState
+        Write-Verbose "Checking $vmName, provisioning state $vmState"
+        if ($vmState -ne "Succeeded" -and $vmState -ne "Failed") {
             continue
         }
         $vmName = $vm.Name
@@ -60,11 +62,11 @@ do {
 
         if ($delete) {
             if ($DryRun) {
-                Write-Host "  Would delete $vmName from $ResourceGroupName"
+                Write-Host "  Would delete $vmName from $ResourceGroupName (provisioning state $vmState)"
                 $removedList += $vmName
             }
             else {
-                Write-Host "  Deleting $vmName from $ResourceGroupName"
+                Write-Host "  Deleting $vmName from $ResourceGroupName (provisioning state $vmState)"
                 try {
                     .\Delete-VM.ps1 -VMName $vmName -ResourceGroupName $ResourceGroupName -ErrorAction Continue
                 }
