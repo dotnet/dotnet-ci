@@ -147,6 +147,8 @@ class Utilities {
 				'arm64-small-page-size':'arm64_ubuntu',
 				// Pool of arm64 lab machines 64k page size
 				'arm64-huge-page-size':'arm64_ubuntu_huge_pages',
+				// Image installing the latest mono-devel
+                                'latest-mono-devel':'ubuntu1404-20160211-1-latest-mono',
                                 // Latest auto image.
                                 'latest-or-auto':'auto-ubuntu1404-20160211.1',
                                 // For outerloop runs.
