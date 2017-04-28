@@ -230,7 +230,8 @@ class Utilities {
                                 '20160627-elevated' : 'auto-win2012-20160627-elevated',
                                 // auto-win2012-20160824 + .NET 4.6.2
                                 '20161027' : 'win2012-20161027',
-                                // Latest auto image.
+                                // win2016-20170303 + Python 3.2
+                                '20170427' : 'win2012-20170427',
                                 // the generic unversioned label except for special cases.
                                 'latest-or-auto':'win2012-20170303',
                                 // Win2012.R2 + VS2013.5 + VS2015.3 + VS15.P3
@@ -259,6 +260,10 @@ class Utilities {
                                 'latest-or-auto-dev15-0-internal':'win2016-20170307-internal',
                                 // For internal runs - Win2016 + VS15.1
                                 'latest-dev15-1-internal':'win2016-20170427-internal',
+                                // win2016-base + d15prerel-26423.1
+                                'latest-d15prerel' : 'win2016-20170427-1',
+                                // win2016-base + d15prerel-26423.1
+                                'latest-d15prerel-internal' : 'win2016-20170427-1-internal',
                                 // For internal runs which don't need/want the static 'windows-internal' pool
                                 'latest-dev15-internal':'auto-win2012-20160707-internal',
                                 // For elevated runs
