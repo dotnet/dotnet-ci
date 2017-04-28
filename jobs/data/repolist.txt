@@ -82,6 +82,7 @@ dotnet/roslyn branch=features/refout server=dotnet-ci
 dotnet/roslyn branch=features/sdk server=dotnet-ci
 dotnet/roslyn branch=features/tuple-names server=dotnet-ci
 dotnet/roslyn-analyzers branch=master server=dotnet-ci
+dotnet/roslyn-debug branch=master server=dotnet-ci2
 dotnet/project-system branch=master server=dotnet-ci
 dotnet/project-system branch=dev15.0.x server=dotnet-ci
 dotnet/project-system branch=dev15.1.x server=dotnet-ci
