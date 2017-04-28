@@ -232,6 +232,8 @@ class Utilities {
                                 '20161027' : 'win2012-20161027',
                                 // win2016-20170303 + Python 3.2
                                 '20170427' : 'win2012-20170427',
+                                // win2016-20170303 + Python 3.2
+                                '20170427-elevated' : 'win2012-20170427-elevated',
                                 // the generic unversioned label except for special cases.
                                 'latest-or-auto':'win2012-20170303',
                                 // Win2012.R2 + VS2013.5 + VS2015.3 + VS15.P3
