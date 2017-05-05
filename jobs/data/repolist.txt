@@ -51,6 +51,7 @@ dotnet/corefx branch=release/1.0.0 server=dotnet-ci
 dotnet/corefx branch=release/1.1.0 server=dotnet-ci
 dotnet/corefx branch=release/2.0.0 server=dotnet-ci
 dotnet/corefx branch=master server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
+dotnet/corefx branch=master server=dotnet-ci3 definitionScript=pipelinejobs.groovy utilitiesRepoBranch=dev/pipelinesupport
 dotnet/corefxlab branch=master server=dotnet-ci
 dotnet/corert branch=master server=dotnet-ci
 dotnet/dotnet-docker branch=master server=dotnet-ci
