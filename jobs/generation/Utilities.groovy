@@ -143,11 +143,11 @@ class Utilities {
                                 // Contains the rootfs setup for arm/arm64 builds.  Move this label forward
                                 // till we have the working build/test, then apply to everything.
                                 'arm-cross-latest':'auto-ubuntu1404-20170120',
-				// Pool of arm64 lab machines 4k page size
-				'arm64-small-page-size':'arm64_ubuntu',
-				// Pool of arm64 lab machines 64k page size
-				'arm64-huge-page-size':'arm64_ubuntu_huge_pages',
-				// Image installing the latest mono-devel
+                                // Pool of arm64 lab machines 4k page size
+                                'arm64-small-page-size':'arm64_ubuntu',
+                                // Pool of arm64 lab machines 64k page size
+                                'arm64-huge-page-size':'arm64_ubuntu_huge_pages',
+                                // Image installing the latest mono-devel
                                 'latest-mono-devel':'ubuntu1404-20160211-1-latest-mono',
                                 // Latest auto image.
                                 'latest-or-auto':'auto-ubuntu1404-20160211.1',
@@ -268,6 +268,10 @@ class Utilities {
                                 'latest-d15prerel-internal' : 'win2016-20170427-1-internal',
                                 // For internal runs which don't need/want the static 'windows-internal' pool
                                 'latest-dev15-internal':'auto-win2012-20160707-internal',
+                                // win2016-base + Dev15.3 preview 1
+                                'latest-dev15-3-preview1' : 'win2016-20170510',
+                                // win2016-base + Dev15.3 preview 1
+                                'latest-dev15-3-preview1-internal' : 'win2016-20170510-internal',
                                 // For elevated runs
                                 'latest-or-auto-elevated':'win2012-20170303-elevated',
 								// For arm64 builds
