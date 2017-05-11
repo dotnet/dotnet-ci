@@ -34,18 +34,22 @@ class Pipeline {
     }
 
     private static String getDefaultPipelineJobBaseName(String pipelineFile) {
+        String baseName = pipelineFile
+        // Strip off any path prefix
+        int lastSlash = baseName.lastIndexOf('/')
+        if (lastSlash != -1) {
+            baseName = baseName.substring(lastSlash + 1)
+        }
+
         // Strip off anything after a .
-        int lastDot = pipelineFile.indexOf('.')
+        int lastDot = baseName.indexOf('.')
 
         if (lastDot != -1) {
             // Has extension
             assert lastDot != 0
-            return pipelineFile.substring(0, lastDot)
+            baseName = baseName.substring(0, lastDot)
         }
-        else {
-            // No extension
-            return pipelineFile
-        }
+        return baseName
     }
 
     // Replace all the unsafe characters in the input string
