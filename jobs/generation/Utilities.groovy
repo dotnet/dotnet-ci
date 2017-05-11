@@ -250,6 +250,8 @@ class Utilities {
                                 'latest-or-auto-dev15-0':'win2016-20170307',
                                 // For internal runs - Win2016 + VS15.1
                                 'latest-dev15-1':'win2016-20170427',
+                                // Win2016 + VS15.3 Preview1
+                                'latest-or-auto-dev15-3':'win2016-20170507',
                                 // Dev15 image
                                 'latest-dev15':'auto-win2012-20160506',
                                 // For internal runs

@@ -87,5 +87,6 @@ win2016-20170427,win2016-20170427,Windows,system,Microsoft.Compute/Images/dotnet
 win2016-20170427-internal,win2016-20170427-internal,Windows,system,Microsoft.Compute/Images/dotnetci/win2016-20170427-osDisk.a000302e-81e3-4eba-acad-ba5f86867b78.vhd,All,./startupScripts/win2016-20170427-internal.ps1,D:\j
 win2016-20170427-1,win2016-20170427,Windows,system,Microsoft.Compute/Images/dotnetci/win2016-20170427-osDisk.66c3136f-1498-4295-b395-b814186609e0.vhd,All,./startupScripts/win2016-20170427-1-internal.ps1,D:\j
 win2016-20170427-1-internal,win2016-20170427-1-internal,Windows,system,Microsoft.Compute/Images/dotnetci/win2016-20170427-osDisk.66c3136f-1498-4295-b395-b814186609e0.vhd,All,./startupScripts/win2016-20170307-internal.ps1,D:\j
+win2016-20170507,win2016-20170507,Windows,system,Microsoft.Compute/Images/dotnetci/win2016-20170507-osDisk.e1ffaad6-cf07-4580-8496-924e03d8826b.vhd,All,./startupScripts/win2016-20170307.ps1,D:\j
 win2016-20170510,win2016-20170510,Windows,system,Microsoft.Compute/Images/dotnetci/win2016-20170510-osDisk.bf44af60-bd21-4ed1-b603-79d0123bd030.vhd,All,./startupScripts/win2016-20170510.ps1,D:\j
 win2016-20170510-internal,win2016-20170510-internal,Windows,system,Microsoft.Compute/Images/dotnetci/win2016-20170510-osDisk.bf44af60-bd21-4ed1-b603-79d0123bd030.vhd,All,./startupScripts/win2016-20170510-internal.ps1,D:\j
