@@ -74,6 +74,11 @@ class TriggerBuilder {
             this.triggerPhrase  = "(?i).*test\\W+${context}.*"
         }
     }
+
+    // Sets the context
+    def setContext(String context) {
+        
+    }
     
     // Sets the trigger phrase.  If a trigger phrase is not explicitly set, test + <context> is used
     // Parameters:

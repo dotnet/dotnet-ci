@@ -2,16 +2,22 @@
 // Does not use any utility functionality to make setup easy
 
 // By default we use the master branch (empty impl version)
-def sdkImplBranchSuffix = ''
+def sdkImplBranchName = 'master'
 // But, if the SDKImplementationVersion variable was set, then that gets passed down.
 // It's the branch suffix we use, so 
-def differentSDKImplVersion = binding.variables.get("SDKImplementationVersion")
+def differentSDKImplVersion = binding.variables.get("SDKImplementationBranch")
 if (differentSDKImplVersion) {
-    sdkImplBranchSuffix = "-${differentSDKImplVersion}"
+    sdkImplBranchName = differentSDKImplVersion
 }
 
-// Grab the branch name for the sdk impl.  Metagenerator is run on master. 
-def sdkImplBranchName = "master${sdkImplBranchSuffix}"
+def repoListLocationBranchName = 'master'
+// But, if the SDKImplementationVersion variable was set, then that gets passed down.
+// It's the branch suffix we use, so 
+def differentRepoListLocationBranchName = binding.variables.get("RepoListLocationBranch")
+if (differentRepoListLocationBranchName) {
+    repoListLocationBranchName = differentRepoListLocationBranchName
+}
+
 
 // Create a folder for the PR generation of the dotnet-ci generation
 folder('GenPRTest') {}
@@ -32,8 +38,6 @@ folder('GenPRTest') {}
             daysToKeep(7)
         }
 
-        // Multi-scm.  Master pulls the repo list (kept in one place), the sdk implementation etc. is
-        // pulled from master<sdk impl suffix>
         if (isPR) {
             multiscm {
                 git {
@@ -44,7 +48,7 @@ folder('GenPRTest') {}
                         refspec('+refs/pull/*:refs/remotes/origin/pr/*')
                     }
 
-                    branch("*/master")
+                    branch("*/${repoListLocationBranchName}")
                     
                     // On older versions of DSL this is a top level git element called relativeTargetDir
                     extensions {
@@ -75,8 +79,7 @@ folder('GenPRTest') {}
                         github("dotnet/dotnet-ci")
                     }
 
-                    // Repolist is always on master
-                    branch("*/master")
+                    branch("*/${repoListLocationBranchName}")
                     
                     // On older versions of DSL this is a top level git element called relativeTargetDir
                     extensions {
@@ -101,8 +104,7 @@ folder('GenPRTest') {}
         // Add a parameter which is the server name (incoming parameter to this job
         parameters {
             stringParam('ServerName', ServerName, "Server that this generator is running on")
-            stringParam('SDKImplementationBranchSuffix', sdkImplBranchSuffix, "Suffix of branch for the metageneration that should be used for the SDK implementation")
-            stringParam('RepoListLocation', 'dotnet-ci-repolist/jobs/data/repolist.txt', "Location of the repo list relative to the workspace root.")
+            stringParam('RepoListLocation', 'dotnet-ci-repolist/data/repolist.txt', "Location of the repo list relative to the workspace root.")
         }
 
         // No concurrency, throttle among the other generators.
@@ -115,6 +117,8 @@ folder('GenPRTest') {}
             categories(['job_generators'])
         }
         
+        label('!windowsnano16 && !performance && !dtap')
+
         label('!windowsnano16 && !performance && !dtap')
 
         if (isPR) {
@@ -145,18 +149,24 @@ folder('GenPRTest') {}
 
         // Step is "process job dsls"
         steps {
-            dsl {
+            jobDsl {
                 // Generates the generator jobs
-                external('dotnet-ci-sdk/jobs/generation/MetaGenerator.groovy')
+                targets('dotnet-ci-sdk/src/jobs/generation/MetaGenerator.groovy')
 
                 // Additional classpath should point to the sdk repo
-                additionalClasspath('dotnet-ci-sdk')
+                additionalClasspath('dotnet-ci-sdk/src')
+
+                // Fail the build if a plugin is missing
+                failOnMissingPlugin(true)
 
                 // Generate jobs relative to the seed job.
                 lookupStrategy('SEED_JOB')
 
-                removeAction('DISABLE')
-                removeViewAction('DELETE')
+                // Run in the sandbox
+                sandbox(true)
+
+                removedJobAction('DISABLE')
+                removedViewAction('DELETE')
             }
             
             // If this is a PR test job, we don't want the generated jobs
@@ -166,13 +176,16 @@ folder('GenPRTest') {}
             // jobs generated in the previous step will be disabled.
 
             if (isPR) {
-                dsl {
-                     text('// Generate no jobs so the previously generated jobs are disabled')
+                jobDsl {
+                     scriptText('// Generate no jobs so the previously generated jobs are disabled')
+                     useScriptText(true)
 
                      // Generate jobs relative to the seed job.
                      lookupStrategy('SEED_JOB')
-                     removeAction('DISABLE')
-                     removeViewAction('DELETE')
+                     removedJobAction('DISABLE')
+                     removedViewAction('DELETE')
+
+                     sandbox(true)
                 }
             }
         }
@@ -213,12 +226,26 @@ job('disable_jobs_in_folder') {
             remote {
                 github('dotnet/dotnet-ci')
             }
-            branch("*/master")
+            branch("*/${sdkImplBranchName}")
         }
     }
 
+    // We stream from the workspace since in the groovy 2.0 plugin, the scripts
+    // read from disk always execute in the sandbox. This is not the case with inline scripts.
+    // This is a bug.  https://issues.jenkins-ci.org/browse/JENKINS-43700
     steps {
-        systemGroovyScriptFile('jobs/scripts/disable_jobs_in_folder.groovy')
+        // Rather
+        systemGroovy {
+            source {
+                stringSystemScriptSource {
+                    script {
+                        script (readFileFromWorkspace('scripts/disable_jobs_in_folder.groovy'))
+                        // Don't execute in sandbox
+                        sandbox (false)
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -237,7 +264,7 @@ job('workspace_cleaner') {
             remote {
                 github('dotnet/dotnet-ci')
             }
-            branch("*/master")
+            branch("*/${sdkImplBranchName}")
         }
     }
 
@@ -245,8 +272,22 @@ job('workspace_cleaner') {
         cron('0 0 * * *')
     }
 
+    // We stream from the workspace since in the groovy 2.0 plugin, the scripts
+    // read from disk always execute in the sandbox. This is not the case with inline scripts.
+    // This is a bug.  https://issues.jenkins-ci.org/browse/JENKINS-43700
     steps {
-        systemGroovyScriptFile('jobs/scripts/workspace_cleaner.groovy')
+        // Rather
+        systemGroovy {
+            source {
+                stringSystemScriptSource {
+                    script {
+                        script (readFileFromWorkspace('scripts/workspace_cleaner.groovy'))
+                        // Don't execute in sandbox
+                        sandbox (false)
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -261,7 +302,7 @@ job('system_cleaner') {
             remote {
                 github('dotnet/dotnet-ci')
             }
-            branch("*/master")
+            branch("*/${sdkImplBranchName}")
         }
     }
 
@@ -269,8 +310,22 @@ job('system_cleaner') {
         cron('0 0 * * *')
     }
 
+    // We stream from the workspace since in the groovy 2.0 plugin, the scripts
+    // read from disk always execute in the sandbox. This is not the case with inline scripts.
+    // This is a bug.  https://issues.jenkins-ci.org/browse/JENKINS-43700
     steps {
-        systemGroovyScriptFile('jobs/scripts/system_cleaner.groovy')
+        // Rather
+        systemGroovy {
+            source {
+                stringSystemScriptSource {
+                    script {
+                        script (readFileFromWorkspace('scripts/system_cleaner.groovy'))
+                        // Don't execute in sandbox
+                        sandbox (false)
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -286,7 +341,7 @@ job('generator_cleaner') {
             remote {
                 github("dotnet/dotnet-ci")
             }
-            branch("*/master")
+            branch("*/${sdkImplBranchName}")
         }
     }
 
@@ -295,14 +350,28 @@ job('generator_cleaner') {
         stringParam('GeneratorJobName', '')
     }
 
+    // We stream from the workspace since in the groovy 2.0 plugin, the scripts
+    // read from disk always execute in the sandbox. This is not the case with inline scripts.
+    // This is a bug.  https://issues.jenkins-ci.org/browse/JENKINS-43700
     steps {
-        systemGroovyScriptFile('jobs/scripts/generator_cleaner.groovy')
+        // Rather
+        systemGroovy {
+            source {
+                stringSystemScriptSource {
+                    script {
+                        script (readFileFromWorkspace('scripts/generator_cleaner.groovy'))
+                        // Don't execute in sandbox
+                        sandbox (false)
+                    }
+                }
+            }
+        }
     }
 }
 
-// Create the temporary backlog cleaner. This cleans up the asynchronous backlog which
-// causes memory leaks due to a problem with the workspace cleaner plugin.
-job('temporary_backlog_cleaner') {
+// Creates a job that pulls and updates the Azure VM templtes from
+// the checked in information.
+job('populate_azure_vm_templates') {
     logRotator {
         daysToKeep(7)
     }
@@ -313,15 +382,31 @@ job('temporary_backlog_cleaner') {
             remote {
                 github("dotnet/dotnet-ci")
             }
-            branch("*/master")
+            branch("*/${sdkImplBranchName}")
         }
     }
-    
-    triggers {
-        cron('@hourly')
+
+    parameters {
+        stringParam('CloudSubscriptionCredentialsId', 'dotnet-social-cloud-vms')
+        stringParam('VmTemplateDeclarations', 'data/azure-vm-templates.txt')
+        booleanParam('TestOnly', true)
     }
 
+    // We stream from the workspace since in the groovy 2.0 plugin, the scripts
+    // read from disk always execute in the sandbox. This is not the case with inline scripts.
+    // This is a bug.  https://issues.jenkins-ci.org/browse/JENKINS-43700
     steps {
-        systemGroovyScriptFile('jobs/scripts/backlog_cleaner.groovy')
+        // Rather
+        systemGroovy {
+            source {
+                stringSystemScriptSource {
+                    script {
+                        script (readFileFromWorkspace('scripts/populate-azure-vm-templates.groovy'))
+                        // Don't execute in sandbox (needs approval)
+                        sandbox (false)
+                    }
+                }
+            }
+        }
     }
 }

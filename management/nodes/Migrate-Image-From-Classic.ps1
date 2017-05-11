@@ -22,10 +22,13 @@ param (
     [string]$ImageName,
     [Parameter(Mandatory=$true)]
     [string]$TargetBlob,
-    $TargetStorageAccount = 'dotnetciuservmstorage1',
-    [string]$TargetResourceGroup = 'dotnet-ci-user-vms',
+    [Parameter(Mandatory=$true)]
+    $TargetStorageAccount = $null,
+    [Parameter(Mandatory=$true)]
+    [string]$TargetResourceGroup,
     [string]$TargetContainer = 'system',
-    [string]$TargetVirtualPath = 'Microsoft.Compute/Images/dotnetci'
+    [string]$TargetVirtualPath = 'Microsoft.Compute/Images/custom',
+    [string]$TargetSubscriptionId = $null
 )
 
 # Ensure logged in
@@ -99,55 +102,75 @@ else {
     $targetUri = "https://$TargetStorageAccount.blob.core.windows.net/$TargetContainer/$TargetBlob"
 }
 
-# Locate the storage account key for the target
-$targetStorageAccountKeys = Get-AzureRmStorageAccountKey $TargetStorageAccount -ResourceGroupName $TargetResourceGroup -ErrorAction SilentlyContinue
-if ($targetStorageAccountKeys) {
-    if ($targetStorageAccountKeys[0]) {
-        $targetStorageAccountKey = $targetStorageAccountKeys[0].Value
+$subscriptionContext = $null
+if ($TargetSubscriptionId) {
+    $subscriptionContext = Get-AzureRmContext
+    # grab the current sub
+    $subscriptionContext.Subscription.SubscriptionId
+}
+
+try {
+
+    if ($TargetSubscriptionId) {
+        Select-AzureRmSubscription -SubscriptionId $TargetSubscriptionId
     }
-    else {
-        $targetStorageAccountKey = $targetStorageAccountKeys.Key1
+
+    # Locate the storage account key for the target
+    $targetStorageAccountKeys = Get-AzureRmStorageAccountKey $TargetStorageAccount -ResourceGroupName $TargetResourceGroup -ErrorAction SilentlyContinue
+    if ($targetStorageAccountKeys) {
+        if ($targetStorageAccountKeys[0]) {
+            $targetStorageAccountKey = $targetStorageAccountKeys[0].Value
+        }
+        else {
+            $targetStorageAccountKey = $targetStorageAccountKeys.Key1
+        }
+    }
+    if (!$targetStorageAccountKey) {
+        Write-Error "Could not find target storage account $TargetStorageAccount or locate the storage key, skipping"
+        Exit
+    }
+
+    # Create a storage context for the target
+    $targetContext = New-AzureStorageContext -StorageAccountName $TargetStorageAccount -StorageAccountKey $targetStorageAccountKey
+
+    # Ensure that the container is created if not existing
+    $existingContainer = Get-AzureStorageContainer -Context $targetContext -Name $TargetContainer -ErrorAction SilentlyContinue
+
+    if (!$existingContainer) {
+        Write-Output "Target storage container $TargetContainer doesn't exist, creating"
+        New-AzureStorageContainer -Context $targetContext -Name $TargetContainer
+    }
+
+    $fullTargetBlobName = $TargetBlob
+    if ($TargetVirtualPath) {
+        $fullTargetBlobName = "$TargetVirtualPath/$TargetBlob"
+    }
+
+    $blobCopy = Start-AzureStorageBlobCopy -CloudBlob $sourceBlob.ICloudBlob -Context $sourceContext -DestContext $targetContext -DestContainer $TargetContainer -DestBlob $fullTargetBlobName
+
+    Write-Output "Started $vhdURI -> $targetUri"
+
+    # Waiting till all copies done
+    $allFinished = $false
+    while (!$allFinished) {
+        $allFinished = $true
+        $blobCopyState = $blobCopy | Get-AzureStorageBlobCopyState
+        if ($blobCopyState.Status -eq "Pending")
+        {
+            $allFinished = $false
+            $percent = ($blobCopyState.BytesCopied * 100) / $blobCopyState.TotalBytes
+            $percent = [math]::round($percent,2)
+            $blobCopyName = $blobCopyState.CopyId
+            Write-Progress -Id 0 -Activity "Copying from classic... " -PercentComplete $percent -CurrentOperation "Copying $blobCopyName"
+        }
+        Start-Sleep -s 30
+    }
+
+    Write-Output "All operations complete"
+
+}
+finally {
+    if ($subscriptionContext) {
+        Select-AzureRmSubscription -SubscriptionId $subscriptionContext
     }
 }
-if (!$targetStorageAccountKey) {
-    Write-Error "Could not find target storage account $TargetStorageAccount or locate the storage key, skipping"
-    Exit
-}
-
-# Create a storage context for the target
-$targetContext = New-AzureStorageContext -StorageAccountName $TargetStorageAccount -StorageAccountKey $targetStorageAccountKey
-
-# Ensure that the container is created if not existing
-$existingContainer = Get-AzureStorageContainer -Context $targetContext -Name $TargetContainer -ErrorAction SilentlyContinue
-
-if (!$existingContainer) {
-    Write-Output "Target storage container $TargetContainer doesn't exist, creating"
-    New-AzureStorageContainer -Context $targetContext -Name $TargetContainer
-}
-
-$fullTargetBlobName = $TargetBlob
-if ($TargetVirtualPath) {
-    $fullTargetBlobName = "$TargetVirtualPath/$TargetBlob"
-}
-
-$blobCopy = Start-AzureStorageBlobCopy -CloudBlob $sourceBlob.ICloudBlob -Context $sourceContext -DestContext $targetContext -DestContainer $TargetContainer -DestBlob $fullTargetBlobName
-
-Write-Output "Started $vhdURI -> $targetUri"
-
-# Waiting till all copies done
-$allFinished = $false
-while (!$allFinished) {
-    $allFinished = $true
-    $blobCopyState = $blobCopy | Get-AzureStorageBlobCopyState
-    if ($blobCopyState.Status -eq "Pending")
-    {
-        $allFinished = $false
-        $percent = ($blobCopyState.BytesCopied * 100) / $blobCopyState.TotalBytes
-        $percent = [math]::round($percent,2)
-        $blobCopyName = $blobCopyState.CopyId
-        Write-Progress -Id 0 -Activity "Copying from classic... " -PercentComplete $percent -CurrentOperation "Copying $blobCopyName"
-    }
-    Start-Sleep -s 30
-}
-
-Write-Output "All operations complete"

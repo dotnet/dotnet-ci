@@ -286,7 +286,7 @@ repos.each { repoInfo ->
                         }
                     }
                     // dotnet-ci always pulls from master
-                    branch("*/${repoInfo.utilitiesRepoBranch}${SDKImplementationBranchSuffix}")
+                    branch("*/${repoInfo.utilitiesRepoBranch}")
                 }
                 //
                 git {
@@ -335,6 +335,8 @@ repos.each { repoInfo ->
             // DSL groovy file
             parameters {
                 stringParam('GithubProject', repoInfo.project, 'Project name passed to the DSL generator')
+                stringParam('GithubProjectName', Utilities.getProjectName(repoInfo.project), 'Project name')
+                stringParam('GithubOrgName', Utilities.getOrgName(repoInfo.project), 'Organization name')
                 stringParam('GithubBranchName', repoInfo.branch, 'Branch name passed to the DSL generator')
                 stringParam('GithubPRTargetBranches', repoInfo.prTargetBranches.join(','), 'Branches that should be tracked for PRs')
                 stringParam('GithubPRSkipBranches', repoInfo.prSkipBranches.join(','), 'Branches that should be skipped for PRs')
@@ -344,30 +346,37 @@ repos.each { repoInfo ->
             // Add in the job generator logic
 
             steps {
-                dsl {
-                    // Loads the PreGen groovy file
-                    external("dotnet-ci/jobs/generation/PreGen.groovy")
-                    // Loads DSL groovy file from the repo
-                    external(Utilities.getProjectName(repoInfo.project) + "/${repoInfo.definitionScript}")
-                    // Loads the PostGen groovy file
-                    external("dotnet-ci/jobs/generation/PostGen.groovy")
+                jobDsl {
+                    String dsltargets = "dotnet-ci/src/jobs/generation/PreGen.groovy"
+                    dsltargets += "\n${Utilities.getProjectName(repoInfo.project)}/${repoInfo.definitionScript}"
+                    dsltargets += "\ndotnet-ci/src/jobs/generation/PostGen.groovy"
+
+                    targets(dsltargets)
 
                     // Additional classpath should point to the utility repo
-                    additionalClasspath('dotnet-ci')
+                    additionalClasspath('dotnet-ci/src')
+
+                    // Fail the build if a plugin is missing
+                    failOnMissingPlugin(true)
 
                     // Generate jobs relative to the seed job.
                     lookupStrategy('SEED_JOB')
+
+                    // Run in the sandbox
+                    sandbox(true)
 
                     // PR tests should do nothing with the other jobs.
                     // Non-PR tests should disable the jobs, which will get cleaned
                     // up later.
                     if (isPRTest) {
-                        removeAction('IGNORE')
+                        removedJobAction('IGNORE')
                     }
                     else {
-                        removeAction('DISABLE')
+                        // Normally this would be DISABLE.  But currently pipeline
+                        // jobs have some issues. Until this is fixed, use DELETE
+                        removedJobAction('DELETE')
                     }
-                    removeViewAction('DELETE')
+                    removedViewAction('DELETE')
                 }
             }
 
@@ -392,7 +401,7 @@ repos.each { repoInfo ->
         if (isPRTest) {
             // Enable the github PR trigger, but add a trigger phrase so
             // that it doesn't build on every change.
-            Utilities.addGithubPRTriggerForBranch(jobGenerator, repoInfo.branch, jobGenerator.name, '(?i).*test\\W+ci.*')
+            Utilities.addPrivateGithubPRTriggerForBranch(jobGenerator, repoInfo.branch, jobGenerator.name, '(?i).*test\\W+ci.*', ['Microsoft'], null)
         }
         else {
             // Enable the github push trigger.

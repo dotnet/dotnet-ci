@@ -1,2 +1,3 @@
 *.orig
 *.rej
+.vscode

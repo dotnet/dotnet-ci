@@ -1,0 +1,3 @@
+# Contains info about the azure vm templates that are available.  This is a replacement for the legacy Images.csv as well
+# as the label map formerly contained within getMachineAffinity()
+
