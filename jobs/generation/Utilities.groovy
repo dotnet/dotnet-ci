@@ -1015,7 +1015,7 @@ class Utilities {
                             }
                         }
                         steps {
-                            batchFile("echo repro build value is: ${ReproBuild}")
+                            batchFile("echo repro build step.")
                         }
                     }
                 }
