@@ -1015,7 +1015,23 @@ class Utilities {
                             }
                         }
                         steps {
-                            batchFile("echo repro build step.")
+                            batchFile("ren 'C:\Jenkins\launch.cmd' 'C:\Jenkins\launch.cmd.disabled'")
+                            def curlCommand = "curl --request POST " +
+                                              "--url \'https://snapshotter.azurewebsites.net/api/snapshot/vm?code=${SNAPSHOT_TOKEN}\' "+
+                                              "--header 'accept: application/json' " +
+                                              "--header 'content-type: application/json' " +
+                                              """--data '{"group": "dotnet-ci1-vms", "name": "%COMPUTERNAME%", "targetGroup": "snapshot-test"}'"""
+                            // We need for the next step to execute so for now we are forcing it.
+                            // Eventually we'll change it to report the errors'
+                            batchFile("${curlCommand} || exit 0")
+                            batchFile("ren 'C:\Jenkins\launch.cmd.disabled' 'C:\Jenkins\launch.cmd'")
+                        }
+
+                        // Ensure credentials are bound
+                        wrappers {
+                            credentialsBinding {
+                                string('SNAPSHOT_TOKEN', 'SnapshotToken')
+                            }
                         }
                     }
                 }
