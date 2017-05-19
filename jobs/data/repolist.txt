@@ -132,6 +132,9 @@ Microsoft/visualfsharp branch=master server=dotnet-ci2
 Microsoft/visualfsharp branch=vs2017-rtm server=dotnet-ci2
 Microsoft/PartsUnlimited branch=master server=dotnet-ci
 dotnet/templating branch=master server=dotnet-ci
+dotnet/templating branch=rel/vs2017/post-rtw server=dotnet-ci
+dotnet/templating branch=rel/vs2017/3-Preview2 server=dotnet-ci
+dotnet/templating branch=rel/vs2017/3-Preview3 server=dotnet-ci
 john-soklaski/roslyn branch=benchview_integration server=dotnet-ci2 definitionScript=perf.groovy
 drewscoggins/corefx branch=master server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 drewscoggins/corefx branch=PerfRuns server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
