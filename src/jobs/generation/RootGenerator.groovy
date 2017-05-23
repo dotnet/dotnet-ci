@@ -47,7 +47,7 @@ folder('GenPRTest') {}
                         }
                     }
 
-                    branch("*/${repoListLocationBranchName}")
+                    branch("*/${RepoListLocationBranch}")
                     
                     // On older versions of DSL this is a top level git element called relativeTargetDir
                     extensions {
@@ -95,7 +95,7 @@ folder('GenPRTest') {}
                         }
                     }
 
-                    branch("*/${repoListLocationBranchName}")
+                    branch("*/${RepoListLocationBranch}")
                     
                     // On older versions of DSL this is a top level git element called relativeTargetDir
                     extensions {
@@ -113,7 +113,7 @@ folder('GenPRTest') {}
                         }
                     }
 
-                    branch("*/${sdkImplBranchName}")
+                    branch("*/${SDKImplementationBranch}")
                  
                     // On older versions of DSL this is a top level git element called relativeTargetDir
                     extensions {
@@ -126,7 +126,7 @@ folder('GenPRTest') {}
         // Add a parameter which is the server name (incoming parameter to this job
         parameters {
             stringParam('ServerName', ServerName, "Server that this generator is running on")
-            stringParam('RepoListLocation', 'dotnet-ci-repolist/data/repolist.txt', "Location of the repo list relative to the workspace root.")
+            stringParam('RepoListLocation', "dotnet-ci-repolist/${RepoListLocation}", "Location of the repo list relative to the workspace root.")
         }
 
         // No concurrency, throttle among the other generators.
@@ -248,7 +248,7 @@ job('disable_jobs_in_folder') {
             remote {
                 github('dotnet/dotnet-ci')
             }
-            branch("*/${sdkImplBranchName}")
+            branch("*/${SDKImplementationBranch}")
         }
     }
 
@@ -286,7 +286,7 @@ job('workspace_cleaner') {
             remote {
                 github('dotnet/dotnet-ci')
             }
-            branch("*/${sdkImplBranchName}")
+            branch("*/${SDKImplementationBranch}")
         }
     }
 
@@ -324,7 +324,7 @@ job('system_cleaner') {
             remote {
                 github('dotnet/dotnet-ci')
             }
-            branch("*/${sdkImplBranchName}")
+            branch("*/${SDKImplementationBranch}")
         }
     }
 
@@ -363,7 +363,7 @@ job('generator_cleaner') {
             remote {
                 github("dotnet/dotnet-ci")
             }
-            branch("*/${sdkImplBranchName}")
+            branch("*/${SDKImplementationBranch}")
         }
     }
 
@@ -404,7 +404,7 @@ job('populate_azure_vm_templates') {
             remote {
                 github("dotnet/dotnet-ci")
             }
-            branch("*/${sdkImplBranchName}")
+            branch("*/${SDKImplementationBranch}")
         }
     }
 
