@@ -10,6 +10,8 @@ assert binding.variables.get("VersionControlLocation") != null &&
        (binding.variables.get("VersionControlLocation") == 'VSTS' || 
        binding.variables.get("VersionControlLocation") != 'GitHub') : "Expected what version control this server targets (VSTS or GitHub)"
 
+boolean isVSTS = binding.variables.get("VersionControlLocation") == 'VSTS'
+
 // Create a folder for the PR generation of the dotnet-ci generation
 folder('GenPRTest') {}
 
@@ -33,10 +35,16 @@ folder('GenPRTest') {}
             multiscm {
                 git {
                     remote {
-                        github("dotnet/dotnet-ci")
-
-                        // Set the refspec
-                        refspec('+refs/pull/*:refs/remotes/origin/pr/*')
+                        if (isVSTS) {
+                            url("https://mseng.visualstudio.com/Tools/_git/DotNet-CI-Trusted")
+                            credentials('vsts-dotnet-ci-trusted-creds')
+                            // TODO: Set refspec for VSTS PR
+                        }
+                        else {
+                            github("dotnet/dotnet-ci")
+                            // Set the refspec
+                            refspec('+refs/pull/*:refs/remotes/origin/pr/*')
+                        }
                     }
 
                     branch("*/${repoListLocationBranchName}")
@@ -48,13 +56,25 @@ folder('GenPRTest') {}
                 }
                 git {
                     remote {
-                        github("dotnet/dotnet-ci")
-
-                        // Set the refspec
-                        refspec('+refs/pull/*:refs/remotes/origin/pr/*')
+                        if (isVSTS) {
+                                url("https://mseng.visualstudio.com/Tools/_git/DotNet-CI-Trusted")
+                                credentials('vsts-dotnet-ci-trusted-creds')
+                                // TODO: Set refspec for VSTS PR
+                            }
+                            else {
+                                github("dotnet/dotnet-ci")
+                                // Set the refspec
+                                refspec('+refs/pull/*:refs/remotes/origin/pr/*')
+                            }
+                        }
                     }
 
-                    branch('${sha1}')
+                    if (isVSTS) {
+                        // TODO: PR branch
+                    }
+                    else {
+                        branch('${sha1}')
+                    }
                     
                     // On older versions of DSL this is a top level git element called relativeTargetDir
                     extensions {
@@ -67,7 +87,13 @@ folder('GenPRTest') {}
             multiscm {
                 git {
                     remote {
-                        github("dotnet/dotnet-ci")
+                        if (isVSTS) {
+                            url("https://mseng.visualstudio.com/Tools/_git/DotNet-CI-Trusted")
+                            credentials('vsts-dotnet-ci-trusted-creds')
+                        }
+                        else {
+                            github("dotnet/dotnet-ci")
+                        }
                     }
 
                     branch("*/${repoListLocationBranchName}")
@@ -79,7 +105,13 @@ folder('GenPRTest') {}
                 }
                 git {
                     remote {
-                        github("dotnet/dotnet-ci")
+                        if (isVSTS) {
+                            url("https://mseng.visualstudio.com/Tools/_git/DotNet-CI-Trusted")
+                            credentials('vsts-dotnet-ci-trusted-creds')
+                        }
+                        else {
+                            github("dotnet/dotnet-ci")
+                        }
                     }
 
                     branch("*/${sdkImplBranchName}")
