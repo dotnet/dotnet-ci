@@ -57,15 +57,14 @@ folder('GenPRTest') {}
                 git {
                     remote {
                         if (isVSTS) {
-                                url("https://mseng.visualstudio.com/Tools/_git/DotNet-CI-Trusted")
-                                credentials('vsts-dotnet-ci-trusted-creds')
-                                // TODO: Set refspec for VSTS PR
-                            }
-                            else {
-                                github("dotnet/dotnet-ci")
-                                // Set the refspec
-                                refspec('+refs/pull/*:refs/remotes/origin/pr/*')
-                            }
+                            url("https://mseng.visualstudio.com/Tools/_git/DotNet-CI-Trusted")
+                            credentials('vsts-dotnet-ci-trusted-creds')
+                            // TODO: Set refspec for VSTS PR
+                        }
+                        else {
+                            github("dotnet/dotnet-ci")
+                            // Set the refspec
+                            refspec('+refs/pull/*:refs/remotes/origin/pr/*')
                         }
                     }
 
