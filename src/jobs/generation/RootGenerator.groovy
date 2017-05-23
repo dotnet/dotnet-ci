@@ -1,23 +1,14 @@
 // This file generates all of the root jobs in a repo.  Basic generators, cleaners, etc.
 // Does not use any utility functionality to make setup easy
 
-// By default we use the master branch (empty impl version)
-def sdkImplBranchName = 'master'
-// But, if the SDKImplementationVersion variable was set, then that gets passed down.
-// It's the branch suffix we use, so 
-def differentSDKImplVersion = binding.variables.get("SDKImplementationBranch")
-if (differentSDKImplVersion) {
-    sdkImplBranchName = differentSDKImplVersion
-}
-
-def repoListLocationBranchName = 'master'
-// But, if the SDKImplementationVersion variable was set, then that gets passed down.
-// It's the branch suffix we use, so 
-def differentRepoListLocationBranchName = binding.variables.get("RepoListLocationBranch")
-if (differentRepoListLocationBranchName) {
-    repoListLocationBranchName = differentRepoListLocationBranchName
-}
-
+// Check incoming parameters
+assert binding.variables.get("ServerName") != null : "Expected string parameter with name ServerName corresponding to name of server"
+assert binding.variables.get("SDKImplementationBranch") != null : "Expected name of branch where SDK is implemented"
+assert binding.variables.get("RepoListLocationBranch") != null : "Expected name of branch where repo list is located"
+assert binding.variables.get("RepoListLocation") != null : "Expected path to repo list"
+assert binding.variables.get("VersionControlLocation") != null && 
+       (binding.variables.get("VersionControlLocation") == 'VSTS' || 
+       binding.variables.get("VersionControlLocation") != 'GitHub') : "Expected what version control this server targets (VSTS or GitHub)"
 
 // Create a folder for the PR generation of the dotnet-ci generation
 folder('GenPRTest') {}
