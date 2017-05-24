@@ -146,26 +146,36 @@ folder('GenPRTest') {}
         if (isPR) {
             // Trigger on a PR test from the dotnet-ci repo
             triggers {
-                githubPullRequest {
-                    useGitHubHooks()
-                    permitAll()
-                    admin('mmitche')
-                    
-                    extensions {
-                        commitStatus {
-                            context("${ServerName} MetaGeneration Test")
-                            updateQueuePosition(true)
+                if (isVSTS) {
+                    // TODO: PR trigger for VSTS when available.
+                }
+                else {
+                    githubPullRequest {
+                        useGitHubHooks()
+                        permitAll()
+                        admin('mmitche')
+
+                        extensions {
+                            commitStatus {
+                                context("${ServerName} MetaGeneration Test")
+                                updateQueuePosition(true)
+                            }
                         }
+                        onlyTriggerPhrase(true)
+                        triggerPhrase('(?i).*@dotnet-bot\\W+test\\W+metagen.*')
                     }
-                    onlyTriggerPhrase(true)
-                    triggerPhrase('(?i).*@dotnet-bot\\W+test\\W+metagen.*')
                 }
             }
         }
         else {
-            // Trigger a build when a change is pushed
+            // Trigger a build when a change is pushed.
             triggers {
-                githubPush()
+                if (isVSTS) {
+                    teamPushTrigger()
+                }
+                else {
+                    githubPush()
+                }
             }
         }
 
@@ -246,7 +256,13 @@ job('disable_jobs_in_folder') {
     scm {
         git {
             remote {
-                github('dotnet/dotnet-ci')
+                if (isVSTS) {
+                    url("https://mseng.visualstudio.com/Tools/_git/DotNet-CI-Trusted")
+                    credentials('vsts-dotnet-ci-trusted-creds')
+                }
+                else {
+                    github("dotnet/dotnet-ci")
+                }
             }
             branch("*/${SDKImplementationBranch}")
         }
@@ -284,7 +300,13 @@ job('workspace_cleaner') {
     scm {
         git {
             remote {
-                github('dotnet/dotnet-ci')
+                if (isVSTS) {
+                    url("https://mseng.visualstudio.com/Tools/_git/DotNet-CI-Trusted")
+                    credentials('vsts-dotnet-ci-trusted-creds')
+                }
+                else {
+                    github("dotnet/dotnet-ci")
+                }
             }
             branch("*/${SDKImplementationBranch}")
         }
@@ -322,7 +344,13 @@ job('system_cleaner') {
     scm {
         git {
             remote {
-                github('dotnet/dotnet-ci')
+                if (isVSTS) {
+                    url("https://mseng.visualstudio.com/Tools/_git/DotNet-CI-Trusted")
+                    credentials('vsts-dotnet-ci-trusted-creds')
+                }
+                else {
+                    github("dotnet/dotnet-ci")
+                }
             }
             branch("*/${SDKImplementationBranch}")
         }
@@ -361,7 +389,13 @@ job('generator_cleaner') {
     scm {
         git {
             remote {
-                github("dotnet/dotnet-ci")
+                if (isVSTS) {
+                    url("https://mseng.visualstudio.com/Tools/_git/DotNet-CI-Trusted")
+                    credentials('vsts-dotnet-ci-trusted-creds')
+                }
+                else {
+                    github("dotnet/dotnet-ci")
+                }
             }
             branch("*/${SDKImplementationBranch}")
         }
@@ -402,7 +436,13 @@ job('populate_azure_vm_templates') {
     scm {
         git {
             remote {
-                github("dotnet/dotnet-ci")
+                if (isVSTS) {
+                    url("https://mseng.visualstudio.com/Tools/_git/DotNet-CI-Trusted")
+                    credentials('vsts-dotnet-ci-trusted-creds')
+                }
+                else {
+                    github("dotnet/dotnet-ci")
+                }
             }
             branch("*/${SDKImplementationBranch}")
         }
