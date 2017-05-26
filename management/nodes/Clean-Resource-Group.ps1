@@ -21,6 +21,7 @@ do {
     Write-Host "Looking for VMs in $ResourceGroupName with names ending matching $Regex"
 
     $provisionedVMs = Get-AzureRmVM $ResourceGroupName
+    $provisionedVMs = $provisionedVMs | Get-Random -Count $provisionedVMs.Count
     foreach ($vm in $provisionedVMs) {
         $vmState = $vm.ProvisioningState
         Write-Verbose "Checking $vmName, provisioning state $vmState"
