@@ -140,9 +140,10 @@ class Utilities {
                                 '20170109':'ubuntu1404-20170109',
                                 // Contains 20160211-1 + clang 3.9
                                 '20170118':'ubuntu1404-20170118',
-                                // Contains the rootfs setup for arm/arm64 builds.  Move this label forward
-                                // till we have the working build/test, then apply to everything.
+                                // Contains the rootfs setup for arm builds.
                                 'arm-cross-latest':'auto-ubuntu1404-20170120',
+                                // Contains the rootfs setup for arm64 builds.
+                                'arm64-cross-latest':'ubuntu1604-20170526',
                                 // Pool of arm64 lab machines 4k page size
                                 'arm64-small-page-size':'arm64_ubuntu',
                                 // Pool of arm64 lab machines 64k page size
