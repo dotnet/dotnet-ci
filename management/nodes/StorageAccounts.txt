@@ -1,7 +1,8 @@
 # List of storage accounts that we target for images
 # so they can be used by various services
-dotnetci1vmstorage1
-dotnetci2vmstorage1
+dotnetci1vmstorage2
+dotnetci2vmstorage2
+dotnetci3vmstorage2
 # Need to be able to deal with multiple subscriptions in this case
 # dotnetci3vmstorage1
-dotnetciuservmstorage1
+dotnetciuservmstorage2
