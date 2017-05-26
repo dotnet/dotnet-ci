@@ -317,9 +317,9 @@ class Utilities {
                                 ],
                             'RHEL7.2' :
                                 [
-                                '' : 'auto-rhel72-20160211',
+                                '' : 'auto-rhel72-20170525',
                                 // Latest auto image.
-                                'latest-or-auto':'auto-rhel72-20160211',
+                                'latest-or-auto':'auto-rhel72-20170525',
                                 // For outerloop runs.
                                 'outer-latest-or-auto':'auto-rhel72-20160412.1outer'
                                 ],
