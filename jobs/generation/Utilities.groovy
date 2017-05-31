@@ -638,8 +638,8 @@ class Utilities {
             '\'typeinfo\' file not found', // This is here for certain flavors of clang on Ubuntu, which can exhibit odd errors.
             'Only AMD64 and I386 are supported', // Appears to be a flaky CMAKE failure
             'java.util.concurrent.ExecutionException: Invalid object ID',
-			'.*XmlException.', // This is here until NuGet cache corruption issue is root caused and fixed.
-			'hexadecimal value.*is an invalid character.' // This is here until NuGet cache corruption issue is root caused and fixed.
+            '.*XmlException.', // This is here until NuGet cache corruption issue is root caused and fixed.
+            'hexadecimal value.*is an invalid character.' // This is here until NuGet cache corruption issue is root caused and fixed.
             ]
         def regex = '(?i).*('
         regex += Utilities.joinStrings(expressionsToRetry, '|')
