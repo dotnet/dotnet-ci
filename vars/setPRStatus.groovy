@@ -51,7 +51,6 @@ def call(String context, String state, String url, String subMessage = '') {
         ghRepository = null
     }
     catch (e) {
-        echo "Failed to create commit status for sha ${commitSha}"
-        echo e
+        echo "Failed to create commit status for sha ${commitSha}: ${e.getMessage()}"
     }
 }
