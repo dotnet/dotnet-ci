@@ -145,7 +145,7 @@ def call (def helixRunsBlob, String prStatusPrefix) {
     }
     stage ('Execute Tests') {
         // Set timeout to 240 minutes to avoid the accidental job getting stuck
-        timeout(240) {
+        timeout(720) {
             parallel helixRunTasks
         }
     }
