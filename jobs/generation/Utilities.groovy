@@ -398,7 +398,7 @@ class Utilities {
         }
 
         // These are non-functioning images (were TP5), for now just disable the jobs till all the
-	// groovy files can be updated.
+        // groovy files can be updated.
         if (osName.equals('Windows 10')) {
             job.with {
                 disabled(true)
