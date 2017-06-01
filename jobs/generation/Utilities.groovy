@@ -295,11 +295,6 @@ class Utilities {
                                 // Latest auto image.
                                 'latest-or-auto':'auto-win2016-20160223'
                                 ],
-                            'Windows Nano 2016' :
-                                [
-                                // Generic version label
-                                '' : 'windowsnano16'
-                                ],
                             'Windows 10' :
                                 [
                                 // Latest auto image.
@@ -402,8 +397,9 @@ class Utilities {
             label(machineLabel)
         }
 
-        // Temporary, nano isn't working on TP5 any longer.  Getting random restarts.
-        if (osName.equals('Windows Nano 2016')) {
+        // These are non-functioning images (were TP5), for now just disable the jobs till all the
+        // groovy files can be updated.
+        if (osName.equals('Windows 10')) {
             job.with {
                 disabled(true)
             }
