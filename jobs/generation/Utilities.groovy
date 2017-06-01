@@ -236,7 +236,7 @@ class Utilities {
                                 // win2016-20170303 + Python 3.2
                                 '20170427-elevated' : 'win2012-20170427-elevated',
                                 // the generic unversioned label except for special cases.
-                                'latest-or-auto':'win2012-20170303',
+                                'latest-or-auto':'win2012-20170531',
                                 // Win2012.R2 + VS2013.5 + VS2015.3 + VS15.P3
                                 'latest-or-auto-dev15':'auto-win2012-20160707',
                                 // Win2012.R2 + VS2013.5 + VS2015.3 + VS15.P4
@@ -268,7 +268,7 @@ class Utilities {
                                 // win2016-base + d15prerel-26423.1
                                 'latest-d15prerel' : 'win2016-20170427-1',
                                 // win2016-base + d15prerel-26423.1
-                                'latest-d15prerel-internal' : 'win2016-20170427-1-internal',
+                                'latest-d15prerel-internal' : 'win2016-20170531-internal',
                                 // For internal runs which don't need/want the static 'windows-internal' pool
                                 'latest-dev15-internal':'auto-win2012-20160707-internal',
                                 // win2016-base + Dev15.3 preview 1
@@ -276,7 +276,7 @@ class Utilities {
                                 // win2016-base + Dev15.3 preview 1
                                 'latest-dev15-3-preview1-internal' : 'win2016-20170510-internal',
                                 // For elevated runs
-                                'latest-or-auto-elevated':'win2012-20170303-elevated',
+                                'latest-or-auto-elevated':'win2012-20170531-elevated',
 								// For arm64 builds
                                 'latest-arm64':'win2012-20170328',
                                 // For perf runs

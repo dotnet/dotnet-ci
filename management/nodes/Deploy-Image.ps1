@@ -7,7 +7,7 @@
 
 param (
     [string]$ImageName,
-    [string]$SourceStorageAccount = 'dotnetciuservmstorage1'
+    [string]$SourceStorageAccount = 'dotnetciuservmstorage2'
 )
 
 $imageInfo = .\Get-Images.ps1 -ImageName $ImageName
