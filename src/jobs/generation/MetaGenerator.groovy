@@ -36,8 +36,10 @@ class Repo {
     String utilitiesRepo
     // The branch for the utilities repo
     String utilitiesRepoBranch
-    // The branch for the utilities repo
+    // The vsts collection (if applicable)
     String collection
+    // The vsts collection credentials (if applicable)
+    String credentials
 
     def Repo(String project,
              String[] folders,
