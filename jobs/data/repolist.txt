@@ -47,7 +47,6 @@ dotnet/coreclr branch=release/1.0.0 server=dotnet-ci
 dotnet/coreclr branch=release/1.1.0 server=dotnet-ci
 dotnet/coreclr branch=release/2.0.0 server=dotnet-ci
 dotnet/coreclr branch=dev/unix_test_workflow server=dotnet-ci
-dotnet/coreclr branch=dev/local-gc server=dotnet-ci
 dotnet/corefx branch=master server=dotnet-ci
 dotnet/corefx branch=release/1.0.0 server=dotnet-ci
 dotnet/corefx branch=release/1.1.0 server=dotnet-ci
