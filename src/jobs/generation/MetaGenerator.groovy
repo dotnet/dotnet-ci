@@ -17,6 +17,15 @@ import jobs.generation.Utilities
 //  should recognize when there is a functional change being made and rerun all of the
 //  generated jobs.
 
+// Tests for incoming variables
+
+assert binding.variables.get("ServerName") != null : "Expected string parameter with name ServerName corresponding to name of server"
+assert binding.variables.get("RepoListLocation") != null : "Expected path to repo list"
+assert binding.variables.get("VersionControlLocation") != null && 
+       (binding.variables.get("VersionControlLocation") == 'VSTS' || 
+       binding.variables.get("VersionControlLocation") != 'GitHub') : "Expected what version control this server targets (VSTS or GitHub)"
+boolean isVSTS = binding.variables.get("VersionControlLocation") == 'VSTS'
+
 class Repo {
     String project
     String[] folders
@@ -24,11 +33,11 @@ class Repo {
     String server
     String definitionScript
     // Indicates this is a branch for 'default' PRs. ORs to branches other than the tracked branches would use jobs
-    // defined here.  If true, then the generator will receive .* + branch +  for GithubPRTargetBranches with the other tracked
-    // branches  in the GithubPRSkipBranches parameter.
+    // defined here.  If true, then the generator will receive .* + branch +  for PRTargetBranches with the other tracked
+    // branches  in the PRSkipBranches parameter.
     boolean isDefaultPRBranch
-    // Indicates this branch provides PR coverage for the listed branches.  If set, the GithubPRTargetBranches will be
-    // set to this branch + prsForBranches.  GithubPRSkipBranches remains empty
+    // Indicates this branch provides PR coverage for the listed branches.  If set, the PRTargetBranches will be
+    // set to this branch + prsForBranches.  PRSkipBranches remains empty
     String[] additionalPRBranches = []
     // The location of the Utilities repo
     String utilitiesRepo
@@ -85,6 +94,11 @@ class Repo {
         String utilitiesRepo = 'dotnet/dotnet-ci'
         // Branch that the utilities should be read from
         String utilitiesRepoBranch = 'master'
+        // VSTS only: Project collection.
+        String collection = null
+        // credentials id used to access the repo. Since credentials aren't the same across project collections in VSTS,
+        // this is required for VSTS projects.
+        String credentials = null
 
         // Check whether it contains a single forward slash
         assert project.indexOf('/') != -1 && project.indexOf('/') == project.lastIndexOf('/')
@@ -127,6 +141,14 @@ class Repo {
                 // Parse out the folder names
                 utilitiesRepoBranch = element.substring('utilitiesRepoBranch='.length())
             }
+            // VSTS specific
+            else if(element.startsWith('collection=')) {
+                collection = element.substring('collection='.length())
+            }
+            // VSTS specific
+            else if(element.startsWith('credentials=')) {
+                credentials = element.substring('credentials='.length())
+            }
             else {
                 out.println("Unknown element " + element);
                 assert false
@@ -143,6 +165,31 @@ class Repo {
             out.println("Line '${input}' invalid")
             out.println("server must be specified")
             assert false
+        }
+        // If this is a VSTS server and the project collection wasn't specified for a project targeting this server, error.
+        // Alternatively, error if the collection was specified 
+        if (server == ServerName) {
+            if (isVSTS && (collection == null || collection == '') {
+                out.println("Line '${input}' invalid")
+                out.println("VSTS collection must be specified (collection=)")
+                assert false
+            }
+            else if (!isVSTS && collection != null) {
+                out.println("Line '${input}' invalid")
+                out.println("VSTS collection shouldn't be specified (collection=)")
+                assert false
+            }
+            // Check credentials
+            if (isVSTS && (credentials == null || credentials == '') {
+                out.println("Line '${input}' invalid")
+                out.println("VSTS repo credentials id must be specified (credentials=)")
+                assert false
+            }
+            else if (!isVSTS && credentials != null) {
+                out.println("Line '${input}' invalid")
+                out.println("VSTS repo credentials id must not be specified (credentials=)")
+                assert false
+            }
         }
 
         folders = [Utilities.getFolderName(project)]
@@ -273,7 +320,13 @@ repos.each { repoInfo ->
                 git {
                     // We grab the utilities repo, the add a suffix of the sdk implementation version
                     remote {
-                        url("https://github.com/${repoInfo.utilitiesRepo}")
+                        if (isVSTS) {
+                            url("https://github.com/${repoInfo.utilitiesRepo}")
+                        }
+                        else {
+                            url("https://mseng.visualstudio.com/${Utilities.getOrgOrProjectName(repoInfo.utilitiesRepo)}/_git/${Utilities.getRepoName(repoInfo.utilitiesRepo)}")
+                            credentials('vsts-dotnet-ci-trusted-creds')
+                        }
                     }
                     // On older versions of DSL this is a top level git element called relativeTargetDir
                     extensions {
@@ -291,13 +344,25 @@ repos.each { repoInfo ->
                 //
                 git {
                     remote {
-                        github(repoInfo.project)
+
+                        if (isVSTS) {
+                            url("https://${repoInfo.collection}.visualstudio.com/${Utilities.getOrgOrProjectName(repoInfo.project)}/_git/${Utilities.getRepoName(repoInfo.project)}")
+                            credentials(repoInfo.credentials)
+                        }
+                        else {
+                            github(repoInfo.project)
+                        }
 
                         if (isPRTest) {
-                            refspec('+refs/pull/*:refs/remotes/origin/pr/*')
+                            if (isVSTS) {
+                                // TODO: VSTS PR refspec
+                            }
+                            else {
+                                refspec('+refs/pull/*:refs/remotes/origin/pr/*')
+                            }
                         }
                     }
-                    def targetDir = Utilities.getProjectName(repoInfo.project)
+                    def targetDir = Utilities.getOrgOrProjectName(repoInfo.project)
                     // Want the relative to be just the project name
                     // On older versions of DSL this is a top level git element called relativeTargetDir
                     extensions {
@@ -313,7 +378,12 @@ repos.each { repoInfo ->
                     // If PR, change to ${sha1}
                     // If not a PR, then the branch name should be the target branch
                     if (isPRTest) {
-                        branch('${sha1}')
+                        if (isVSTS) {
+                            // TODO: VSTS PR branch
+                        }
+                        else {
+                            branch('${sha1}')
+                        }
                     }
                     else {
                         branch("*/${repoInfo.branch}")
@@ -334,12 +404,29 @@ repos.each { repoInfo ->
             // Add a parameter for the project, so that gets passed to the
             // DSL groovy file
             parameters {
-                stringParam('GithubProject', repoInfo.project, 'Project name passed to the DSL generator')
-                stringParam('GithubProjectName', Utilities.getProjectName(repoInfo.project), 'Project name')
-                stringParam('GithubOrgName', Utilities.getOrgName(repoInfo.project), 'Organization name')
-                stringParam('GithubBranchName', repoInfo.branch, 'Branch name passed to the DSL generator')
-                stringParam('GithubPRTargetBranches', repoInfo.prTargetBranches.join(','), 'Branches that should be tracked for PRs')
-                stringParam('GithubPRSkipBranches', repoInfo.prSkipBranches.join(','), 'Branches that should be skipped for PRs')
+                // VSTS/GitHub specific parameters
+                // The intention is to make it so groovy/pipelines are roughly
+                // moveable across VSTS and GitHub.  As such the naming doesn't make much sense for some of these
+                // parameters.  However, a ton of places reference these parameters already, so we will keep these
+                // around but introduce new ones with more generic names.
+                if (isVSTS) {
+                    stringParam('VSTSCollectionName', repoInfo.collection, 'VSTS collection name')
+                }
+                else {
+                    stringParam('GithubProject', repoInfo.project, 'Project name passed to the DSL generator')
+                    stringParam('GithubProjectName', Utilities.getProjectName(repoInfo.project), 'Project name')
+                    stringParam('GithubOrgName', Utilities.getOrgName(repoInfo.project), 'Organization name')
+                    stringParam('GithubBranchName', repoInfo.branch, 'Branch name passed to the DSL generator')
+                }
+
+                // Generic SCM parameters
+                stringParam('QualifiedRepoName', repoInfo.project, 'Full project/repo passed to the DSL generator')
+                stringParam('RepoName', Utilities.getProjectName(repoInfo.project), 'Project name')
+                stringParam('ProjectOrOrgName', Utilities.getOrgName(repoInfo.project), 'Organization name')
+                stringParam('TargetBranchName', repoInfo.branch, 'Branch name passed to the DSL generator')
+
+                stringParam('PRTargetBranches', repoInfo.prTargetBranches.join(','), 'Branches that should be tracked for PRs')
+                stringParam('PRSkipBranches', repoInfo.prSkipBranches.join(','), 'Branches that should be skipped for PRs')
                 booleanParam('IsTestGeneration', isPRTest, 'Is this a test generation?')
             }
 
@@ -399,9 +486,14 @@ repos.each { repoInfo ->
         Utilities.setMachineAffinity(jobGenerator, 'Generators', 'latest-or-auto')
 
         if (isPRTest) {
-            // Enable the github PR trigger, but add a trigger phrase so
-            // that it doesn't build on every change.
-            Utilities.addPrivateGithubPRTriggerForBranch(jobGenerator, repoInfo.branch, "Gen CI(${repoInfo.server}) - ${repoInfo.branch}/${repoInfo.definitionScript}", '(?i).*test\\W+ci.*', ['Microsoft'], null)
+            if (isVSTS) {
+                // TODO: VSTS PR trigger
+            }
+            else {
+                // Enable the github PR trigger, but add a trigger phrase so
+                // that it doesn't build on every change.
+                Utilities.addPrivateGithubPRTriggerForBranch(jobGenerator, repoInfo.branch, "Gen CI(${repoInfo.server}) - ${repoInfo.branch}/${repoInfo.definitionScript}", '(?i).*test\\W+ci.*', ['Microsoft'], null)
+            }
         }
         else {
             // Enable the github push trigger.

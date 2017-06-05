@@ -12,11 +12,11 @@
 #   definitionScript=<file path> Path to the location of the groovy file that should be used for this
 #       entry.  Path is relative to the root of the repository.  Usually omitted.  Can default to netci.groovy
 #   isDefaultPRBranch=true/false (default: false)- If true, then:
-#       GithubPRTargetBranches = .* + current branch
-#       GithubPRSkipBranches = other tracked branches + other PR branches
+#       PRTargetBranches = .* + current branch
+#       PRSkipBranches = other tracked branches + other PR branches
 #   additionalPRBranches=<comma separated list of branches>
-#       GithubPRTargetBranches contains the list additional PR branch list + current branch
-#       GithubPRSkipBranches = other tracked branches + other PR branches
+#       PRTargetBranches contains the list additional PR branch list + current branch
+#       PRSkipBranches = other tracked branches + other PR branches
 
 dotnet/buildtools branch=master server=dotnet-ci
 dotnet/buildtools branch=release/1.0.0 server=dotnet-ci
@@ -154,5 +154,5 @@ Microsoft/vstest branch=master server=dotnet-ci
 Microsoft/vstest branch=future server=dotnet-ci
 mmitche/coreclr branch=dev/pipeline server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy utilitiesRepoBranch=dev/pipelinesupport
 Microsoft/testfx branch=master server=dotnet-ci
-Tools/DotNet-CI-Trusted branch=dev/pipelinesupport definitionScript=tests/tests.groovy server=dotnet-vsts
+mseng/Tools/DotNet-CI-Trusted credentials=vsts-dotnet-ci-trusted-creds collection=mseng branch=dev/pipelinesupport definitionScript=tests/tests.groovy server=dotnet-vsts
 

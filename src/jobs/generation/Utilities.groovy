@@ -68,25 +68,54 @@ class Utilities {
     }
 
     /**
-     * Given the github full project name (e.g. dotnet/coreclr), get the
-     * project name (coreclr)
+     * Given the full project + repo name (e.g. dotnet/coreclr or Tools/DotNet-CI-Trusted), get the
+     * repo name (coreclr or DotNet-CI-Trusted).
      *
      * @param project Qualified project name
      *
      * @return Project name
      */
+    def static getRepoName(String project) {
+        return project.split('/')[1];
+    }
+
+    /**
+     * Given the full project + repo name e.g. dotnet/coreclr or Tools/DotNet-CI-Trusted), get the
+     * org or project name (dotnet or Tools).
+     * 
+     *
+     * @param project Qualified project name
+     *
+     * @return Org (Github) or project (VSTS) name
+     */
+    def static getOrgOrProjectName(String project) {
+        return project.split('/')[0];
+    }
+
+    /**
+     * Given the full repo name (e.g. dotnet/coreclr), get the
+     * repo name (coreclr).  For VSTS, the project name is the repo name.
+     * This method is being deprecated, replaced by the clearer name of getRepoName
+     *
+     * @param project Qualified project name
+     *
+     * @return Project name (GitHub)
+     */
+    @Deprecated
     def static getProjectName(String project) {
         return project.split('/')[1];
     }
 
     /**
-     * Given the github full project name (e.g. dotnet/coreclr), get the
-     * org name (dotnet)
+     * Given the full project name (e.g. dotnet/coreclr), get the
+     * org name (dotnet). This method is being deprecated, replaced by the clearer name of getOrgOrProjectName.
+     * 
      *
      * @param project Qualified project name
      *
-     * @return Org name
+     * @return Org name (GitHub)
      */
+    @Deprecated
     def static getOrgName(String project) {
         return project.split('/')[0];
     }
