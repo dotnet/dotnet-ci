@@ -140,7 +140,7 @@ class Repo {
         // If this is a VSTS server and the project collection wasn't specified for a project targeting this server, error.
         // Alternatively, error if the collection was specified 
         if (server == ServerName) {
-            if (isVSTS && (collection == null || collection == '') {
+            if (isVSTS && (collection == null || collection == '')) {
                 out.println("Line '${input}' invalid")
                 out.println("VSTS collection must be specified (collection=)")
                 assert false
@@ -151,7 +151,7 @@ class Repo {
                 assert false
             }
             // Check credentials
-            if (isVSTS && (credentials == null || credentials == '') {
+            if (isVSTS && (credentials == null || credentials == '')) {
                 out.println("Line '${input}' invalid")
                 out.println("VSTS repo credentials id must be specified (credentials=)")
                 assert false
