@@ -48,8 +48,7 @@ folder('GenPRTest') {}
                     }
 
                     branch("*/${RepoListLocationBranch}")
-                    
-                    // On older versions of DSL this is a top level git element called relativeTargetDir
+
                     extensions {
                         relativeTargetDirectory('dotnet-ci-repolist')
                     }
@@ -114,8 +113,7 @@ folder('GenPRTest') {}
                     }
 
                     branch("*/${SDKImplementationBranch}")
-                 
-                    // On older versions of DSL this is a top level git element called relativeTargetDir
+
                     extensions {
                         relativeTargetDirectory('dotnet-ci-sdk')
                     }
@@ -139,8 +137,6 @@ folder('GenPRTest') {}
             categories(['job_generators'])
         }
         
-        label('!windowsnano16 && !performance && !dtap')
-
         label('!windowsnano16 && !performance && !dtap')
 
         if (isPR) {
