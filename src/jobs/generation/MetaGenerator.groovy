@@ -36,6 +36,8 @@ class Repo {
     String utilitiesRepo
     // The branch for the utilities repo
     String utilitiesRepoBranch
+    // The branch for the utilities repo
+    String collection
 
     def Repo(String project,
              String[] folders,
@@ -43,7 +45,9 @@ class Repo {
              String server,
              String definitionScript,
              String utilitiesRepo,
-             String utilitiesRepoBranch) {
+             String utilitiesRepoBranch,
+             String collection,
+             String credentials) {
         this.project = project
         this.folders = folders
         this.branch = branch
@@ -51,6 +55,8 @@ class Repo {
         this.definitionScript = definitionScript
         this.utilitiesRepo = utilitiesRepo
         this.utilitiesRepoBranch = utilitiesRepoBranch
+        this.collection = collection
+        this.credentials = credentials
     }
 
     // Parse the input string and return a Repo object
@@ -149,7 +155,7 @@ class Repo {
         folders += Utilities.getFolderName(branch)
 
         // Construct a new object and return
-        return new Repo(project, folders, branch, server, definitionScript, utilitiesRepo, utilitiesRepoBranch)
+        return new Repo(project, folders, branch, server, definitionScript, utilitiesRepo, utilitiesRepoBranch, collection, credentials)
     }
 }
 
