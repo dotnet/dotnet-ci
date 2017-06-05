@@ -287,14 +287,13 @@ repos.each { repoInfo ->
                 git {
                     remote {
                         if (isVSTS) {
-                            url("https://github.com/${repoInfo.utilitiesRepo}")
-                        }
-                        else {
                             url("https://mseng.visualstudio.com/${Utilities.getOrgOrProjectName(repoInfo.utilitiesRepo)}/_git/${Utilities.getRepoName(repoInfo.utilitiesRepo)}")
                             credentials('vsts-dotnet-ci-trusted-creds')
                         }
+                        else {
+                            url("https://github.com/${repoInfo.utilitiesRepo}")
+                        }
                     }
-                    // On older versions of DSL this is a top level git element called relativeTargetDir
                     extensions {
                         relativeTargetDirectory('dotnet-ci')
                         cloneOptions {
@@ -310,7 +309,6 @@ repos.each { repoInfo ->
                 //
                 git {
                     remote {
-
                         if (isVSTS) {
                             url("https://${repoInfo.collection}.visualstudio.com/${Utilities.getOrgOrProjectName(repoInfo.project)}/_git/${Utilities.getRepoName(repoInfo.project)}")
                             credentials(repoInfo.credentials)
@@ -330,7 +328,6 @@ repos.each { repoInfo ->
                     }
                     def targetDir = Utilities.getOrgOrProjectName(repoInfo.project)
                     // Want the relative to be just the project name
-                    // On older versions of DSL this is a top level git element called relativeTargetDir
                     extensions {
                         relativeTargetDirectory(targetDir)
                         cloneOptions {
@@ -459,7 +456,7 @@ repos.each { repoInfo ->
             }
         }
         else {
-            // Enable the github push trigger.
+            // Enable the push trigger.
             jobGenerator.with {
                 triggers {
                     scm('H/15 * * * *') {
