@@ -75,6 +75,8 @@ class Repo {
         String branch = null
         // Server name.
         String server = null
+        // Project folder name
+        String projectFolder = Utilities.getFolderName(project)
         // File name/path is usually netci.groovy, but can be set arbitrarily
         String definitionScript = 'netci.groovy'
         // Repo for Utilities that are used by the job
@@ -102,6 +104,10 @@ class Repo {
                 // If the folder name was root, just zero it out.  If they chose root, there should
                 // only be one element
                 assert subFolders.size() >= 1
+            }
+            else if(element.startsWith('projectFolder=')) {
+                // Sets the project folder name
+                projectFolder = element.substring('projectFolder='.length())
             }
             else if(element.startsWith('branch=')) {
                 branch = element.substring('branch='.length())
@@ -146,7 +152,7 @@ class Repo {
             assert false
         }
 
-        folders = [Utilities.getFolderName(project)]
+        folders = [projectFolder]
 
         // If they asked for subfolders, add them
         if (subFolders != null) {
@@ -279,7 +285,6 @@ repos.each { repoInfo ->
             // Need multiple scm's
             multiscm {
                 git {
-                    // We grab the utilities repo, the add a suffix of the sdk implementation version
                     remote {
                         if (isVSTS) {
                             url("https://github.com/${repoInfo.utilitiesRepo}")
@@ -441,7 +446,7 @@ repos.each { repoInfo ->
         }
 
         // Set the job to run on any generator enabled node.  Basically just has to have git.
-        Utilities.setMachineAffinity(jobGenerator, 'Generators', 'latest-or-auto')
+        Utilities.setMachineAffinity(jobGenerator, 'Generators', 'latest')
 
         if (isPRTest) {
             if (isVSTS) {
