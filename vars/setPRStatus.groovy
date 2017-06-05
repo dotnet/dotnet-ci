@@ -37,15 +37,20 @@ def call(String context, String state, String url, String subMessage = '') {
         return
     }
 
-    GhprbGitHubAuth auth = GhprbTrigger.getDscp().getGitHubAuth(credentialsId);
-    GitHub gh = auth.getConnection(currentBuild.rawBuild.getParent());
-    // Null out the auth object so that Jenkins doesn't potentially ask to serialize it
-    auth = null
-    GHRepository ghRepository = gh.getRepository(repository);
-    // Null out the gh object so that Jenkins doesn't potentially ask to serialize it
-    gh = null
-    // Create the state
-    ghRepository.createCommitStatus(commitSha, ghState, url, subMessage, context);
-    // Null out the ghRepository object so that Jenkins doesn't potentially ask to serialize it
-    ghRepository = null
+    try {
+        GhprbGitHubAuth auth = GhprbTrigger.getDscp().getGitHubAuth(credentialsId);
+        GitHub gh = auth.getConnection(currentBuild.rawBuild.getParent());
+        // Null out the auth object so that Jenkins doesn't potentially ask to serialize it
+        auth = null
+        GHRepository ghRepository = gh.getRepository(repository);
+        // Null out the gh object so that Jenkins doesn't potentially ask to serialize it
+        gh = null
+        // Create the state
+        ghRepository.createCommitStatus(commitSha, ghState, url, subMessage, context);
+        // Null out the ghRepository object so that Jenkins doesn't potentially ask to serialize it
+        ghRepository = null
+    }
+    catch (e) {
+        echo "Failed to create commit status for sha ${commitSha}: ${e.getMessage()}"
+    }
 }

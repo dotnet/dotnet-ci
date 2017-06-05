@@ -38,10 +38,16 @@ def call (def helixRunsBlob, String prStatusPrefix) {
                 // Check the state against the Helix API
                 def statusUrl = "https://helix.dot.net/api/2017-04-14/jobs/${correlationId}/details"
                 def statusResponse = httpRequest statusUrl
+                assert statusResponse != null
+                assert statusResponse.content != null
                 def statusContent = (new JsonSlurperClassic()).parseText(statusResponse.content)
 
                 // If the job info hasn't been propagated to the helix api, then we need to wait around.
                 boolean isNotStarted = statusContent.JobList == null
+                if (isNotStarted) {
+                    statusContent = null
+                    return false
+                }
                 boolean isPending = !isNotStarted && statusContent.WorkItems.Running == 0 && statusContent.WorkItems.Finished == 0
                 boolean isFinished = !isNotStarted && statusContent.WorkItems.Unscheduled == 0 && statusContent.WorkItems.Waiting == 0 && statusContent.WorkItems.Running == 0
                 boolean someFinished = statusContent.WorkItems.Finished > 0
@@ -138,6 +144,9 @@ def call (def helixRunsBlob, String prStatusPrefix) {
         }
     }
     stage ('Execute Tests') {
-        parallel helixRunTasks
+        // Set timeout to 240 minutes to avoid the accidental job getting stuck
+        timeout(720) {
+            parallel helixRunTasks
+        }
     }
 }

@@ -32,8 +32,8 @@ param (
     [string]$OperatingSystem = $null,
     [string]$VMName = $(Read-Host -prompt "VM name to deploy"),
     [string]$ResourceGroupName = 'dotnet-ci-user-vms',
-    [string]$Location = 'westus',
-    [string]$StorageAccountName = 'dotnetciuservmstorage1',
+    [string]$Location = 'westus2',
+    [string]$StorageAccountName = 'dotnetciuservmstorage2',
     [string]$VNetName = 'dotnet-ci-user-vms-vnet',
     [string]$VNetSubnetName = 'dotnet-ci-user-vms-vnet-subnet',
     [string]$VMSize = 'Standard_D3_v2'

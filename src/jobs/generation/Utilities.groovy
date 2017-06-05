@@ -617,6 +617,7 @@ class Utilities {
         job.with {
             parameters {
                 stringParam('GitBranchOrCommit', defaultBranch, 'Git branch or commit to build.  If a branch, builds the HEAD of that branch.  If a commit, then checks out that specific commit.')
+                booleanParam('ReproBuild', false, 'Check to enable repro functionality. This option is currently in development.')
                 // Telemetry
                 stringParam('DOTNET_CLI_TELEMETRY_PROFILE', "IsInternal_CIServer;${project}", 'This is used to differentiate the internal CI usage of CLI in telemetry.  This gets exposed in the environment and picked up by the CLI product.')
                 // Project name (without org)
@@ -645,6 +646,7 @@ class Utilities {
                 stringParam('GithubProjectName', Utilities.getProjectName(project), 'Project name ')
                 // Org name (without repo)
                 stringParam('GithubOrgName', Utilities.getOrgName(project), 'Project name passed to the DSL generator')
+                booleanParam('ReproBuild', false, 'Check to enable repro functionality. This option is currently in development.')
             }
         }
     }
@@ -725,6 +727,33 @@ class Utilities {
                 }
                 permission('hudson.model.Item.Discover', 'anonymous')
                 permission('hudson.model.Item.ViewStatus', 'anonymous')
+            }
+        }
+    }
+
+    /**
+     * [IN DEVELOPMENT] - Prints the value of the ReproBuild variable if the build failed and ReproBuild == true.
+     *
+     * @param job Job to modify
+     * @param settings Archival settings
+     */
+    def static addReproBuild(def job, ArchivalSettings settings) {
+        job.with {
+            publishers {
+                flexiblePublish {
+                    conditionalAction {
+                        condition {
+                            and{
+                                booleanCondition('${ReproBuild}')
+                            } {
+                                status(settings.getArchiveStatusRange()[0],settings.getArchiveStatusRange()[1])
+                            }
+                        }
+                        steps {
+                            batchFile("echo repro build step.")
+                        }
+                    }
+                }
             }
         }
     }
