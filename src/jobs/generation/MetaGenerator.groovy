@@ -62,7 +62,7 @@ class Repo {
     }
 
     // Parse the input string and return a Repo object
-    def static parseInputString(String input, def out) {
+    def static parseInputString(String input, String serverName, boolean isVSTS, def out) {
         // First element is the repo name.  Should be in <org>/<repo> format
         def projectInfo = input.tokenize()
 
@@ -80,7 +80,7 @@ class Repo {
         // File name/path is usually netci.groovy, but can be set arbitrarily
         String definitionScript = 'netci.groovy'
         // Repo for Utilities that are used by the job
-        String utilitiesRepo = 'dotnet/dotnet-ci'
+        String utilitiesRepo = isVSTS ? 'Tools/DotNet-CI-Trusted' : 'dotnet/dotnet-ci'
         // Branch that the utilities should be read from
         String utilitiesRepoBranch = 'master'
         // VSTS only: Project collection.
@@ -152,6 +152,33 @@ class Repo {
             assert false
         }
 
+        // Consistency check for VSTS vs. GitHub
+        // If this is a VSTS server and the project collection wasn't specified for a project targeting this server, error.
+        // Alternatively, error if the collection was specified 
+        if (server == serverName) {
+            if (isVSTS && (collection == null || collection == '')) {
+                out.println("Line '${input}' invalid")
+                out.println("VSTS collection must be specified for ${project} (use collection=)")
+                assert false
+            }
+            else if (!isVSTS && collection != null) {
+                out.println("Line '${input}' invalid")
+                out.println("VSTS collection shouldn't be specified for ${project} (collection=${collection})")
+                assert false
+            }
+            // Check credentials
+            if (isVSTS && (credentials == null || credentials == '')) {
+                out.println("Line '${input}' invalid")
+                out.println("VSTS repo credentials id must be specified for ${project} (use credentials=)")
+                assert false
+            }
+            else if (!isVSTS && credentials != null) {
+                out.println("Line '${input}' invalid")
+                out.println("VSTS repo credentials id shouldn't be specified for ${project} (credentials=${credentials})")
+                assert false
+            }
+        }
+
         folders = [projectFolder]
 
         // If they asked for subfolders, add them
@@ -180,7 +207,7 @@ streamFileFromWorkspace(RepoListLocation).eachLine { line ->
         return;
     }
 
-    repos += Repo.parseInputString(line, out)
+    repos += Repo.parseInputString(line, ServerName, isVSTS, out)
 }
 
 // Post Processing
@@ -208,29 +235,6 @@ repos.each { repoInfo ->
         // based on glob syntax.  But it should prevent most errors.
         searchRepoInfo.definitionScript == repoInfo.definitionScript
     } == null
-
-    // Consistency check for VSTS vs. GitHub
-    // If this is a VSTS server and the project collection wasn't specified for a project targeting this server, error.
-    // Alternatively, error if the collection was specified 
-    if (repoInfo.server == ServerName) {
-        if (isVSTS && (repoInfo.collection == null || repoInfo.collection == '')) {
-            out.println("VSTS collection must be specified for ${repoInfo.project} (use collection=)")
-            assert false
-        }
-        else if (!isVSTS && repoInfo.collection != null) {
-            out.println("VSTS collection shouldn't be specified for ${repoInfo.project} (collection=${repoInfo.collection})")
-            assert false
-        }
-        // Check credentials
-        if (isVSTS && (repoInfo.credentials == null || repoInfo.credentials == '')) {
-            out.println("VSTS repo credentials id must be specified for ${repoInfo.project} (use credentials=)")
-            assert false
-        }
-        else if (!isVSTS && repoInfo.credentials != null) {
-            out.println("VSTS repo credentials id shouldn't be specified for ${repoInfo.project} (credentials=)")
-            assert false
-        }
-    }
 }
 
 // Now that we have all the repos, generate the jobs
