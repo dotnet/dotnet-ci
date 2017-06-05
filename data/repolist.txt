@@ -152,7 +152,7 @@ dotnet/perf-infra branch=master server=dotnet-ci2 definitionScript=startup.groov
 mono/linker branch=master server=dotnet-ci
 Microsoft/vstest branch=master server=dotnet-ci
 Microsoft/vstest branch=future server=dotnet-ci
-mmitche/corefx branch=dev/pipeline server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy utilitiesRepoBranch=dev/pipelinesupport
 mmitche/coreclr branch=dev/pipeline server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy utilitiesRepoBranch=dev/pipelinesupport
-mmitche/corefx branch=master server=dotnet-ci-ddljenkinssrvgh01
 Microsoft/testfx branch=master server=dotnet-ci
+Tools/DotNet-CI-Trusted branch=dev/pipelinesupport definitionScript=tests/tests.groovy server=dotnet-vsts
+
