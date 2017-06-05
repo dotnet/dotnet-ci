@@ -11,12 +11,6 @@
 #       no branch folder is created.
 #   definitionScript=<file path> Path to the location of the groovy file that should be used for this
 #       entry.  Path is relative to the root of the repository.  Usually omitted.  Can default to netci.groovy
-#   isDefaultPRBranch=true/false (default: false)- If true, then:
-#       PRTargetBranches = .* + current branch
-#       PRSkipBranches = other tracked branches + other PR branches
-#   additionalPRBranches=<comma separated list of branches>
-#       PRTargetBranches contains the list additional PR branch list + current branch
-#       PRSkipBranches = other tracked branches + other PR branches
 
 dotnet/buildtools branch=master server=dotnet-ci
 dotnet/buildtools branch=release/1.0.0 server=dotnet-ci

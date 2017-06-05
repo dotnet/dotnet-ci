@@ -32,31 +32,16 @@ class Repo {
     String branch
     String server
     String definitionScript
-    // Indicates this is a branch for 'default' PRs. ORs to branches other than the tracked branches would use jobs
-    // defined here.  If true, then the generator will receive .* + branch +  for PRTargetBranches with the other tracked
-    // branches  in the PRSkipBranches parameter.
-    boolean isDefaultPRBranch
-    // Indicates this branch provides PR coverage for the listed branches.  If set, the PRTargetBranches will be
-    // set to this branch + prsForBranches.  PRSkipBranches remains empty
-    String[] additionalPRBranches = []
     // The location of the Utilities repo
     String utilitiesRepo
     // The branch for the utilities repo
     String utilitiesRepoBranch
-
-    // Lazily set up data
-    // Branches that should be targeted for PRs against this job definition
-    String[] prTargetBranches
-    // Branches that should be skipped for PRs against this job definition
-    String[] prSkipBranches
 
     def Repo(String project,
              String[] folders,
              String branch,
              String server,
              String definitionScript,
-             boolean isDefaultPRBranch,
-             String[] additionalPRBranches,
              String utilitiesRepo,
              String utilitiesRepoBranch) {
         this.project = project
@@ -64,8 +49,6 @@ class Repo {
         this.branch = branch
         this.server = server
         this.definitionScript = definitionScript
-        this.isDefaultPRBranch = isDefaultPRBranch
-        this.additionalPRBranches = additionalPRBranches
         this.utilitiesRepo = utilitiesRepo
         this.utilitiesRepoBranch = utilitiesRepoBranch
     }
@@ -86,10 +69,6 @@ class Repo {
         String server = null
         // File name/path is usually netci.groovy, but can be set arbitrarily
         String definitionScript = 'netci.groovy'
-        // Additional PR branches
-        String[] additionalPRBranches = []
-        // Is the default PR branch?
-        boolean isDefaultPRBranch = false
         // Repo for Utilities that are used by the job
         String utilitiesRepo = 'dotnet/dotnet-ci'
         // Branch that the utilities should be read from
@@ -124,14 +103,6 @@ class Repo {
             }
             else if(element.startsWith('definitionScript=')) {
                 definitionScript = element.substring('definitionScript='.length())
-            }
-            else if(element.startsWith('additionalPRBranches=')) {
-                // Parse out the folder names
-                additionalPRBranches = element.substring('additionalPRBranches='.length()).tokenize(',')
-            }
-            else if(element.startsWith('isDefaultPRBranch=')) {
-                // Parse out the folder names
-                isDefaultPRBranch = element.substring('isDefaultPRBranch='.length()).toBoolean()
             }
             else if(element.startsWith('utilitiesRepo=')) {
                 // Parse out the folder names
@@ -203,7 +174,7 @@ class Repo {
         folders += Utilities.getFolderName(branch)
 
         // Construct a new object and return
-        return new Repo(project, folders, branch, server, definitionScript, isDefaultPRBranch, additionalPRBranches, utilitiesRepo, utilitiesRepoBranch)
+        return new Repo(project, folders, branch, server, definitionScript, utilitiesRepo, utilitiesRepoBranch)
     }
 }
 
@@ -249,21 +220,6 @@ repos.each { repoInfo ->
         // based on glob syntax.  But it should prevent most errors.
         searchRepoInfo.definitionScript == repoInfo.definitionScript
     } == null
-
-    repoInfo.prTargetBranches = []
-    repoInfo.prSkipBranches = []
-
-    // Determine the prTargetBranches and prSkipBranches
-    if (repoInfo.isDefaultPRBranch) {
-        repoInfo.prTargetBranches = ['.*']
-        repoInfo.prSkipBranches = otherRepos.branch + otherRepos.additionalPRBranches.flatten()
-    }
-    else {
-        // Otherwise, the target branch is the branch + additional Branches
-        repoInfo.prTargetBranches = repoInfo.additionalPRBranches
-        repoInfo.prSkipBranches = otherRepos.branch + otherRepos.additionalPRBranches.flatten()
-    }
-    repoInfo.prTargetBranches += ((String[])[repoInfo.branch])
 }
 
 // Now that we have all the repos, generate the jobs
@@ -424,9 +380,6 @@ repos.each { repoInfo ->
                 stringParam('RepoName', Utilities.getProjectName(repoInfo.project), 'Project name')
                 stringParam('ProjectOrOrgName', Utilities.getOrgName(repoInfo.project), 'Organization name')
                 stringParam('TargetBranchName', repoInfo.branch, 'Branch name passed to the DSL generator')
-
-                stringParam('PRTargetBranches', repoInfo.prTargetBranches.join(','), 'Branches that should be tracked for PRs')
-                stringParam('PRSkipBranches', repoInfo.prSkipBranches.join(','), 'Branches that should be skipped for PRs')
                 booleanParam('IsTestGeneration', isPRTest, 'Is this a test generation?')
             }
 
