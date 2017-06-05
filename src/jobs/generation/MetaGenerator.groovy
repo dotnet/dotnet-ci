@@ -24,7 +24,7 @@ assert binding.variables.get("RepoListLocation") != null : "Expected path to rep
 assert binding.variables.get("VersionControlLocation") != null && 
        (binding.variables.get("VersionControlLocation") == 'VSTS' || 
        binding.variables.get("VersionControlLocation") != 'GitHub') : "Expected what version control this server targets (VSTS or GitHub)"
-static boolean isVSTS = binding.variables.get("VersionControlLocation") == 'VSTS'
+boolean isVSTS = binding.variables.get("VersionControlLocation") == 'VSTS'
 
 class Repo {
     String project
@@ -137,31 +137,6 @@ class Repo {
             out.println("server must be specified")
             assert false
         }
-        // If this is a VSTS server and the project collection wasn't specified for a project targeting this server, error.
-        // Alternatively, error if the collection was specified 
-        if (server == ServerName) {
-            if (isVSTS && (collection == null || collection == '')) {
-                out.println("Line '${input}' invalid")
-                out.println("VSTS collection must be specified (collection=)")
-                assert false
-            }
-            else if (!isVSTS && collection != null) {
-                out.println("Line '${input}' invalid")
-                out.println("VSTS collection shouldn't be specified (collection=)")
-                assert false
-            }
-            // Check credentials
-            if (isVSTS && (credentials == null || credentials == '')) {
-                out.println("Line '${input}' invalid")
-                out.println("VSTS repo credentials id must be specified (credentials=)")
-                assert false
-            }
-            else if (!isVSTS && credentials != null) {
-                out.println("Line '${input}' invalid")
-                out.println("VSTS repo credentials id must not be specified (credentials=)")
-                assert false
-            }
-        }
 
         folders = [Utilities.getFolderName(project)]
 
@@ -208,7 +183,6 @@ repos.each { repoInfo ->
 
     // Consistency check
     // Find other projects that have the same project, same branch, and same definition script
-
     assert repos.find { searchRepoInfo ->
         // Not the exact same item
         repoInfo != searchRepoInfo &&
@@ -220,6 +194,29 @@ repos.each { repoInfo ->
         // based on glob syntax.  But it should prevent most errors.
         searchRepoInfo.definitionScript == repoInfo.definitionScript
     } == null
+
+    // Consistency check for VSTS vs. GitHub
+    // If this is a VSTS server and the project collection wasn't specified for a project targeting this server, error.
+    // Alternatively, error if the collection was specified 
+    if (repoInfo.server == ServerName) {
+        if (isVSTS && (repoInfo.collection == null || repoInfo.collection == '')) {
+            out.println("VSTS collection must be specified for ${repoInfo.project} (use collection=)")
+            assert false
+        }
+        else if (!isVSTS && repoInfo.collection != null) {
+            out.println("VSTS collection shouldn't be specified for ${repoInfo.project} (collection=${repoInfo.collection})")
+            assert false
+        }
+        // Check credentials
+        if (isVSTS && (credentials == null || repoInfo.credentials == '')) {
+            out.println("VSTS repo credentials id must be specified for ${repoInfo.project} (use credentials=)")
+            assert false
+        }
+        else if (!isVSTS && repoInfo.credentials != null) {
+            out.println("VSTS repo credentials id shouldn't be specified for ${repoInfo.project} (credentials=)")
+            assert false
+        }
+    }
 }
 
 // Now that we have all the repos, generate the jobs
