@@ -216,7 +216,7 @@ repos.each { repoInfo ->
             assert false
         }
         // Check credentials
-        if (isVSTS && (credentials == null || repoInfo.credentials == '')) {
+        if (isVSTS && (repoInfo.credentials == null || repoInfo.credentials == '')) {
             out.println("VSTS repo credentials id must be specified for ${repoInfo.project} (use credentials=)")
             assert false
         }
