@@ -281,7 +281,7 @@ class Pipeline {
      */
     public def triggerPipelineOnPush(Map<String,Object> parameters = [:]) {
         if (this._scm.getScmType() == 'VSTS') {
-            assert false : "nyi"
+            return triggerPipelineOnVSTSPush(parameters)
         }
         else if (this._scm.getScmType() == 'GitHub') {
             return triggerPipelineOnGithubPush(parameters)
@@ -289,6 +289,18 @@ class Pipeline {
         else {
             assert false : "NYI, unknown scm type"
         }
+    }
+
+    // Triggers a pipeline on a Github Push
+    // Parameters:
+    //  parameters - Parameters to pass to the pipeline on a push
+    // Returns:
+    //  Newly created job
+    public def triggerPipelineOnVSTSPush(Map<String,Object> parameters = [:]) {
+        VSTSTriggerBuilder builder = VSTSTriggerBuilder.triggerOnCommit()
+
+        // Call the generic API
+        return triggerPipelineOnEvent(builder, parameters)
     }
 
     // Triggers a pipeline on a Github Push
