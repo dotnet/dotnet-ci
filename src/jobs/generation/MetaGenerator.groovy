@@ -388,9 +388,12 @@ repos.each { repoInfo ->
 
                 // Generic SCM parameters
                 stringParam('QualifiedRepoName', repoInfo.project, 'Full project/repo passed to the DSL generator')
-                stringParam('RepoName', Utilities.getProjectName(repoInfo.project), 'Project name')
-                stringParam('ProjectOrOrgName', Utilities.getOrgName(repoInfo.project), 'Organization name')
+                stringParam('RepoName', Utilities.getRepoName(repoInfo.project), 'Repo name')
+                stringParam('OrgOrProjectName', Utilities.getOrgOrProjectName(repoInfo.project), 'Organization/VSTS project name')
                 stringParam('TargetBranchName', repoInfo.branch, 'Branch name passed to the DSL generator')
+                // Pass along the version control location (useful for tests)
+                stringParam('VersionControlLocation', VersionControlLocation, 'Where the version control sits (VSTS or GitHub)')
+
                 booleanParam('IsTestGeneration', isPRTest, 'Is this a test generation?')
             }
 

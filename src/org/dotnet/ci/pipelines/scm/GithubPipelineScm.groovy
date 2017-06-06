@@ -16,6 +16,10 @@ class GithubPipelineScm implements PipelineScm {
         return _branch
     }
 
+    public String getScmType() {
+        return "GitHub"
+    }
+
     // Emits the source control setup for a PR job
     // Parameters:
     //  job - Job to emit scm for

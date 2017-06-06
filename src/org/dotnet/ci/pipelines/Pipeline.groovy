@@ -142,13 +142,56 @@ class Pipeline {
     //  branch - Branch that the project lives in
     //  pipelineFile - File name relative to root of the repo
     //  baseJobName - Jobs that invoke the pipeline will be created with this base name
-    public static Pipeline createPipelineForGitHub(def context, String project, String branch, String pipelineFile, String baseJobName) {
+    private static Pipeline createPipelineForGitHub(def context, String project, String branch, String pipelineFile, String baseJobName) {
         def newPipeline = new Pipeline(context, baseJobName, pipelineFile)
 
         // Create a new source control for the basic setup here
         def scm = new GithubPipelineScm(project, branch)
         newPipeline.setSourceControl(scm)
         return newPipeline
+    }
+
+    /**
+     * Creates a new generic pipeline for the given source control location
+     *
+     * @param context Context used to construct new pipelines.  Pass 'this' from groovy file.
+     * @param scmType Where the SCM lives.  Use either 'VSTS' or 'GitHub'.  Typically passed in from VersionControlLocation parameter
+     * @param project Qualified name of the project/repo combo (VSTS) or org/repo combo (GitHub)
+     * @param branch Branch where the pipeline lives
+     * @param pipelineFile Pipeline path relative to root of the repo.
+     *
+     * @return Newly created pipeline
+     */
+    public static Pipeline createPipeline(def context, String scmType, String project, String branch, String pipelineFile) {
+        if (scmType == 'VSTS') {
+            assert false : "nyi"
+        }
+        else if (scmType == 'GitHub') {
+            return createPipelineForGitHub(context, project, branch, pipelineFile)
+        }
+        else {
+            assert false : "NYI, unknown scm type"
+        }
+    }
+
+    /**
+     * Triggers a pipeline on every PR.
+     *
+     * @param context Context of the status check that should be presented in the GitHub/VSTS UI.
+     * @param parameters Parameters to pass to the pipeline
+     *
+     * @return Newly created job
+     */
+    public def triggerPipelineOnEveryPR(String context, Map<String,Object> parameters = [:]) {
+        if (this.getScmType() == 'VSTS') {
+            // TODO: VSTS PR checks
+        }
+        else if (this.getScmType() == 'GitHub') {
+            return triggerPipelineOnEveryGithubPR(context, parameters)
+        }
+        else {
+            assert false : "NYI, unknown scm type"
+        }
     }
 
     // Triggers a puipeline on every Github PR.
@@ -209,6 +252,25 @@ class Pipeline {
     public def triggerPipelineOnGithubPRComment(String context, Map<String,Object> parameters = [:]) {
         // Create the default trigger phrase based on the context
         return triggerPipelineOnGithubPRComment(context, null, parameters)
+    }
+
+    /**
+     * Triggers a pipeline on every push.
+     *
+     * @param parameters Parameters to pass to the pipeline
+     *
+     * @return Newly created job
+     */
+    public def triggerPipelineOnPush(Map<String,Object> parameters = [:]) {
+        if (this.getScmType() == 'VSTS') {
+            assert false : "nyi"
+        }
+        else if (this.getScmType() == 'GitHub') {
+            return triggerPipelineOnGithubPush(parameters)
+        }
+        else {
+            assert false : "NYI, unknown scm type"
+        }
     }
 
     // Triggers a pipeline on a Github Push
