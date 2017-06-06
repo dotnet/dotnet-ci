@@ -130,23 +130,34 @@ class Pipeline {
     //  branch - Branch that the project lives in
     //  pipelineFile - File name relative to root of the repo
     public static Pipeline createPipelineForGithub(def context, String project, String branch, String pipelineFile) {
-        String baseName = getDefaultPipelineJobBaseName(pipelineFile)
-        return createPipelineForGitHub(context, project, branch, pipelineFile, baseName)
-    }
-
-    // Creates a new pipeline given the pipeline groovy script that
-    // will be invoked and a base name for the jobs that will be created
-    // Parameters:
-    //  context - Context used to construct new pipelines.  Pass 'this' from groovy file.
-    //  project - GitHub project that the pipeline lives in.
-    //  branch - Branch that the project lives in
-    //  pipelineFile - File name relative to root of the repo
-    //  baseJobName - Jobs that invoke the pipeline will be created with this base name
-    private static Pipeline createPipelineForGitHub(def context, String project, String branch, String pipelineFile, String baseJobName) {
+        String baseJobName = getDefaultPipelineJobBaseName(pipelineFile)
         def newPipeline = new Pipeline(context, baseJobName, pipelineFile)
 
         // Create a new source control for the basic setup here
         def scm = new GithubPipelineScm(project, branch)
+        newPipeline.setSourceControl(scm)
+        return newPipeline
+    }
+
+    /**
+     * Creates a new pipeline for VSTS
+     *
+     * @param context Context used to construct new pipelines.  Pass 'this' from groovy file.
+     * @param project Qualified name of the project/repo combo (VSTS)
+     * @param branch Branch where the pipeline lives
+     * @param pipelineFile Pipeline path relative to root of the repo.
+     *
+     * @return Newly created pipeline
+     */
+    private static Pipeline createPipelineForVSTS(def context, String project, String branch, String pipelineFile) {
+        String collectionName = this.getBinding().getVariables()['VSTSCollectionName']
+        String credentialsId = this.getBinding().getVariables()['CredentialsId']
+
+        String baseJobName = getDefaultPipelineJobBaseName(pipelineFile)
+        def newPipeline = new Pipeline(context, baseJobName, pipelineFile)
+
+        // Create a new source control for the basic setup here
+        def scm = new VSTSPipelineScm(project, branch, credentialsId, collectionName)
         newPipeline.setSourceControl(scm)
         return newPipeline
     }
@@ -162,9 +173,15 @@ class Pipeline {
      *
      * @return Newly created pipeline
      */
-    public static Pipeline createPipeline(def context, String scmType, String project, String branch, String pipelineFile) {
+    public static Pipeline createPipeline(def context, String pipelineFile) {
+        // From the context, we can get the incoming parameters  These incoming parameters
+        // will tell us things like the credentials (VSTS), project, branch, collection (VSTS), etc.
+        String scmType = this.getBinding().getVariables()['VersionControlLocation']
+        String project = this.getBinding().getVariables()['QualifiedRepoName']
+        String branch = this.getBinding().getVariables()['TargetBranchName']
+        
         if (scmType == 'VSTS') {
-            assert false : "nyi"
+            return createPipelineForVSTS(context, project, branch, pipelineFile)
         }
         else if (scmType == 'GitHub') {
             return createPipelineForGitHub(context, project, branch, pipelineFile)

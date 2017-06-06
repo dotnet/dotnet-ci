@@ -2,14 +2,17 @@ package org.dotnet.ci.pipelines.scm;
 
 import jobs.generation.Utilities
 
-class GithubPipelineScm implements PipelineScm {
+class VSTSPipelineScm implements PipelineScm {
     private String _project
     private String _branch
     private String _credentialsId
+    private String _collectionName
 
-    public GithubPipelineScm(String project, String branch) {
+    public VSTSPipelineScm(String project, String branch, String credentialsId, String collectionName) {
         _project = project
         _branch = branch
+        _credentialsId = credentialsId
+        _collectionName = collectionName
     }
 
     public String getBranch() {
@@ -17,7 +20,7 @@ class GithubPipelineScm implements PipelineScm {
     }
 
     public String getScmType() {
-        return "GitHub"
+        return "VSTS"
     }
 
     /**
@@ -30,15 +33,14 @@ class GithubPipelineScm implements PipelineScm {
         job.with {
             // Set up parameters for this job
             parameters {
+                // TODO: VSTS PR params
                 stringParam('sha1', '', 'Incoming sha1 parameter from the GHPRB plugin.')
                 stringParam('GitBranchOrCommit', '${sha1}', 'Git branch or commit to build.  If a branch, builds the HEAD of that branch.  If a commit, then checks out that specific commit.')
                 stringParam('GitRepoUrl', Utilities.calculateGitURL(this._project), 'Git repo to clone.')
                 stringParam('GitRefSpec', '+refs/pull/*:refs/remotes/origin/pr/*', 'RefSpec.  WHEN SUBMITTING PRIVATE JOB FROM YOUR OWN REPO, CLEAR THIS FIELD (or it won\'t find your code)')
                 stringParam('DOTNET_CLI_TELEMETRY_PROFILE', "IsInternal_CIServer;${_project}", 'This is used to differentiate the internal CI usage of CLI in telemetry.  This gets exposed in the environment and picked up by the CLI product.')
-                // Project name (without org)
-                stringParam('GithubProjectName', Utilities.getProjectName(_project), 'Project name ')
-                // Org name (without repo)
-                stringParam('GithubOrgName', Utilities.getOrgName(_project), 'Project name passed to the DSL generator')
+                stringParam('RepoName', Utilities.getRepoName(_project), 'Repo name')
+                stringParam('OrgOrProjectName', Utilities.getOrgOrProjectName(_project), 'Organization/VSTS project name')
             }
 
             definition {

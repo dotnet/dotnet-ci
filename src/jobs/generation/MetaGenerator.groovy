@@ -378,6 +378,7 @@ repos.each { repoInfo ->
                 // around but introduce new ones with more generic names.
                 if (isVSTS) {
                     stringParam('VSTSCollectionName', repoInfo.collection, 'VSTS collection name')
+                    stringParam('CredentialsId', repoInfo.credentials, 'VSTS credentials id')
                 }
                 else {
                     stringParam('GithubProject', repoInfo.project, 'Project name passed to the DSL generator')
