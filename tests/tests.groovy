@@ -5,7 +5,7 @@ import org.dotnet.ci.pipelines.Pipeline
 // as well as for verification purposes.
 def testingPipeline = Pipeline.createPipeline(this, 'tests/root-tests-pipeline.groovy')
 
-def parameters = ['VersionControlLocation', VersionControlLocation]
+def parameters = ['VersionControlLocation':VersionControlLocation]
 // Trigger this pipeline on pushes and PRs
 testingPipeline.triggerPipelineOnEveryPR('CI Tests', parameters)
 testingPipeline.triggerPipelineOnPush(parameters)
