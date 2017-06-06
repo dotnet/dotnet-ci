@@ -99,6 +99,8 @@ class VSTSPipelineScm implements PipelineScm {
                         git {
                             remote {
                                 url(this.getGitUrl())
+                                // Set the credentials, which are always required
+                                credentials(this._credentialsId)
                             }
 
                             branch('${GitBranchOrCommit}')
