@@ -814,7 +814,8 @@ class Utilities {
             triggerPhraseString = "(?i).*test\\W+${contextString}.*"
         }
 
-        Utilities.addGithubPRTriggerImpl(job, branchName, contextString, triggerPhraseString, triggerOnPhraseOnly, true, null, null)
+        // This will disable PRs for everyone except Microsoft org-joined submitters
+        Utilities.addGithubPRTriggerImpl(job, branchName, contextString, triggerPhraseString, triggerOnPhraseOnly, false, ['Microsoft'], null)
     }
 
     /**
@@ -835,7 +836,7 @@ class Utilities {
             triggerPhraseString = "(?i).*test\\W+${contextString}.*"
         }
 
-        Utilities.addGithubPRTriggerImpl(job, null, contextString, triggerPhraseString, triggerOnPhraseOnly, true, null, null)
+        Utilities.addGithubPRTriggerImpl(job, null, contextString, triggerPhraseString, triggerOnPhraseOnly, false, ['Microsoft'], null)
     }
 
     def static calculateGitURL(def project, String protocol = 'https') {
