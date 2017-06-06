@@ -14,7 +14,7 @@ node {
 
     stage ('DSL Generation Tests') {
         // Run DSL
-        jobDsl targets: 'tests/dsl-new-pipeline.groovy',
+        jobDsl targets: 'tests/dsl/new_pipeline.groovy',
            removedJobAction: 'DELETE',
            removedViewAction: 'DELETE',
            lookupStrategy: 'SEED_JOB'
