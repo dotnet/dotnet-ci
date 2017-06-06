@@ -151,8 +151,8 @@ class Pipeline {
      * @return Newly created pipeline
      */
     private static Pipeline createPipelineForVSTS(def context, String project, String branch, String pipelineFile) {
-        String collectionName = this.getBinding().getVariables()['VSTSCollectionName']
-        String credentialsId = this.getBinding().getVariables()['VSTSCredentialsId']
+        String collectionName = context.getBinding().getVariables()['VSTSCollectionName']
+        String credentialsId = context.getBinding().getVariables()['VSTSCredentialsId']
 
         String baseJobName = getDefaultPipelineJobBaseName(pipelineFile)
         def newPipeline = new Pipeline(context, baseJobName, pipelineFile)
