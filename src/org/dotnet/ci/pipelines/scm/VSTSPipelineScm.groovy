@@ -6,7 +6,7 @@ class VSTSPipelineScm implements PipelineScm {
     private String _project
     private String _branch
     private String _credentials
-    private String _collectionName
+    private String _collection
 
     public VSTSPipelineScm(String project, String branch, String credentials, String collection) {
         _project = project
