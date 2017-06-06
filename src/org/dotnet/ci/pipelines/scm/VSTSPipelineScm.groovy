@@ -59,7 +59,7 @@ class VSTSPipelineScm implements PipelineScm {
                                 // Set URL to the parameterized version
                                 url('${GitRepoUrl}')
                                 // Set the credentials, which are always required
-                                credentials(this._credentialsId)
+                                credentials(this._credentials)
                             }
 
                             // Set the branch
@@ -100,7 +100,7 @@ class VSTSPipelineScm implements PipelineScm {
                             remote {
                                 url(this.getGitUrl())
                                 // Set the credentials, which are always required
-                                credentials(this._credentialsId)
+                                credentials(this._credentials)
                             }
 
                             branch('${GitBranchOrCommit}')
