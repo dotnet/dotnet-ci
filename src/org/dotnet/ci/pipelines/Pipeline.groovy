@@ -201,10 +201,10 @@ class Pipeline {
      * @return Newly created job
      */
     public def triggerPipelineOnEveryPR(String context, Map<String,Object> parameters = [:]) {
-        if (this.getScmType() == 'VSTS') {
+        if (this._scm.getScmType() == 'VSTS') {
             // TODO: VSTS PR checks
         }
-        else if (this.getScmType() == 'GitHub') {
+        else if (this._scm.getScmType() == 'GitHub') {
             return triggerPipelineOnEveryGithubPR(context, parameters)
         }
         else {
@@ -280,10 +280,10 @@ class Pipeline {
      * @return Newly created job
      */
     public def triggerPipelineOnPush(Map<String,Object> parameters = [:]) {
-        if (this.getScmType() == 'VSTS') {
+        if (this._scm.getScmType() == 'VSTS') {
             assert false : "nyi"
         }
-        else if (this.getScmType() == 'GitHub') {
+        else if (this._scm.getScmType() == 'GitHub') {
             return triggerPipelineOnGithubPush(parameters)
         }
         else {
