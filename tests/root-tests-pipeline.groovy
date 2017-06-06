@@ -8,6 +8,10 @@ echo "    GitBranchOrCommit = ${GitBranchOrCommit}"
 
 // DSL tests
 node {
+    stage ('Source Control Checkout') {
+        checkout scm
+    }
+
     stage ('DSL Generation Tests') {
         // Run DSL
         jobDsl targets: 'tests/dsl-new-pipeline.groovy',
