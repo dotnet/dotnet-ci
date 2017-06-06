@@ -177,9 +177,9 @@ class Pipeline {
     public static Pipeline createPipeline(def context, String pipelineFile) {
         // From the context, we can get the incoming parameters  These incoming parameters
         // will tell us things like the credentials (VSTS), project, branch, collection (VSTS), etc.
-        String scmType = this.getBinding().getVariables()['VersionControlLocation']
-        String project = this.getBinding().getVariables()['QualifiedRepoName']
-        String branch = this.getBinding().getVariables()['TargetBranchName']
+        String scmType = context.getBinding().getVariables()['VersionControlLocation']
+        String project = context.getBinding().getVariables()['QualifiedRepoName']
+        String branch = context.getBinding().getVariables()['TargetBranchName']
         
         if (scmType == 'VSTS') {
             return createPipelineForVSTS(context, project, branch, pipelineFile)
