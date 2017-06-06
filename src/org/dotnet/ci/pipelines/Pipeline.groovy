@@ -11,6 +11,7 @@ import org.dotnet.ci.triggers.GenericTriggerBuilder
 import org.dotnet.ci.triggers.TriggerBuilder
 import org.dotnet.ci.pipelines.scm.PipelineScm
 import org.dotnet.ci.pipelines.scm.GithubPipelineScm
+import org.dotnet.ci.pipelines.scm.VSTSPipelineScm
 
 // Contains functionality to deal with Jenkins pipelines.
 // This class enables us to inform Jenkins about pipelines and set up triggers for those pipeline/parameter combos
@@ -151,7 +152,7 @@ class Pipeline {
      */
     private static Pipeline createPipelineForVSTS(def context, String project, String branch, String pipelineFile) {
         String collectionName = this.getBinding().getVariables()['VSTSCollectionName']
-        String credentialsId = this.getBinding().getVariables()['CredentialsId']
+        String credentialsId = this.getBinding().getVariables()['VSTSCredentialsId']
 
         String baseJobName = getDefaultPipelineJobBaseName(pipelineFile)
         def newPipeline = new Pipeline(context, baseJobName, pipelineFile)
