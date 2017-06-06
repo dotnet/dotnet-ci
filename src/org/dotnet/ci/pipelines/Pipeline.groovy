@@ -7,6 +7,7 @@ import jobs.generation.Utilities
 import jobs.generation.GenerationSettings
 
 import org.dotnet.ci.triggers.GithubTriggerBuilder
+import org.dotnet.ci.triggers.VSTSTriggerBuilder
 import org.dotnet.ci.triggers.GenericTriggerBuilder
 import org.dotnet.ci.triggers.TriggerBuilder
 import org.dotnet.ci.pipelines.scm.PipelineScm
