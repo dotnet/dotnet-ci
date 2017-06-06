@@ -34,7 +34,6 @@ class VSTSPipelineScm implements PipelineScm {
      * @param pipelineFile File containing the pipeline script, relative to repo root
      */
     void emitScmForPR(def job, String pipelineFile) {
-        def
         job.with {
             // Set up parameters for this job
             parameters {
