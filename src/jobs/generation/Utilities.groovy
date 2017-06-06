@@ -596,9 +596,38 @@ class Utilities {
         Utilities.addGithubPRTriggerImpl(job, null, contextString, triggerPhraseString, triggerOnPhraseOnly, true, null, null)
     }
 
+    /**
+     * Calculates the github scm URL give a project name
+     *
+     * @param project Github project
+     * @param protocol Default HTTPS
+     */
+    @Deprecated
     def static calculateGitURL(def project, String protocol = 'https') {
         // Example: git://github.com/dotnet/corefx.git
+        return calculateGitHubURL(project, protocol)
+    }
+
+    /**
+     * Calculates the github scm URL give a project name
+     *
+     * @param project Github project
+     * @param protocol Default HTTPS
+     */
+    def static calculateGitHubURL(def project, String protocol = 'https') {
+        // Example: git://github.com/dotnet/corefx.git
         return "${protocol}://github.com/${project}.git"
+    }
+
+    /**
+     * Calculates the vsts scm URL give a collection, project, and repo name
+     *
+     * @param project Github project
+     * @param protocol Default HTTPS
+     */
+    def static calculateVSTSGitURL(String collection, String project, String repo) {
+        // Example: git://github.com/dotnet/corefx.git
+        return "https://${collection}.visualstudio.com/${project}/_git/${repo}"
     }
 
     /**
