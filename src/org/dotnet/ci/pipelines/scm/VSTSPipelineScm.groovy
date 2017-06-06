@@ -5,7 +5,7 @@ import jobs.generation.Utilities
 class VSTSPipelineScm implements PipelineScm {
     private String _project
     private String _branch
-    private String _credentialsId
+    private String _credentials
     private String _collectionName
 
     public VSTSPipelineScm(String project, String branch, String credentials, String collection) {
