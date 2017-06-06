@@ -10,9 +10,9 @@ assert binding.variables.get("VersionControlLocation") != null &&
        binding.variables.get("VersionControlLocation") != 'GitHub') : "Expected what version control this server targets (VSTS or GitHub)"
        
 // The input project name (e.g. dotnet/corefx)
-def qualifiedRepoName = QualifiedRepoName
+def project = QualifiedRepoName
 // The input branch name (e.g. master)
-def targetBranchName = TargetBranchName
+def branch = TargetBranchName
 
 // This file is pretty barebones.  It basically just sets up a pipeline which then calls the tests.
 // This is opposed to setting up all the tests here, which is a little more difficult to square between PR and non-PR scenarios,
