@@ -299,7 +299,7 @@ repos.each { repoInfo ->
                         }
                     }
                     extensions {
-                        relativeTargetDirectory('dotnet-ci')
+                        relativeTargetDirectory('dotnet-ci-sdk')
                         cloneOptions {
                             timeout(30)
                             if (isPRTest) {
@@ -330,7 +330,7 @@ repos.each { repoInfo ->
                             }
                         }
                     }
-                    def targetDir = Utilities.getOrgOrProjectName(repoInfo.project)
+                    def targetDir = Utilities.getRepoName(repoInfo.project)
                     // Want the relative to be just the project name
                     extensions {
                         relativeTargetDirectory(targetDir)
@@ -401,14 +401,14 @@ repos.each { repoInfo ->
 
             steps {
                 jobDsl {
-                    String dsltargets = "dotnet-ci/src/jobs/generation/PreGen.groovy"
-                    dsltargets += "\n${Utilities.getProjectName(repoInfo.project)}/${repoInfo.definitionScript}"
-                    dsltargets += "\ndotnet-ci/src/jobs/generation/PostGen.groovy"
+                    String dsltargets = "dotnet-ci-sdk/src/jobs/generation/PreGen.groovy"
+                    dsltargets += "\n${Utilities.getRepoName(repoInfo.project)}/${repoInfo.definitionScript}"
+                    dsltargets += "\ndotnet-ci-sdk/src/jobs/generation/PostGen.groovy"
 
                     targets(dsltargets)
 
                     // Additional classpath should point to the utility repo
-                    additionalClasspath('dotnet-ci/src')
+                    additionalClasspath('dotnet-ci-sdk/src')
 
                     // Fail the build if a plugin is missing
                     failOnMissingPlugin(true)
