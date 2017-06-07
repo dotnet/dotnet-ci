@@ -33,7 +33,9 @@ class GenericTriggerBuilder implements TriggerBuilder {
     // Returns:
     //  a new periodic trigger that runs on the specified interval
     def static GenericTriggerBuilder triggerPeriodically(String cronString) {
-        return new GenericTriggerBuilder(TriggerType.PERIODIC)
+        def newTrigger = new GenericTriggerBuilder(TriggerType.PERIODIC)
+        newTrigger._cronString = cronString
+        return newTrigger
     }
     
     // Forces the periodic trigger to run regardless of source change
