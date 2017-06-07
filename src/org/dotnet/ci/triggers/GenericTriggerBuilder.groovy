@@ -46,15 +46,15 @@ class GenericTriggerBuilder implements TriggerBuilder {
     // Parameters:
     //  job - Job to emit trigger for
     void emitTrigger(def job) {
-        assert _triggerType == TriggerType.PERIODIC
+        assert this._triggerType == TriggerType.PERIODIC
 
         job.with {
             triggers {
-                if (alwaysRun) {
-                    cron(cronString)
+                if (this._alwaysRun) {
+                    cron(this._cronString)
                 }
                 else {
-                    scm(cronString)
+                    scm(this._cronString)
                 }
             }
         }
