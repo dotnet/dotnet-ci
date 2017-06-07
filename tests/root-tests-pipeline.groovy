@@ -17,7 +17,7 @@ node {
         jobDsl targets: 'tests/dsl/new_pipeline.groovy',
            removedJobAction: 'DELETE',
            removedViewAction: 'DELETE',
-           lookupStrategy: 'SEED_JOB'
+           lookupStrategy: 'SEED_JOB',
            additionalClasspath: 'src'
     }
 }
