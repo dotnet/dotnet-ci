@@ -40,6 +40,8 @@ class Repo {
     String collection
     // The vsts collection credentials (if applicable)
     String credentials
+    // True if this is an SDK test.
+    String isDSLTest
 
     def Repo(String project,
              String[] folders,
@@ -49,7 +51,8 @@ class Repo {
              String utilitiesRepo,
              String utilitiesRepoBranch,
              String collection,
-             String credentials) {
+             String credentials,
+             boolean isDSLTest) {
         this.project = project
         this.folders = folders
         this.branch = branch
@@ -59,6 +62,7 @@ class Repo {
         this.utilitiesRepoBranch = utilitiesRepoBranch
         this.collection = collection
         this.credentials = credentials
+        this.isDSLTest = isDSLTest
     }
 
     // Parse the input string and return a Repo object
@@ -88,6 +92,8 @@ class Repo {
         // credentials id used to access the repo. Since credentials aren't the same across project collections in VSTS,
         // this is required for VSTS projects.
         String credentials = null
+        // Is this a test of the CI SDK DSL functionality?
+        boolean isDSLTest = false
 
         // Check whether it contains a single forward slash
         assert project.indexOf('/') != -1 && project.indexOf('/') == project.lastIndexOf('/')
@@ -133,6 +139,9 @@ class Repo {
             // VSTS specific
             else if(element.startsWith('credentials=')) {
                 credentials = element.substring('credentials='.length())
+            }
+            else if(element.startsWith('isDSLTest=true')) {
+                isDSLTest = true
             }
             else {
                 out.println("Unknown element " + element);
@@ -190,7 +199,7 @@ class Repo {
         folders += Utilities.getFolderName(branch)
 
         // Construct a new object and return
-        return new Repo(project, folders, branch, server, definitionScript, utilitiesRepo, utilitiesRepoBranch, collection, credentials)
+        return new Repo(project, folders, branch, server, definitionScript, utilitiesRepo, utilitiesRepoBranch, collection, credentials, isDSLTest)
     }
 }
 
@@ -395,7 +404,8 @@ repos.each { repoInfo ->
                 // Pass along the version control location (useful for tests)
                 stringParam('VersionControlLocation', VersionControlLocation, 'Where the version control sits (VSTS or GitHub)')
 
-                booleanParam('IsTestGeneration', isPRTest, 'Is this a test generation?')
+                // If this repo is a DSL test, then IsTestGeneration is always true
+                booleanParam('IsTestGeneration', isPRTest || repoInfo.isDSLTest, 'Is this a test generation?')
             }
 
             // Add in the job generator logic
