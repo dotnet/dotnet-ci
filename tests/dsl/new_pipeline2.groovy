@@ -1,5 +1,8 @@
 import org.dotnet.ci.pipelines.Pipeline
 
+// Set for SDK testing
+GenerationSettings.setSDKTest()
+
 // Tests creation of a pipeline that triggers on pushes with non-string parameter types
 def newPipeline = Pipeline.createPipeline(this, 'foopipeline.groovy')
 
