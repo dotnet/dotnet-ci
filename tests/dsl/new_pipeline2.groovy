@@ -1,4 +1,5 @@
 import org.dotnet.ci.pipelines.Pipeline
+import jobs.generation.GenerationSettings
 
 // Set for SDK testing
 GenerationSettings.setSDKTest()
