@@ -6,7 +6,7 @@ def newPipeline = Pipeline.createPipeline(this, 'foopipeline.groovy')
 
 try {
     // Parameters
-    newPipeline.triggerPipelineOnPush(['Hello':false])
+    newPipeline.triggerPipelineOnPush(foobarbaz, ['Hello':false])
 }
 catch (e) {
     //???
