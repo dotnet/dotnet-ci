@@ -76,7 +76,6 @@ class Utilities {
      * @return Project name
      */
     def static getRepoName(String project) {
-        assert project != null && project != '' : 'Expected non null project'
         return project.split('/')[1];
     }
 
@@ -90,7 +89,6 @@ class Utilities {
      * @return Org (Github) or project (VSTS) name
      */
     def static getOrgOrProjectName(String project) {
-        assert project != null && project != '' : 'Expected non null project'
         return project.split('/')[0];
     }
 
@@ -105,7 +103,6 @@ class Utilities {
      */
     @Deprecated
     def static getProjectName(String project) {
-        assert project != null && project != '' : 'Expected non null project'
         return project.split('/')[1];
     }
 
@@ -120,7 +117,6 @@ class Utilities {
      */
     @Deprecated
     def static getOrgName(String project) {
-        assert project != null && project != '' : 'Expected non null project'
         return project.split('/')[0];
     }
 
