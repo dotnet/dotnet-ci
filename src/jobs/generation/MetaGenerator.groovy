@@ -365,13 +365,15 @@ repos.each { repoInfo ->
                         branch("*/${repoInfo.branch}")
                     }
 
-                    // Set up polling ignore
-                    configure { node ->
-                        node /'extensions' << 'hudson.plugins.git.extensions.impl.PathRestriction' {
-                            // Not sure whether polling takes into account the target dir, so just
-                            // put multiple entries
-                            includedRegions "${targetDir}/${repoInfo.definitionScript}\n${repoInfo.definitionScript}"
-                            excludedRegions ''
+                    // Set up polling ignore, unless this is a DSL test
+                    if (!repoInfo.isDSLTest) {
+                        configure { node ->
+                            node /'extensions' << 'hudson.plugins.git.extensions.impl.PathRestriction' {
+                                // Not sure whether polling takes into account the target dir, so just
+                                // put multiple entries
+                                includedRegions "${targetDir}/${repoInfo.definitionScript}\n${repoInfo.definitionScript}"
+                                excludedRegions ''
+                            }
                         }
                     }
                 }

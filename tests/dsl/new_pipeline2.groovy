@@ -4,10 +4,4 @@ import jobs.generation.GenerationSettings
 // Tests creation of a pipeline that triggers on pushes with non-string parameter types
 def newPipeline = Pipeline.createPipeline(this, 'foopipeline.groovy')
 
-try {
-    // Parameters
-    newPipeline.triggerPipelineOnPush(foobarbaz, ['Hello':false])
-}
-catch (e) {
-    //???
-}
+newPipeline.triggerPipelineOnPush(['Hello':false])
