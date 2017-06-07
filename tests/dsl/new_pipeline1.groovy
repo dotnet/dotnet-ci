@@ -1,3 +1,10 @@
 import org.dotnet.ci.pipelines.Pipeline
 
-Pipeline.createPipeline(this, 'foopipeline.groovy')
+// Tests creation of a pipeline that triggers on pushes
+def newPipeline = Pipeline.createPipeline(this, 'foopipeline.groovy')
+
+// No parameters
+newPipeline.triggerPipelineOnPush()
+
+// Parameters
+newPipeline.triggerPipelineOnPush(['Hello':'World'])
