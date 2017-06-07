@@ -204,7 +204,7 @@ class Pipeline {
     public def triggerPipelineOnEveryPR(String context, Map<String,Object> parameters = [:]) {
         if (this._scm.getScmType() == 'VSTS') {
             // TODO: VSTS PR checks
-            assert false : "nyi"
+            assert false : "VSTS PR pipelines are NYI"
         }
         else if (this._scm.getScmType() == 'GitHub') {
             return triggerPipelineOnEveryGithubPR(context, parameters)
