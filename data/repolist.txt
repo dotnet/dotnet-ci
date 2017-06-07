@@ -149,6 +149,6 @@ Microsoft/vstest branch=future server=dotnet-ci
 mmitche/coreclr branch=dev/pipeline server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy utilitiesRepoBranch=dev/pipelinesupport
 Microsoft/testfx branch=master server=dotnet-ci
 # Tests for pipelines
-Tools/DotNet-CI-Trusted credentials=vsts-dotnet-ci-trusted-creds collection=mseng branch=dev/pipelinesupport utilitiesRepoBranch=dev/pipelinesupport definitionScript=tests/pipeline/tests.groovy server=dotnet-vsts
+Tools/DotNet-CI-Trusted credentials=vsts-dotnet-ci-trusted-creds collection=mseng branch=dev/pipelinesupport utilitiesRepoBranch=dev/pipelinesupport definitionScript=tests/pipeline/tests.groovy server=dotnet-vsts subFolder=pipelineTests
 # Tests for dsl
-Tools/DotNet-CI-Trusted credentials=vsts-dotnet-ci-trusted-creds collection=mseng branch=dev/pipelinesupport utilitiesRepoBranch=dev/pipelinesupport definitionScript=tests/dsl/*.groovy isDSLTest=true server=dotnet-vsts
+Tools/DotNet-CI-Trusted credentials=vsts-dotnet-ci-trusted-creds collection=mseng branch=dev/pipelinesupport utilitiesRepoBranch=dev/pipelinesupport definitionScript=tests/dsl/*.groovy isDSLTest=true server=dotnet-vsts subFolder=dslTests
