@@ -5,6 +5,9 @@ import org.dotnet.ci.pipelines.Pipeline
 // as well as for verification purposes.
 def testingPipeline = Pipeline.createPipeline(this, 'tests/pipeline/pipeline-tests.groovy')
 
-// Trigger this pipeline on pushes and PRs
-testingPipeline.triggerPipelineOnEveryPR('CI Tests')
+// Trigger this pipeline on pushes and PRs.
+// TODO: VSTS PRs
+if (params.VersionControlLocation != 'VSTS') {
+    testingPipeline.triggerPipelineOnEveryPR('CI Tests')
+}
 testingPipeline.triggerPipelineOnPush()
