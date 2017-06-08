@@ -294,7 +294,9 @@ repos.each { repoInfo ->
     definitionScriptSuffix = definitionScriptSuffix.replace(".groovy", "")
 
     [true, false].each { isPRTest ->
-        def jobGenerator = job(Utilities.getFullJobName(generatorJobBaseName, isPRTest, isPRTest ? generatorPRTestFolder : generatorFolder)) {
+        def fullGeneratorName = Utilities.getFullJobName(generatorJobBaseName, isPRTest, isPRTest ? generatorPRTestFolder : generatorFolder)
+        println fullGeneratorName
+        def jobGenerator = job(fullGeneratorName) {
             // Need multiple scm's
             multiscm {
                 git {
