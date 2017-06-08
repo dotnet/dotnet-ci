@@ -41,7 +41,7 @@ class Repo {
     // The vsts collection credentials (if applicable)
     String credentials
     // True if this is an SDK test.
-    String isDSLTest
+    boolean isDSLTest
 
     def Repo(String project,
              String[] folders,
@@ -295,7 +295,6 @@ repos.each { repoInfo ->
 
     [true, false].each { isPRTest ->
         def fullGeneratorName = Utilities.getFullJobName(generatorJobBaseName, isPRTest, isPRTest ? generatorPRTestFolder : generatorFolder)
-        println fullGeneratorName
         def jobGenerator = job(fullGeneratorName) {
             // Need multiple scm's
             multiscm {
@@ -409,8 +408,7 @@ repos.each { repoInfo ->
                 stringParam('VersionControlLocation', VersionControlLocation, 'Where the version control sits (VSTS or GitHub)')
 
                 // If this repo is a DSL test, then IsTestGeneration is always true
-                println "${repoInfo.project}, ${repoInfo.definitionScript} (isPRTest == ${isPRTest}, repoInfo.isDSLTest == ${repoInfo.isDSLTest})"
-                booleanParam('IsTestGeneration', false, 'Is this a test generation?')
+                booleanParam('IsTestGeneration', isPRTest || repoInfo.isDSLTest, 'Is this a test generation?')
             }
 
             // Add in the job generator logic
