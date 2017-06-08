@@ -31,13 +31,13 @@ stage ('Run Tests') {
 
         // Test that simple nodes work, of various types
         "simpleNode - Windows_NT - latest" : {
-            timeout ('120') {
+            timeout (5) {
                 simpleNode('Windows_NT', 'latest') { }
             }
         }
 
         "simpleNode - Ubuntu14.04 - latest" : {
-            timeout ('120') {
+            timeout (5) {
                 simpleNode('Ubuntu14.04', 'latest') { }
             }
         }
