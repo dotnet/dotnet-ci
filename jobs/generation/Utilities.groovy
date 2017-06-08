@@ -276,7 +276,7 @@ class Utilities {
                                 // win2016-base + Dev15.3 preview 1
                                 'latest-dev15-3-preview1-internal' : 'win2016-20170510-internal',
                                 // For elevated runs
-                                'latest-or-auto-elevated':'win2012-20170531-elevated',
+                                'latest-or-auto-elevated':'win2012-20170303-elevated',
 								// For arm64 builds
                                 'latest-arm64':'win2012-20170328',
                                 // For perf runs
