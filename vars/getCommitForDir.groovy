@@ -6,12 +6,10 @@
   */
 def call() {
     if (isUnix()) {
-        echo 'Here'
-        def output = sh 'git rev-parse HEAD', returnStdout: true
+        def output = sh script: 'git rev-parse HEAD', returnStdout: true
     }
     else {
-        echo 'There'
-        def output = bat 'git rev-parse HEAD', returnStdout: true
+        def output = bat script: 'git rev-parse HEAD', returnStdout: true
     }
     return output
 }
