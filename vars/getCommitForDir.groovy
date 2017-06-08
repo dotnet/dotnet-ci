@@ -9,10 +9,12 @@ def call() {
         // Prefix with @ to avoid the command in the output
         def output = sh script: '@git rev-parse HEAD', returnStdout: true
         echo output
+        return output
     }
     else {
         // Prefix with @ to avoid the command in the output
         def output = bat script: '@git rev-parse HEAD', returnStdout: true
         echo output
+        return output
     }
 }
