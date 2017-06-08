@@ -67,7 +67,7 @@ stage ('Run Tests') {
                     checkout scm
 
                     echo "Checking that getCommit returns valid commit on NT based system"
-                    String commit = getCommit
+                    String commit = getCommit()
                     echo "Got ${commit}"
                     // Check that it's probably a valid hash
                     assert commit.length() == 40 : "Commit doesn't look like a valid hash'"
@@ -79,7 +79,7 @@ stage ('Run Tests') {
                     checkout scm
 
                     echo "Checking that getCommit returns valid commit on NT based system"
-                    String commit = getCommit
+                    String commit = getCommit()
                     echo "Got ${commit}"
                     // Check that it's probably a valid hash
                     assert commit.length() == 40 : "Commit doesn't look like a valid hash'"
