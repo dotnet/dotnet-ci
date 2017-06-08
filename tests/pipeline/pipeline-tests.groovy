@@ -100,7 +100,7 @@ stage ('Run Tests') {
             "Utilities - calculateGitHubUrl" : {
                 // With collection == devdiv, we add "DefaultColleciton" like in most servers
                 String url = Utilities.calculateGitHubURL('foo/bar')
-                assert url == 'https://other.visualstudio.com/foo/_git/bar' : "Incorrect url for non-devdiv collection git URL"
+                assert url == 'https://github.com/foo/bar' : "Incorrect url for github URL"
             },
         )
     }

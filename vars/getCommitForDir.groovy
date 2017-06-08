@@ -13,9 +13,9 @@ def call() {
     }
     else {
         // Prefix with @ to avoid the command in the output
-        output = bat script: 'git rev-parse HEAD', returnStdout: true
+        output = bat script: '@git rev-parse HEAD', returnStdout: true
     }
-    
+
     // Trim the output
     return output.trim()
 }
