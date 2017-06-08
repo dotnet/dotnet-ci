@@ -1,5 +1,7 @@
 // Entering
 
+@Library("dotnet-ci") _
+
 echo "Running tests for CI SDK"
 echo "Incoming parameters: "
 echo "    OrgOrProjectName = ${OrgOrProjectName}"
@@ -12,24 +14,70 @@ if (GitBranchOrCommit.indexOf('*/') == 0) {
     libraryImportBranch = GitBranchOrCommit.substring(2)
 }
 
-library "dotnet-ci@${libraryImportBranch}"
-
-// Basic tests
-// Currently in one file, but could be in multiple
-
-// Simple source control checkout (should always pass, built in functionality)
-node {
-    stage ('Source Control Checkout') {
-        checkout scm
-    }
+stage ('Check out target library') {
+    library "dotnet-ci@${libraryImportBranch}"
 }
 
-// getBranch
-node {
-    stage ('getBranch - Test 1') {
-        checkout scm
+stage ('Run Tests') {
+    // Basic tests
+    // Currently in one file, but could be in multiple.  Run in parallel by default
+    parallel (
+        "Raw Node Test" : {
+            // Simple source control checkout (should always pass, built in functionality)
+            node {
+                checkout scm
+            }
+        }
 
-        String branch = getBranch()
-        assert branch == libraryImportBranch : "Expected getBranch would return ${libraryImportBranch}"
-    }
+        // Test that simple nodes work, of various types
+        "simpleNode - Windows_NT - latest" : {
+            timeout ('120') {
+                simpleNode('Windows_NT', 'latest') { }
+            }
+        }
+
+        "simpleNode - Ubuntu14.04 - latest" : {
+            timeout ('120') {
+                simpleNode('Ubuntu14.04', 'latest') { }
+            }
+        }
+
+        "getBranch" : {
+            // getBranch
+            node {
+                simpleNode('Windows_NT', 'latest') {
+                    checkout scm
+
+                    echo "Checking that getBranch returns ${libraryImportBranch}"
+                    String branch = getBranch()
+                    assert branch == libraryImportBranch : "Expected getBranch would return ${libraryImportBranch}"
+                }
+            }
+        }
+
+        // getCommit, varies on unix and windows, so test both
+        "getCommit - Windows systems" : {
+            simpleNode('Windows_NT', 'latest') {
+                checkout scm
+
+                echo "Checking that getCommit returns valid commit on NT based system"
+                String commit = getCommit
+                echo "Got ${commit}"
+                // Check that it's probably a valid hash
+                assert commit.length == 40 : "Commit doesn't look like a valid hash'"
+            }
+        }
+
+        "getCommit - Unix systems" : {
+            simpleNode('Ubuntu14.04', 'latest') {
+                checkout scm
+
+                echo "Checking that getCommit returns valid commit on NT based system"
+                String commit = getCommit
+                echo "Got ${commit}"
+                // Check that it's probably a valid hash
+                assert commit.length == 40 : "Commit doesn't look like a valid hash'"
+            }
+        }
+    )
 }
