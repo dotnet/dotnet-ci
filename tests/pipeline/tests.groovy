@@ -7,7 +7,7 @@ def testingPipeline = Pipeline.createPipeline(this, 'tests/pipeline/pipeline-tes
 
 // Trigger this pipeline on pushes and PRs.
 // TODO: VSTS PRs
-if (params.VersionControlLocation != 'VSTS') {
+if (VersionControlLocation != 'VSTS') {
     testingPipeline.triggerPipelineOnEveryPR('CI Tests')
 }
 testingPipeline.triggerPipelineOnPush()
