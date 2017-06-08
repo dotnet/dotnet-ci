@@ -21,26 +21,30 @@ stage ('Check out target library') {
 stage ('Run Tests') {
     // Basic tests
     // Currently in one file, but could be in multiple.  Run in parallel by default
+
     parallel (
+        // This is an array in the form of:
+        // "test name" : { // test code }
+
         "Raw Node Test" : {
             // Simple source control checkout (should always pass, built in functionality)
             node {
                 checkout scm
             }
-        }
+        },
 
         // Test that simple nodes work, of various types
         "simpleNode - Windows_NT - latest" : {
             timeout (5) {
                 simpleNode('Windows_NT', 'latest') { }
             }
-        }
+        },
 
         "simpleNode - Ubuntu14.04 - latest" : {
             timeout (5) {
                 simpleNode('Ubuntu14.04', 'latest') { }
             }
-        }
+        },
 
         "getBranch" : {
             // getBranch
@@ -53,7 +57,7 @@ stage ('Run Tests') {
                     assert branch == libraryImportBranch : "Expected getBranch would return ${libraryImportBranch}"
                 }
             }
-        }
+        },
 
         // getCommit, varies on unix and windows, so test both
         "getCommit - Windows systems" : {
@@ -66,7 +70,7 @@ stage ('Run Tests') {
                 // Check that it's probably a valid hash
                 assert commit.length == 40 : "Commit doesn't look like a valid hash'"
             }
-        }
+        },
 
         "getCommit - Unix systems" : {
             simpleNode('Ubuntu14.04', 'latest') {
@@ -78,6 +82,6 @@ stage ('Run Tests') {
                 // Check that it's probably a valid hash
                 assert commit.length == 40 : "Commit doesn't look like a valid hash'"
             }
-        }
+        },
     )
 }
