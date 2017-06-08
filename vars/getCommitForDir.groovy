@@ -7,10 +7,12 @@
 def call() {
     if (isUnix()) {
         // Prefix with @ to avoid the command in the output
-        return sh script: '@git rev-parse HEAD', returnStdout: true
+        def output = sh script: '@git rev-parse HEAD', returnStdout: true
+        echo output
     }
     else {
         // Prefix with @ to avoid the command in the output
-        return bat script: '@git rev-parse HEAD', returnStdout: true
+        def output = bat script: '@git rev-parse HEAD', returnStdout: true
+        echo output
     }
 }
