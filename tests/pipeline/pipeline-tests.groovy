@@ -88,7 +88,7 @@ stage ('Run Tests') {
                     def output = sh script: 'if [ -d "netci-archived-logs" ]; then echo netci-archived-logs exists; fi', returnStdout: true
                     assert output == 'netci-archived-logs exists' : "Log folder didn't exist"
                 }
-            }
+            },
 
             "logFolder creation for simpleNode - Windows systems" : {
                 simpleNode('Windows_NT', 'latest') {
@@ -96,7 +96,7 @@ stage ('Run Tests') {
                     def output = sh script: 'if exist netci-archived-logs echo netci-archived-logs exists', returnStdout: true
                     assert output == 'netci-archived-logs exists' : "Log folder didn't exist"
                 }
-            }
+            },
 
             // Utilities tests
             // TODO - separate file?
