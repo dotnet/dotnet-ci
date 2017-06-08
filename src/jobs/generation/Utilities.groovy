@@ -611,23 +611,29 @@ class Utilities {
     /**
      * Calculates the github scm URL give a project name
      *
-     * @param project Github project
-     * @param protocol Default HTTPS
+     * @param project Github project (org/repo)
      */
-    def static calculateGitHubURL(def project, String protocol = 'https') {
+    def static calculateGitHubURL(def project) {
         // Example: git://github.com/dotnet/corefx.git
-        return "${protocol}://github.com/${project}.git"
+        return "https://github.com/${project}"
     }
 
     /**
      * Calculates the vsts scm URL give a collection, project, and repo name
      *
-     * @param project Github project
-     * @param protocol Default HTTPS
+     * @param collection VSTS collection
+     * @param fullyQualifiedRepo (project/repo) combo
      */
-    def static calculateVSTSGitURL(String collection, String project, String repo) {
-        // Example: git://github.com/dotnet/corefx.git
-        return "https://${collection}.visualstudio.com/${project}/_git/${repo}"
+    def static calculateVSTSGitURL(String collection, String fullyQualifiedRepo) {
+        // If devdiv, DefaultCollection is also stuck into the URL
+        String project = getOrgOrProjectName(fullyQualifiedRepo)
+        String repo = getRepoName(fullyQualifiedRepo)
+        if (collection == 'devdiv') {
+            return "https://${collection}.visualstudio.com/DefaultCollection/${project}/_git/${repo}"
+        }
+        else {
+            return "https://${collection}.visualstudio.com/${project}/_git/${repo}"
+        }
     }
 
     /**

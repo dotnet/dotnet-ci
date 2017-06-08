@@ -82,17 +82,24 @@ stage ('Run Tests') {
                 }
             },
 
-            // Some generic utilities tests
+            // Utilities tests
+            // TODO - separate file?
+
             "Utilities - calculateVSTSGitURL - devdiv collection" : {
                 // With collection == devdiv, we add "DefaultColleciton" like in most servers
-                String url = Utilities.calculateVSTSGitURL('devdiv', 'foo', 'bar')
+                String url = Utilities.calculateVSTSGitURL('devdiv', 'foo/bar')
                 assert url == 'https://devdiv.visualstudio.com/DefaultCollection/foo/_git/bar' : "Incorrect url for devdiv collection git URL"
             },
 
-            // Some generic utilities tests
             "Utilities - calculateVSTSGitURL - other collection" : {
                 // With collection == devdiv, we add "DefaultColleciton" like in most servers
-                String url = Utilities.calculateVSTSGitURL('other', 'foo', 'bar')
+                String url = Utilities.calculateVSTSGitURL('other', 'foo/bar')
+                assert url == 'https://other.visualstudio.com/foo/_git/bar' : "Incorrect url for non-devdiv collection git URL"
+            },
+
+            "Utilities - calculateGitHubUrl" : {
+                // With collection == devdiv, we add "DefaultColleciton" like in most servers
+                String url = Utilities.calculateGitHubURL('foo/bar')
                 assert url == 'https://other.visualstudio.com/foo/_git/bar' : "Incorrect url for non-devdiv collection git URL"
             },
         )

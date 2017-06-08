@@ -301,7 +301,7 @@ repos.each { repoInfo ->
                 git {
                     remote {
                         if (isVSTS) {
-                            url(Utilities.calculateVSTSGitURL('mseng', Utilities.getOrgOrProjectName(repoInfo.utilitiesRepo), Utilities.getRepoName(repoInfo.utilitiesRepo)))
+                            url(Utilities.calculateVSTSGitURL('mseng', repoInfo.utilitiesRepo))
                             credentials('vsts-dotnet-ci-trusted-creds')
                         }
                         else {
@@ -324,7 +324,7 @@ repos.each { repoInfo ->
                 git {
                     remote {
                         if (isVSTS) {
-                            url(Utilities.calculateVSTSGitURL(repoInfo.collection, Utilities.getOrgOrProjectName(repoInfo.project), Utilities.getRepoName(repoInfo.project)))
+                            url(Utilities.calculateVSTSGitURL(repoInfo.collection, repoInfo.project))
                             credentials(repoInfo.credentials)
                         }
                         else {
