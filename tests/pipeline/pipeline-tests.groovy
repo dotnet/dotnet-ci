@@ -82,6 +82,22 @@ stage ('Run Tests') {
                 }
             },
 
+            "logFolder creation for simpleNode - Unix systems" : {
+                simpleNode('Ubuntu14.04', 'latest') {
+                    assert getLogFolder() == 'netci-archived-logs' : "Unexpected log folder name"
+                    def output = sh script: 'if [ -d "netci-archived-logs" ]; then echo netci-archived-logs exists; fi', returnStdout: true
+                    assert output == 'netci-archived-logs exists' : "Log folder didn't exist"
+                }
+            }
+
+            "logFolder creation for simpleNode - Windows systems" : {
+                simpleNode('Windows_NT', 'latest') {
+                    assert getLogFolder() == 'netci-archived-logs' : "Unexpected log folder name"
+                    def output = sh script: 'if exist netci-archived-logs echo netci-archived-logs exists', returnStdout: true
+                    assert output == 'netci-archived-logs exists' : "Log folder didn't exist"
+                }
+            }
+
             // Utilities tests
             // TODO - separate file?
 
