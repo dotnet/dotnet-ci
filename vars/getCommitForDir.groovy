@@ -5,16 +5,17 @@
   * @return The commit checked out in a specific directory, fails the step otherwise.
   */
 def call() {
+    def output
     if (isUnix()) {
         // Prefix with @ to avoid the command in the output
-        def output = sh script: 'git rev-parse HEAD', returnStdout: true
-        echo output
-        return output
+        output = sh script: 'git rev-parse HEAD', returnStdout: true
+        
     }
     else {
         // Prefix with @ to avoid the command in the output
-        def output = bat script: 'git rev-parse HEAD', returnStdout: true
-        echo output
-        return output
+        output = bat script: 'git rev-parse HEAD', returnStdout: true
     }
+    
+    // Trim the output
+    return output.trim()
 }

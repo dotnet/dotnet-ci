@@ -2,12 +2,6 @@
 
 @Library("dotnet-ci") _
 
-echo "Running tests for CI SDK"
-echo "Incoming parameters: "
-echo "    OrgOrProjectName = ${OrgOrProjectName}"
-echo "    RepoName = ${RepoName}"
-echo "    GitBranchOrCommit = ${GitBranchOrCommit}"
-
 // Remove the */ from GitBranchOrCommit, the import the library
 String libraryImportBranch = GitBranchOrCommit
 if (GitBranchOrCommit.indexOf('*/') == 0) {
@@ -17,6 +11,8 @@ if (GitBranchOrCommit.indexOf('*/') == 0) {
 stage ('Check out target library') {
     library "dotnet-ci@${libraryImportBranch}"
 }
+
+import jobs.generation.Utilities
 
 stage ('Run Tests') {
     // Overall test timeout at 2 hours
@@ -84,6 +80,20 @@ stage ('Run Tests') {
                     // Check that it's probably a valid hash
                     assert commit.length() == 40 : "Commit doesn't look like a valid hash'"
                 }
+            },
+
+            // Some generic utilities tests
+            "Utilities - calculateVSTSGitURL - devdiv collection" : {
+                // With collection == devdiv, we add "DefaultColleciton" like in most servers
+                String url = Utilities.calculateVSTSGitURL('devdiv', 'foo', 'bar')
+                assert url == 'https://devdiv.visualstudio.com/DefaultCollection/foo/_git/bar' : "Incorrect url for devdiv collection git URL"
+            },
+
+            // Some generic utilities tests
+            "Utilities - calculateVSTSGitURL - other collection" : {
+                // With collection == devdiv, we add "DefaultColleciton" like in most servers
+                String url = Utilities.calculateVSTSGitURL('other', 'foo', 'bar')
+                assert url == 'https://other.visualstudio.com/foo/_git/bar' : "Incorrect url for non-devdiv collection git URL"
             },
         )
     }
