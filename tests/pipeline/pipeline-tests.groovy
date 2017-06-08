@@ -12,7 +12,7 @@ if (GitBranchOrCommit.indexOf('*/') == 0) {
     libraryImportBranch = GitBranchOrCommit.substring(2)
 }
 
-@Library("dotnet-ci@${libraryImportBranch}") _
+library "dotnet-ci@${libraryImportBranch}"
 
 // Basic tests
 // Currently in one file, but could be in multiple
