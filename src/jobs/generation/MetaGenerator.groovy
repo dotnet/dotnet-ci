@@ -407,6 +407,7 @@ repos.each { repoInfo ->
                 stringParam('VersionControlLocation', VersionControlLocation, 'Where the version control sits (VSTS or GitHub)')
 
                 // If this repo is a DSL test, then IsTestGeneration is always true
+                println "${repoInfo.project}, ${repoInfo.definitionScript} (isPRTest == ${isPRTest}, repoInfo.isDSLTest == {repoInfo.isDSLTest})"
                 booleanParam('IsTestGeneration', isPRTest || repoInfo.isDSLTest, 'Is this a test generation?')
             }
 
