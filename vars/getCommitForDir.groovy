@@ -5,11 +5,12 @@
   * @return The commit checked out in a specific directory, fails the step otherwise.
   */
 def call() {
-    def value
     if (isUnix()) {
+        echo 'Here'
         def output = sh 'git rev-parse HEAD', returnStdout: true
     }
     else {
+        echo 'There'
         def output = bat 'git rev-parse HEAD', returnStdout: true
     }
     return output
