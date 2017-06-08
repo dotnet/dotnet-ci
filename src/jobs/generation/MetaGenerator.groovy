@@ -410,7 +410,7 @@ repos.each { repoInfo ->
 
                 // If this repo is a DSL test, then IsTestGeneration is always true
                 println "${repoInfo.project}, ${repoInfo.definitionScript} (isPRTest == ${isPRTest}, repoInfo.isDSLTest == ${repoInfo.isDSLTest})"
-                booleanParam('IsTestGeneration', isPRTest || repoInfo.isDSLTest, 'Is this a test generation?')
+                booleanParam('IsTestGeneration', false, 'Is this a test generation?')
             }
 
             // Add in the job generator logic
