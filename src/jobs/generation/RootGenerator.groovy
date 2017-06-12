@@ -8,7 +8,7 @@ assert binding.variables.get("RepoListLocationBranch") != null : "Expected name 
 assert binding.variables.get("RepoListLocation") != null : "Expected path to repo list"
 assert binding.variables.get("VersionControlLocation") != null && 
        (binding.variables.get("VersionControlLocation") == 'VSTS' || 
-       binding.variables.get("VersionControlLocation") != 'GitHub') : "Expected what version control this server targets (VSTS or GitHub)"
+       binding.variables.get("VersionControlLocation") == 'GitHub') : "Expected what version control this server targets (VSTS or GitHub)"
 
 boolean isVSTS = binding.variables.get("VersionControlLocation") == 'VSTS'
 
