@@ -1,7 +1,3 @@
-// Entering
-
-@Library("dotnet-ci") _
-
 // Remove the */ from GitBranchOrCommit, the import the library
 String libraryImportBranch = GitBranchOrCommit
 if (GitBranchOrCommit.indexOf('*/') == 0) {
@@ -9,6 +5,7 @@ if (GitBranchOrCommit.indexOf('*/') == 0) {
 }
 
 stage ('Check out target library') {
+    echo "Checking out dotnet-ci@${libraryImportBranch}"
     library "dotnet-ci@${libraryImportBranch}"
 }
 
