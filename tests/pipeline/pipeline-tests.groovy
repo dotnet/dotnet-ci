@@ -1,14 +1,16 @@
+// To figure out what we import, we need to know whether this is a PR or not.
+// If a PR, and GitHub, we grab the source branch, which must live in the same repo
 // Remove the */ from GitBranchOrCommit, the import the library
 String libraryImportBranch = GitBranchOrCommit
 if (GitBranchOrCommit.indexOf('*/') == 0) {
     libraryImportBranch = GitBranchOrCommit.substring(2)
 }
 
-def libraryName = "dotnet-ci@${libraryImportBranch}"
+def libraryName = "github.com/mmitche/dotnet-ci@${ghprbSourceBranch}"
 
 stage ('Check out target library') {
     echo "Checking out ${libraryName}"
-    library "${libraryName}"
+    library libraryName
 }
 
 stage ('Run Tests') {
