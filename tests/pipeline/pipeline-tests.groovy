@@ -62,15 +62,19 @@ stage ('Run Tests') {
 
             "getBranch" : {
                 // getBranch
-                node {
-                    simpleNode('Windows_NT', 'latest') {
-                        checkout scm
+                simpleNode('Windows_NT', 'latest') {
+                    checkout scm
 
-                        echo "Checking that getBranch returns ${libraryImportBranch}"
-                        String branch = getBranch()
-                        assert branch == libraryImportBranch : "Expected getBranch would return ${libraryImportBranch}, got ${branch}"
-                    }
+                    echo "Checking that getBranch returns a valid value"
+                    String branch = getBranch()
+                    assert branch != null && branch != '': "Expected getBranch would return non-null"
                 }
+            },
+
+            "isNullOrEmpty" : {
+                assert isNullOrEmpty(null)
+                assert isNullOrEmpty('')
+                assert !isNullOrEmpty("foo")
             },
 
             // getCommit, varies on unix and windows, so test both
