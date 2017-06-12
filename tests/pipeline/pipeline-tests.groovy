@@ -23,7 +23,7 @@ else {
     }
 }
 
-def libraryName = "dotnet-ci/${libraryImportBranch}"
+def libraryName = "dotnet-ci@${libraryImportBranch}"
 
 stage ('Check out target library') {
     echo "Checking out ${libraryName}"
