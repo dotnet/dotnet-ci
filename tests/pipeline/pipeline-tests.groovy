@@ -4,12 +4,12 @@ if (GitBranchOrCommit.indexOf('*/') == 0) {
     libraryImportBranch = GitBranchOrCommit.substring(2)
 }
 
-stage ('Check out target library') {
-    echo "Checking out dotnet-ci@${libraryImportBranch}"
-    library "dotnet-ci@${libraryImportBranch}"
-}
+def libraryName = "dotnet-ci@${libraryImportBranch}"
 
-import jobs.generation.Utilities
+stage ('Check out target library') {
+    echo "Checking out ${libraryName}"
+    library "${libraryName}"
+}
 
 stage ('Run Tests') {
     // Overall test timeout at 2 hours
@@ -96,23 +96,22 @@ stage ('Run Tests') {
             },
 
             // Utilities tests
-            // TODO - separate file?
 
             "Utilities - calculateVSTSGitURL - devdiv collection" : {
                 // With collection == devdiv, we add "DefaultColleciton" like in most servers
-                String url = Utilities.calculateVSTSGitURL('devdiv', 'foo/bar')
+                String url = library(libraryName).jobs.generation.Utilities.calculateVSTSGitURL('devdiv', 'foo/bar')
                 assert url == 'https://devdiv.visualstudio.com/DefaultCollection/foo/_git/bar' : "Incorrect url for devdiv collection git URL"
             },
 
             "Utilities - calculateVSTSGitURL - other collection" : {
                 // With collection == devdiv, we add "DefaultColleciton" like in most servers
-                String url = Utilities.calculateVSTSGitURL('other', 'foo/bar')
+                String url = library(libraryName).jobs.generation.Utilities.calculateVSTSGitURL('other', 'foo/bar')
                 assert url == 'https://other.visualstudio.com/foo/_git/bar' : "Incorrect url for non-devdiv collection git URL"
             },
 
             "Utilities - calculateGitHubUrl" : {
                 // With collection == devdiv, we add "DefaultColleciton" like in most servers
-                String url = Utilities.calculateGitHubURL('foo/bar')
+                String url = library(libraryName).jobs.generation.Utilities.calculateGitHubURL('foo/bar')
                 assert url == 'https://github.com/foo/bar' : "Incorrect url for github URL"
             },
         )
