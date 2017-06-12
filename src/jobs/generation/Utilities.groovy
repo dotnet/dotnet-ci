@@ -605,7 +605,7 @@ class Utilities {
     @Deprecated
     def static calculateGitURL(def project, String protocol = 'https') {
         // Example: git://github.com/dotnet/corefx.git
-        return calculateGitHubURL(project, protocol)
+        return calculateGitHubURL(project)
     }
 
     /**
