@@ -68,7 +68,7 @@ stage ('Run Tests') {
 
                         echo "Checking that getBranch returns ${libraryImportBranch}"
                         String branch = getBranch()
-                        assert branch == libraryImportBranch : "Expected getBranch would return ${libraryImportBranch}"
+                        assert branch == libraryImportBranch : "Expected getBranch would return ${libraryImportBranch}, got ${branch}"
                     }
                 }
             },
