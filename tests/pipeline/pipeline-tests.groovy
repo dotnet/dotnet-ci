@@ -102,7 +102,7 @@ stage ('Run Tests') {
                 simpleNode('Ubuntu14.04', 'latest') {
                     assert getLogFolder() == 'netci-archived-logs' : "Unexpected log folder name"
                     def output = sh script: 'if [ -d "netci-archived-logs" ]; then echo netci-archived-logs exists; fi', returnStdout: true
-                    assert output == 'netci-archived-logs exists' : "Log folder didn't exist"
+                    assert output.indexOf('netci-archived-logs exists') != -1 : "Log folder didn't exist"
                 }
             },
 
@@ -110,7 +110,7 @@ stage ('Run Tests') {
                 simpleNode('Windows_NT', 'latest') {
                     assert getLogFolder() == 'netci-archived-logs' : "Unexpected log folder name"
                     def output = bat script: 'if exist netci-archived-logs echo netci-archived-logs exists', returnStdout: true
-                    assert output == 'netci-archived-logs exists' : "Log folder didn't exist"
+                    assert output.indexOf('netci-archived-logs exists') != -1 : "Log folder didn't exist"
                 }
             },
 
