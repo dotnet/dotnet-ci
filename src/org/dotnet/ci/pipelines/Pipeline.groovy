@@ -186,7 +186,7 @@ class Pipeline {
             return createPipelineForVSTS(context, project, branch, pipelineFile)
         }
         else if (scmType == 'GitHub') {
-            return createPipelineForGitHub(context, project, branch, pipelineFile)
+            return createPipelineForGithub(context, project, branch, pipelineFile)
         }
         else {
             assert false : "NYI, unknown scm type"
