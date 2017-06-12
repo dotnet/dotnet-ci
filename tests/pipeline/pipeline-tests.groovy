@@ -93,7 +93,7 @@ stage ('Run Tests') {
             "logFolder creation for simpleNode - Windows systems" : {
                 simpleNode('Windows_NT', 'latest') {
                     assert getLogFolder() == 'netci-archived-logs' : "Unexpected log folder name"
-                    def output = sh script: 'if exist netci-archived-logs echo netci-archived-logs exists', returnStdout: true
+                    def output = bat script: 'if exist netci-archived-logs echo netci-archived-logs exists', returnStdout: true
                     assert output == 'netci-archived-logs exists' : "Log folder didn't exist"
                 }
             },
