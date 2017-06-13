@@ -86,6 +86,7 @@ dotnet/roslyn branch=features/readonly-ref server=dotnet-ci
 dotnet/roslyn branch=features/sdk server=dotnet-ci
 dotnet/roslyn branch=features/non-trailing server=dotnet-ci
 dotnet/roslyn-analyzers branch=master server=dotnet-ci
+dotnet/roslyn-analyzers branch=dev15.3 server=dotnet-ci
 dotnet/project-system branch=master server=dotnet-ci
 dotnet/project-system branch=dev15.0.x server=dotnet-ci
 dotnet/project-system branch=dev15.2.x server=dotnet-ci
