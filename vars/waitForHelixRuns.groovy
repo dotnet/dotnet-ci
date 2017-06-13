@@ -103,7 +103,8 @@ def call (def helixRunsBlob, String prStatusPrefix) {
                                 ],
                                 "WorkItemStatus": {
                                     "run": 1,
-                                    "pass": 204
+                                    "pass": 204,
+                                    "fail":1
                                 }
                             }
                         }
@@ -126,9 +127,12 @@ def call (def helixRunsBlob, String prStatusPrefix) {
                         def failedTests = resultsContent[0].Data.Analysis[0].Status.fail ? resultsContent[0].Data.Analysis[0].Status.fail : 0
                         def skippedTests = resultsContent[0].Data.Analysis[0].Status.skip ? resultsContent[0].Data.Analysis[0].Status.skip : 0
                         def totalTests = passedTests + failedTests + skippedTests
+                        
+                        //Workitem failure needs to cause failure in the leg.
+                        def workitemFailures = resultsContent[0].Data.WorkItemStatus.fail ? resultsContent[0].Data.WorkItemStatus.fail : 0
 
                         // Compute the current resultValue.  We'll update the sub result every time, but the final result only when isFinished is true
-                        if (failedTests != 0) {
+                        if (failedTests != 0 || workitemFailures != 0) {
                             resultValue = "FAILURE"
                             passed = false
                             failedRunMap[queueId] = mcResultsUrl
