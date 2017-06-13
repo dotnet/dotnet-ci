@@ -1,18 +1,34 @@
-// Entering
+// To figure out what we import, we need to know whether this is a PR or not.
+// If a PR, and GitHub, we grab the source branch, which must live in the same repo.
+// Note that we can't use the library isPR for this.
+boolean isPRTest = false
+String repository = env["ghprbGhRepository"]
+String libraryImportBranch
+if (repository != null && repository != "") {
+    echo "This is a GitHub PR test"
+    // Check that the PR source branch came from the correct location (otherwise the tests are expected to fail)
+    if (repository != 'dotnet/dotnet-ci') {
+         error "PRs tests of functionality that changes the CI pipeline SDK are only valid for branches pushed to dotnet/dotnet-ci.  If you need that testing please push your branch to dotnet-ci.  Otherwise ignore this failure"
+    }
 
-@Library("dotnet-ci") _
-
-// Remove the */ from GitBranchOrCommit, the import the library
-String libraryImportBranch = GitBranchOrCommit
-if (GitBranchOrCommit.indexOf('*/') == 0) {
-    libraryImportBranch = GitBranchOrCommit.substring(2)
+    libraryImportBranch = env["ghprbSourceBranch"]
+    assert libraryImportBranch != null && libraryImportBranch != '' : "Library branch (ghprbSourceBranch) was unexpectedly empty"
 }
+else {
+    echo "This is a VSTS PR test or commit test"
+    // TODO: VSTS PR support
+    libraryImportBranch = GitBranchOrCommit
+    if (libraryImportBranch.indexOf('*/') == 0) {
+        libraryImportBranch = libraryImportBranch.substring(2)
+    }
+}
+
+def libraryName = "dotnet-ci@${libraryImportBranch}"
 
 stage ('Check out target library') {
-    library "dotnet-ci@${libraryImportBranch}"
+    echo "Checking out ${libraryName}"
+    library libraryName
 }
-
-import jobs.generation.Utilities
 
 stage ('Run Tests') {
     // Overall test timeout at 2 hours
@@ -46,15 +62,19 @@ stage ('Run Tests') {
 
             "getBranch" : {
                 // getBranch
-                node {
-                    simpleNode('Windows_NT', 'latest') {
-                        checkout scm
+                simpleNode('Windows_NT', 'latest') {
+                    checkout scm
 
-                        echo "Checking that getBranch returns ${libraryImportBranch}"
-                        String branch = getBranch()
-                        assert branch == libraryImportBranch : "Expected getBranch would return ${libraryImportBranch}"
-                    }
+                    echo "Checking that getBranch returns a valid value"
+                    String branch = getBranch()
+                    assert branch != null && branch != '': "Expected getBranch would return non-null"
                 }
+            },
+
+            "isNullOrEmpty" : {
+                assert isNullOrEmpty(null)
+                assert isNullOrEmpty('')
+                assert !isNullOrEmpty("foo")
             },
 
             // getCommit, varies on unix and windows, so test both
@@ -86,36 +106,35 @@ stage ('Run Tests') {
                 simpleNode('Ubuntu14.04', 'latest') {
                     assert getLogFolder() == 'netci-archived-logs' : "Unexpected log folder name"
                     def output = sh script: 'if [ -d "netci-archived-logs" ]; then echo netci-archived-logs exists; fi', returnStdout: true
-                    assert output == 'netci-archived-logs exists' : "Log folder didn't exist"
+                    assert output.indexOf('netci-archived-logs exists') != -1 : "Log folder didn't exist"
                 }
             },
 
             "logFolder creation for simpleNode - Windows systems" : {
                 simpleNode('Windows_NT', 'latest') {
                     assert getLogFolder() == 'netci-archived-logs' : "Unexpected log folder name"
-                    def output = sh script: 'if exist netci-archived-logs echo netci-archived-logs exists', returnStdout: true
-                    assert output == 'netci-archived-logs exists' : "Log folder didn't exist"
+                    def output = bat script: 'if exist netci-archived-logs echo netci-archived-logs exists', returnStdout: true
+                    assert output.indexOf('netci-archived-logs exists') != -1 : "Log folder didn't exist"
                 }
             },
 
             // Utilities tests
-            // TODO - separate file?
 
             "Utilities - calculateVSTSGitURL - devdiv collection" : {
                 // With collection == devdiv, we add "DefaultColleciton" like in most servers
-                String url = Utilities.calculateVSTSGitURL('devdiv', 'foo/bar')
+                String url = library(libraryName).jobs.generation.Utilities.calculateVSTSGitURL('devdiv', 'foo/bar')
                 assert url == 'https://devdiv.visualstudio.com/DefaultCollection/foo/_git/bar' : "Incorrect url for devdiv collection git URL"
             },
 
             "Utilities - calculateVSTSGitURL - other collection" : {
                 // With collection == devdiv, we add "DefaultColleciton" like in most servers
-                String url = Utilities.calculateVSTSGitURL('other', 'foo/bar')
+                String url = library(libraryName).jobs.generation.Utilities.calculateVSTSGitURL('other', 'foo/bar')
                 assert url == 'https://other.visualstudio.com/foo/_git/bar' : "Incorrect url for non-devdiv collection git URL"
             },
 
             "Utilities - calculateGitHubUrl" : {
                 // With collection == devdiv, we add "DefaultColleciton" like in most servers
-                String url = Utilities.calculateGitHubURL('foo/bar')
+                String url = library(libraryName).jobs.generation.Utilities.calculateGitHubURL('foo/bar')
                 assert url == 'https://github.com/foo/bar' : "Incorrect url for github URL"
             },
         )
