@@ -16,7 +16,7 @@ Look [here.](docs/WORKFLOWS.md)
 
 ## Looking for the mirror repo in VSTS?
 
-https://mseng.visualstudio.com/Tools/Engineering%20Infrastructure/_git/DotNet-CI-Trusted
+https://mseng.visualstudio.com/Tools/Engineering%20Infrastructure/_git/DotNet-CI-Trusted?version=GBdev%2Fpipelinesupport
 
 ## Looking for information on management, system setup, etc.?
 
