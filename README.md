@@ -14,7 +14,7 @@ Look [here.](docs/WRITING-NETCI.md)
 
 Look [here.](docs/WORKFLOWS.md)
 
-## Looking for the mirror repo in VSTS?
+## Looking for the link of the mirror repo in VSTS?
 
 https://mseng.visualstudio.com/Tools/Engineering%20Infrastructure/_git/DotNet-CI-Trusted?version=GBdev%2Fpipelinesupport
 
