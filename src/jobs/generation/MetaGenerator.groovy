@@ -488,7 +488,7 @@ repos.each { repoInfo ->
         // Set the job to run on any generator enabled node.  Basically just has to have git.
         Utilities.setMachineAffinity(jobGenerator, 'Generators', 'latest')
 
-        if (isPRTest) {
+        if (isDSLPRFromSameRepo) {
             if (isVSTS) {
                 // TODO: VSTS PR trigger
             }
