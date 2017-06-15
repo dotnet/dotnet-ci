@@ -7,7 +7,8 @@ import jobs.generation.Utilities
 // Periodic - Periodic triggers against a Git repo
 class GenericTriggerBuilder implements TriggerBuilder {
     public enum TriggerType {
-        PERIODIC
+        PERIODIC,
+        MANUAL
     }
 
     // Periodic
@@ -27,14 +28,23 @@ class GenericTriggerBuilder implements TriggerBuilder {
         this._triggerType = triggerType
     }
 
-    // Constructs a new periodic trigger
-    // Parameters:
-    //  cronString - Cron string to run the job on
-    // Returns:
-    //  a new periodic trigger that runs on the specified interval
+    /* Constructs a new periodic trigger
+     * 
+     * @param cronString Cron string to run the job on
+     * @return New periodic trigger that runs on the specified interval
+     */
     def static GenericTriggerBuilder triggerPeriodically(String cronString) {
         def newTrigger = new GenericTriggerBuilder(TriggerType.PERIODIC)
         newTrigger._cronString = cronString
+        return newTrigger
+    }
+
+    /* Constructs a new manual trigger.  This effecitvley means no trigger
+     * 
+     * @return New manual trigger
+     */
+    def static GenericTriggerBuilder triggerManually() {
+        def newTrigger = new GenericTriggerBuilder(TriggerType.MANUAL)
         return newTrigger
     }
     

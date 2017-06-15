@@ -326,6 +326,19 @@ class Pipeline {
         return triggerPipelineOnEvent(builder, parameters)
     }
 
+    /* Creates a Triggers a pipeline that only triggers manually
+     * 
+     * @param parameters Parameters to pass to the pipeline
+     *
+     * @return Newly created job
+     */
+    public def triggerPipelineManually(Map<String,Object> parameters = [:]) {
+        GenericTriggerBuilder builder = GenericTriggerBuilder.triggerManually()
+
+        // Call the generic API
+        return triggerPipelineOnEvent(builder, parameters)
+    }
+
     // Creates a pipeline job for a generic trigger event
     // Parameters:
     //  triggerBuilder - Trigger that the pipeline should run on
