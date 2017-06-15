@@ -307,6 +307,15 @@ repos.each { repoInfo ->
                         else {
                             url("https://github.com/${repoInfo.utilitiesRepo}")
                         }
+
+                        if (isPRTest) {
+                            if (isVSTS) {
+                                // TODO: VSTS PR refspec
+                            }
+                            else {
+                                refspec('+refs/pull/*:refs/remotes/origin/pr/*')
+                            }
+                        }
                     }
                     extensions {
                         relativeTargetDirectory('dotnet-ci-sdk')
@@ -317,8 +326,18 @@ repos.each { repoInfo ->
                             }
                         }
                     }
-                    // dotnet-ci always pulls from master
-                    branch("*/${repoInfo.utilitiesRepoBranch}")
+                    // If this is a PR DSL test, then pull the SDK from the PR branch
+                    if (isDSLTest && isPRTest) {
+                        if (isVSTS) {
+                            // TODO: VSTS PR branch
+                        }
+                        else {
+                            branch('${sha1}')
+                        }
+                    }
+                    else {
+                        branch("*/${repoInfo.utilitiesRepoBranch}")
+                    }
                 }
                 //
                 git {
@@ -472,8 +491,14 @@ repos.each { repoInfo ->
             }
             else {
                 // Enable the github PR trigger, but add a trigger phrase so
-                // that it doesn't build on every change.
-                Utilities.addPrivateGithubPRTriggerForBranch(jobGenerator, repoInfo.branch, "Gen CI(${repoInfo.server}) - ${repoInfo.branch}/${repoInfo.definitionScript}", '(?i).*test\\W+ci.*', ['Microsoft'], null)
+                // that it doesn't build on every change, except if this is a DSL test, in which case it
+                // automatically is triggered
+                if(isDSLTest) {
+                    Utilities.addPrivateGithubPRTriggerForBranch(jobGenerator, repoInfo.branch, "Gen CI(${repoInfo.server}) - ${repoInfo.branch}/${repoInfo.definitionScript}", ['Microsoft'], null)
+                }
+                else {
+                    Utilities.addPrivateGithubPRTriggerForBranch(jobGenerator, repoInfo.branch, "Gen CI(${repoInfo.server}) - ${repoInfo.branch}/${repoInfo.definitionScript}", '(?i).*test\\W+ci.*', ['Microsoft'], null)
+                }
             }
         }
         else {
