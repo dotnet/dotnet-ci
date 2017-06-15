@@ -294,6 +294,9 @@ repos.each { repoInfo ->
     definitionScriptSuffix = definitionScriptSuffix.replace(".groovy", "")
 
     [true, false].each { isPRTest ->
+        // In cases where we are making a PR to the utilities repo, we should run the DSL
+        // tests by default against the CI SDK from the PR.
+        boolean isDSLPRFromSameRepo = isPRTest && isDSLTest && (repoInfo.utilitiesRepo == repoInfo.project)
         def fullGeneratorName = Utilities.getFullJobName(generatorJobBaseName, isPRTest, isPRTest ? generatorPRTestFolder : generatorFolder)
         def jobGenerator = job(fullGeneratorName) {
             // Need multiple scm's
@@ -308,7 +311,7 @@ repos.each { repoInfo ->
                             url("https://github.com/${repoInfo.utilitiesRepo}")
                         }
 
-                        if (isPRTest) {
+                        if (isDSLPRFromSameRepo) {
                             if (isVSTS) {
                                 // TODO: VSTS PR refspec
                             }
@@ -327,7 +330,7 @@ repos.each { repoInfo ->
                         }
                     }
                     // If this is a PR DSL test, then pull the SDK from the PR branch
-                    if (isDSLTest && isPRTest) {
+                    if (isDSLPRFromSameRepo) {
                         if (isVSTS) {
                             // TODO: VSTS PR branch
                         }
