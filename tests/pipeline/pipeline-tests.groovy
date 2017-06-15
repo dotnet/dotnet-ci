@@ -118,6 +118,20 @@ stage ('Run Tests') {
                 }
             },
 
+            // Test GitHub PR functionality by mocking up the environment variables that
+            // isPR and getUser will check for GitHub PRs
+            "getUser - GitHub PR" : {
+                withEnv(['ghprbPullAuthorLogin=baz', 'ghprbGhRepository=foo/bar']) {
+                    assert getUser() == 'baz' : "Expected getUser would return baz"
+                }
+            },
+
+            // Testing non-PR getUser is tough as it returns different values based on the cause of the run.
+            // You can't mock causes in here without opening up untrusted APIs either.
+            "getUser - non mocked behavior" : {
+                assert getUser() != null : "Expected getUser would return valid value."
+            },
+
             // Utilities tests
 
             "Utilities - calculateVSTSGitURL - devdiv collection" : {
