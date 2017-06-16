@@ -135,8 +135,10 @@ class Pipeline {
         String baseJobName = getDefaultPipelineJobBaseName(pipelineFile)
         def newPipeline = new Pipeline(context, baseJobName, pipelineFile)
 
-        // Create a new source control for the basic setup here
-        def scm = new GithubPipelineScm(project, branch)
+        // Create a new source control for the basic setup here.
+        // By default today we're using the r/o PAT that identifies the cloner as dotnet-bot
+        // to avoid API rate limit issues when cloning the pipeline script, which happens on the master.
+        def scm = new GithubPipelineScm(project, branch, 'dotnet-bot-readonly-public-clone-token')
         newPipeline.setSourceControl(scm)
         return newPipeline
     }

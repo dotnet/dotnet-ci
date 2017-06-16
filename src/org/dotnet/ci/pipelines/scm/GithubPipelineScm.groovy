@@ -97,6 +97,10 @@ class GithubPipelineScm implements PipelineScm {
                         git {
                             remote {
                                 github(this._project)
+
+                                if (this._credentialsId != null) {
+                                    credentials(this._credentialsId)
+                                }
                             }
 
                             branch('${GitBranchOrCommit}')
