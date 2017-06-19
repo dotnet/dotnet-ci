@@ -7,6 +7,12 @@ class GithubPipelineScm implements PipelineScm {
     private String _branch
     private String _credentialsId
 
+    public GitHubPipelineScm(String project, String branch, String credentialsId) {
+        _project = project
+        _branch = branch
+        _credentialsId = credentialsId
+    }
+
     public GithubPipelineScm(String project, String branch) {
         _project = project
         _branch = branch
