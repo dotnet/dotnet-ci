@@ -496,7 +496,7 @@ repos.each { repoInfo ->
                 // Enable the github PR trigger, but add a trigger phrase so
                 // that it doesn't build on every change, except if this is a DSL test, in which case it
                 // automatically is triggered
-                if(isDSLTest) {
+                if(repoInfo.isDSLTest) {
                     Utilities.addPrivateGithubPRTriggerForBranch(jobGenerator, repoInfo.branch, "Gen CI(${repoInfo.server}) - ${repoInfo.branch}/${repoInfo.definitionScript}", ['Microsoft'], null)
                 }
                 else {
