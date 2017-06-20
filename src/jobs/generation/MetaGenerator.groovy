@@ -497,7 +497,7 @@ repos.each { repoInfo ->
                 // that it doesn't build on every change, except if this is a DSL test, in which case it
                 // automatically is triggered
                 if(repoInfo.isDSLTest) {
-                    Utilities.addPrivateGithubPRTriggerForBranch(jobGenerator, repoInfo.branch, "Gen CI(${repoInfo.server}) - ${repoInfo.branch}/${repoInfo.definitionScript}", ['Microsoft'], null)
+                    Utilities.addDefaultPrivateGithubPRTriggerForBranch(jobGenerator, repoInfo.branch, "Gen CI(${repoInfo.server}) - ${repoInfo.branch}/${repoInfo.definitionScript}", ['Microsoft'], null)
                 }
                 else {
                     Utilities.addPrivateGithubPRTriggerForBranch(jobGenerator, repoInfo.branch, "Gen CI(${repoInfo.server}) - ${repoInfo.branch}/${repoInfo.definitionScript}", '(?i).*test\\W+ci.*', ['Microsoft'], null)
