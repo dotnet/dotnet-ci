@@ -58,7 +58,7 @@ class GenericTriggerBuilder implements TriggerBuilder {
     // Parameters:
     //  job - Job to emit trigger for
     void emitTrigger(def job) {
-        assert this._triggerType == TriggerType.PERIODIC
+        assert (this._triggerType == TriggerType.PERIODIC) || (this._triggerType == TriggerType.MANUAL)
 
         job.with {
             triggers {
