@@ -76,6 +76,8 @@ class GithubPipelineScm implements PipelineScm {
                         }
                     }
                     scriptPath(pipelineFile)
+                    lightweight(false)
+                    scmCheckoutRetryCount(10)
                 }
             }
         }
