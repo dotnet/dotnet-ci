@@ -10,10 +10,21 @@ def call() {
     def isPRJob = isPR();
     if (isPRJob) {
         def ghPullUser = env["ghprbPullAuthorLogin"]
-        assert !isNullOrEmpty(ghPullUser) : "Could not locate the pull author login "
+        assert !isNullOrEmpty(ghPullUser) : "Could not locate the pull author login."
         return ghPullUser
     }
     else {
-        assert false : "getUser() nyi for non-PR"
+        // Do some digging to determine how the job was launched.  There are a couple easy possibilities:
+        
+        // user ID cause -> manually launched runs
+        def userIdCause = currentBuild.rawBuild.getCause(hudson.model.Cause$UserIdCause)
+
+        if (userIdCause != null) {
+            return userIdCause.getUserId()
+        }
+        else {
+            // Return dotnet-bot as the default
+            return 'dotnet-bot'
+        }
     }
 }

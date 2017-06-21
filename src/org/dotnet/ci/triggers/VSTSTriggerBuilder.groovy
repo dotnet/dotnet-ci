@@ -67,10 +67,23 @@ class VSTSTriggerBuilder implements TriggerBuilder {
         }
     }
     
+    /**
+     * Emits a commit trigger.
+     *
+     */
     def private emitCommitTrigger(def job) {
         job.with {
             triggers {
-                teamPushTrigger()
+                // ISSUE: Today the push trigger has a bug, which causes it to not
+                // work for all configured projects and all branches.  This is being fixed.  In the meantime,
+                // set up an scm trigger instead.  This is inefficient but doable in the interim.
+                // Uncomment this when fixed.
+                // teamPushTrigger()
+
+                // poll every 5 mins.
+                scm('H/5 * * * *') {
+                    ignorePostCommitHooks(true)
+                }
             }
         }
 

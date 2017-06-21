@@ -24,7 +24,7 @@ class VSTSPipelineScm implements PipelineScm {
     }
 
     private String getGitUrl() {
-        return Utilities.calculateVSTSGitURL(this._collection, this._project,this._project)
+        return Utilities.calculateVSTSGitURL(this._collection, this._project)
     }
 
     /**

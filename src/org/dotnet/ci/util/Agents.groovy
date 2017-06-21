@@ -61,9 +61,10 @@ class Agents {
                                 '20170109':'ubuntu1404-20170109',
                                 // Contains 20160211-1 + clang 3.9
                                 '20170118':'ubuntu1404-20170118',
-                                // Contains the rootfs setup for arm/arm64 builds.  Move this label forward
-                                // till we have the working build/test, then apply to everything.
+                                // Contains the rootfs setup for arm builds.
                                 'arm-cross-latest':'auto-ubuntu1404-20170120',
+                                // Contains the rootfs setup for arm64 builds.
+                                'arm64-cross-latest':'ubuntu1604-20170526',
                                 // Pool of arm64 lab machines 4k page size
                                 'arm64-small-page-size':'arm64_ubuntu',
                                 // Pool of arm64 lab machines 64k page size
@@ -156,7 +157,7 @@ class Agents {
                                 // win2016-20170303 + Python 3.2
                                 '20170427-elevated' : 'win2012-20170427-elevated',
                                 // the generic unversioned label except for special cases.
-                                'latest':'win2012-20170303',
+                                'latest':'win2012-20170608',
                                 // Win2012.R2 + VS2013.5 + VS2015.3 + VS15.P3
                                 'latest-dev15':'auto-win2012-20160707',
                                 // Win2012.R2 + VS2013.5 + VS2015.3 + VS15.P4
@@ -171,6 +172,8 @@ class Agents {
                                 'latest-dev15-0':'win2016-20170307',
                                 // For internal runs - Win2016 + VS15.1
                                 'latest-dev15-1':'win2016-20170427',
+                                // Win2016 + VS15.3 Preview1
+                                'latest-dev15-3':'win2016-20170507',
                                 // Dev15 image
                                 'latest-dev15':'auto-win2012-20160506',
                                 // For internal runs
@@ -186,16 +189,20 @@ class Agents {
                                 // win2016-base + d15prerel-26423.1
                                 'latest-d15prerel' : 'win2016-20170427-1',
                                 // win2016-base + d15prerel-26423.1
-                                'latest-d15prerel-internal' : 'win2016-20170427-1-internal',
+                                'latest-d15prerel-internal' : 'win2016-20170531-internal',
                                 // For internal runs which don't need/want the static 'windows-internal' pool
                                 'latest-dev15-internal':'auto-win2012-20160707-internal',
                                 // win2016-base + Dev15.3 preview 1
                                 'latest-dev15-3-preview1' : 'win2016-20170510',
                                 // win2016-base + Dev15.3 preview 1
                                 'latest-dev15-3-preview1-internal' : 'win2016-20170510-internal',
+                                // win2016-base + Dev15.3 preview 2
+                                'latest-dev15-3-preview2' : 'win2016-20170613',
+                                // win2016-base + Dev15.3 preview 2
+                                'latest-dev15-3-preview2-internal' : 'win2016-20170613-internal',
                                 // For elevated runs
-                                'latest-elevated':'win2012-20170303-elevated',
-								// For arm64 builds
+                                'latest-elevated':'win2012-20170608-elevated',
+                                // For arm64 builds
                                 'latest-arm64':'win2012-20170328',
                                 // For perf runs
                                 'latest-perf':'windows-perf-internal',
@@ -212,11 +219,6 @@ class Agents {
                                 'latest-containers':'win2016-20161018-1',
                                 // Latest auto image.
                                 'latest':'auto-win2016-20160223'
-                                ],
-                            'Windows Nano 2016' :
-                                [
-                                // Generic version label
-                                '' : 'windowsnano16'
                                 ],
                             'Windows 10' :
                                 [
@@ -236,9 +238,9 @@ class Agents {
                                 ],
                             'RHEL7.2' :
                                 [
-                                '' : 'auto-rhel72-20160211',
+                                '' : 'auto-rhel72-20170525',
                                 // Latest auto image.
-                                'latest':'auto-rhel72-20160211',
+                                'latest':'auto-rhel72-20170525',
                                 // For outerloop runs.
                                 'outer-latest':'auto-rhel72-20160412.1outer'
                                 ],

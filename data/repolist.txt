@@ -25,6 +25,7 @@ dotnet/cli branch=rel/1.0.0 server=dotnet-ci
 dotnet/cli branch=rel/1.0.1 server=dotnet-ci
 dotnet/cli branch=rel/1.1.0 server=dotnet-ci
 dotnet/cli branch=release/2.0.0 server=dotnet-ci
+dotnet/cli branch=release/2.0.0-preview2 server=dotnet-ci
 dotnet/CliCommandLineParser branch=master server=dotnet-ci
 dotnet/xliff-tasks branch=master server=dotnet-ci
 dotnet/cli-migrate branch=master server=dotnet-ci
@@ -42,7 +43,6 @@ dotnet/coreclr branch=release/1.0.0 server=dotnet-ci
 dotnet/coreclr branch=release/1.1.0 server=dotnet-ci
 dotnet/coreclr branch=release/2.0.0 server=dotnet-ci
 dotnet/coreclr branch=dev/unix_test_workflow server=dotnet-ci
-dotnet/coreclr branch=dev/local-gc server=dotnet-ci
 dotnet/corefx branch=master server=dotnet-ci
 dotnet/corefx branch=release/1.0.0 server=dotnet-ci
 dotnet/corefx branch=release/1.1.0 server=dotnet-ci
@@ -80,10 +80,11 @@ dotnet/roslyn branch=features/patterns server=dotnet-ci
 dotnet/roslyn branch=features/privateProtected server=dotnet-ci
 dotnet/roslyn branch=features/readonly-ref server=dotnet-ci
 dotnet/roslyn branch=features/sdk server=dotnet-ci
+dotnet/roslyn branch=features/non-trailing server=dotnet-ci
 dotnet/roslyn-analyzers branch=master server=dotnet-ci
+dotnet/roslyn-analyzers branch=dev15.3 server=dotnet-ci
 dotnet/project-system branch=master server=dotnet-ci
 dotnet/project-system branch=dev15.0.x server=dotnet-ci
-dotnet/project-system branch=dev15.1.x server=dotnet-ci
 dotnet/project-system branch=dev15.2.x server=dotnet-ci
 dotnet/project-system branch=dev15.3.x server=dotnet-ci
 dotnet/project-system branch=dev15.6 server=dotnet-ci
@@ -91,6 +92,7 @@ dotnet/sdk branch=master server=dotnet-ci
 dotnet/sdk branch=rel/1.0.0 server=dotnet-ci
 dotnet/sdk branch=rel/1.1.0 server=dotnet-ci
 dotnet/sdk branch=release/2.0.0 server=dotnet-ci
+dotnet/sdk branch=release/2.0.0-preview2 server=dotnet-ci
 dotnet/sdk branch=dev15.0.x server=dotnet-ci
 dotnet/sdk branch=dev15.1.x server=dotnet-ci
 dotnet/standard branch=master server=dotnet-ci
@@ -123,6 +125,7 @@ Microsoft/ConcordExtensibilitySamples branch=master server=dotnet-ci
 Microsoft/dotnet-apiport branch=master server=dotnet-ci2
 Microsoft/MIEngine branch=master server=dotnet-ci
 Microsoft/msbuild branch=master server=dotnet-ci2
+Microsoft/msbuild branch=vs15.3 server=dotnet-ci2
 Microsoft/TypeScript branch=master server=dotnet-ci2
 Microsoft/xunit-performance branch=master server=dotnet-ci
 Microsoft/xunit-performance branch=citest server=dotnet-ci
