@@ -74,7 +74,7 @@ class GenericTriggerBuilder implements TriggerBuilder {
             JobReport.Report.addCronTriggeredJob(job.name, this._cronString, this._alwaysRun)
         }
         else {
-            JobReport.Report.addManuallyTriggered(job.name)
+            JobReport.Report.addManuallyTriggeredJob(job.name)
         }
     }
 }
