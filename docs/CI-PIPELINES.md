@@ -31,7 +31,7 @@ Assuming some familiarity with the existing .NET CI system (netci.groovy), this 
 2. Each jenkins server notices a change to the [repo list](../data/repolist.txt) and reads the file.  It creates a folder for each entry in the list that is targeted at the server and a 'generator' job which watches the repo/branch combo for the changes in a 'pipeline declaration' file (usually pipelines.groovy)
 3. When a new pipeline declaration file is committed to the repo, Jenkins runs it. The pipeline declaration file is similar to the traditional CI definition file, but is more barebones.  It notes the pipeline script to run in the repo, the parameters to pass it, and the triggers on which to run it.  The entire workload logic is contained within the pipeline itself, which is read from source control.
 4. The created pipeline jobs start waiting for their triggers (PR test, PR comment, etc.)
-5. Upon triggering, Jenkins reads the configured pipeline script configured in the pipeline job, typically from source control, passes it the default set of parameters configured in the pipeline declaration file, and executes the pipeline.
+5. Upon triggering, Jenkins reads the specified pipeline script, typically from source control, passes it the default set of parameters configured in the pipeline declaration file, and executes the pipeline.
 
 ## What Does A Pipeline CI Declaration Look Like?
 
@@ -405,8 +405,9 @@ The .NET CI SDK, which is imported at the start of your pipelines, contains a nu
     ```
 ## .NET CI Pipeline Examples
 
-* [CoreFX Linux pipeline](https://github.com/dotnet/corefx/blob/master/buildpipeline/portable-linux.groovy).
-* [CoreFX Windows pipeline](https://github.com/dotnet/corefx/blob/master/buildpipeline/portable-windows.groovy).
+* [CoreFX Linux pipeline](https://github.com/dotnet/corefx/blob/master/buildpipeline/linux.groovy).
+* [CoreFX Windows pipeline](https://github.com/dotnet/corefx/blob/master/buildpipeline/windows.groovy).
+* [CoreFX OSX pipeline](https://github.com/dotnet/corefx/blob/master/buildpipeline/osx.groovy).
 * [Pipeline tests (written in pipeline)](../tests/pipeline/pipeline-tests.groovy)
 
 # Additional Resources
