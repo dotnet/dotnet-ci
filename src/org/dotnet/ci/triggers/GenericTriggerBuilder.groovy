@@ -60,17 +60,21 @@ class GenericTriggerBuilder implements TriggerBuilder {
     void emitTrigger(def job) {
         assert (this._triggerType == TriggerType.PERIODIC) || (this._triggerType == TriggerType.MANUAL)
 
-        job.with {
-            triggers {
-                if (this._alwaysRun) {
-                    cron(this._cronString)
-                }
-                else {
-                    scm(this._cronString)
+        if (this._triggerType == TriggerType.PERIODIC) {
+            job.with {
+                triggers {
+                    if (this._alwaysRun) {
+                        cron(this._cronString)
+                    }
+                    else {
+                        scm(this._cronString)
+                    }
                 }
             }
+            JobReport.Report.addCronTriggeredJob(job.name, this._cronString, this._alwaysRun)
         }
-
-        JobReport.Report.addCronTriggeredJob(job.name, this._cronString, this._alwaysRun)
+        else {
+            JobReport.Report.addManuallyTriggered(job.name)
+        }
     }
 }

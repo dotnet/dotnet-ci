@@ -92,6 +92,10 @@ class JobReport {
         addReference(jobName)
     }
 
+    def addManuallyTriggeredJob(String jobName) {
+        addReference(jobName)
+    }
+
     def addPRTriggeredJob(String jobName, String[] targetBranches, String context, String triggerPhrase, boolean isDefault) {
 
         def simplifiedTriggerPhraseString = triggerPhrase
