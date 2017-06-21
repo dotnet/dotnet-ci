@@ -156,8 +156,9 @@ class Utilities {
             label(machineLabel)
         }
 
-        // Temporary, nano isn't working on TP5 any longer.  Getting random restarts.
-        if (osName.equals('Windows Nano 2016')) {
+        // These are non-functioning images (were TP5), for now just disable the jobs till all the
+        // groovy files can be updated.
+        if (osName.equals('Windows 10')) {
             job.with {
                 disabled(true)
             }
@@ -392,7 +393,9 @@ class Utilities {
             '\'type_traits\' file not found', // This is here for certain flavors of clang on Ubuntu, which can exhibit odd errors.
             '\'typeinfo\' file not found', // This is here for certain flavors of clang on Ubuntu, which can exhibit odd errors.
             'Only AMD64 and I386 are supported', // Appears to be a flaky CMAKE failure
-            'java.util.concurrent.ExecutionException: Invalid object ID'
+            'java.util.concurrent.ExecutionException: Invalid object ID',
+            'hexadecimal value.*is an invalid character.', // This is here until NuGet cache corruption issue is root caused and fixed.
+            'The plugin hasn\'t been performed correctly: Problem on deletion',
             ]
         def regex = '(?i).*('
         regex += Utilities.joinStrings(expressionsToRetry, '|')
@@ -814,7 +817,29 @@ class Utilities {
                             }
                         }
                         steps {
-                            batchFile("echo repro build step.")
+                            def zipWorkspace = "\"C:\\Program Files\\7-Zip\\7z.exe\" a -t7z %COMPUTERNAME%-Workspace.7z -mx9"
+                            def workspaceDestination = "https://dotnetci1vmstorage2.blob.core.windows.net/workspace"
+                            def uploadToAzure = "\"C:\\Program Files (x86)\\Microsoft SDKs\\Azure\\AzCopy\\AzCopy.exe\" /Source:. /Pattern:%COMPUTERNAME%-Workspace.7z /Dest:${workspaceDestination} /DestKey:%SNAPSHOT_STORAGE_KEY% /Y"
+                            def createSnapshot = """Invoke-RestMethod https://snapshotter.azurewebsites.net/api/7c8473db-c6cf-4be2-a0e7-680429fc0c99/snapshot?code=\$env:SNAPSHOT_TOKEN -Method Post -Body "{ 'group': 'dotnet-ci1-vms', 'name': '\$env:computername', 'payload': \'${workspaceDestination}/\$env:computername-Workspace.7z\', 'targetContainer': 'snapshots' }" -ContentType 'application/json' -ErrorAction Continue"""
+
+                            batchFile("echo Renaming launch.cmd")
+                            powerShell("Rename-Item C:\\Jenkins\\launch.cmd C:\\Jenkins\\launch.cmd.disabled")
+                            
+                            batchFile("${zipWorkspace}")
+                            batchFile("${uploadToAzure}")
+
+                            powerShell("echo ${createSnapshot}")
+                            powerShell("${createSnapshot}")
+                            
+                            batchFile("echo Renaming launch.cmd.disabled")
+                            powerShell("Rename-Item C:\\Jenkins\\launch.cmd.disabled C:\\Jenkins\\launch.cmd")
+                        }
+                        // Ensure credentials are bound
+                        wrappers {
+                            credentialsBinding {
+                                string('SNAPSHOT_TOKEN', 'SnapshotToken')
+                                string('SNAPSHOT_STORAGE_KEY', 'snapshotStorageKey')
+                            }
                         }
                     }
                 }
