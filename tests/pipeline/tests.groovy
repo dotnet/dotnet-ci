@@ -11,3 +11,8 @@ if (VersionControlLocation != 'VSTS') {
     testingPipeline.triggerPipelineOnEveryPR('CI Tests')
 }
 testingPipeline.triggerPipelineOnPush()
+
+// Make the call to generate the help job
+Utilities.createHelperJob(this, QualifiedRepoName, TargetBranchName,
+    "Welcome to the ${QualifiedRepoName} Repository",  // This is prepended to the help message
+    "Have a nice day!")  // This is appended to the help message.  You might put known issues here.
