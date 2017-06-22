@@ -56,7 +56,7 @@ stage ('Run Tests') {
                         }
                     }
                     catch (e) {
-                        echo "Got credentials binding failure"
+                        echo "Got credentials binding failure: ${e.getMessage()}"
                     }
                 }
             },
