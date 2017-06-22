@@ -328,7 +328,7 @@ class Pipeline {
         return triggerPipelineOnEvent(builder, parameters)
     }
 
-    /* Creates a Triggers a pipeline that only triggers manually
+    /* Creates a pipeline that only triggers manually
      * 
      * @param parameters Parameters to pass to the pipeline
      *

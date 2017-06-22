@@ -5,6 +5,7 @@ import jobs.generation.Utilities
 
 // Covers a generic triggers in Jenkins
 // Periodic - Periodic triggers against a Git repo
+// Manual - No automatic trigger (or triggered manually)
 class GenericTriggerBuilder implements TriggerBuilder {
     public enum TriggerType {
         PERIODIC,
@@ -39,7 +40,7 @@ class GenericTriggerBuilder implements TriggerBuilder {
         return newTrigger
     }
 
-    /* Constructs a new manual trigger.  This effecitvley means no trigger
+    /* Constructs a new manual trigger.  This effectivley means no trigger
      * 
      * @return New manual trigger
      */
@@ -73,8 +74,11 @@ class GenericTriggerBuilder implements TriggerBuilder {
             }
             JobReport.Report.addCronTriggeredJob(job.name, this._cronString, this._alwaysRun)
         }
-        else {
+        else if (this._triggerType == TriggerType.MANUAL) {
             JobReport.Report.addManuallyTriggeredJob(job.name)
+        }
+        else {
+            assert false : "Unknown trigger type"
         }
     }
 }
