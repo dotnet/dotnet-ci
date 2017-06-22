@@ -52,11 +52,11 @@ stage ('Run Tests') {
                 node {
                     try {
                         withCredentials([usernameColonPassword(credentialsId: 'dotnet-bot-pr-builder-token', variable: 'foobar')]) {
-                            error "Bound credentials, shouldn't have worked"
+                            assert false : "Bound credentials, shouldn't have worked"
                         }
                     }
                     catch (e) {
-                        echo "Got credentials binding failure: ${e.toString()}"
+                        echo "Got expected credentials binding failure: ${e.toString()}"
                     }
                 }
             },
