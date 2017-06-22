@@ -5,9 +5,11 @@ import jobs.generation.Utilities
 
 // Covers a generic triggers in Jenkins
 // Periodic - Periodic triggers against a Git repo
+// Manual - No automatic trigger (or triggered manually)
 class GenericTriggerBuilder implements TriggerBuilder {
     public enum TriggerType {
-        PERIODIC
+        PERIODIC,
+        MANUAL
     }
 
     // Periodic
@@ -27,14 +29,23 @@ class GenericTriggerBuilder implements TriggerBuilder {
         this._triggerType = triggerType
     }
 
-    // Constructs a new periodic trigger
-    // Parameters:
-    //  cronString - Cron string to run the job on
-    // Returns:
-    //  a new periodic trigger that runs on the specified interval
+    /* Constructs a new periodic trigger
+     * 
+     * @param cronString Cron string to run the job on
+     * @return New periodic trigger that runs on the specified interval
+     */
     def static GenericTriggerBuilder triggerPeriodically(String cronString) {
         def newTrigger = new GenericTriggerBuilder(TriggerType.PERIODIC)
         newTrigger._cronString = cronString
+        return newTrigger
+    }
+
+    /* Constructs a new manual trigger.  This effectivley means no trigger
+     * 
+     * @return New manual trigger
+     */
+    def static GenericTriggerBuilder triggerManually() {
+        def newTrigger = new GenericTriggerBuilder(TriggerType.MANUAL)
         return newTrigger
     }
     
@@ -48,19 +59,26 @@ class GenericTriggerBuilder implements TriggerBuilder {
     // Parameters:
     //  job - Job to emit trigger for
     void emitTrigger(def job) {
-        assert this._triggerType == TriggerType.PERIODIC
+        assert (this._triggerType == TriggerType.PERIODIC) || (this._triggerType == TriggerType.MANUAL)
 
-        job.with {
-            triggers {
-                if (this._alwaysRun) {
-                    cron(this._cronString)
-                }
-                else {
-                    scm(this._cronString)
+        if (this._triggerType == TriggerType.PERIODIC) {
+            job.with {
+                triggers {
+                    if (this._alwaysRun) {
+                        cron(this._cronString)
+                    }
+                    else {
+                        scm(this._cronString)
+                    }
                 }
             }
+            JobReport.Report.addCronTriggeredJob(job.name, this._cronString, this._alwaysRun)
         }
-
-        JobReport.Report.addCronTriggeredJob(job.name, this._cronString, this._alwaysRun)
+        else if (this._triggerType == TriggerType.MANUAL) {
+            JobReport.Report.addManuallyTriggeredJob(job.name)
+        }
+        else {
+            assert false : "Unknown trigger type"
+        }
     }
 }
