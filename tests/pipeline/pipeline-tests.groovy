@@ -185,18 +185,18 @@ stage ('Run Tests') {
                                     </HelixWorkItem>
                                 </ItemGroup>
                                 <PropertyGroup>
-                                    <CloudDropConnectionString>DefaultEndpointsProtocol=https;AccountName=$(CloudDropAccountName);AccountKey=$(CloudDropAccessToken);EndpointSuffix=core.windows.net</CloudDropConnectionString>
-                                    <CloudResultsConnectionString>DefaultEndpointsProtocol=https;AccountName=$(CloudResultsAccountName);AccountKey=$(CloudResultsAccessToken);EndpointSuffix=core.windows.net</CloudResultsConnectionString>
+                                    <CloudDropConnectionString>DefaultEndpointsProtocol=https;AccountName=\$(CloudDropAccountName);AccountKey=\$(CloudDropAccessToken);EndpointSuffix=core.windows.net</CloudDropConnectionString>
+                                    <CloudResultsConnectionString>DefaultEndpointsProtocol=https;AccountName=\$(CloudResultsAccountName);AccountKey=\$(CloudResultsAccessToken);EndpointSuffix=core.windows.net</CloudResultsConnectionString>
                                     <HelixApiEndpoint>https://helix.dot.net/api/2017-04-14/jobs</HelixApiEndpoint>
                                     <HelixJobType>test/functional/dotnet-ci</HelixJobType>
                                     <HelixSource>${helixSource}</HelixSource>
                                     <BuildMoniker>${helixBuild}</BuildMoniker>
                                     <HelixCreator>${helixCreator}</HelixCreator>
                                     <TargetQueues>Windows.10.Amd64.Open</TargetQueues>
-                                    <HelixLogFolder>$(MSBuildThisFileDirectory)</HelixLogFolder>
+                                    <HelixLogFolder>\$(MSBuildThisFileDirectory)</HelixLogFolder>
                                     <HelixCorrelationInfoFileName>job-info.json</HelixCorrelationInfoFileName>
                                     <HelixJobProperties>{ "operatingSystem": "pizza" }</HelixJobProperties>
-                                    <ArchivesRoot>$(MSBuildThisFileDirectory)</ArchivesRoot>
+                                    <ArchivesRoot>\$(MSBuildThisFileDirectory)</ArchivesRoot>
                                 </PropertyGroup
                                 <Target Name="Build" DependsOnTargets="HelixCloudBuild"/>
                             </Project>
