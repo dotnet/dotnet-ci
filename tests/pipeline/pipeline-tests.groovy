@@ -151,6 +151,71 @@ stage ('Run Tests') {
                 String url = library(libraryName).jobs.generation.Utilities.calculateGitHubURL('foo/bar')
                 assert url == 'https://github.com/foo/bar' : "Incorrect url for github URL"
             },
+            
+            "vars - waitforHelixRuns - failed work item" : {
+                simpleNode('Windows_NT', 'latest') {
+                    dir 'workItem' {
+                        new File("run.cmd").write("""
+                        echo Failing
+                        exit /b -1
+                        """)
+                    }
+                    zip 'workItem.zip', dir: 'workItem'
+
+                    def helixSource = getHelixSource()
+                    // Ask the CI SDK for a Build that makes sense.  We currently use the hash for the build
+                    def helixBuild = getCommit()
+                    // Get the user that should be associated with the submission
+                    def helixCreator = getUser()
+
+                    dir 'buildtools' {
+                        git 'https://github.com/dotnet/buildtools'
+                        bat 'init-tools.cmd'
+
+                        dir 'test' {
+                            def fileContent = """
+                            <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+                                <Import Project="Tools/CloudTest.Helix.targets"/>
+                                <ItemGroup>
+                                    <HelixWorkItem Include="workItem.zip">
+                                        <Command>run.cmd</Command>
+                                        <PayloadFile>%(Identity)</PayloadFile>
+                                        <WorkItemId>The Work Item</WorkItemId>
+                                        <TimeoutInSeconds>10<TimeoutInSeconds>
+                                    </HelixWorkItem>
+                                </ItemGroup>
+                                <PropertyGroup>
+                                    <CloudDropConnectionString>DefaultEndpointsProtocol=https;AccountName=$(CloudDropAccountName);AccountKey=$(CloudDropAccessToken);EndpointSuffix=core.windows.net</CloudDropConnectionString>
+                                    <CloudResultsConnectionString>DefaultEndpointsProtocol=https;AccountName=$(CloudResultsAccountName);AccountKey=$(CloudResultsAccessToken);EndpointSuffix=core.windows.net</CloudResultsConnectionString>
+                                    <HelixApiEndpoint>https://helix.dot.net/api/2017-04-14/jobs</HelixApiEndpoint>
+                                    <HelixJobType>test/functional/dotnet-ci</HelixJobType>
+                                    <HelixSource>${helixSource}</HelixSource>
+                                    <BuildMoniker>${helixBuild}</BuildMoniker>
+                                    <HelixCreator>${helixCreator}</HelixCreator>
+                                    <TargetQueues>Windows.10.Amd64.Open</TargetQueues>
+                                    <HelixLogFolder>$(MSBuildThisFileDirectory)</HelixLogFolder>
+                                    <HelixCorrelationInfoFileName>job-info.json</HelixCorrelationInfoFileName>
+                                    <HelixJobProperties>{ "operatingSystem": "pizza" }</HelixJobProperties>
+                                    <ArchivesRoot>$(MSBuildThisFileDirectory)</ArchivesRoot>
+                                </PropertyGroup
+                                <Target Name="Build" DependsOnTargets="HelixCloudBuild"/>
+                            </Project>
+                            """
+                            println fileContent
+                            new File("submit-job.proj").write(fileContent)
+                        }
+
+                        withCredentials([string(credentialsId: 'CloudDropAccessToken', variable: 'CloudDropAccessToken'),
+                             string(credentialsId: 'OutputCloudResultsAccessToken', variable: 'OutputCloudResultsAccessToken')]) {
+                            bat 'Tools/msbuild.cmd test/submit-job.proj /p:CloudDropAccountName=dotnetbuilddrops /p:CloudDropAccessToken=%CloudDropAccessToken% /p:CloudResultsAccountName=dotnetjobresults /p:CloudResultsAccessToken=%OutputCloudResultsAccessToken%'
+                        }
+                    }
+
+                    def submittedJson = readJSON 'buildtools/test/job-info.json'
+
+                    waitForHelixRuns(submittedJson, "The Tests");
+                }
+            }
         )
     }
 }
