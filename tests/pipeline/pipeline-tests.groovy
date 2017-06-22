@@ -51,7 +51,7 @@ stage ('Run Tests') {
                 // Certain credentials should not be bindable in pipelines
                 node {
                     try {
-                        withCredentials([string(credentialsId: 'dotnet-bot-pr-builder-token', variable: 'foobar')]) {
+                        withCredentials([usernameColonPassword(credentialsId: 'dotnet-bot-pr-builder-token', variable: 'foobar')]) {
                             error "Bound credentials, shouldn't have worked"
                         }
                     }
