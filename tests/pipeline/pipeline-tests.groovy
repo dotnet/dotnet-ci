@@ -154,13 +154,13 @@ stage ('Run Tests') {
             
             "vars - waitforHelixRuns - failed work item" : {
                 simpleNode('Windows_NT', 'latest') {
-                    dir 'workItem' {
-                        new File("run.cmd").write("""
+                    dir('workItem') {
+                        writeFile file: 'run.cmd', text: """
                         echo Failing
                         exit /b -1
-                        """)
+                        """
                     }
-                    zip 'workItem.zip', dir: 'workItem'
+                    zip zipFile: 'workItem.zip', dir: 'workItem'
 
                     def helixSource = getHelixSource()
                     // Ask the CI SDK for a Build that makes sense.  We currently use the hash for the build
@@ -168,20 +168,20 @@ stage ('Run Tests') {
                     // Get the user that should be associated with the submission
                     def helixCreator = getUser()
 
-                    dir 'buildtools' {
+                    dir('buildtools') {
                         git 'https://github.com/dotnet/buildtools'
-                        bat 'init-tools.cmd'
+                        bat 'powershell bootstrap/bootstrap.ps1 ./ -DotNetInstallBranch "rel/1.0.0-preview2.1"'
 
-                        dir 'test' {
+                        dir('test') {
                             def fileContent = """
                             <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-                                <Import Project="Tools/CloudTest.Helix.targets"/>
+                                <Import Project="../Tools/CloudTest.Helix.targets"/>
                                 <ItemGroup>
                                     <HelixWorkItem Include="workItem.zip">
                                         <Command>run.cmd</Command>
                                         <PayloadFile>%(Identity)</PayloadFile>
                                         <WorkItemId>The Work Item</WorkItemId>
-                                        <TimeoutInSeconds>10<TimeoutInSeconds>
+                                        <TimeoutInSeconds>10</TimeoutInSeconds>
                                     </HelixWorkItem>
                                 </ItemGroup>
                                 <PropertyGroup>
@@ -197,17 +197,17 @@ stage ('Run Tests') {
                                     <HelixCorrelationInfoFileName>job-info.json</HelixCorrelationInfoFileName>
                                     <HelixJobProperties>{ "operatingSystem": "pizza" }</HelixJobProperties>
                                     <ArchivesRoot>\$(MSBuildThisFileDirectory)</ArchivesRoot>
-                                </PropertyGroup
+                                </PropertyGroup>
                                 <Target Name="Build" DependsOnTargets="HelixCloudBuild"/>
                             </Project>
                             """
                             println fileContent
-                            new File("submit-job.proj").write(fileContent)
+                            writeFile file: 'submit-job.proj', text: fileContent
                         }
 
                         withCredentials([string(credentialsId: 'CloudDropAccessToken', variable: 'CloudDropAccessToken'),
                              string(credentialsId: 'OutputCloudResultsAccessToken', variable: 'OutputCloudResultsAccessToken')]) {
-                            bat 'Tools/msbuild.cmd test/submit-job.proj /p:CloudDropAccountName=dotnetbuilddrops /p:CloudDropAccessToken=%CloudDropAccessToken% /p:CloudResultsAccountName=dotnetjobresults /p:CloudResultsAccessToken=%OutputCloudResultsAccessToken%'
+                            bat 'Tools\\dotnetcli\\dotnet.exe Tools\\MSBuild.exe test\\submit-job.proj /p:CloudDropAccountName=dotnetbuilddrops /p:CloudDropAccessToken=%CloudDropAccessToken% /p:CloudResultsAccountName=dotnetjobresults /p:CloudResultsAccessToken=%OutputCloudResultsAccessToken%'
                         }
                     }
 
