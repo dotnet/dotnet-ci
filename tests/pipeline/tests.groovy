@@ -1,4 +1,5 @@
 import org.dotnet.ci.pipelines.Pipeline
+import jobs.generation.Utilities
 
 // This file is pretty barebones.  It basically just sets up a pipeline which then calls the tests.
 // This is opposed to setting up all the tests here, which is a little more difficult to square between PR and non-PR scenarios,
