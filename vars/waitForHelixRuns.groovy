@@ -124,27 +124,31 @@ def call (def helixRunsBlob, String prStatusPrefix) {
                             assert resultsContent.size() == 1 : "No results found for helix results API"
                             assert resultsContent[0].Data != null : "No data found in first result for helix results API"
 
-                            if (resultsContent[0].Data.Analysis.size() == 0) {
-                                subMessage = "No results yet"
-                            }
-                            else {
-                                assert resultsContent[0].Data.Analysis.size() == 1 : "More than one set of analysis results"
-                                assert resultsContent[0].Data.Analysis[0].Name == "xunit" : "Data in results api not xunit format"
-                                assert resultsContent[0].Data.Analysis[0].Status != null : "No status found in Analysis section"
-                                assert resultsContent[0].Data.Analysis[0].Status.pass != null ||
-                                    resultsContent[0].Data.Analysis[0].Status.fail != null ||
-                                    resultsContent[0].Data.Analysis[0].Status.skip != null : "Expected at least one of pass/fail/skip"
+                            def resultData = resultsContent[0].Data
+                            def workItemStatus = resultData.WorkItemStatus
+                            def analyses = resultData.Analysis
 
-                                def passedTests = resultsContent[0].Data.Analysis[0].Status.pass != null ? resultsContent[0].Data.Analysis[0].Status.pass : 0
-                                def failedTests = resultsContent[0].Data.Analysis[0].Status.fail ? resultsContent[0].Data.Analysis[0].Status.fail : 0
-                                def skippedTests = resultsContent[0].Data.Analysis[0].Status.skip ? resultsContent[0].Data.Analysis[0].Status.skip : 0
+                            if (workItemStatus.fail) {
+                                resultValue = "FAILURE"
+                                passed = false
+                                failedRunMap[queueId] = mcResultsUrl
+                                subMessage = "Catastrophic Failure: ${workItemStatus.fail} work items failed"
+                            } else if (analyses.size() > 0) {
+                                assert analyses.size() == 1 : "More than one set of analysis results"
+                                def analysis = analyses[0]
+                                assert analysis.Name == "xunit" : "Data in results api not xunit format"
+                                assert analysis.Status != null : "No status found in Analysis section"
+                                def status = analysis.Status
+                                assert status.pass != null ||
+                                    status.fail != null ||
+                                    status.skip != null : "Expected at least one of pass/fail/skip"
+
+                                def passedTests = status.pass ?: 0
+                                def failedTests = status.fail ?: 0
+                                def skippedTests  = status.skip ?: 0
                                 def totalTests = passedTests + failedTests + skippedTests
 
-                                //Workitem failure needs to cause failure in the leg.
-                                def workitemFailures = resultsContent[0].Data.WorkItemStatus.fail ? resultsContent[0].Data.WorkItemStatus.fail : 0
-
-                                // Compute the current resultValue.  We'll update the sub result every time, but the final result only when isFinished is true
-                                if (failedTests != 0 || workitemFailures != 0) {
+                                if (failedTests > 0) {
                                     resultValue = "FAILURE"
                                     passed = false
                                     failedRunMap[queueId] = mcResultsUrl
@@ -154,8 +158,13 @@ def call (def helixRunsBlob, String prStatusPrefix) {
                                     resultValue = "SUCCESS"
                                     subMessage = "Passed ${passedTests} (${skippedTests} skipped)"
                                 }
+                            } else {
+                                subMessage = "No results yet"
                             }
+
                             resultsContent = null
+
+                            echo "Info: ${subMessage}"
                         }
 
                         // We can also grab the info necessary to construct the link for Mission Control from this API.
