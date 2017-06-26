@@ -214,13 +214,7 @@ stage ('Run Tests') {
 
                     def submittedJson = readJSON file: 'corefx/test/job-info.json'
 
-                    try {
-                        waitForHelixRuns(submittedJson, "The Tests")
-                        assert false : "Expected failure from waitForHelixRuns didn't occur"
-                    }
-                    catch (e) {
-                        echo "Got expected failure from waitForHelixRuns"
-                    }
+                    waitForHelixRuns(submittedJson, "The Tests")
                 }
             },
             
