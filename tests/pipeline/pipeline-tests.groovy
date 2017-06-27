@@ -47,6 +47,20 @@ stage ('Run Tests') {
                 }
             },
 
+            "Credentials Binding Not Allowed" : {
+                // Certain credentials should not be bindable in pipelines
+                node {
+                    try {
+                        withCredentials([usernameColonPassword(credentialsId: 'dotnet-bot-pr-builder-token', variable: 'foobar')]) {
+                            assert false : "Bound credentials, shouldn't have worked"
+                        }
+                    }
+                    catch (e) {
+                        echo "Got expected credentials binding failure: ${e.toString()}"
+                    }
+                }
+            },
+
             // Test that simple nodes work, of various types
             "simpleNode - Windows_NT - latest" : {
                 timeout (60) {
