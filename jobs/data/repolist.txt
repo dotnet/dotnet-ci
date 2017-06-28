@@ -64,14 +64,6 @@ dotnet/orleans branch=master server=dotnet-ci
 dotnet/ProjFileTools branch=master server=dotnet-ci
 dotnet/roslyn branch=dev15.0.x server=dotnet-ci
 dotnet/roslyn branch=dev15.0.x subFolder=perf definitionScript=perf.groovy server=dotnet-ci2
-dotnet/roslyn branch=dev15.1.x server=dotnet-ci
-dotnet/roslyn branch=dev15.1.x subFolder=perf definitionScript=perf.groovy server=dotnet-ci2
-dotnet/roslyn branch=dev15.2.x server=dotnet-ci
-dotnet/roslyn branch=dev15.2.x subFolder=perf definitionScript=perf.groovy server=dotnet-ci2
-dotnet/roslyn branch=dev15.3-preview1 server=dotnet-ci
-dotnet/roslyn branch=dev15.3-preview1 subFolder=perf definitionScript=perf.groovy server=dotnet-ci2
-dotnet/roslyn branch=dev15.3-preview2 server=dotnet-ci
-dotnet/roslyn branch=dev15.3-preview2 subFolder=perf definitionScript=perf.groovy server=dotnet-ci2
 dotnet/roslyn branch=dev15.3.x server=dotnet-ci
 dotnet/roslyn branch=dev15.3.x subFolder=perf definitionScript=perf.groovy server=dotnet-ci2
 dotnet/roslyn branch=dev15.6 server=dotnet-ci
@@ -93,7 +85,6 @@ dotnet/roslyn-analyzers branch=master server=dotnet-ci
 dotnet/roslyn-analyzers branch=dev15.3 server=dotnet-ci
 dotnet/project-system branch=master server=dotnet-ci
 dotnet/project-system branch=dev15.0.x server=dotnet-ci
-dotnet/project-system branch=dev15.2.x server=dotnet-ci
 dotnet/project-system branch=dev15.3.x server=dotnet-ci
 dotnet/project-system branch=dev15.6 server=dotnet-ci
 dotnet/sdk branch=master server=dotnet-ci
