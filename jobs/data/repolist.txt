@@ -71,15 +71,12 @@ dotnet/roslyn branch=dev16 server=dotnet-ci
 dotnet/roslyn branch=master server=dotnet-ci
 dotnet/roslyn branch=master subFolder=perf definitionScript=perf.groovy server=dotnet-ci2
 dotnet/roslyn branch=microupdate server=dotnet-ci
-dotnet/roslyn branch=features/async-main server=dotnet-ci
 dotnet/roslyn branch=features/DefaultInterfaceImplementation server=dotnet-ci
 dotnet/roslyn branch=features/editorconfig-in-compiler server=dotnet-ci
-dotnet/roslyn branch=features/ins server=dotnet-ci
 dotnet/roslyn branch=features/ioperation server=dotnet-ci
 dotnet/roslyn branch=features/patterns server=dotnet-ci
 dotnet/roslyn branch=features/privateProtected server=dotnet-ci
 dotnet/roslyn branch=features/readonly-ref server=dotnet-ci
-dotnet/roslyn branch=features/sdk server=dotnet-ci
 dotnet/roslyn branch=features/non-trailing server=dotnet-ci
 dotnet/roslyn-analyzers branch=master server=dotnet-ci
 dotnet/roslyn-analyzers branch=dev15.3 server=dotnet-ci
