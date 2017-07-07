@@ -111,6 +111,8 @@ Microsoft/ChakraCore branch=release/1.5 server=dotnet-ci2
 Microsoft/ChakraCore branch=release/1.5-ci server=dotnet-ci2
 Microsoft/ChakraCore branch=release/1.6 server=dotnet-ci2
 Microsoft/ChakraCore branch=release/1.6-ci server=dotnet-ci2
+Microsoft/ChakraCore branch=release/1.7 server=dotnet-ci2
+Microsoft/ChakraCore branch=release/1.7-ci server=dotnet-ci2
 Microsoft/ChakraCore branch=release/2.0 server=dotnet-ci2
 Microsoft/ChakraCore branch=release/2.0-ci server=dotnet-ci2
 Microsoft/ChakraCore branch=wasm.simd server=dotnet-ci2
