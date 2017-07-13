@@ -189,15 +189,6 @@ class Utilities {
                                 // For outerloop runs.
                                 'outer-latest-or-auto':'ubuntu1610-20170216-outer',
                                 ],
-                            'OSX10.11' :
-                                [
-                                // Generic version label
-                                '' : 'mac',
-                                // Latest auto image.
-                                'latest-or-auto':'mac',
-                                // For elevated runs
-                                'latest-or-auto-elevated':'mac-elevated'
-                                ],
                             // El Capitan
                             'OSX10.11' :
                                 [
@@ -217,6 +208,16 @@ class Utilities {
                                 'latest-or-auto':'osx-10.12',
                                 // For elevated runs
                                 'latest-or-auto-elevated':'osx-10.12-elevated'
+                                ],
+                            // High Sierra
+                            'OSX10.13' :
+                                [
+                                // Generic version label
+                                '' : 'osx-10.13',
+                                // Latest auto image.
+                                'latest-or-auto':'osx-10.13',
+                                // For elevated runs
+                                'latest-or-auto-elevated':'osx-10.13-elevated'
                                 ],
                             // This is Windows Server 2012 R2
                             'Windows_NT' :
