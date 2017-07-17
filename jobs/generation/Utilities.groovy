@@ -249,7 +249,7 @@ class Utilities {
                                 // Win2016 + VS15.RC4
                                 'latest-or-auto-dev15-rc':'win2016-20170214',
                                 // Win2016 + VS15.0
-                                'latest-or-auto-dev15-0':'win2016-20170307',
+                                'latest-or-auto-dev15-0':'win2016-20170712',
                                 // For internal runs - Win2016 + VS15.1
                                 'latest-dev15-1':'win2016-20170427',
                                 // Win2016 + VS15.3 Preview1
@@ -263,7 +263,7 @@ class Utilities {
                                 // For internal runs - Win2016 + VS15.RC4
                                 'latest-or-auto-dev15-internal':'win2016-20170214-internal',
                                 // For internal runs - Win2016 + VS15.0
-                                'latest-or-auto-dev15-0-internal':'win2016-20170307-internal',
+                                'latest-or-auto-dev15-0-internal':'win2016-20170712-internal',
                                 // For internal runs - Win2016 + VS15.1
                                 'latest-dev15-1-internal':'win2016-20170427-internal',
                                 // win2016-base + d15prerel-26423.1
@@ -280,6 +280,10 @@ class Utilities {
                                 'latest-dev15-3-preview2' : 'win2016-20170613',
                                 // win2016-base + Dev15.3 preview 2
                                 'latest-dev15-3-preview2-internal' : 'win2016-20170613-internal',
+                                // win2016-base + Dev15.3 preview 2
+                                'latest-dev15-3-preview4' : 'win2016-20170717',
+                                // win2016-base + Dev15.3 preview 2
+                                'latest-dev15-3-preview4-internal' : 'win2016-20170717-internal',
                                 // For elevated runs
                                 'latest-or-auto-elevated':'win2012-20170608-elevated',
                                 // For arm64 builds
