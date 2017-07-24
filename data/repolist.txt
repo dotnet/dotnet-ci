@@ -33,6 +33,7 @@ dotnet/core-setup branch=master server=dotnet-ci
 dotnet/core-setup branch=release/1.0.0 server=dotnet-ci
 dotnet/core-setup branch=release/1.1.0 server=dotnet-ci
 dotnet/core-setup branch=release/2.0.0 server=dotnet-ci
+dotnet/core-setup branch=release/uwp6.0 server=dotnet-ci
 dotnet/codeformatter branch=master server=dotnet-ci2
 dotnet/coreclr branch=master server=dotnet-ci
 dotnet/coreclr branch=master server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy utilitiesRepoBranch=dev/pipelinesupport
@@ -42,14 +43,17 @@ jorive/coreclr branch=dev/baseline-with-new-api server=dotnet-ci2 definitionScri
 dotnet/coreclr branch=release/1.0.0 server=dotnet-ci
 dotnet/coreclr branch=release/1.1.0 server=dotnet-ci
 dotnet/coreclr branch=release/2.0.0 server=dotnet-ci
+dotnet/coreclr branch=release/uwp6.0 server=dotnet-ci
 dotnet/coreclr branch=dev/unix_test_workflow server=dotnet-ci
 dotnet/corefx branch=master server=dotnet-ci
 dotnet/corefx branch=release/1.0.0 server=dotnet-ci
 dotnet/corefx branch=release/1.1.0 server=dotnet-ci
 dotnet/corefx branch=release/2.0.0 server=dotnet-ci
+dotnet/corefx branch=release/uwp6.0 server=dotnet-ci
 dotnet/corefx branch=master server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/corefx branch=release/2.0.0 server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/corefx branch=master server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy utilitiesRepoBranch=dev/pipelinesupport
+dotnet/corefx branch=release/uwp6.0 server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy utilitiesRepoBranch=dev/pipelinesupport
 dotnet/corefxlab branch=master server=dotnet-ci
 dotnet/corert branch=master server=dotnet-ci
 dotnet/dotnet-docker branch=master server=dotnet-ci
@@ -107,6 +111,7 @@ dotnet/versions branch=master server=dotnet-ci
 dotnet/wcf branch=master server=dotnet-ci
 dotnet/wcf branch=release/1.0.0 server=dotnet-ci
 dotnet/wcf branch=release/1.1.0 server=dotnet-ci
+dotnet/wcf branch=release/uwp6.0 server=dotnet-ci
 Microsoft/ChakraCore branch=master server=dotnet-ci
 Microsoft/ChakraCore branch=master-ci server=dotnet-ci2
 Microsoft/ChakraCore branch=release/1.2 server=dotnet-ci
