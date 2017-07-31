@@ -141,6 +141,8 @@ class Utilities {
                                 // Contains 20160211-1 + clang 3.9
                                 '20170118':'ubuntu1404-20170118',
                                 // Contains the rootfs setup for arm builds.
+                                '20170728':'ubuntu1404-20170728',
+                                // Contains Mono 5.0.1
                                 'arm-cross-latest':'auto-ubuntu1404-20170120',
                                 // Contains the rootfs setup for arm64 builds.
                                 'arm64-cross-latest':'ubuntu1604-20170526',
@@ -151,7 +153,7 @@ class Utilities {
                                 // Image installing the latest mono-devel
                                 'latest-mono-devel':'ubuntu1404-20160211-1-latest-mono',
                                 // Latest auto image.
-                                'latest-or-auto':'auto-ubuntu1404-20160211.1',
+                                'latest-or-auto':'auto-ubuntu1404-20170728',
                                 // For outerloop runs.
                                 'outer-latest-or-auto':'auto-ubuntu1404-201626outer',
                                 // For internal Ubuntu runs
@@ -170,8 +172,10 @@ class Utilities {
                                 [
                                 // Contains auto-ubuntu1604-20160803 + gdb + mono 4.6.2.16
                                 '20170109':'ubuntu1604-20170109',
+                                //Contains Mono 5.0.1
+                                '20170731':'ubuntu1604-20170731',
                                 // Latest auto image.
-                                'latest-or-auto':'ubuntu1604-20170216',
+                                'latest-or-auto':'ubuntu1604-20170731',
                                 // auto-ubuntu1604-20160510 + docker.
                                 // Move this to latest-or-auto after validation
                                 'latest-or-auto-docker':'ubuntu1604-20170216',
