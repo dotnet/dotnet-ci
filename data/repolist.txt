@@ -157,6 +157,7 @@ Microsoft/vstest branch=future server=dotnet-ci
 mmitche/coreclr branch=dev/pipeline server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy utilitiesRepoBranch=dev/pipelinesupport
 adiaaida/coreclr branch=dev/pipeline server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy utilitiesRepoBranch=dev/pipelinesupport
 Microsoft/testfx branch=master server=dotnet-ci
+sbomer/coreclr branch=master server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy utilitiesRepoBranch=dev/pipelinesupport
 # Tests for pipelines
 dotnet/dotnet-ci branch=dev/pipelinesupport utilitiesRepoBranch=dev/pipelinesupport definitionScript=tests/pipeline/tests.groovy server=dotnet-ci3 subFolder=pipelineTests
 # Tests for DSL
