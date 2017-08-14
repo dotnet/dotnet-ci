@@ -62,6 +62,8 @@ class Agents {
                                 // Contains 20160211-1 + clang 3.9
                                 '20170118':'ubuntu1404-20170118',
                                 // Contains the rootfs setup for arm builds.
+                                '20170728':'ubuntu1404-20170728',
+                                // Contains Mono 5.0.1
                                 'arm-cross-latest':'auto-ubuntu1404-20170120',
                                 // Contains the rootfs setup for arm64 builds.
                                 'arm64-cross-latest':'ubuntu1604-20170526',
@@ -72,7 +74,7 @@ class Agents {
                                 // Image installing the latest mono-devel
                                 'latest-mono-devel':'ubuntu1404-20160211-1-latest-mono',
                                 // Latest auto image.
-                                'latest':'auto-ubuntu1404-20160211.1',
+                                'latest':'auto-ubuntu1404-20170728',
                                 // For outerloop runs.
                                 'outer-latest':'auto-ubuntu1404-201626outer',
                                 // For internal Ubuntu runs
@@ -91,8 +93,10 @@ class Agents {
                                 [
                                 // Contains auto-ubuntu1604-20160803 + gdb + mono 4.6.2.16
                                 '20170109':'ubuntu1604-20170109',
+                                //Contains Mono 5.0.1
+                                '20170731':'ubuntu1604-20170731',
                                 // Latest auto image.
-                                'latest':'ubuntu1604-20170216',
+                                'latest':'ubuntu1604-20170731',
                                 // auto-ubuntu1604-20160510 + docker.
                                 // Move this to latest after validation
                                 'latest-docker':'ubuntu1604-20170216',
@@ -109,15 +113,6 @@ class Agents {
                                 'latest':'ubuntu1610-20170216',
                                 // For outerloop runs.
                                 'outer-latest':'ubuntu1610-20170216-outer',
-                                ],
-                            'OSX10.11' :
-                                [
-                                // Generic version label
-                                '' : 'mac',
-                                // Latest auto image.
-                                'latest':'mac',
-                                // For elevated runs
-                                'latest-elevated':'mac-elevated'
                                 ],
                             // El Capitan
                             'OSX10.11' :
@@ -138,6 +133,16 @@ class Agents {
                                 'latest':'osx-10.12',
                                 // For elevated runs
                                 'latest-elevated':'osx-10.12-elevated'
+                                ],
+                            // High Sierra
+                            'OSX10.13' :
+                                [
+                                // Generic version label
+                                '' : 'osx-10.13',
+                                // Latest auto image.
+                                'latest':'osx-10.13',
+                                // For elevated runs
+                                'latest-elevated':'osx-10.13-elevated'
                                 ],
                             // This is Windows Server 2012 R2
                             'Windows_NT' :
@@ -169,7 +174,7 @@ class Agents {
                                 // Win2016 + VS15.RC4
                                 'latest-dev15-rc':'win2016-20170214',
                                 // Win2016 + VS15.0
-                                'latest-dev15-0':'win2016-20170307',
+                                'latest-dev15-0':'win2016-20170712',
                                 // For internal runs - Win2016 + VS15.1
                                 'latest-dev15-1':'win2016-20170427',
                                 // Win2016 + VS15.3 Preview1
@@ -183,7 +188,7 @@ class Agents {
                                 // For internal runs - Win2016 + VS15.RC4
                                 'latest-dev15-internal':'win2016-20170214-internal',
                                 // For internal runs - Win2016 + VS15.0
-                                'latest-dev15-0-internal':'win2016-20170307-internal',
+                                'latest-dev15-0-internal':'win2016-20170712-internal',
                                 // For internal runs - Win2016 + VS15.1
                                 'latest-dev15-1-internal':'win2016-20170427-internal',
                                 // win2016-base + d15prerel-26423.1
@@ -200,6 +205,18 @@ class Agents {
                                 'latest-dev15-3-preview2' : 'win2016-20170613',
                                 // win2016-base + Dev15.3 preview 2
                                 'latest-dev15-3-preview2-internal' : 'win2016-20170613-internal',
+                                // win2016-base + Dev15.3 preview 4
+                                'latest-dev15-3-preview4' : 'win2016-20170717',
+                                // win2016-base + Dev15.3 preview 4
+                                'latest-dev15-3-preview4-internal' : 'win2016-20170717-internal',
+                                // win2016-base + Dev15.3 preview 6
+                                'latest-dev15-3-preview6' : 'win2016-20170731',
+                                // win2016-base + Dev15.3 preview 6
+                                'latest-dev15-3-preview6-internal' : 'win2016-20170731-internal',
+                                // win2016-base + Dev15.3 preview 7
+                                'latest-dev15-3-preview7' : 'win2016-20170802',
+                                // win2016-base + Dev15.3 preview 7
+                                'latest-dev15-3-preview7-internal' : 'win2016-20170802-internal',
                                 // For elevated runs
                                 'latest-elevated':'win2012-20170608-elevated',
                                 // For arm64 builds
@@ -314,6 +331,10 @@ class Agents {
                                 'latest':'!windowsnano16 && !performance && !dtap'
                                 ]
                             ]
+        def versionLabelMap = machineMap.get(osName, null)
+        assert versionLabelMap != null : "Could not find os ${osName}"
+        def machineLabel = versionLabelMap.get(version, null)
+        assert machineLabel != null : "Could not find version ${version} of ${osName}"
         def versionLabelMap = machineMap.get(osName, null)
         assert versionLabelMap != null : "Could not find os ${osName}"
         def machineLabel = versionLabelMap.get(version, null)
