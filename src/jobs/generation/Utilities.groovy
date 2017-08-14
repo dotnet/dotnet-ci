@@ -151,7 +151,6 @@ class Utilities {
      */
     def static setMachineAffinity(def job, String osName, String version = '') {
         def machineLabel = Agents.getAgentLabel(osName, version)
-
         job.with {
             label(machineLabel)
         }
