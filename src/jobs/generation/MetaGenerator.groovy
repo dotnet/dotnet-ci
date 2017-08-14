@@ -238,6 +238,8 @@ repos.each { repoInfo ->
         repoInfo != searchRepoInfo &&
         // Same project
         searchRepoInfo.project == repoInfo.project &&
+        // Same server
+        searchRepoInfo.server == repoInfo.server &&
         // Same branch
         searchRepoInfo.branch == repoInfo.branch &&
         // Same CI file.  Note this isn't perfect, since there could be overlap
