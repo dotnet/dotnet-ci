@@ -152,6 +152,12 @@ stage ('Run Tests') {
                 assert url == 'https://github.com/foo/bar' : "Incorrect url for github URL"
             },
 
+            "getAgentLabel - Returns expected result" : {
+                String label = Agents.getAgentLabel("Ubuntu14.04", "latest")
+                // This will need to be changed as 'latest' moved forward
+                assert label == 'ubuntu1404-20170728' : "getAgentLabel did not return expected 'latest' (ubuntu1404-20170728)"
+            },
+
             "vars - waitforHelixRuns - passed work item" : {
                 simpleNode('Windows_NT', 'latest') {
                     dir('workItem') {
