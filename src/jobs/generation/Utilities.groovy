@@ -807,17 +807,13 @@ class Utilities {
     def static addReproBuild(def job) {
         job.with {
             publishers {
-                flexiblePublish {  
-                    publishers {
-                        ReproToolPublisher{      
-                            StorageName("workspaceUpload")
-                            StorageAccount("testblobupload")
-                            StorageContainer("workspace")
-                            StorageKey("StorageKey")
-                            APIToken("APIToken")
-                            APIBaseURI("https://repro-tool-int.westus2.cloudapp.azure.com/")
-                        }
-                    }
+                ReproToolPublisher{      
+                    StorageName("workspaceUpload")
+                    StorageAccount("testblobupload")
+                    StorageContainer("workspace")
+                    StorageKey("StorageKey")
+                    APIToken("APIToken")
+                    APIBaseURI("https://repro-tool-int.westus2.cloudapp.azure.com/")
                 }
             }
         }
