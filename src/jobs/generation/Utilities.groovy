@@ -807,7 +807,7 @@ class Utilities {
     def static addReproBuild(def job) {
         job.with {
             publishers {
-                ReproToolPublisher{      
+                reproToolPublisher{      
                     StorageName("workspaceUpload")
                     StorageAccount("testblobupload")
                     StorageContainer("workspace")
