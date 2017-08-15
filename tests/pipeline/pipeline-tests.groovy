@@ -153,7 +153,7 @@ stage ('Run Tests') {
             },
 
             "getAgentLabel - Returns expected result" : {
-                String label = org.dotnet.ci.util.Agents.getAgentLabel("Ubuntu14.04", "latest")
+                String label = library(libraryName).org.dotnet.ci.util.Agents.getAgentLabel("Ubuntu14.04", "latest")
                 // This will need to be changed as 'latest' moved forward
                 assert label == 'ubuntu1404-20170728' : "getAgentLabel did not return expected 'latest' (ubuntu1404-20170728)"
             },
