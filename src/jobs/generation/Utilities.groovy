@@ -804,42 +804,18 @@ class Utilities {
      * @param job Job to modify
      * @param settings Archival settings
      */
-    def static addReproBuild(def job, ArchivalSettings settings) {
+    def static addReproBuild(def job) {
         job.with {
             publishers {
-                flexiblePublish {
-                    conditionalAction {
-                        condition {
-                            and{
-                                booleanCondition('${ReproBuild}')
-                            } {
-                                status(settings.getArchiveStatusRange()[0],settings.getArchiveStatusRange()[1])
-                            }
-                        }
-                        steps {
-                            def zipWorkspace = "\"C:\\Program Files\\7-Zip\\7z.exe\" a -t7z %COMPUTERNAME%-Workspace.7z -mx9"
-                            def workspaceDestination = "https://dotnetci1vmstorage2.blob.core.windows.net/workspace"
-                            def uploadToAzure = "\"C:\\Program Files (x86)\\Microsoft SDKs\\Azure\\AzCopy\\AzCopy.exe\" /Source:. /Pattern:%COMPUTERNAME%-Workspace.7z /Dest:${workspaceDestination} /DestKey:%SNAPSHOT_STORAGE_KEY% /Y"
-                            def createSnapshot = """Invoke-RestMethod https://snapshotter.azurewebsites.net/api/7c8473db-c6cf-4be2-a0e7-680429fc0c99/snapshot?code=\$env:SNAPSHOT_TOKEN -Method Post -Body "{ 'group': 'dotnet-ci1-vms', 'name': '\$env:computername', 'payload': \'${workspaceDestination}/\$env:computername-Workspace.7z\', 'targetContainer': 'snapshots' }" -ContentType 'application/json' -ErrorAction Continue"""
-
-                            batchFile("echo Renaming launch.cmd")
-                            powerShell("Rename-Item C:\\Jenkins\\launch.cmd C:\\Jenkins\\launch.cmd.disabled")
-                            
-                            batchFile("${zipWorkspace}")
-                            batchFile("${uploadToAzure}")
-
-                            powerShell("echo ${createSnapshot}")
-                            powerShell("${createSnapshot}")
-                            
-                            batchFile("echo Renaming launch.cmd.disabled")
-                            powerShell("Rename-Item C:\\Jenkins\\launch.cmd.disabled C:\\Jenkins\\launch.cmd")
-                        }
-                        // Ensure credentials are bound
-                        wrappers {
-                            credentialsBinding {
-                                string('SNAPSHOT_TOKEN', 'SnapshotToken')
-                                string('SNAPSHOT_STORAGE_KEY', 'snapshotStorageKey')
-                            }
+                flexiblePublish {  
+                    publishers {
+                        ReproToolPublisher{      
+                            StorageName("workspaceUpload")
+                            StorageAccount("testblobupload")
+                            StorageContainer("workspace")
+                            StorageKey("StorageKey")
+                            APIToken("APIToken")
+                            APIBaseURI("https://repro-tool-int.westus2.cloudapp.azure.com/")
                         }
                     }
                 }
