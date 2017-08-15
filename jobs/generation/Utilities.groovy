@@ -237,9 +237,9 @@ class Utilities {
                                 // auto-win2012-20160824 + .NET 4.6.2
                                 '20161027' : 'win2012-20161027',
                                 // win2016-20170303 + Python 3.2
-                                '20170427' : 'win2012-20170427',
+                                '20170427' : 'win2012-20170809',
                                 // win2016-20170303 + Python 3.2
-                                '20170427-elevated' : 'win2012-20170427-elevated',
+                                '20170427-elevated' : 'win2012-20170809-elevated',
                                 // the generic unversioned label except for special cases.
                                 'latest-or-auto':'win2012-20170608',
                                 // Win2012.R2 + VS2013.5 + VS2015.3 + VS15.P3
@@ -299,7 +299,7 @@ class Utilities {
                                 // For elevated runs
                                 'latest-or-auto-elevated':'win2012-20170608-elevated',
                                 // For arm64 builds
-                                'latest-arm64':'win2012-20170328',
+                                'latest-arm64':'win2012-20170810',
                                 // For perf runs
                                 'latest-or-auto-perf':'windows-perf-internal',
                                 // Win2016
