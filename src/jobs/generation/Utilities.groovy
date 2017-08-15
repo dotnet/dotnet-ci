@@ -814,6 +814,7 @@ class Utilities {
                     StorageKey("StorageKey")
                     APIToken("APIToken")
                     APIBaseURI("https://repro-tool-int.westus2.cloudapp.azure.com/")
+                    CredentialsId("")
                 }
             }
         }
