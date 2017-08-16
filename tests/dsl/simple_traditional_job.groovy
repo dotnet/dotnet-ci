@@ -2,8 +2,8 @@
 
 import jobs.generation.Utilities;
 
-def project = GithubProject
-def branch = GithubBranchName
+def project = QualifiedRepoName
+def branch = TargetBranchName
 
 def newJob = job(Utilities.getFullJobName(project, os, isPR)) {
     steps {

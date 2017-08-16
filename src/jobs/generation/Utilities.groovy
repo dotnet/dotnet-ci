@@ -707,7 +707,7 @@ class Utilities {
                 stringParam('GithubProjectName', Utilities.getProjectName(project), 'Project name ')
                 // Org name (without repo)
                 stringParam('GithubOrgName', Utilities.getOrgName(project), 'Project name passed to the DSL generator')
-                stringParam('ProjectRepoName', project, 'Combined Github/VSTS project/org and repo name')
+                stringParam('QualifiedRepoName', project, 'Combined Github/VSTS project/org and repo name')
                 stringParam('BranchName', Utilities.getBranchName(defaultBranch), 'Branch name (without */)')
             }
         }
@@ -732,7 +732,7 @@ class Utilities {
                 // Org name (without repo)
                 stringParam('GithubOrgName', Utilities.getOrgName(project), 'Project name passed to the DSL generator')
                 booleanParam('ReproBuild', false, 'Check to enable repro functionality. This option is currently in development.')
-                stringParam('ProjectRepoName', project, 'Combined Github/VSTS project/org and repo name')
+                stringParam('QualifiedRepoName', project, 'Combined Github/VSTS project/org and repo name')
                 stringParam('BranchName', Utilities.getBranchName(defaultBranchOrCommit), 'Branch name (without */)')
             }
         }
