@@ -45,7 +45,7 @@ class GithubPipelineScm implements PipelineScm {
                 stringParam('GithubProjectName', Utilities.getProjectName(_project), 'Project name ')
                 // Org name (without repo)
                 stringParam('GithubOrgName', Utilities.getOrgName(_project), 'Project name passed to the DSL generator')
-                stringParam('ProjectRepoName', this._project, 'Combined GitHub org and repo name')
+                stringParam('QualifiedRepoName', this._project, 'Combined GitHub org and repo name')
                 stringParam('BranchName', Utilities.getBranchName(this._branch), 'Branch name (without */)')
             }
 
@@ -97,7 +97,7 @@ class GithubPipelineScm implements PipelineScm {
                 stringParam('GithubProjectName', Utilities.getProjectName(_project), 'Project name ')
                 // Org name (without repo)
                 stringParam('GithubOrgName', Utilities.getOrgName(_project), 'Project name passed to the DSL generator')
-                stringParam('ProjectRepoName', this._project, 'Combined GitHub org and repo name')
+                stringParam('QualifiedRepoName', this._project, 'Combined GitHub org and repo name')
                 stringParam('BranchName', Utilities.getBranchName(this._branch), 'Branch name (without */)')
             }
 

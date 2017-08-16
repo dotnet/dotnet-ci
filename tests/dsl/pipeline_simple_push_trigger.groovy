@@ -1,20 +1,10 @@
-// Import the utility functionality.
+import org.dotnet.ci.pipelines.Pipeline
 
-import jobs.generation.Utilities;
+// Tests creation of a pipeline that triggers on pushes
+def newPipeline = Pipeline.createPipeline(this, 'simple_push.groovy')
 
-def project = GithubProject
-def branch = GithubBranchName
+// No parameters
+newPipeline.triggerPipelineOnPush()
 
-def newJob = job(Utilities.getFullJobName(project, os, isPR)) {
-    steps {
-        if (os == 'Windows_NT') {
-            batchFile('''call "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\Common7\\Tools\\VsDevCmd.bat" && build.cmd''')
-        }
-        else {
-            shell('''./build.sh''')
-        }
-    }
-}
-
-Utilities.setMachineAffinity(newJob, os, 'latest-or-auto')
-Utilities.standardJobSetup(newJob, project, isPR, "*/${branch}")
+// Parameters
+newPipeline.triggerPipelineOnPush(['Hello':'World'])
