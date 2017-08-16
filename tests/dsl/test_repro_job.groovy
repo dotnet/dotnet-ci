@@ -30,7 +30,7 @@ def branch = GithubBranchName
 }
 
 // Generate a job to test ReproTool Plugin
-def reproJob = job(Utilities.getFullJobName(project, 'Windows_NT_ReproBuild', true)) {
+def reproJob = job(Utilities.getFullJobName(project, 'Windows_NT_ReproBuild', false)) {
     steps {
         batchFile('''call "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\Common7\\Tools\\VsDevCmd.bat" && build.cmd''')
     }
