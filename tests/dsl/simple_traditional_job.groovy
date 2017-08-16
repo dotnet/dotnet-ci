@@ -12,6 +12,6 @@ def branch = TargetBranchName
         }
     }
 
-    Utilities.setMachineAffinity(newJob, os, 'latest-or-auto')
+    Utilities.setMachineAffinity(newJob, "Windows_NT", 'latest-or-auto')
     Utilities.standardJobSetup(newJob, project, isPR, "*/${branch}")
 }
