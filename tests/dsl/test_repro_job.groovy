@@ -36,7 +36,7 @@ def reproJob = job(Utilities.getFullJobName(project, 'Windows_NT_ReproBuild', fa
     }
 }
 Utilities.setMachineAffinity(reproJob, 'Windows_NT', 'latest-or-auto')
-Utilities.standardJobSetup(reproJob, project, true, "*/${branch}")
+Utilities.standardJobSetup(reproJob, project, false, "*/${branch}")
 Utilities.addGithubPushTrigger(reproJob)
 Utilities.addCROSSCheck(this, project, branch)
 Utilities.addReproBuild(reproJob)
