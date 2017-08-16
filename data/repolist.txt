@@ -170,3 +170,5 @@ Tools/DotNet-CI-Trusted credentials=vsts-dotnet-ci-trusted-creds collection=msen
 dotnet/dotnet-ci branch=dev/pipelinesupport utilitiesRepoBranch=dev/pipelinesupport definitionScript=tests/pipeline/tests.groovy server=dotnet-ci4 subFolder=pipelineTests
 # Tests for DSL
 dotnet/dotnet-ci branch=dev/pipelinesupport utilitiesRepoBranch=dev/pipelinesupport definitionScript=tests/dsl/*.groovy isDSLTest=true server=dotnet-ci4 subFolder=dslTests
+# chcosta test for pipelines
+chcosta/corefx branch=vsts-to-jenkins server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy utilitiesRepoBranch=dev/pipelinesupport
