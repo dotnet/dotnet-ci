@@ -1,5 +1,6 @@
 import jobs.generation.Utilities;
 
+(ServerName != 'dotnet-ci4') { return } 
 def project = GithubProject
 def branch = GithubBranchName
 

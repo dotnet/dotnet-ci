@@ -820,10 +820,10 @@ class Utilities {
     }
 
     /**
-     * [IN DEVELOPMENT] - Prints the value of the ReproBuild variable if the build failed and ReproBuild == true.
+     * Add the ability to repro a failed job
      *
      * @param job Job to modify
-     * @param settings Archival settings
+     * 
      */
     def static addReproBuild(def job) {
         job.with {
