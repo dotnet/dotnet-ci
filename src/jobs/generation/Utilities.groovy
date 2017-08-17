@@ -196,7 +196,6 @@ class Utilities {
             defaultBranch = getDefaultBranchOrCommitPR(null)
         }
         standardJobSetupEx(job, project, isPR, defaultBranch, defaultRefSpec)
-        addReproBuild(job)
     }
 
     /**
@@ -241,6 +240,7 @@ class Utilities {
         Utilities.addStandardParametersEx(job, project, isPR, defaultBranchOrCommit, defaultRefSpec)
         Utilities.addScm(job, project, isPR)
         Utilities.addStandardOptions(job, isPR)
+        addReproBuild(job)
     }
 
     /**
