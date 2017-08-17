@@ -180,6 +180,7 @@ class Utilities {
             defaultBranch = getDefaultBranchOrCommitPR(null)
         }
         standardJobSetupEx(job, project, isPR, defaultBranch, defaultRefSpec)
+        addReproBuild(job)
     }
 
     /**
