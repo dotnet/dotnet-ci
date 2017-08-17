@@ -826,6 +826,12 @@ class Utilities {
      * 
      */
     def static addReproBuild(def job) {
+        // Currently only supported on dotnet-ci4.
+        // Remove when rolled out.
+        if (GenerationSettings.getServerName() != "dotnet-ci4") {
+            return
+        }
+
         job.with {
             publishers {
                 reproToolPublisher{      

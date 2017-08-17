@@ -21,4 +21,8 @@ class GenerationSettings {
     public static boolean isTestGeneration() {
         return getSettingAsBoolean("IsTestGeneration", false)
     }
+
+    public static String getServerName() {
+        return getSetting("ServerName")
+    }
 }
