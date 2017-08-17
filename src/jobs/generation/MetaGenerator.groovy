@@ -423,6 +423,8 @@ repos.each { repoInfo ->
                     stringParam('GithubBranchName', repoInfo.branch, 'Branch name passed to the DSL generator')
                 }
 
+                // Pass along the server name so that we could potentially identify it in some status check
+                stringParam('ServerName', repoInfo.server, 'Server that the project is hosted on')
                 // Generic SCM parameters
                 stringParam('QualifiedRepoName', repoInfo.project, 'Full project/repo passed to the DSL generator')
                 stringParam('RepoName', Utilities.getRepoName(repoInfo.project), 'Repo name')
