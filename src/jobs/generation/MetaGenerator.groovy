@@ -21,6 +21,7 @@ import jobs.generation.Utilities
 
 assert binding.variables.get("ServerName") != null : "Expected string parameter with name ServerName corresponding to name of server"
 assert binding.variables.get("RepoListLocation") != null : "Expected path to repo list"
+assert binding.variables.get("SDKImplementationBranch") != null : "Expected the SDK implementation branch (default utilities branch)"
 assert binding.variables.get("VersionControlLocation") != null && 
        (binding.variables.get("VersionControlLocation") == 'VSTS' || 
        binding.variables.get("VersionControlLocation") == 'GitHub') : "Expected what version control this server targets (VSTS or GitHub)"
@@ -66,7 +67,7 @@ class Repo {
     }
 
     // Parse the input string and return a Repo object
-    def static parseInputString(String input, String serverName, boolean isVSTS, def out) {
+    def static parseInputString(String input, String serverName, String defaultUtilitiesBranch, boolean isVSTS, def out) {
         // First element is the repo name.  Should be in <org>/<repo> format
         def projectInfo = input.tokenize()
 
@@ -86,7 +87,7 @@ class Repo {
         // Repo for Utilities that are used by the job
         String utilitiesRepo = isVSTS ? 'Tools/DotNet-CI-Trusted' : 'dotnet/dotnet-ci'
         // Branch that the utilities should be read from
-        String utilitiesRepoBranch = 'master'
+        String utilitiesRepoBranch = defaultUtilitiesBranch
         // VSTS only: Project collection.
         String collection = null
         // credentials id used to access the repo. Since credentials aren't the same across project collections in VSTS,
@@ -216,7 +217,7 @@ streamFileFromWorkspace(RepoListLocation).eachLine { line ->
         return;
     }
 
-    repos += Repo.parseInputString(line, ServerName, isVSTS, out)
+    repos += Repo.parseInputString(line, ServerName, SDKImplementationBranch, isVSTS, out)
 }
 
 // Post Processing

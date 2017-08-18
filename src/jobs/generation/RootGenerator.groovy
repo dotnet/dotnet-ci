@@ -126,6 +126,7 @@ folder('GenPRTest') {}
             stringParam('ServerName', ServerName, "Server that this generator is running on")
             stringParam('RepoListLocation', "dotnet-ci-repolist/${RepoListLocation}", "Location of the repo list relative to the workspace root.")
             stringParam('VersionControlLocation', VersionControlLocation, "Type of version control this CI server deals with")
+            stringParam('SDKImplementationBranch', SDKImplementationBranch, "Where the SDK is implemented.  This is the default utilities repo branch")
         }
 
         // No concurrency, throttle among the other generators.
