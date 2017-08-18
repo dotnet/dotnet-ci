@@ -11,7 +11,7 @@ if (repository != null && repository != "") {
          error "PRs tests of functionality that changes the CI pipeline SDK are only valid for branches pushed to dotnet/dotnet-ci.  If you need that testing please push your branch to dotnet-ci.  Otherwise ignore this failure"
     }
 
-    libraryImportBranch = env["ghprbSourceBranch"]
+    libraryImportBranch = ghprbSourceBranch
     assert libraryImportBranch != null && libraryImportBranch != '' : "Library branch (ghprbSourceBranch) was unexpectedly empty"
 }
 else {
