@@ -838,8 +838,6 @@ class Utilities {
                     StorageName("workspaceUpload")
                     StorageAccount("testblobupload")
                     StorageContainer("workspace")
-                    StorageKey("StorageKey")
-                    APIToken("APIToken")
                     APIBaseURI("https://repro-tool-int.westus2.cloudapp.azure.com/")
                     CredentialsId("")
                 }
