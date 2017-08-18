@@ -50,6 +50,8 @@ ubuntu1610-20160927,auto-ubuntu1610-20160927,Linux,system,Microsoft.Compute/Imag
 ubuntu1610-20160927-outer,auto-ubuntu1610-20160927outer,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1610-20160927.vhd,All,./startupScripts/ubuntu1610-20160927-outer.sh,/mnt/j
 ubuntu1610-20170216,ubuntu1610-20170216,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1610-20170216-osDisk.7c3fadc3-f81a-44e1-83c5-1c6759e78b9c.vhd,All,./startupScripts/ubuntu1610-20170216.sh,/mnt/j
 ubuntu1610-20170216-outer,ubuntu1610-20170216-outer,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1610-20170216-osDisk.7c3fadc3-f81a-44e1-83c5-1c6759e78b9c.vhd,All,./startupScripts/ubuntu1610-20170216-outer.sh,/mnt/j
+ubuntu1404-20170728,ubuntu1404-20170728,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1404-20170728-osDisk.4c47951c-7f4e-4273-bf3a-6dab5f342a65.vhd,All,,/mnt/j
+ubuntu1404-20170728-outer,ubuntu1404-20170728-outer,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1404-20170728-osDisk.4c47951c-7f4e-4273-bf3a-6dab5f342a65.vhd,All,,/mnt/j
 win2008-20161104,win2008-20161104,Windows,system,Microsoft.Compute/Images/dotnetci/win2008-20161104-osDisk.520438fd-e6a7-4889-8769-95093c1f3c56.vhd,All,./startupScripts/win2008-20161104.ps1,D:\j
 win2008-20170302,win2008-20170302,Windows,system,Microsoft.Compute/Images/dotnetci/win2008-20170302-osDisk.568dbc45-8611-469d-8ce6-25cc244f9741.vhd,All,./startupScripts/win2008-20170302.ps1,D:\j
 win2008-20170303,win2008-20170303,Windows,system,Microsoft.Compute/Images/dotnetci/win2008-20170303-osDisk.e749eddb-14dd-4245-953e-3fcf5ea43965.vhd,All,./startupScripts/win2008-20170302.ps1,D:\j
