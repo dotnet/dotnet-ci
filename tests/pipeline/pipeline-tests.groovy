@@ -2,7 +2,7 @@
 // If a PR, and GitHub, we grab the source branch, which must live in the same repo.
 // Note that we can't use the library isPR for this.
 boolean isPRTest = false
-String repository = env["ghprbGhRepository"]
+String repository = ghprbGhRepository
 String libraryImportBranch
 if (repository != null && repository != "") {
     echo "This is a GitHub PR test"
@@ -11,7 +11,7 @@ if (repository != null && repository != "") {
          error "PRs tests of functionality that changes the CI pipeline SDK are only valid for branches pushed to dotnet/dotnet-ci.  If you need that testing please push your branch to dotnet-ci.  Otherwise ignore this failure"
     }
 
-    libraryImportBranch = env["ghprbSourceBranch"]
+    libraryImportBranch = ghprbSourceBranch
     assert libraryImportBranch != null && libraryImportBranch != '' : "Library branch (ghprbSourceBranch) was unexpectedly empty"
 }
 else {
@@ -130,26 +130,6 @@ stage ('Run Tests') {
             // You can't mock causes in here without opening up untrusted APIs either.
             "getUser - non mocked behavior" : {
                 assert getUser() != null : "Expected getUser would return valid value."
-            },
-
-            // Utilities tests
-
-            "Utilities - calculateVSTSGitURL - devdiv collection" : {
-                // With collection == devdiv, we add "DefaultColleciton" like in most servers
-                String url = library(libraryName).jobs.generation.Utilities.calculateVSTSGitURL('devdiv', 'foo/bar')
-                assert url == 'https://devdiv.visualstudio.com/DefaultCollection/foo/_git/bar' : "Incorrect url for devdiv collection git URL"
-            },
-
-            "Utilities - calculateVSTSGitURL - other collection" : {
-                // With collection == devdiv, we add "DefaultColleciton" like in most servers
-                String url = library(libraryName).jobs.generation.Utilities.calculateVSTSGitURL('other', 'foo/bar')
-                assert url == 'https://other.visualstudio.com/foo/_git/bar' : "Incorrect url for non-devdiv collection git URL"
-            },
-
-            "Utilities - calculateGitHubUrl" : {
-                // With collection == devdiv, we add "DefaultColleciton" like in most servers
-                String url = library(libraryName).jobs.generation.Utilities.calculateGitHubURL('foo/bar')
-                assert url == 'https://github.com/foo/bar' : "Incorrect url for github URL"
             },
 
             "vars - waitforHelixRuns - passed work item" : {
