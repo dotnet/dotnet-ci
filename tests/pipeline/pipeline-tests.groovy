@@ -132,32 +132,6 @@ stage ('Run Tests') {
                 assert getUser() != null : "Expected getUser would return valid value."
             },
 
-            // Utilities tests
-
-            "Utilities - calculateVSTSGitURL - devdiv collection" : {
-                // With collection == devdiv, we add "DefaultColleciton" like in most servers
-                String url = library(libraryName).jobs.generation.Utilities.calculateVSTSGitURL('devdiv', 'foo/bar')
-                assert url == 'https://devdiv.visualstudio.com/DefaultCollection/foo/_git/bar' : "Incorrect url for devdiv collection git URL"
-            },
-
-            "Utilities - calculateVSTSGitURL - other collection" : {
-                // With collection == devdiv, we add "DefaultColleciton" like in most servers
-                String url = library(libraryName).jobs.generation.Utilities.calculateVSTSGitURL('other', 'foo/bar')
-                assert url == 'https://other.visualstudio.com/foo/_git/bar' : "Incorrect url for non-devdiv collection git URL"
-            },
-
-            "Utilities - calculateGitHubUrl" : {
-                // With collection == devdiv, we add "DefaultColleciton" like in most servers
-                String url = library(libraryName).jobs.generation.Utilities.calculateGitHubURL('foo/bar')
-                assert url == 'https://github.com/foo/bar' : "Incorrect url for github URL"
-            },
-
-            "getAgentLabel - Returns expected result" : {
-                String label = library(libraryName).org.dotnet.ci.util.Agents.getAgentLabel("Ubuntu14.04", "latest")
-                // This will need to be changed as 'latest' moved forward
-                assert label == 'ubuntu1404-20170728' : "getAgentLabel did not return expected 'latest' (ubuntu1404-20170728)"
-            },
-
             "vars - waitforHelixRuns - passed work item" : {
                 simpleNode('Windows_NT', 'latest') {
                     dir('workItem') {
