@@ -43,10 +43,10 @@ dotnet/core-setup branch=release/2.0.0 server=dotnet-ci
 dotnet/core-setup branch=release/uwp6.0 server=dotnet-ci
 dotnet/codeformatter branch=master server=dotnet-ci2
 dotnet/coreclr branch=master server=dotnet-ci
-dotnet/coreclr branch=master server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
-dotnet/coreclr branch=release/1.1.0 server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
-dotnet/coreclr branch=release/2.0.0 server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
-jorive/coreclr branch=dev/baseline-with-new-api server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
+dotnet/coreclr branch=master server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf useFilteredGenerationTriggers=false
+dotnet/coreclr branch=release/1.1.0 server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf useFilteredGenerationTriggers=false
+dotnet/coreclr branch=release/2.0.0 server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf useFilteredGenerationTriggers=false
+jorive/coreclr branch=dev/baseline-with-new-api server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf useFilteredGenerationTriggers=false
 dotnet/coreclr branch=release/1.0.0 server=dotnet-ci
 dotnet/coreclr branch=release/1.1.0 server=dotnet-ci
 dotnet/coreclr branch=release/2.0.0 server=dotnet-ci
@@ -57,8 +57,8 @@ dotnet/corefx branch=release/1.0.0 server=dotnet-ci
 dotnet/corefx branch=release/1.1.0 server=dotnet-ci
 dotnet/corefx branch=release/2.0.0 server=dotnet-ci
 dotnet/corefx branch=release/uwp6.0 server=dotnet-ci
-dotnet/corefx branch=master server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
-dotnet/corefx branch=release/2.0.0 server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
+dotnet/corefx branch=master server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf useFilteredGenerationTriggers=false
+dotnet/corefx branch=release/2.0.0 server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf useFilteredGenerationTriggers=false
 dotnet/corefx branch=master server=dotnet-ci3 definitionScript=pipelinejobs.groovy utilitiesRepoBranch=dev/pipelinesupport
 dotnet/corefx branch=release/uwp6.0 server=dotnet-ci3 definitionScript=pipelinejobs.groovy utilitiesRepoBranch=dev/pipelinesupport
 dotnet/corefxlab branch=master server=dotnet-ci
@@ -68,16 +68,16 @@ dotnet/dotnet-docker-nightly branch=master server=dotnet-ci
 dotnet/orleans branch=master server=dotnet-ci
 dotnet/ProjFileTools branch=master server=dotnet-ci
 dotnet/roslyn branch=dev15.0.x server=dotnet-ci
-dotnet/roslyn branch=dev15.0.x subFolder=perf definitionScript=perf.groovy server=dotnet-ci2
+dotnet/roslyn branch=dev15.0.x subFolder=perf definitionScript=perf.groovy server=dotnet-ci2 useFilteredGenerationTriggers=false
 dotnet/roslyn branch=dev15.3.x server=dotnet-ci
-dotnet/roslyn branch=dev15.3.x subFolder=perf definitionScript=perf.groovy server=dotnet-ci2
+dotnet/roslyn branch=dev15.3.x subFolder=perf definitionScript=perf.groovy server=dotnet-ci2 useFilteredGenerationTriggers=false
 dotnet/roslyn branch=dev15.4.x server=dotnet-ci
-dotnet/roslyn branch=dev15.4.x subFolder=perf definitionScript=perf.groovy server=dotnet-ci2
+dotnet/roslyn branch=dev15.4.x subFolder=perf definitionScript=perf.groovy server=dotnet-ci2 useFilteredGenerationTriggers=false
 dotnet/roslyn branch=dev16 server=dotnet-ci
 dotnet/roslyn branch=master server=dotnet-ci
-dotnet/roslyn branch=master subFolder=perf definitionScript=perf.groovy server=dotnet-ci2
+dotnet/roslyn branch=master subFolder=perf definitionScript=perf.groovy server=dotnet-ci2 useFilteredGenerationTriggers=false
 dotnet/roslyn branch=dev15.5.x server=dotnet-ci
-dotnet/roslyn branch=dev15.5.x subFolder=perf definitionScript=perf.groovy server=dotnet-ci2
+dotnet/roslyn branch=dev15.5.x subFolder=perf definitionScript=perf.groovy server=dotnet-ci2 useFilteredGenerationTriggers=false
 dotnet/roslyn branch=microupdate server=dotnet-ci
 dotnet/roslyn branch=features/DefaultInterfaceImplementation server=dotnet-ci
 dotnet/roslyn branch=features/editorconfig-in-compiler server=dotnet-ci
