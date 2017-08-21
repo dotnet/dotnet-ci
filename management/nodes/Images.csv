@@ -40,6 +40,8 @@ ubuntu1404-20170112,ubuntu1404-20170112,Linux,system,Microsoft.Compute/Images/do
 ubuntu1404-20170118,ubuntu1404-20170118,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1404-20170118-osDisk.1a12614a-a50c-46ee-94b1-f907c796ac01.vhd,All,./startupScripts/ubuntu1404-20170118.sh,/mnt/j
 ubuntu1404-20170728,ubuntu1404-20170728,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1404-20170728-osDisk.4c47951c-7f4e-4273-bf3a-6dab5f342a65.vhd,All,./startupScripts/ubuntu1404-20170128.sh,/mnt/j
 ubuntu1404-20170728-outer,ubuntu1404-20170728-outer,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1404-20170728-osDisk.4c47951c-7f4e-4273-bf3a-6dab5f342a65.vhd,All,./startupScripts/ubuntu1404-20170128-outer.sh,/mnt/j
+# Java 8 + Mono installation on top of ubuntu1404-20170728
+ubuntu1404-20170821,ubuntu1404-20170821,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1404-20170821-osDisk.715042c0-8f22-4a7d-9c64-23463fa4bf7a.vhd,All,./startupScripts/ubuntu1404-20170821.sh,/mnt/j
 ubuntu1510-20160307,auto-ubuntu1510-20160307,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1510-20160307.vhd,All,./startupScripts/ubuntu1510-20160307.sh,/mnt/j
 ubuntu1510-20160307-outer,auto-ubuntu1510-20160307outer,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1510-20160307.vhd,All,./startupScripts/ubuntu1510-20160307-outer.sh,/mnt/j
 ubuntu1604-20160510,auto-ubuntu1604-20160510,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1604-20160510.vhd,All,./startupScripts/ubuntu1604-20160510.sh,/mnt/j
