@@ -167,7 +167,7 @@ class Repo {
         folders += Utilities.getFolderName(branch)
 
         // Construct a new object and return
-        return new Repo(project, folders, branch, server, definitionScript, isDefaultPRBranch, additionalPRBranches, utilitiesRepo, utilitiesRepoBranch)
+        return new Repo(project, folders, branch, server, definitionScript, isDefaultPRBranch, additionalPRBranches, utilitiesRepo, utilitiesRepoBranch, useFilteredGenerationTriggers)
     }
 }
 
