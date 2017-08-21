@@ -412,7 +412,7 @@ repos.each { repoInfo ->
             // Enable the github push trigger.
             jobGenerator.with {
                 triggers {
-                    if (useFilteredGenerationTriggers) {
+                    if (repoInfo.useFilteredGenerationTriggers) {
                         scm('H/15 * * * *') {
                             ignorePostCommitHooks(true)
                         }
