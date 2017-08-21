@@ -1,6 +1,9 @@
 # Contains a list of resource groups that could potentially contain VMs
 dotnet-ci1-vms
 dotnet-ci2-vms
+dotnet-ci3-vms
+dotnet-ci4-vms
+dotnet-vsts-vms
 # Need to be able to deal with multiple subscriptions in this case
 # dotnet-ci3-vms
 dotnet-ci-user-vms
