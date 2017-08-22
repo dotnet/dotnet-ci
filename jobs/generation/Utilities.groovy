@@ -135,7 +135,7 @@ class Utilities {
                                 // Contains an updated version of mono
                                 '20160211':'auto-ubuntu1404-20160211.1',
                                 // Contains npm, njs, nvm
-                                'ubuntu1404-20170821-1':'ubuntu1404-20170821-1',
+                                '20170821-1':'ubuntu1404-20170821-1',
                                 // Contains 20160211-1 + gdb + mono 4.6.2.16
                                 '20170109':'ubuntu1404-20170109',
                                 // Contains 20160211-1 + clang 3.9
