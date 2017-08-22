@@ -62,7 +62,7 @@ class Agents {
                                 // Contains 20160211-1 + clang 3.9
                                 '20170118':'ubuntu1404-20170118',
                                 // Contains the rootfs setup for arm builds.
-                                '20170728':'ubuntu1404-20170728',
+                                '20170821':'ubuntu1404-20170821',
                                 // Contains Mono 5.0.1
                                 'arm-cross-latest':'ubuntu1404-20170120',
                                 // Contains the rootfs setup for arm64 builds.
@@ -74,7 +74,7 @@ class Agents {
                                 // Image installing the latest mono-devel
                                 'latest-mono-devel':'ubuntu1404-20160211-1-latest-mono',
                                 // Latest auto image.
-                                'latest':'ubuntu1404-20170728',
+                                'latest':'ubuntu1404-20170821',
                                 // For outerloop runs.
                                 'outer-latest':'ubuntu1404-201626outer',
                                 // For internal Ubuntu runs
