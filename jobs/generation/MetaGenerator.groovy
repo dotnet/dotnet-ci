@@ -92,7 +92,7 @@ class Repo {
         String utilitiesRepoBranch = 'master'
         // True if the paths for job generation should be filtered, false if it should
         // be triggered on every change. https://github.com/dotnet/core-eng/issues/1531
-        boolean useFilteredGenerationTriggers = true
+        boolean useFilteredGenerationTriggers = false
 
         // Check whether it contains a single forward slash
         assert project.indexOf('/') != -1 && project.indexOf('/') == project.lastIndexOf('/')
