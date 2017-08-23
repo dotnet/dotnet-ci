@@ -8,6 +8,9 @@ for (node in Hudson.getInstance().getNodes()) {
         if (computer.isIdle()) {
             println("  Cleaning " + node.name);
             println("  Attempting to take offline.");
+            // Record whether currently offline
+            boolean currentlyTemporarilyOffline = computer.isTemporarilyOffline()
+          
             computer.setTemporarilyOffline(true);
             if (!computer.isIdle()) {
                 println("  Not idle after offline, skipping!");
@@ -55,8 +58,10 @@ for (node in Hudson.getInstance().getNodes()) {
             }
             
             // Bring back online
-            println("  Done, bringing back online.");
-            computer.setTemporarilyOffline(false);
+            if (!currentlyTemporarilyOffline) {
+                println("  Done, bringing back online.");
+                computer.setTemporarilyOffline(false);
+            }
         }
         else {
             println("  Not Idle");
@@ -71,7 +76,7 @@ for (node in Hudson.getInstance().getNodes()) {
 def static deleteDirContents(def computer, def directory, def output) {
     def command = ''
     if (computer.isUnix()) {
-        command = "/bin/sh -c 'find . -name * -delete'"
+        command = "/bin/sh -c \"find . -name '*' -delete\""
     } else {
         command = "cmd.exe /C mkdir %USERPROFILE%\\emptydir & robocopy /MIR /R:2 /NFL /NDL /NJH /NJS /nc /ns /np %USERPROFILE%\\emptydir ${directory}"
     }
