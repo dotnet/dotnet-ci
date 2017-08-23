@@ -34,7 +34,7 @@ ubuntu1404-20160211-1,auto-ubuntu1404-20160211.1,Linux,system,Microsoft.Compute/
 ubuntu1404-20160211-1-internal,auto-ubuntu1404-20160211.1-internal,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1404-20160211-1.vhd,All,./startupScripts/ubuntu1404-20160211-1-internal.sh,/mnt/j
 ubuntu1404-20160818,auto-ubuntu1404-20160818,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1404-20160818.vhd,All,./startupScripts/ubuntu1404-20160818.sh,/mnt/j
 ubuntu1404-20161019,ubuntu1404-20161019,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1404-20161019.vhd,All,./startupScripts/ubuntu1404-20161019.sh,/mnt/j
-ubuntu1404-20161020,ubuntu1404-20161020,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1404-20161020-osDisk.293f29ce-30f6-44c8-b0ec-41e3c2718fd3.vhd,All,./startupScripts/ubuntu1404-20161020.sh,/mnt/j
+ubuntu1404-20161020,ubuntu1404-20161020,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1404-20170822-osDisk.73ac155d-5855-4660-8ba4-30d4645dfdca.vhd,All,./startupScripts/ubuntu1404-20161020.sh,/mnt/j
 ubuntu1404-20170109,ubuntu1404-20170109,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1404-20170109-osDisk.432c5b29-7cc9-4ad4-bf4f-5d1631f7ba1a.vhd,All,./startupScripts/ubuntu1404-20170109.sh,/mnt/j
 ubuntu1404-20170112,ubuntu1404-20170112,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1404-20170112-osDisk.4e11bb70-57f4-42c1-a9cf-d032fdc71c8a.vhd,All,./startupScripts/ubuntu1404-20170109.sh,/mnt/j
 ubuntu1404-20170118,ubuntu1404-20170118,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1404-20170118-osDisk.1a12614a-a50c-46ee-94b1-f907c796ac01.vhd,All,./startupScripts/ubuntu1404-20170118.sh,/mnt/j
