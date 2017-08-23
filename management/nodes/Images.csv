@@ -77,8 +77,8 @@ win2012-20170608-elevated,win2012-20170608-elevated,Windows,system,Microsoft.Com
 win2012-20170809,win2012-20170809,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20170809-osDisk.ef241cfc-5386-4f2c-aa97-6d18e8e3b743.vhd,All,./startupScripts/win2012-20170809.ps1,D:\j
 win2012-20170809-elevated,win2012-20170809-elevated,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20170809-osDisk.ef241cfc-5386-4f2c-aa97-6d18e8e3b743.vhd,All,./startupScripts/win2012-20170809-elevated.ps1,D:\j
 win2012-20170810,win2012-20170810,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20170810-osDisk.ba2fc334-b604-4e18-9990-96bdee12ee0b.vhd,All,./startupScripts/win2012-20170810.ps1,D:\j
-win2016-base,win2016-base,Windows,system,Microsoft.Compute/Images/dotnetci/win2016-20170214-osDisk.bb90cfd5-b990-4acf-86e6-cfd35a9aae81.vhd,All,./startupScripts/win2016-base.ps1,D:\j
-win2016-base-internal,win2016-base-internal,Windows,system,Microsoft.Compute/Images/dotnetci/win2016-20170214-osDisk.bb90cfd5-b990-4acf-86e6-cfd35a9aae81.vhd,All,./startupScripts/win2016-base-internal.ps1,D:\j
+win2016-base,win2016-base,Windows,system,Microsoft.Compute/Images/dotnetci/win2016-20170822-osDisk.649b4b84-b169-4e34-9b64-695ed62a6f79.vhd,All,./startupScripts/win2016-base.ps1,D:\j
+win2016-base-internal,win2016-base-internal,Windows,system,Microsoft.Compute/Images/dotnetci/win2016-20170822-osDisk.649b4b84-b169-4e34-9b64-695ed62a6f79.vhd,All,./startupScripts/win2016-base-internal.ps1,D:\j
 win2016-20161018-1,win2016-20161018-1,Windows,system,Microsoft.Compute/Images/dotnetci/win2016-20161018-1-osDisk.98497130-7742-4c2c-872b-5aadf2065311.vhd,All,./startupScripts/win2016-20161018-1.ps1,D:\j
 win2016-20160825,auto-win2016-20160825,Windows,system,Microsoft.Compute/Images/dotnetci/win2016-20160825.vhd,All,./startupScripts/win2016-20160825.ps1,D:\j
 win2016-20170302,win2016-20170302,Windows,system,Microsoft.Compute/Images/dotnetci/win2016-20170302-osDisk.7b251ee8-61ad-4bcb-b2dc-55b7b8aa0390.vhd,All,./startupScripts/win2016-20170302.ps1,D:\j
