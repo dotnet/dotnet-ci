@@ -56,7 +56,7 @@ class Agents {
                                 // Contains an updated version of mono
                                 '20160211':'ubuntu1404-20160211.1',
                                 // Contains npm, njs, nvm
-                                '20170821-1':'ubuntu1404-20170821-1',
+                                '20161020':'ubuntu1404-20161020',
                                 // Contains 20160211-1 + gdb + mono 4.6.2.16
                                 '20170109':'ubuntu1404-20170109',
                                 // Contains 20160211-1 + clang 3.9
