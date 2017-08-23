@@ -2,5 +2,9 @@
   * Retrieves formatted official build number.
   */
 def call() {
-    return "${BUILD_YEAR}${BUILD_MONTH, XX}${BUILD_DAY, XX}-${BUILDS_TODAY, XX}"
+    println ("${BUILD_YEAR}")
+    println ("${BUILD_MONTH}")
+    println ("${BUILD_DAY}")
+    println ("${BUILDS_TODAY}")
+    return "${BUILD_YEAR}"
 }
