@@ -7,11 +7,6 @@ for (node in Hudson.getInstance().getNodes()) {
         def computer = node.getComputer()
         if (computer.isIdle()) {
             println("  Cleaning " + node.name);
-            if (node.getComputer().isOffline()) {
-                println("  Offline, skipping");
-                continue
-            }
-
             println("  Attempting to take offline.");
             computer.setTemporarilyOffline(true);
             if (!computer.isIdle()) {
@@ -22,6 +17,12 @@ for (node in Hudson.getInstance().getNodes()) {
             
             println("  Cleaning workspace");
             def workspacePath = node.getRootPath();
+          
+            if (workspacePath == null) {
+                println("  Node not connected, skipping");
+                continue
+            }
+          
             println("  About to wipe" + workspacePath.getRemote());
             if (workspacePath.exists()) {
                 try {
@@ -78,10 +79,10 @@ def static deleteDirContents(def computer, def directory, def output) {
     try {
         output.println ("   Running ${command}")
         def launcher = directory.createLauncher(hudson.model.TaskListener.NULL);
-        def starter = launcher.launch().pwd(directory).stdout(output).stderr(output).cmdAsSingleString(command)
+        def starter = launcher.launch().pwd(directory).cmdAsSingleString(command)
         starter.join()
     }
     catch(e) {
-        output.println("    Failed to deleteDirContents on " + directory)
+        output.println("    Failed to deleteDirContents on " + directory + ": " + e)
     }
 }
