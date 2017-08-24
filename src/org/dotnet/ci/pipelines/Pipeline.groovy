@@ -57,7 +57,7 @@ class Pipeline {
     // Replace all the unsafe characters in the input string
     // with _
     // See Jenkins.java's checkGoodName for source of the bad characters
-    private String getValidJobNameString(String input) {
+    private static String getValidJobNameString(String input) {
         String finalString = ''
         for (int i = 0; i < input.length(); i++) {
             char ch = input.charAt(i)
@@ -74,7 +74,7 @@ class Pipeline {
         return shortenString(finalString, maxElementLength)
     }
 
-    private String shortenString(String input, int max) {
+    private static String shortenString(String input, int max) {
         if (input.length() < max) {
             return input
         }
@@ -93,7 +93,7 @@ class Pipeline {
 
     // Determines a full job name for a pipeline job from the base job and parameter set
     // 
-    private String getPipelineJobName(Map<String,Object> parameters = [:]) {
+    private static String getPipelineJobName(Map<String,Object> parameters = [:]) {
         // Take the base job name and append '-'' if there are any parameters
         // If parameters, walk the parameter list.  Append X=Y forms, replacing any
         // invalid characters with _, separated by comma
@@ -352,7 +352,7 @@ class Pipeline {
         // Job name is based off the parameters 
 
         def isPR = triggerBuilder.isPRTrigger()
-        def jobName = getPipelineJobName(params)
+        def jobName = Pipeline.getPipelineJobName(params)
         def fullJobName = Utilities.getFullJobName(jobName, isPR)
 
         // Create the standard pipeline job
