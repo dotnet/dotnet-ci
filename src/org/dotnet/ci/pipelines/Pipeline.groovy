@@ -400,3 +400,4 @@ class Pipeline {
         return newJob
     }
 }
+return this
