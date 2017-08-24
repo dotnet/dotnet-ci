@@ -93,7 +93,7 @@ class Pipeline {
 
     // Determines a full job name for a pipeline job from the base job and parameter set
     // 
-    private static String getPipelineJobName(String _baseJobName, Map<String,Object> parameters = [:]) {
+    public static String getPipelineJobName(String _baseJobName, Map<String,Object> parameters = [:]) {
         // Take the base job name and append '-'' if there are any parameters
         // If parameters, walk the parameter list.  Append X=Y forms, replacing any
         // invalid characters with _, separated by comma
