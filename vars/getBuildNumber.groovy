@@ -2,9 +2,16 @@
   * Retrieves formatted official build number.
   */
 def call() {
-    println (BUILD_YEAR)
-    println (BUILD_MONTH)
-    println (BUILD_DAY)
-    println (BUILDS_TODAY)
-    return "BUILD_YEAR"
+    VersionNumberBuilder versionNumberBuilder = new VersionNumberBuilder(
+      "${BUILD_YEAR}${BUILD_MONTH, XX}${BUILD_DAY, XX}-${BUILDS_TODAY}", 
+      null,
+      "BUILDNUMBER",
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      false)
+    return versionNumberBuilder.getVersionNumberString()
 }
