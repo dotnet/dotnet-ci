@@ -96,6 +96,7 @@ dotnet/project-system branch=dev15.0.x server=dotnet-ci
 dotnet/project-system branch=dev15.3.x server=dotnet-ci
 dotnet/project-system branch=dev15.4.x server=dotnet-ci
 dotnet/project-system branch=RepoToolset-Exp server=dotnet-ci
+dotnet/source-build branch=master server=dotnet-ci
 dotnet/sdk branch=master server=dotnet-ci
 dotnet/sdk branch=rel/1.0.0 server=dotnet-ci
 dotnet/sdk branch=rel/1.1.0 server=dotnet-ci
