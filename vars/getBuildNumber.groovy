@@ -1,3 +1,4 @@
+import org.jvnet.hudson.tools.versionnumber
 /**
   * Retrieves formatted official build number.
   */
