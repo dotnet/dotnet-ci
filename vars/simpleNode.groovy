@@ -33,6 +33,8 @@ def call(String osName, version, Closure body) {
             try {
                 // Archive anything in the standard log folder
                 archiveLogs()
+                // Clean the workspace
+                step([$class: 'WsCleanup'])
             }
             catch (e) {
                 echo "Error during cleanup: ${e}"
