@@ -3,7 +3,7 @@
   */
 def call() {
     VersionNumberBuilder versionNumberBuilder = new VersionNumberBuilder(
-      "${BUILD_YEAR}${BUILD_MONTH, XX}${BUILD_DAY, XX}-${BUILDS_TODAY}", 
+      '${BUILD_YEAR}${BUILD_MONTH, "XX"}${BUILD_DAY, "XX"}-${BUILDS_TODAY, "XX"}', 
       null,
       "BUILDNUMBER",
       null,
