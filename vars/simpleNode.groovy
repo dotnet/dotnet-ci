@@ -17,7 +17,7 @@ def call(String osName, version, Closure body) {
     node (Agents.getAgentLabel(osName, version)) {
         // Clean.  Currently processes are killed at the end of the node block, but we don't have an easy way to run the cleanup
         // after the node block exits currently.  Cleaning at the start should be sufficient.
-        step([$class: 'WsCleanup'])
+//        step([$class: 'WsCleanup'])
         // Make the log folder
         makeLogFolder()
         // Wrap in a try finally that cleans up the workspace
