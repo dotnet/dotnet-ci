@@ -27,7 +27,6 @@ dotnet/cli branch=rel/1.0.1 server=dotnet-ci
 dotnet/cli branch=rel/1.1.0 server=dotnet-ci
 dotnet/cli branch=release/2.0.0 server=dotnet-ci
 dotnet/cli branch=release/2.0-vs server=dotnet-ci
-dotnet/cli branch=release/2.0.0-preview2 server=dotnet-ci
 dotnet/CliCommandLineParser branch=master server=dotnet-ci
 dotnet/xliff-tasks branch=master server=dotnet-ci
 dotnet/cli-migrate branch=master server=dotnet-ci
