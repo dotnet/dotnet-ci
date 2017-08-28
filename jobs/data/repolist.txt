@@ -20,7 +20,6 @@
 
 dotnet/buildtools branch=master server=dotnet-ci
 dotnet/buildtools branch=release/1.0.0 server=dotnet-ci
-dotnet/cli branch=rel/1.0.0-rc3 server=dotnet-ci
 dotnet/cli branch=master server=dotnet-ci
 dotnet/cli branch=rel/1.0.0 server=dotnet-ci
 dotnet/cli branch=rel/1.0.1 server=dotnet-ci
