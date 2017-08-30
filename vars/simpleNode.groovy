@@ -33,11 +33,23 @@ def call(String osName, version, Closure body) {
             try {
                 // Archive anything in the standard log folder
                 archiveLogs()
-                // Clean the workspace
-                step([$class: 'WsCleanup'])
             }
             catch (e) {
                 echo "Error during cleanup: ${e}"
+            }
+            
+            // Clean the workspace.  Note that because processes might not yet be exited (e.g. VCBSCompiler.exe)
+            // this could fail.  At the end of this node block, processes WILL be killed, but at this time it's a bit
+            // late for workspace cleanup.
+            try {
+                if (!isUnix()) {
+                    // For now, kill the most common culprit (return status instead of failing if the process wasn't found
+                    bat script: 'taskkill /F /IM VCBSCompiler.exe', returnStatus: true
+                }
+                step([$class: 'WsCleanup'])
+            }
+            catch (e) {
+                echo "Some files could not be cleaned up because of running processes.  These processes will be killed immediately and cleanup will happen before the node upon node-reuse"
             }
         }
     }
