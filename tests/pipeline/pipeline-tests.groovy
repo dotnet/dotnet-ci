@@ -132,6 +132,24 @@ stage ('Run Tests') {
                 assert getUser() != null : "Expected getUser would return valid value."
             },
 
+            "getUserEmail - GitHub PR" : {
+                withEnv(['ghprbPullAuthorEmail=blah@blah.com', 'ghprbGhRepository=foo/bar']) {
+                    assert getUserEmail() == 'blah@blah.com' : "Expect getUserEmail would return blah@blah.com"
+                }
+            },
+
+            "getUserEmail - GitHub PR, no email": {
+                withEnv(['ghprbPullAuthorLogin=baz', 'ghprbGhRepository=foo/bar']) {
+                    assert getUserEmail() == 'baz@github.login' : "Exped getUserEmail would return baz@github.login"
+                }
+            },
+
+            // Testing non-PR getUserEmail is tough as it returns different values based on the cause of the run.
+            // You can't mock causes in here without opening up untrusted APIs either.
+            "getUserEmail - non mocked behavior" : {
+                assert getUserEmail() != null : "Expected getUserEmail would return valid value."
+            },
+
             "vars - waitforHelixRuns - passed work item" : {
                 simpleNode('Windows_NT', 'latest') {
                     dir('workItem') {
