@@ -11,7 +11,7 @@ def call() {
     def isPRJob = isPR();
     if (isPRJob) {
         def ghPullUserEmail = env["ghprbPullAuthorEmail"]
-        if (isNullOrEmpty(ghPullUserEmail){
+        if (isNullOrEmpty(ghPullUserEmail)) {
             ghPullUserEmail = getUser() + "@github.login"
         }
         assert !isNullOrEmpty(ghPullUserEmail) : "Could not locate the pull author email."
@@ -26,7 +26,7 @@ def call() {
         if (userIdCause != null) {
             def userId = userIdCause.getUserId()
             def userIdEmail = hudson.model.User.get(userId).getProperty(hudson.tasks.Mailer.class).getAddress()
-            if (isNullOrEmpty(userIdEmail) {
+            if (isNullOrEmpty(userIdEmail)) {
                 userIdEmail = userId + "@github.login"
             }
             return userIdEmail
