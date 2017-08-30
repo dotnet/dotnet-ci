@@ -138,7 +138,7 @@ dotnet/templating branch=master server=dotnet-ci
 dotnet/templating branch=rel/vs2017/post-rtw server=dotnet-ci
 dotnet/templating branch=rel/vs2017/3-Preview2 server=dotnet-ci
 dotnet/templating branch=rel/vs2017/3-Preview3 server=dotnet-ci
-dotnet/templating branch=rel/vs2017/rel/2.1.0-preview1 server=dotnet-ci
+dotnet/templating branch=rel/2.1.0-preview1 server=dotnet-ci
 john-soklaski/roslyn branch=benchview_integration server=dotnet-ci2 definitionScript=perf.groovy
 drewscoggins/corefx branch=master server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 drewscoggins/corefx branch=PerfRuns server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
