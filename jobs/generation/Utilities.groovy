@@ -94,13 +94,12 @@ class Utilities {
      * Entries placed in this list are temporary, and should be removed when NuGet packages are published
      * for the new OS.
      *
-     * @param os The name of the operating system. Ex: Windows_NT, OSX, openSUSE42.1.
+     * @param os The name of the operating system. Ex: Windows_NT, OSX.
      *
      * @return The name of an alternate RID to use while bootstrapping. If no RID mapping exists, returns null.
      */
     def static getBoostrapPublishRid(def os) {
         def bootstrapRidMap = [
-            'OpenSUSE42.1': 'opensuse.13.2-x64',
             'Ubuntu16.10': 'ubuntu.16.04-x64',
             'Fedora24': 'fedora.23-x64'
         ]
@@ -347,13 +346,6 @@ class Utilities {
                                 'outer-latest-or-auto':'centos71-20170216-outer',
                                 // For outerloop runs, using Linux kernel version 4.6.4
                                 'outer-linux464': 'auto-auto-centos71-20160609.1-20160715outer'
-                                ],
-                            'OpenSUSE42.1' :
-                                [
-                                // Latest auto image.
-                                'latest-or-auto':'suse421-20170216',
-                                // For outerloop runs
-                                'outer-latest-or-auto':'suse421-20170216-outer'
                                 ],
                             'Debian8.2' :
                                 [
