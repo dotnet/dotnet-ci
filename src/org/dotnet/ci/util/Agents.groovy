@@ -127,10 +127,8 @@ class Agents {
                             // Sierra
                             'OSX10.12' :
                                 [
-                                // Generic version label
-                                '' : 'osx-10.12',
-                                // Latest auto image.
-                                'latest':'osx-10.12',
+                                // Latest (helix/static).
+                                'latest':'osx-10.12 || OSX.1012.Amd64.Open',
                                 // For elevated runs
                                 'latest-elevated':'osx-10.12-elevated'
                                 ],
