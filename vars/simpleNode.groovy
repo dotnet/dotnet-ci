@@ -44,7 +44,7 @@ def call(String osName, version, Closure body) {
             try {
                 if (!isUnix()) {
                     // For now, kill the most common culprit (return status instead of failing if the process wasn't found
-                    bat script: 'taskkill /F /IM VCBSCompiler.exe', returnStatus: true
+                    bat script: 'taskkill /F /IM VBCSCompiler.exe', returnStatus: true
                 }
                 step([$class: 'WsCleanup'])
             }
