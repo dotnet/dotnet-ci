@@ -305,7 +305,7 @@ repos.each { repoInfo ->
                         github(repoInfo.project)
 
                         if (isPRTest) {
-                            refspec('+refs/pull/*:refs/remotes/origin/pr/*')
+                            refspec('+refs/pull/${ghprbPullId}/*:refs/remotes/origin/pr/${ghprbPullId}/*')
                         }
                     }
                     def targetDir = Utilities.getProjectName(repoInfo.project)

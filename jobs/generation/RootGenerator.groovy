@@ -41,7 +41,7 @@ folder('GenPRTest') {}
                         github("dotnet/dotnet-ci")
 
                         // Set the refspec
-                        refspec('+refs/pull/*:refs/remotes/origin/pr/*')
+                        refspec('+refs/pull/${ghprbPullId}/*:refs/remotes/origin/pr/${ghprbPullId}/*')
                     }
 
                     branch("*/master")
@@ -56,7 +56,7 @@ folder('GenPRTest') {}
                         github("dotnet/dotnet-ci")
 
                         // Set the refspec
-                        refspec('+refs/pull/*:refs/remotes/origin/pr/*')
+                        refspec('+refs/pull/${ghprbPullId}/*:refs/remotes/origin/pr/${ghprbPullId}/*')
                     }
 
                     branch('${sha1}')
