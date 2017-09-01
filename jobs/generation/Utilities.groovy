@@ -4,7 +4,7 @@ class Utilities {
 
     private static String DefaultBranchOrCommitPR = '${sha1}'
     private static String DefaultBranchOrCommitPush = '*/master'
-    private static String DefaultRefSpec = '+refs/pull/*:refs/remotes/origin/pr/*'
+    private static String DefaultRefSpec = '+refs/pull/${ghprbPullId}/*:refs/remotes/origin/pr/${ghprbPullId}/*'
 
     /**
      * Get the folder name for a job.
