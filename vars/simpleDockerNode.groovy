@@ -25,6 +25,10 @@ def call(String dockerImageName, Closure body) {
 //  hostVersion - Host VM version.  See Agents.getDockerMachineAffinity for explanation.
 //  body - Closure, see example
 def call(String dockerImageName, String hostVersion, Closure body) {
+  call(dockerImageName, hostVersion, '', body)
+}
+
+def call(String dockerImageName, String hostVersion, String dockerArgs, Closure body) {
     node (Agents.getDockerAgentLabel(hostVersion)) {
         timestamps {
             timeout(120) {
@@ -39,7 +43,7 @@ def call(String dockerImageName, String hostVersion, Closure body) {
                 // users in our container.  This bug is filed as https://issues.jenkins-ci.org/browse/JENKINS-38438.
                 // In the meantime, we can pass -u to the inside() step which will append to the command line and
                 // override the original -u.
-                dockerImage.inside('-u 0:0') {
+                dockerImage.inside('-u 0:0 ' + dockerArgs) {
                     try {
                         // Make the log folder
                         makeLogFolder()
