@@ -1,7 +1,7 @@
 import jobs.generation.Utilities;
 
 def project = QualifiedRepoName
-def branch = TargetBranchName
+def branch = BranchName
 
 // Generate a job to test ReproTool Plugin
 def reproJob = job(Utilities.getFullJobName(project, 'simple_repro', false)) {
