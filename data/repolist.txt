@@ -173,4 +173,4 @@ dotnet/dotnet-ci branch=dev/pipelinesupport utilitiesRepoBranch=dev/pipelinesupp
 # Tests for DSL
 dotnet/dotnet-ci branch=dev/pipelinesupport utilitiesRepoBranch=dev/pipelinesupport definitionScript=tests/dsl/*.groovy isDSLTest=true server=dotnet-ci4 subFolder=dslTests
 # chcosta test for pipelines
-DevDiv/Dotnet-CoreFX-Trusted branch=vsts-to-jenkins server=dotnet-vsts credentials=vsts-dotnet-corefx-trusted-creds collection=devdiv definitionScript=buildpipeline/pipelinejobs.groovy utilitiesRepoBranch=dev/pipelinesupport
+DevDiv/Dotnet-CoreFX-Trusted branch=vsts-to-jenkins server=dotnet-vsts credentials=vsts-dotnet-trusted-creds collection=devdiv definitionScript=buildpipeline/pipelinejobs.groovy utilitiesRepoBranch=dev/pipelinesupport
