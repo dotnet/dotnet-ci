@@ -182,7 +182,7 @@ class Pipeline {
         // will tell us things like the credentials (VSTS), project, branch, collection (VSTS), etc.
         String scmType = context.getBinding().getVariables()['VersionControlLocation']
         String project = context.getBinding().getVariables()['QualifiedRepoName']
-        String branch = context.getBinding().getVariables()['TargetBranchName']
+        String branch = context.getBinding().getVariables()['BranchName']
         
         if (scmType == 'VSTS') {
             return createPipelineForVSTS(context, project, branch, pipelineFile)

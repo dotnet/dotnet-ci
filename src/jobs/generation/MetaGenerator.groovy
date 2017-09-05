@@ -430,7 +430,7 @@ repos.each { repoInfo ->
                 stringParam('QualifiedRepoName', repoInfo.project, 'Full project/repo passed to the DSL generator')
                 stringParam('RepoName', Utilities.getRepoName(repoInfo.project), 'Repo name')
                 stringParam('OrgOrProjectName', Utilities.getOrgOrProjectName(repoInfo.project), 'Organization/VSTS project name')
-                stringParam('TargetBranchName', repoInfo.branch, 'Branch name passed to the DSL generator')
+                stringParam('BranchName', repoInfo.branch, 'Branch name passed to the DSL generator')
                 // Pass along the version control location (useful for tests)
                 stringParam('VersionControlLocation', VersionControlLocation, 'Where the version control sits (VSTS or GitHub)')
 

@@ -14,6 +14,6 @@ if (VersionControlLocation != 'VSTS') {
 testingPipeline.triggerPipelineOnPush()
 
 // Make the call to generate the help job
-Utilities.createHelperJob(this, QualifiedRepoName, TargetBranchName,
+Utilities.createHelperJob(this, QualifiedRepoName, BranchName,
     "Welcome to the ${QualifiedRepoName} Repository",  // This is prepended to the help message
     "Have a nice day!")  // This is appended to the help message.  You might put known issues here.
