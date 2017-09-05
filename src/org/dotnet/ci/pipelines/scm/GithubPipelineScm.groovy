@@ -41,12 +41,18 @@ class GithubPipelineScm implements PipelineScm {
                 stringParam('GitRepoUrl', Utilities.calculateGitURL(this._project), 'Git repo to clone.')
                 stringParam('GitRefSpec', '+refs/pull/${ghprbPullId}/*:refs/remotes/origin/pr/${ghprbPullId}/*', 'RefSpec.  WHEN SUBMITTING PRIVATE JOB FROM YOUR OWN REPO, CLEAR THIS FIELD (or it won\'t find your code)')
                 stringParam('DOTNET_CLI_TELEMETRY_PROFILE', "IsInternal_CIServer;${_project}", 'This is used to differentiate the internal CI usage of CLI in telemetry.  This gets exposed in the environment and picked up by the CLI product.')
-                // Project name (without org)
-                stringParam('GithubProjectName', Utilities.getProjectName(_project), 'Project name ')
-                // Org name (without repo)
-                stringParam('GithubOrgName', Utilities.getOrgName(_project), 'Project name passed to the DSL generator')
                 stringParam('QualifiedRepoName', this._project, 'Combined GitHub org and repo name')
+                stringParam('RepoName', Utilities.getRepoName(repoInfo.project), 'Repo name')
+                stringParam('OrgOrProjectName', Utilities.getOrgOrProjectName(repoInfo.project), 'Organization/VSTS project name')
+                stringParam('TargetBranchName', Utilities.getBranchName(this._branch), 'Branch name passed to the DSL generator')
+
+                // For Legacy
+                // BranchName -> TargetBranchName
                 stringParam('BranchName', Utilities.getBranchName(this._branch), 'Branch name (without */)')
+                // GithubProjectName -> RepoName
+                stringParam('GithubProjectName', Utilities.getProjectName(_project), 'Project name ')
+                // GithubOrgName -> OrgOrProjectName
+                stringParam('GithubOrgName', Utilities.getOrgName(_project), 'Project name passed to the DSL generator')
             }
 
             definition {
@@ -93,12 +99,18 @@ class GithubPipelineScm implements PipelineScm {
             parameters {
                 stringParam('GitBranchOrCommit', "*/${this._branch}", 'Git branch or commit to build.  If a branch, builds the HEAD of that branch.  If a commit, then checks out that specific commit.')
                 stringParam('DOTNET_CLI_TELEMETRY_PROFILE', "IsInternal_CIServer;${_project}", 'This is used to differentiate the internal CI usage of CLI in telemetry.  This gets exposed in the environment and picked up by the CLI product.')
-                // Project name (without org)
-                stringParam('GithubProjectName', Utilities.getProjectName(_project), 'Project name ')
-                // Org name (without repo)
-                stringParam('GithubOrgName', Utilities.getOrgName(_project), 'Project name passed to the DSL generator')
                 stringParam('QualifiedRepoName', this._project, 'Combined GitHub org and repo name')
+                stringParam('RepoName', Utilities.getRepoName(repoInfo.project), 'Repo name')
+                stringParam('OrgOrProjectName', Utilities.getOrgOrProjectName(repoInfo.project), 'Organization/VSTS project name')
+                stringParam('TargetBranchName', Utilities.getBranchName(this._branch), 'Branch name passed to the DSL generator')
+
+                // For Legacy
+                // BranchName -> TargetBranchName
                 stringParam('BranchName', Utilities.getBranchName(this._branch), 'Branch name (without */)')
+                // GithubProjectName -> RepoName
+                stringParam('GithubProjectName', Utilities.getProjectName(_project), 'Project name')
+                // GithubOrgName -> OrgOrProjectName
+                stringParam('GithubOrgName', Utilities.getOrgName(_project), 'Project name passed to the DSL generator')
             }
 
             definition {

@@ -43,10 +43,11 @@ class VSTSPipelineScm implements PipelineScm {
                 stringParam('GitRepoUrl', this.getGitUrl(), 'Git repo to clone.')
                 stringParam('GitRefSpec', '+refs/pull/${ghprbPullId}/*:refs/remotes/origin/pr/${ghprbPullId}/*', 'RefSpec.  WHEN SUBMITTING PRIVATE JOB FROM YOUR OWN REPO, CLEAR THIS FIELD (or it won\'t find your code)')
                 stringParam('DOTNET_CLI_TELEMETRY_PROFILE', "IsInternal_CIServer;${_project}", 'This is used to differentiate the internal CI usage of CLI in telemetry.  This gets exposed in the environment and picked up by the CLI product.')
-                stringParam('RepoName', Utilities.getRepoName(this._project), 'Repo name')
-                stringParam('OrgOrProjectName', Utilities.getOrgOrProjectName(this._project), 'Organization/VSTS project name')
-                stringParam('QualifiedRepoName', this._project, 'Combined VSTS project and repo name')
-                stringParam('BranchName', Utilities.getBranchName(this._branch), 'Branch name (without */)')
+                
+                stringParam('QualifiedRepoName', this._project, 'Combined GitHub org and repo name')
+                stringParam('RepoName', Utilities.getRepoName(repoInfo.project), 'Repo name')
+                stringParam('OrgOrProjectName', Utilities.getOrgOrProjectName(repoInfo.project), 'Organization/VSTS project name')
+                stringParam('TargetBranchName', Utilities.getBranchName(this._branch), 'Branch name')
             }
 
             definition {
@@ -91,10 +92,10 @@ class VSTSPipelineScm implements PipelineScm {
             parameters {
                 stringParam('GitBranchOrCommit', "*/${this._branch}", 'Git branch or commit to build.  If a branch, builds the HEAD of that branch.  If a commit, then checks out that specific commit.')
                 stringParam('DOTNET_CLI_TELEMETRY_PROFILE', "IsInternal_CIServer;${_project}", 'This is used to differentiate the internal CI usage of CLI in telemetry.  This gets exposed in the environment and picked up by the CLI product.')
-                stringParam('RepoName', Utilities.getRepoName(this._project), 'Repo name')
-                stringParam('OrgOrProjectName', Utilities.getOrgOrProjectName(this._project), 'Organization/VSTS project name')
-                stringParam('QualifiedRepoName', this._project, 'Combined VSTS project and repo name')
-                stringParam('BranchName', Utilities.getBranchName(this._branch), 'Branch name (without */)')
+                stringParam('QualifiedRepoName', this._project, 'Combined GitHub org and repo name')
+                stringParam('RepoName', Utilities.getRepoName(repoInfo.project), 'Repo name')
+                stringParam('OrgOrProjectName', Utilities.getOrgOrProjectName(repoInfo.project), 'Organization/VSTS project name')
+                stringParam('TargetBranchName', Utilities.getBranchName(this._branch), 'Branch name')
             }
 
             definition {
