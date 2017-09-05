@@ -62,7 +62,7 @@ class Agents {
                                 // Contains 20160211-1 + clang 3.9
                                 '20170118':'ubuntu1404-20170118',
                                 // Contains the rootfs setup for arm builds.
-                                '20170728':'ubuntu1404-20170728',
+                                '20170821':'ubuntu1404-20170821',
                                 // Contains Mono 5.0.1
                                 'arm-cross-latest':'ubuntu1404-20170120',
                                 // Contains the rootfs setup for arm64 builds.
@@ -74,7 +74,7 @@ class Agents {
                                 // Image installing the latest mono-devel
                                 'latest-mono-devel':'ubuntu1404-20160211-1-latest-mono',
                                 // Latest auto image.
-                                'latest':'ubuntu1404-20170728',
+                                'latest':'ubuntu1404-20170821',
                                 // For outerloop runs.
                                 'outer-latest':'ubuntu1404-201626outer',
                                 // For internal Ubuntu runs
@@ -127,10 +127,8 @@ class Agents {
                             // Sierra
                             'OSX10.12' :
                                 [
-                                // Generic version label
-                                '' : 'osx-10.12',
-                                // Latest auto image.
-                                'latest':'osx-10.12',
+                                // Latest (helix/static).
+                                'latest':'osx-10.12 || OSX.1012.Amd64.Open',
                                 // For elevated runs
                                 'latest-elevated':'osx-10.12-elevated'
                                 ],

@@ -7,12 +7,10 @@ for (node in Hudson.getInstance().getNodes()) {
         def computer = node.getComputer()
         if (computer.isIdle()) {
             println("  Cleaning " + node.name);
-            if (node.getComputer().isOffline()) {
-                println("  Offline, skipping");
-                continue
-            }
-
             println("  Attempting to take offline.");
+            // Record whether currently offline
+            boolean currentlyTemporarilyOffline = computer.isTemporarilyOffline()
+          
             computer.setTemporarilyOffline(true);
             if (!computer.isIdle()) {
                 println("  Not idle after offline, skipping!");
@@ -22,6 +20,12 @@ for (node in Hudson.getInstance().getNodes()) {
             
             println("  Cleaning workspace");
             def workspacePath = node.getRootPath();
+          
+            if (workspacePath == null) {
+                println("  Node not connected, skipping");
+                continue
+            }
+          
             println("  About to wipe" + workspacePath.getRemote());
             if (workspacePath.exists()) {
                 try {
@@ -54,8 +58,10 @@ for (node in Hudson.getInstance().getNodes()) {
             }
             
             // Bring back online
-            println("  Done, bringing back online.");
-            computer.setTemporarilyOffline(false);
+            if (!currentlyTemporarilyOffline) {
+                println("  Done, bringing back online.");
+                computer.setTemporarilyOffline(false);
+            }
         }
         else {
             println("  Not Idle");
@@ -70,7 +76,7 @@ for (node in Hudson.getInstance().getNodes()) {
 def static deleteDirContents(def computer, def directory, def output) {
     def command = ''
     if (computer.isUnix()) {
-        command = "/bin/sh -c 'find . -name * -delete'"
+        command = "/bin/sh -c \"find . -name '*' -delete\""
     } else {
         command = "cmd.exe /C mkdir %USERPROFILE%\\emptydir & robocopy /MIR /R:2 /NFL /NDL /NJH /NJS /nc /ns /np %USERPROFILE%\\emptydir ${directory}"
     }
@@ -78,10 +84,10 @@ def static deleteDirContents(def computer, def directory, def output) {
     try {
         output.println ("   Running ${command}")
         def launcher = directory.createLauncher(hudson.model.TaskListener.NULL);
-        def starter = launcher.launch().pwd(directory).stdout(output).stderr(output).cmdAsSingleString(command)
+        def starter = launcher.launch().pwd(directory).cmdAsSingleString(command)
         starter.join()
     }
     catch(e) {
-        output.println("    Failed to deleteDirContents on " + directory)
+        output.println("    Failed to deleteDirContents on " + directory + ": " + e)
     }
 }

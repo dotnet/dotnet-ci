@@ -319,7 +319,7 @@ repos.each { repoInfo ->
                                 // TODO: VSTS PR refspec
                             }
                             else {
-                                refspec('+refs/pull/*:refs/remotes/origin/pr/*')
+                                refspec('+refs/pull/${ghprbPullId}/*:refs/remotes/origin/pr/${ghprbPullId}/*')
                             }
                         }
                     }
@@ -361,7 +361,7 @@ repos.each { repoInfo ->
                                 // TODO: VSTS PR refspec
                             }
                             else {
-                                refspec('+refs/pull/*:refs/remotes/origin/pr/*')
+                                refspec('+refs/pull/${ghprbPullId}/*:refs/remotes/origin/pr/${ghprbPullId}/*')
                             }
                         }
                     }

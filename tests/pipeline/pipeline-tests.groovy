@@ -43,27 +43,31 @@ stage ('Run Tests') {
             "Raw Node Test" : {
                 // Simple source control checkout (should always pass, built in functionality)
                 node {
-                    checkout scm
+                    checkoutRepo()
                 }
             },
 
             // Test that simple nodes work, of various types
             "simpleNode - Windows_NT - latest" : {
                 timeout (60) {
-                    simpleNode('Windows_NT', 'latest') { }
+                    simpleNode('Windows_NT', 'latest') {
+                        checkoutRepo()
+                    }
                 }
             },
 
             "simpleNode - Ubuntu14.04 - latest" : {
                 timeout (60) {
-                    simpleNode('Ubuntu14.04', 'latest') { }
+                    simpleNode('Ubuntu14.04', 'latest') {
+                        checkoutRepo()
+                    }
                 }
             },
 
             "getBranch" : {
                 // getBranch
                 simpleNode('Windows_NT', 'latest') {
-                    checkout scm
+                    checkoutRepo()
 
                     echo "Checking that getBranch returns a valid value"
                     String branch = getBranch()
@@ -130,6 +134,26 @@ stage ('Run Tests') {
             // You can't mock causes in here without opening up untrusted APIs either.
             "getUser - non mocked behavior" : {
                 assert getUser() != null : "Expected getUser would return valid value."
+            },
+
+            "getUserEmail - GitHub PR" : {
+                withEnv(['ghprbPullAuthorEmail=blah@blah.com', 'ghprbGhRepository=foo/bar']) {
+                    def userEmail = getUserEmail()
+                    assert userEmail == 'blah@blah.com' : "Expected getUserEmail would return blah@blah.com, actually got ${userEmail}"
+                }
+            },
+
+            "getUserEmail - GitHub PR, no email": {
+                withEnv(['ghprbPullAuthorLogin=baz', 'ghprbGhRepository=foo/bar', 'ghprbPullAuthorEmail=']) {
+                    def userEmail = getUserEmail()
+                    assert userEmail == 'baz@github.login' : "Expected getUserEmail would return baz@github.login, actually got ${userEmail}"
+                }
+            },
+
+            // Testing non-PR getUserEmail is tough as it returns different values based on the cause of the run.
+            // You can't mock causes in here without opening up untrusted APIs either.
+            "getUserEmail - non mocked behavior" : {
+                assert getUserEmail() != null : "Expected getUserEmail would return valid value."
             },
 
             "vars - waitforHelixRuns - passed work item" : {
