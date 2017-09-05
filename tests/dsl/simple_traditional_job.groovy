@@ -3,7 +3,7 @@
 import jobs.generation.Utilities;
 
 def project = QualifiedRepoName
-def branch = TargetBranchName
+def branch = BranchName
 
 [true, false].each { isPR ->
     def newJob = job(Utilities.getFullJobName(project, "FooBarTest", isPR)) {

@@ -47,7 +47,7 @@ class VSTSPipelineScm implements PipelineScm {
                 stringParam('QualifiedRepoName', this._project, 'Combined GitHub org and repo name')
                 stringParam('RepoName', Utilities.getRepoName(this._project), 'Repo name')
                 stringParam('OrgOrProjectName', Utilities.getOrgOrProjectName(this._project), 'Organization/VSTS project name')
-                stringParam('TargetBranchName', Utilities.getBranchName(this._branch), 'Branch name')
+                stringParam('BranchName', Utilities.getBranchName(this._branch), 'Branch name')
             }
 
             definition {
@@ -95,7 +95,7 @@ class VSTSPipelineScm implements PipelineScm {
                 stringParam('QualifiedRepoName', this._project, 'Combined GitHub org and repo name')
                 stringParam('RepoName', Utilities.getRepoName(this._project), 'Repo name')
                 stringParam('OrgOrProjectName', Utilities.getOrgOrProjectName(this._project), 'Organization/VSTS project name')
-                stringParam('TargetBranchName', Utilities.getBranchName(this._branch), 'Branch name')
+                stringParam('BranchName', Utilities.getBranchName(this._branch), 'Branch name')
             }
 
             definition {

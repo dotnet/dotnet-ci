@@ -44,11 +44,9 @@ class GithubPipelineScm implements PipelineScm {
                 stringParam('QualifiedRepoName', this._project, 'Combined GitHub org and repo name')
                 stringParam('RepoName', Utilities.getRepoName(this._project), 'Repo name')
                 stringParam('OrgOrProjectName', Utilities.getOrgOrProjectName(this._project), 'Organization/VSTS project name')
-                stringParam('TargetBranchName', Utilities.getBranchName(this._branch), 'Branch name passed to the DSL generator')
+                stringParam('BranchName', Utilities.getBranchName(this._branch), 'Branch name (without */)')
 
                 // For Legacy
-                // BranchName -> TargetBranchName
-                stringParam('BranchName', Utilities.getBranchName(this._branch), 'Branch name (without */)')
                 // GithubProjectName -> RepoName
                 stringParam('GithubProjectName', Utilities.getProjectName(this._project), 'Project name ')
                 // GithubOrgName -> OrgOrProjectName
@@ -102,11 +100,9 @@ class GithubPipelineScm implements PipelineScm {
                 stringParam('QualifiedRepoName', this._project, 'Combined GitHub org and repo name')
                 stringParam('RepoName', Utilities.getRepoName(this._project), 'Repo name')
                 stringParam('OrgOrProjectName', Utilities.getOrgOrProjectName(this._project), 'Organization/VSTS project name')
-                stringParam('TargetBranchName', Utilities.getBranchName(this._branch), 'Branch name passed to the DSL generator')
+                stringParam('BranchName', Utilities.getBranchName(this._branch), 'Branch name passed to the DSL generator')
 
                 // For Legacy
-                // BranchName -> TargetBranchName
-                stringParam('BranchName', Utilities.getBranchName(this._branch), 'Branch name (without */)')
                 // GithubProjectName -> RepoName
                 stringParam('GithubProjectName', Utilities.getProjectName(this._project), 'Project name')
                 // GithubOrgName -> OrgOrProjectName
