@@ -4,6 +4,8 @@
   */
 def call() {
     retry (10) {
-        checkout scm
+        timeout(15) {
+            checkout scm
+        }
     }
 }
