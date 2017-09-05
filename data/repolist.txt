@@ -69,7 +69,7 @@ dotnet/roslyn branch=dev15.3.x server=dotnet-ci
 dotnet/roslyn branch=dev15.3.x subFolder=perf definitionScript=perf.groovy server=dotnet-ci2
 dotnet/roslyn branch=dev15.4.x server=dotnet-ci
 dotnet/roslyn branch=dev15.4.x subFolder=perf definitionScript=perf.groovy server=dotnet-ci2
-dotnet/roslyn branch=dev16 server=dotnet-cithe
+dotnet/roslyn branch=dev16 server=dotnet-ci
 dotnet/roslyn branch=master server=dotnet-ci
 dotnet/roslyn branch=master subFolder=perf definitionScript=perf.groovy server=dotnet-ci2
 dotnet/roslyn branch=dev15.5.x server=dotnet-ci
