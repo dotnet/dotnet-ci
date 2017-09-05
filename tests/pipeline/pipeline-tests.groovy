@@ -43,27 +43,31 @@ stage ('Run Tests') {
             "Raw Node Test" : {
                 // Simple source control checkout (should always pass, built in functionality)
                 node {
-                    checkout scm
+                    checkoutRepo()
                 }
             },
 
             // Test that simple nodes work, of various types
             "simpleNode - Windows_NT - latest" : {
                 timeout (60) {
-                    simpleNode('Windows_NT', 'latest') { }
+                    simpleNode('Windows_NT', 'latest') {
+                        checkoutRepo()
+                    }
                 }
             },
 
             "simpleNode - Ubuntu14.04 - latest" : {
                 timeout (60) {
-                    simpleNode('Ubuntu14.04', 'latest') { }
+                    simpleNode('Ubuntu14.04', 'latest') {
+                        checkoutRepo()
+                    }
                 }
             },
 
             "getBranch" : {
                 // getBranch
                 simpleNode('Windows_NT', 'latest') {
-                    checkout scm
+                    checkoutRepo()
 
                     echo "Checking that getBranch returns a valid value"
                     String branch = getBranch()
