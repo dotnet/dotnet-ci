@@ -131,8 +131,7 @@ Microsoft/ConcordExtensibilitySamples branch=master server=dotnet-ci
 Microsoft/dotnet-apiport branch=master server=dotnet-ci2
 Microsoft/MIEngine branch=master server=dotnet-ci
 Microsoft/msbuild branch=master server=dotnet-ci2
-Microsoft/msbuild branch=vs15.3 server=dotnet-ci2
-Microsoft/TypeScript branch=master server=dotnet-ci2
+Microsoft/msbuild branch=vs15.3 server=dotnet-ci2 Microsoft/TypeScript branch=master server=dotnet-ci2
 Microsoft/xunit-performance branch=master server=dotnet-ci
 Microsoft/xunit-performance branch=citest server=dotnet-ci
 Microsoft/Vipr branch=master server=dotnet-ci
@@ -173,4 +172,4 @@ dotnet/dotnet-ci branch=dev/pipelinesupport utilitiesRepoBranch=dev/pipelinesupp
 # Tests for DSL
 dotnet/dotnet-ci branch=dev/pipelinesupport utilitiesRepoBranch=dev/pipelinesupport definitionScript=tests/dsl/*.groovy isDSLTest=true server=dotnet-ci4 subFolder=dslTests
 # chcosta test for pipelines
-chcosta/corefx branch=vsts-to-jenkins server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy utilitiesRepoBranch=dev/pipelinesupport
+chcosta/corefx branch=vsts-to-jenkins server=dotnet-vsts definitionScript=buildpipeline/pipelinejobs.groovy utilitiesRepoBranch=dev/pipelinesupport
