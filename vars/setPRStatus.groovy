@@ -11,7 +11,6 @@ import org.jenkinsci.plugins.ghprb.GhprbTrigger;
 import org.kohsuke.github.GHCommitState;
 
 def call(String context, String state, String url, String subMessage = '') {
-
     // Validate the state
     assert (state == "PENDING" || state == "SUCCESS" || state == "FAILURE" || state == "ERROR") : "Valid states are PENDING, SUCCESS, FAILURE and ERROR, was ${state}"
     GHCommitState ghState = GHCommitState.valueOf(state)
