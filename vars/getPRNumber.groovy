@@ -10,7 +10,7 @@ def call() {
         assert !isNullOrEmpty(pullId) : "Could not find pull id"
         return pullId
     } else if (versionControlLocation == "VSTS") {
-        assert false : "NYI VSTS PR commit"
+        assert false : "NYI VSTS PR"
     } else {
         assert false : "Unknown version control location"
     }
