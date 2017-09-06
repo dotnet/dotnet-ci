@@ -10,12 +10,19 @@
 def call() {
     def isPRJob = isPR();
     if (isPRJob) {
-        def ghPullUserEmail = env["ghprbPullAuthorEmail"]
-        if (isNullOrEmpty(ghPullUserEmail)) {
-            ghPullUserEmail = getUser() + "@github.login"
+        def versionControlLocation = getVersionControlLocation()
+        if (versionControlLocation == "GitHub") {
+            def ghPullUserEmail = env["ghprbPullAuthorEmail"]
+            if (isNullOrEmpty(ghPullUserEmail)) {
+                ghPullUserEmail = getUser() + "@github.login"
+            }
+            assert !isNullOrEmpty(ghPullUserEmail) : "Could not locate the pull author email."
+            return ghPullUserEmail
+        } else if (versionControlLocation == "VSTS") {
+            assert false : "NYI VSTS PR"
+        } else {
+            assert false : "Unknown version control location"
         }
-        assert !isNullOrEmpty(ghPullUserEmail) : "Could not locate the pull author email."
-        return ghPullUserEmail
     }
     else {
         // Do some digging to determine how the job was launched.  There are a couple easy possibilities:

@@ -5,7 +5,7 @@
   * @return Repository associated with this run.
   */
 def call() {
-    def githubProjectName = env["GithubProjectName"]
-    assert !isNullOrEmpty(githubProjectName) : "Could not find GithubProjectName parameter"
+    def githubProjectName = env["RepoName"]
+    assert !isNullOrEmpty(githubProjectName) : "Could not find RepoName parameter"
     return githubProjectName
 }
