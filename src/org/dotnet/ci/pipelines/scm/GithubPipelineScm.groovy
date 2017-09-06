@@ -46,6 +46,7 @@ class GithubPipelineScm implements PipelineScm {
                 stringParam('OrgOrProjectName', Utilities.getOrgOrProjectName(this._project), 'Organization/VSTS project name')
                 stringParam('BranchName', Utilities.getBranchName(this._branch), 'Branch name (without */)')
                 booleanParam('AutoSaveReproEnv', false, 'Save Repro Environment automatically for this job.')
+                stringParam('VersionControlLocation', 'GitHub', 'Where the version control sits (VSTS or GitHub)')
 
                 // For Legacy
                 // GithubProjectName -> RepoName
@@ -103,6 +104,7 @@ class GithubPipelineScm implements PipelineScm {
                 stringParam('OrgOrProjectName', Utilities.getOrgOrProjectName(this._project), 'Organization/VSTS project name')
                 stringParam('BranchName', Utilities.getBranchName(this._branch), 'Branch name passed to the DSL generator')
                 booleanParam('AutoSaveReproEnv', false, 'Save Repro Environment automatically for this job.')
+                stringParam('VersionControlLocation', 'GitHub', 'Where the version control sits (VSTS or GitHub)')
 
                 // For Legacy
                 // GithubProjectName -> RepoName

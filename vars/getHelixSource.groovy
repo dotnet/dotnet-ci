@@ -3,7 +3,7 @@
   * @return Helix source
   */
 def call() {
-    def projectName = getProject()
+    def projectName = getRepo()
     def orgName = getOrganization()
     def branch = getBranch()
     if (isPR()) {
