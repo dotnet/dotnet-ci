@@ -48,6 +48,7 @@ class VSTSPipelineScm implements PipelineScm {
                 stringParam('RepoName', Utilities.getRepoName(this._project), 'Repo name')
                 stringParam('OrgOrProjectName', Utilities.getOrgOrProjectName(this._project), 'Organization/VSTS project name')
                 stringParam('BranchName', Utilities.getBranchName(this._branch), 'Branch name')
+                booleanParam('AutoSaveReproEnv', false, 'Save Repro Environment automatically for this job.')
                 stringParam('VersionControlLocation', 'VSTS', 'Where the version control sits (VSTS or GitHub)')
             }
 
@@ -97,6 +98,7 @@ class VSTSPipelineScm implements PipelineScm {
                 stringParam('RepoName', Utilities.getRepoName(this._project), 'Repo name')
                 stringParam('OrgOrProjectName', Utilities.getOrgOrProjectName(this._project), 'Organization/VSTS project name')
                 stringParam('BranchName', Utilities.getBranchName(this._branch), 'Branch name')
+                booleanParam('AutoSaveReproEnv', false, 'Save Repro Environment automatically for this job.')
                 stringParam('VersionControlLocation', 'VSTS', 'Where the version control sits (VSTS or GitHub)')
             }
 
