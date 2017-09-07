@@ -21,8 +21,8 @@ fedora24-20170420,fedora24-20170420,Linux,system,Microsoft.Compute/Images/dotnet
 fedora24-20170420-outer,fedora24-20170420-outer,Linux,system,Microsoft.Compute/Images/dotnetci/fedora24-20170831-osDisk.f67856bc-6a04-4ba7-a699-801d87929ad7.vhd,All,./startupScripts/fedora24-20170420-outer.sh,/mnt/resource/j
 freebsd-20161026,freebsd-20161026,Linux,system,Microsoft.Compute/Images/dotnetci/freebsd-20161026-osDisk.d9e2d372-a805-4676-867e-ce35b6438ae2.vhd,All,./startupScripts/freebsd-20161025.sh,/mnt/resource/j
 rhel72-20160211,auto-rhel72-20160211,Linux,system,Microsoft.Compute/Images/dotnetci/rhel72-20160211.vhd,All,./startupScripts/rhel72-20160211.sh,/mnt/resource/j
-rhel72-20160412-1-outer,auto-rhel72-20160412.1outer,Linux,system,Microsoft.Compute/Images/dotnetci/rhel72-20160412-1.vhd,All,./startupScripts/rhel72-20160412-1-outer.sh,/mnt/resource/j
-rhel72-20170525,auto-rhel72-20170525,Linux,system,Microsoft.Compute/Images/dotnetci/rhel72-20170525-osDisk.3c9a878a-1198-4121-ae45-525c22fc9b49.vhd,All,./startupScripts/rhel72-20170525.sh,/mnt/resource/j
+rhel72-20160412-1-outer,auto-rhel72-20160412.1outer,Linux,system,Microsoft.Compute/Images/dotnetci/rhel72-20170907-osDisk.cf03da2a-8b9f-4549-baec-8ef51bbbc2ec.vhd,All,./startupScripts/rhel72-20160412-1-outer.sh,/mnt/resource/j
+rhel72-20170525,auto-rhel72-20170525,Linux,system,Microsoft.Compute/Images/dotnetci/rhel72-20170907-osDisk.e4b91bf7-64cc-4dda-85e3-c4a8cf438188.vhd,All,./startupScripts/rhel72-20170525.sh,/mnt/resource/j
 suse132-20160315,auto-suse132-20160315,Linux,system,Microsoft.Compute/Images/dotnetci/suse132-20160315.vhd,All,./startupScripts/suse132-20160315.sh,/mnt/resource/j
 suse132-20160315-outer,auto-suse132-20160315outer,Linux,system,Microsoft.Compute/Images/dotnetci/suse132-20160315.vhd,All,./startupScripts/suse132-20160315-outer.sh,/mnt/resource/j
 suse421-20160920,auto-suse421-20160920,Linux,system,Microsoft.Compute/Images/dotnetci/suse421-20160920.vhd,All,./startupScripts/suse421-20160920.sh,/mnt/resource/j
