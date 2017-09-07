@@ -32,10 +32,14 @@ def call() {
 
         if (userIdCause != null) {
             def userId = userIdCause.getUserId()
-            def userIdEmail = hudson.model.User.get(userId).getProperty(hudson.tasks.Mailer.class).getAddress()
-            if (isNullOrEmpty(userIdEmail)) {
+            def userIdMailer = hudson.model.User.get(userId).getProperty(hudson.tasks.Mailer.class)
+            def userIdEmail = ""
+            if (isNullOrEmpty(userIdMailer)) {
                 userIdEmail = userId + "@github.login"
             }
+            else {
+                userIdEmail = userIdMailer.getAddress()
+            } 
             return userIdEmail
         }
         else {
