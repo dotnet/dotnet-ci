@@ -41,7 +41,7 @@ ubuntu1404-20170118,ubuntu1404-20170118,Linux,system,Microsoft.Compute/Images/do
 ubuntu1404-20170728,ubuntu1404-20170728,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1404-20170728-osDisk.4c47951c-7f4e-4273-bf3a-6dab5f342a65.vhd,All,./startupScripts/ubuntu1404-20170128.sh,/mnt/j
 ubuntu1404-20170728-outer,ubuntu1404-20170728-outer,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1404-20170728-osDisk.4c47951c-7f4e-4273-bf3a-6dab5f342a65.vhd,All,./startupScripts/ubuntu1404-20170128-outer.sh,/mnt/j
 # Java 8 + Mono installation on top of ubuntu1404-20170728
-ubuntu1404-20170821,ubuntu1404-20170821,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1404-20170830-osDisk.e83b77ba-c51f-4ba7-8bb7-cf68f7f56549.vhd,All,./startupScripts/ubuntu1404-20170821.sh,/mnt/j
+ubuntu1404-20170821,ubuntu1404-20170821,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1404-20170821-osDisk.715042c0-8f22-4a7d-9c64-23463fa4bf7a.vhd,All,./startupScripts/ubuntu1404-20170821.sh,/mnt/j
 ubuntu1510-20160307,auto-ubuntu1510-20160307,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1510-20160307.vhd,All,./startupScripts/ubuntu1510-20160307.sh,/mnt/j
 ubuntu1510-20160307-outer,auto-ubuntu1510-20160307outer,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1510-20160307.vhd,All,./startupScripts/ubuntu1510-20160307-outer.sh,/mnt/j
 ubuntu1604-20160510,auto-ubuntu1604-20160510,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1604-20160510.vhd,All,./startupScripts/ubuntu1604-20160510.sh,/mnt/j
@@ -49,7 +49,14 @@ ubuntu1604-20160510-outer,auto-ubuntu1604-20160510outer,Linux,system,Microsoft.C
 ubuntu1604-20160803,auto-ubuntu1604-20160803,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1604-20160803.vhd,All,./startupScripts/ubuntu1604-20160803.sh,/mnt/j
 ubuntu1604-20170109,ubuntu1604-20170109,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1604-20170109-osDisk.383bba98-9b52-4d11-b5e3-ffb6db846644.vhd,All,./startupScripts/ubuntu1604-20170109.sh,/mnt/j
 ubuntu1604-20170216,ubuntu1604-20170216,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1604-20170830-osDisk.ca156cab-c57e-45fd-b980-57199ac0e78a.vhd,All,./startupScripts/ubuntu1604-20170216.sh,/mnt/j
+ubuntu1604-20170307-outer,auto-ubuntu1510-20160307outer,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1510-20160307.vhd,All,./startupScripts/ubuntu1510-20160307-outer.sh,/mnt/j
+ubuntu1604-20160510,auto-ubuntu1604-20160510,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1604-20160510.vhd,All,./startupScripts/ubuntu1604-20160510.sh,/mnt/j
+ubuntu1604-20160510-outer,auto-ubuntu1604-20160510outer,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1604-20160510.vhd,All,./startupScripts/ubuntu1604-20160510-outer.sh,/mnt/j
+ubuntu1604-20160803,auto-ubuntu1604-20160803,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1604-20160803.vhd,All,./startupScripts/ubuntu1604-20160803.sh,/mnt/j
+ubuntu1604-20170109,ubuntu1604-20170109,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1604-20170109-osDisk.383bba98-9b52-4d11-b5e3-ffb6db846644.vhd,All,./startupScripts/ubuntu1604-20170109.sh,/mnt/j
+ubuntu1604-20170216,ubuntu1604-20170216,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1604-20170830-osDisk.ca156cab-c57e-45fd-b980-57199ac0e78a.vhd,All,./startupScripts/ubuntu1604-20170216.sh,/mnt/j
 ubuntu1604-20170216-outer,ubuntu1604-20170216-outer,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1604-20170830-osDisk.ca156cab-c57e-45fd-b980-57199ac0e78a.vhd,All,./startupScripts/ubuntu1604-20170216-outer.sh,/mnt/j
+ubuntu1604-20170526,ubuntu1604-20170526,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1604-20170906-osDisk.a4a70718-78cb-49be-b8f3-ffb1ec7fcbb6.vhd,All,./startupScripts/ubuntu1604-20170526.sh,/mnt/j
 ubuntu1604-20170731,ubuntu1604-20170731,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1604-20170828-osDisk.8d2c4f36-cf52-4b99-8ef4-f7a2fc8f85ec.vhd,All,./startupScripts/ubuntu1604-20170216.sh,/mnt/j
 ubuntu1604-20170731-outer,ubuntu1604-20170731-outer,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1604-20170828-osDisk.8d2c4f36-cf52-4b99-8ef4-f7a2fc8f85ec.vhd,All,./startupScripts/ubuntu1604-20170216-outer.sh,/mnt/j
 ubuntu1610-20160927,auto-ubuntu1610-20160927,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1610-20160927.vhd,All,./startupScripts/ubuntu1610-20160927.sh,/mnt/j
@@ -60,8 +67,8 @@ win2008-20161104,win2008-20161104,Windows,system,Microsoft.Compute/Images/dotnet
 win2008-20170302,win2008-20170302,Windows,system,Microsoft.Compute/Images/dotnetci/win2008-20170302-osDisk.568dbc45-8611-469d-8ce6-25cc244f9741.vhd,All,./startupScripts/win2008-20170302.ps1,D:\j
 win2008-20170303,win2008-20170303,Windows,system,Microsoft.Compute/Images/dotnetci/win2008-20170830-osDisk.4641431e-66d0-44c6-9ee8-bd85ce102c1f.vhd,All,./startupScripts/win2008-20170302.ps1,D:\j
 win2012-20160506,auto-win2012-20160506,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20160506.vhd,All,./startupScripts/win2012-20160506.ps1,D:\j
-win2012-20160707,auto-win2012-20160707,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20160707.vhd,All,./startupScripts/win2012-20160707.ps1,D:\j
-win2012-20160707-internal,auto-win2012-20160707-internal,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20160707.vhd,All,./startupScripts/win2012-20160707-internal.ps1,D:\j
+win2012-20160707,auto-win2012-20160707,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20170906-osDisk.ab91b62e-6318-42d7-80b8-4382397ef949.vhd,All,./startupScripts/win2012-20160707.ps1,D:\j
+win2012-20160707-internal,auto-win2012-20160707-internal,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20170906-osDisk.ab91b62e-6318-42d7-80b8-4382397ef949.vhd,All,./startupScripts/win2012-20160707-internal.ps1,D:\j
 win2012-20160824,auto-win2012-20160824,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20160824.vhd,All,./startupScripts/win2012-20160824.ps1,D:\j
 win2012-20161027,win2012-20161027,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20161027-osDisk.040bfe4c-ae78-4703-ac8c-d3a8f839fee3.vhd,All,./startupScripts/win2012-20161027.ps1,D:\j
 win2012-20170302,win2012-20170302,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20170302-osDisk.78e8cd9e-ea53-43ec-a91c-aa20f0dcb8d1.vhd,All,./startupScripts/win2012-20170302.ps1,D:\j
@@ -74,8 +81,8 @@ win2012-20170502,win2012-20170502,Windows,system,Microsoft.Compute/Images/dotnet
 win2012-20170502-elevated,win2012-20170502-elevated,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20170502-osDisk.86bcc6ca-84b2-4fd2-affe-9328f98c0f76.vhd,All,./startupScripts/win2012-win2012-20170502.ps1,D:\j
 win2012-20170608,win2012-20170608,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20170901-osDisk.c590a93c-feff-426f-b9c4-4e9f016bbd79.vhd,All,./startupScripts/win2012-20170608.ps1,D:\j
 win2012-20170608-elevated,win2012-20170608-elevated,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20170901-osDisk.c590a93c-feff-426f-b9c4-4e9f016bbd79.vhd,All,./startupScripts/win2012-20170608-elevated.ps1,D:\j
-win2012-20170809,win2012-20170809,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20170905-osDisk.a4d3d700-354e-4794-928b-4ac8e2a8277d.vhd,All,./startupScripts/win2012-20170809.ps1,D:\j
-win2012-20170809-elevated,win2012-20170809-elevated,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20170905-osDisk.a4d3d700-354e-4794-928b-4ac8e2a8277d.vhd,All,./startupScripts/win2012-20170809-elevated.ps1,D:\j
+win2012-20170809,win2012-20170809,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20170906-osDisk.5771ebef-d2db-4725-8b2d-7fbfd10c1b36.vhd,All,./startupScripts/win2012-20170809.ps1,D:\j
+win2012-20170809-elevated,win2012-20170809-elevated,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20170906-osDisk.5771ebef-d2db-4725-8b2d-7fbfd10c1b36.vhd,All,./startupScripts/win2012-20170809-elevated.ps1,D:\j
 win2012-20170810,win2012-20170810,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20170831-osDisk.19ccc82b-22a3-457e-b13f-f5ddb9f37688.vhd,All,./startupScripts/win2012-20170810.ps1,D:\j
 win2016-base,win2016-base,Windows,system,Microsoft.Compute/Images/dotnetci/win2016-20170822-osDisk.649b4b84-b169-4e34-9b64-695ed62a6f79.vhd,All,./startupScripts/win2016-base.ps1,D:\j
 win2016-base-internal,win2016-base-internal,Windows,system,Microsoft.Compute/Images/dotnetci/win2016-20170822-osDisk.649b4b84-b169-4e34-9b64-695ed62a6f79.vhd,All,./startupScripts/win2016-base-internal.ps1,D:\j
@@ -104,8 +111,8 @@ win2016-20170510,win2016-20170510,Windows,system,Microsoft.Compute/Images/dotnet
 win2016-20170510-internal,win2016-20170510-internal,Windows,system,Microsoft.Compute/Images/dotnetci/win2016-20170905-osDisk.d6e11efc-550f-447d-95e6-068dfddf56fb.vhd,All,./startupScripts/win2016-20170510-internal.ps1,D:\j
 win2016-20170531,win2016-20170531,Windows,system,Microsoft.Compute/Images/dotnetci/win2016-20170531-osDisk.68cb4224-3234-4937-bab7-d201d9333eda.vhd,All,./startupScripts/win2016-20170531.ps1,D:\j
 win2016-20170531-internal,win2016-20170531-internal,Windows,system,Microsoft.Compute/Images/dotnetci/win2016-20170531-osDisk.68cb4224-3234-4937-bab7-d201d9333eda.vhd,All,./startupScripts/win2016-20170531-internal.ps1,D:\j
-win2016-20170613,win2016-20170613,Windows,system,Microsoft.Compute/Images/dotnetci/win2016-20170613-osDisk.4b51bead-b014-4fb4-9391-65f7f6b1b783.vhd,All,./startupScripts/win2016-20170613.ps1,D:\j
-win2016-20170613-internal,win2016-20170613-internal,Windows,system,Microsoft.Compute/Images/dotnetci/win2016-20170613-osDisk.4b51bead-b014-4fb4-9391-65f7f6b1b783.vhd,All,./startupScripts/win2016-20170613-internal.ps1,D:\j
+win2016-20170613,win2016-20170613,Windows,system,Microsoft.Compute/Images/dotnetci/win2016-20170906-osDisk.841deadd-47c0-43b0-9b00-99057fb109bb.vhd,All,./startupScripts/win2016-20170613.ps1,D:\j
+win2016-20170613-internal,win2016-20170613-internal,Windows,system,Microsoft.Compute/Images/dotnetci/win2016-20170906-osDisk.841deadd-47c0-43b0-9b00-99057fb109bb.vhd,All,./startupScripts/win2016-20170613-internal.ps1,D:\j
 win2016-20170712,win2016-20170712,Windows,system,Microsoft.Compute/Images/dotnetci/win2016-20170831-osDisk.7a6e657d-7846-4425-b5a4-874ed3b870a6.vhd,All,./startupScripts/win2016-20170712.ps1,D:\j
 win2016-20170712-internal,win2016-20170712-internal,Windows,system,Microsoft.Compute/Images/dotnetci/win2016-20170831-osDisk.7a6e657d-7846-4425-b5a4-874ed3b870a6.vhd,All,./startupScripts/win2016-20170712-internal.ps1,D:\j
 win2016-20170717,win2016-20170717,Windows,system,Microsoft.Compute/Images/dotnetci/win2016-20170717-osDisk.2e99bf88-2069-4597-b336-09a60a2a4d00.vhd,All,./startupScripts/win2016-20170717.ps1,D:\j
