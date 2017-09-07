@@ -89,6 +89,22 @@ class Utilities {
     }
 
     /**
+     * Retrieve the branch name without the
+     *
+     * @param rawBranchName Branch name, potentially with star slash
+     *
+     * @return Branch namer without star slash
+     */
+    def private static getBranchName(String rawBranchName) {
+        // Remove */ for branch name
+        String branchName = rawBranchName
+        if (rawBranchName.indexOf("*/") == 0) {
+            branchName = rawBranchName.substring(2)
+        }
+        return branchName
+    }
+
+    /**
      * Define a set of OS names which can resore and use managed build tools with a non-default RID.
      * This controls the __PUBLISH_RID environment variable which affects init-tools behavior.
      * Entries placed in this list are temporary, and should be removed when NuGet packages are published
@@ -889,6 +905,8 @@ class Utilities {
                 booleanParam('ReproBuild', false, 'Check to enable repro functionality. This option is currently in development.')
                 // Telemetry
                 stringParam('DOTNET_CLI_TELEMETRY_PROFILE', "IsInternal_CIServer;${project}", 'This is used to differentiate the internal CI usage of CLI in telemetry.  This gets exposed in the environment and picked up by the CLI product.')
+                stringParam('QualifiedRepoName', project, 'Combined Github/VSTS project/org and repo name')
+                stringParam('BranchName', Utilities.getBranchName(defaultBranch), 'Branch name (without */)')
             }
         }
     }
@@ -908,6 +926,8 @@ class Utilities {
                 stringParam('GitRefSpec', defaultRefSpec, 'RefSpec.  WHEN SUBMITTING PRIVATE JOB FROM YOUR OWN REPO, CLEAR THIS FIELD (or it won\'t find your code)')
                 stringParam('DOTNET_CLI_TELEMETRY_PROFILE', "IsInternal_CIServer;${project}", 'This is used to differentiate the internal CI usage of CLI in telemetry.  This gets exposed in the environment and picked up by the CLI product.')
                 booleanParam('ReproBuild', false, 'Check to enable repro functionality. This option is currently in development.')
+                stringParam('QualifiedRepoName', project, 'Combined Github/VSTS project/org and repo name')
+                stringParam('BranchName', Utilities.getBranchName(defaultBranchOrCommit), 'Branch name (without */)')
             }
         }
     }
