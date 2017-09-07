@@ -649,6 +649,7 @@ class Utilities {
             'java.util.concurrent.ExecutionException: Invalid object ID',
             'hexadecimal value.*is an invalid character.', // This is here until NuGet cache corruption issue is root caused and fixed.
             'The plugin hasn\'t been performed correctly: Problem on deletion',
+            'No space left on device'
             ]
         def regex = '(?i).*('
         regex += Utilities.joinStrings(expressionsToRetry, '|')
