@@ -2,7 +2,7 @@ import org.dotnet.ci.util.Agents
 
 // Example:
 //
-// simpleNode('OSX10.12', 'latest') { <= braces define the closure, implicitly passed as the last parameter
+// simpleNode('osx-10.12') { <= braces define the closure, implicitly passed as the last parameter
 //     checkout scm
 //     sh 'echo Hello world'
 // }
@@ -10,11 +10,10 @@ import org.dotnet.ci.util.Agents
 // Runs a set of functionality on the default node
 // that supports docker.
 // Parameters:
-//  osName - Docker image to use
-//  imageVersion - Version of the OS image.  See Agents.getMachineAffinity
+//  label - label to use
 //  body - Closure, see example
-def call(String osName, version, Closure body) {
-    node (Agents.getAgentLabel(osName, version)) {
+def call(String label, Closure body) {
+    node (label) {
         // Clean.  Currently processes are killed at the end of the node block, but we don't have an easy way to run the cleanup
         // after the node block exits currently.  Cleaning at the start should be sufficient.
         step([$class: 'WsCleanup'])
@@ -53,4 +52,21 @@ def call(String osName, version, Closure body) {
             }
         }
     }
+}
+
+// Example:
+//
+// simpleNode('OSX10.12', 'latest') { <= braces define the closure, implicitly passed as the last parameter
+//     checkout scm
+//     sh 'echo Hello world'
+// }
+
+// Runs a set of functionality on the default node
+// that supports docker.
+// Parameters:
+//  osName - Docker image to use
+//  imageVersion - Version of the OS image.  See Agents.getMachineAffinity
+//  body - Closure, see example
+def call(String osName, version, Closure body) {
+    simpleNode(Agents.getAgentLabel(osName, version), body)
 }
