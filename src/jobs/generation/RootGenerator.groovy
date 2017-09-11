@@ -377,6 +377,52 @@ job('system_cleaner') {
     }
 }
 
+// Temporary workaround for a deadlock in JNA.  Remove the swap space monitor from the list of monitors in Jenkins if it exists.
+// https://issues.jenkins-ci.org/browse/JENKINS-39179 and https://github.com/java-native-access/jna/issues/652
+job('swap_space_monitor_remover') {
+    logRotator {
+        daysToKeep(7)
+    }
+
+    scm {
+        git {
+            remote {
+                if (isVSTS) {
+                    url("https://mseng.visualstudio.com/Tools/_git/DotNet-CI-Trusted")
+                    credentials('vsts-dotnet-ci-trusted-creds')
+                }
+                else {
+                    github("dotnet/dotnet-ci")
+                }
+            }
+            branch("*/${SDKImplementationBranch}")
+        }
+    }
+
+    // Run hourly
+    triggers {
+        cron('@hourly')
+    }
+
+    // We stream from the workspace since in the groovy 2.0 plugin, the scripts
+    // read from disk always execute in the sandbox. This is not the case with inline scripts.
+    // This is a bug.  https://issues.jenkins-ci.org/browse/JENKINS-43700
+    steps {
+        // Rather
+        systemGroovy {
+            source {
+                stringSystemScriptSource {
+                    script {
+                        script (readFileFromWorkspace('scripts/disable_swap_space_monitor.groovy'))
+                        // Don't execute in sandbox
+                        sandbox (false)
+                    }
+                }
+            }
+        }
+    }
+}
+
 // Create the generator cleaner job
 job('generator_cleaner') {
     logRotator {
