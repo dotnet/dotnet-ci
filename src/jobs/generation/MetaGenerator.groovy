@@ -43,6 +43,9 @@ class Repo {
     String credentials
     // True if this is an SDK test.
     boolean isDSLTest
+    // True if the paths for job generation should be filtered, false if it should
+    // be triggered on every change. https://github.com/dotnet/core-eng/issues/1531
+    boolean useFilteredGenerationTriggers
 
     def Repo(String project,
              String[] folders,
@@ -53,7 +56,8 @@ class Repo {
              String utilitiesRepoBranch,
              String collection,
              String credentials,
-             boolean isDSLTest) {
+             boolean isDSLTest,
+             boolean useFilteredGenerationTriggers) {
         this.project = project
         this.folders = folders
         this.branch = branch
@@ -64,6 +68,7 @@ class Repo {
         this.collection = collection
         this.credentials = credentials
         this.isDSLTest = isDSLTest
+        this.useFilteredGenerationTriggers = useFilteredGenerationTriggers
     }
 
     // Parse the input string and return a Repo object
@@ -95,6 +100,9 @@ class Repo {
         String credentials = null
         // Is this a test of the CI SDK DSL functionality?
         boolean isDSLTest = false
+        // True if the paths for job generation should be filtered, false if it should
+        // be triggered on every change. https://github.com/dotnet/core-eng/issues/1531
+        boolean useFilteredGenerationTriggers = false
 
         // Check whether it contains a single forward slash
         assert project.indexOf('/') != -1 && project.indexOf('/') == project.lastIndexOf('/')
@@ -143,6 +151,9 @@ class Repo {
             }
             else if(element.startsWith('isDSLTest=true')) {
                 isDSLTest = true
+            }
+            else if(element.startsWith('useFilteredGenerationTriggers=')) {
+                useFilteredGenerationTriggers = element.substring('useFilteredGenerationTriggers='.length()).toBoolean()
             }
             else {
                 out.println("Unknown element " + element);
@@ -200,7 +211,9 @@ class Repo {
         folders += Utilities.getFolderName(branch)
 
         // Construct a new object and return
-        return new Repo(project, folders, branch, server, definitionScript, utilitiesRepo, utilitiesRepoBranch, collection, credentials, isDSLTest)
+        return new Repo(project, folders, branch, server, definitionScript, utilitiesRepo,
+                        utilitiesRepoBranch, collection, credentials,
+                        isDSLTest, useFilteredGenerationTriggers)
     }
 }
 
@@ -392,7 +405,7 @@ repos.each { repoInfo ->
                     }
 
                     // Set up polling ignore, unless this is a DSL test
-                    if (!repoInfo.isDSLTest) {
+                    if (!repoInfo.isDSLTest && repoInfo.useFilteredGenerationTriggers) {
                         configure { node ->
                             node /'extensions' << 'hudson.plugins.git.extensions.impl.PathRestriction' {
                                 // Not sure whether polling takes into account the target dir, so just
@@ -513,8 +526,12 @@ repos.each { repoInfo ->
             // Enable the push trigger.
             jobGenerator.with {
                 triggers {
-                    scm('H/15 * * * *') {
-                        ignorePostCommitHooks(true)
+                    if (repoInfo.useFilteredGenerationTriggers) {
+                        scm('H/15 * * * *') {
+                            ignorePostCommitHooks(true)
+                        }
+                    } else {
+                        githubPush()
                     }
                 }
             }
