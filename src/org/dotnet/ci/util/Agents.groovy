@@ -117,8 +117,6 @@ class Agents {
                             // El Capitan
                             'OSX10.11' :
                                 [
-                                // Generic version label
-                                '' : 'osx-10.11',
                                 // Latest auto image.
                                 'latest':'osx-10.11',
                                 // For elevated runs
@@ -127,7 +125,7 @@ class Agents {
                             // Sierra
                             'OSX10.12' :
                                 [
-                                // Latest (helix/static).
+                                // Latest auto image.
                                 'latest':'osx-10.12 || OSX.1012.Amd64.Open',
                                 // For elevated runs
                                 'latest-elevated':'osx-10.12-elevated'
@@ -215,6 +213,10 @@ class Agents {
                                 'latest-dev15-3-preview7' : 'win2016-20170802',
                                 // win2016-base + Dev15.3 preview 7
                                 'latest-dev15-3-preview7-internal' : 'win2016-20170802-internal',
+                                // win2016-base + Dev15.3
+                                'latest-dev15-3' : 'win2016-20170814',
+                                // win2016-base + Dev15.3
+                                'latest-dev15-3-internal' : 'win2016-20170814-internal',
                                 // For elevated runs
                                 'latest-elevated':'win2012-20170608-elevated',
                                 // For arm64 builds
@@ -246,11 +248,6 @@ class Agents {
                                 // Latest auto image.
                                 'latest':'win2008-20170303'
                                 ],
-                            'FreeBSD' :
-                                [
-                                // Latest auto image.
-                                'latest':'freebsd-20161026'
-                                ],
                             'RHEL7.2' :
                                 [
                                 '' : 'rhel72-20170525',
@@ -268,21 +265,6 @@ class Agents {
                                 // For outerloop runs, using Linux kernel version 4.6.4
                                 'outer-linux464': 'centos71-20160609.1-20160715outer'
                                 ],
-                            'OpenSUSE13.2' :
-                                [
-                                '' : 'suse132-20160315',
-                                // Latest auto image.
-                                'latest':'suse132-20160315',
-                                // For outerloop runs
-                                'outer-latest':'suse132-20160315outer'
-                                ],
-                            'OpenSUSE42.1' :
-                                [
-                                // Latest auto image.
-                                'latest':'suse421-20170216',
-                                // For outerloop runs
-                                'outer-latest':'suse421-20170216-outer'
-                                ],
                             'Debian8.2' :
                                 [
                                 '' : 'deb82-20160323',
@@ -296,14 +278,6 @@ class Agents {
                                 'latest':'deb84-20170214',
                                 // For outerloop runs
                                 'outer-latest':'deb84-20170214-outer'
-                                ],
-                            'Fedora23' :
-                                [
-                                '' : 'fedora23-20160622',
-                                // Latest auto image.
-                                'latest':'fedora23-20160622',
-                                // For outerloop runs
-                                'outer-latest':'fedora23-20160622outer'
                                 ],
                             'Fedora24' :
                                 [
