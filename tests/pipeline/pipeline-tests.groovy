@@ -64,6 +64,14 @@ stage ('Run Tests') {
                 }
             },
 
+            "simpleNode - osx-10.12" : {
+                timeout (60) {
+                    simpleNode('osx-10.12') {
+                        checkoutRepo()
+                    }
+                }
+            },
+
             "getBranch" : {
                 // getBranch
                 simpleNode('Windows_NT', 'latest') {
