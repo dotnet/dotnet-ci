@@ -1025,7 +1025,7 @@ class Utilities {
                     StorageName("workspaceUpload")
                     StorageAccount("reproworkspace")
                     StorageContainer("workspace")
-                    APIBaseURI("https://repro-tool-int.westus2.cloudapp.azure.com/")
+                    APIBaseURI("https://repro-tool.westus2.cloudapp.azure.com/")
                     CredentialsId("")
                 }
             }
