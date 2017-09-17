@@ -123,6 +123,7 @@ Microsoft/ChakraCore branch=release/1.4-ci server=dotnet-ci2
 Microsoft/ChakraCore branch=release/1.5 server=dotnet-ci2
 Microsoft/ChakraCore branch=release/1.6 server=dotnet-ci2
 Microsoft/ChakraCore branch=release/1.7 server=dotnet-ci2
+Microsoft/ChakraCore branch=intl-icu server=dotnet-ci2
 Microsoft/ChakraCore branch=wasm.simd server=dotnet-ci2
 Microsoft/ChakraCore branch=builtins server=dotnet-ci2
 Microsoft/ConcordExtensibilitySamples branch=master server=dotnet-ci
