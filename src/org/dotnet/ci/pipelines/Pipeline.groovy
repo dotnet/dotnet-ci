@@ -138,7 +138,7 @@ class Pipeline {
         // Create a new source control for the basic setup here.
         // By default today we're using the r/o PAT that identifies the cloner as dotnet-bot
         // to avoid API rate limit issues when cloning the pipeline script, which happens on the master.
-        def scm = new GithubPipelineScm(project, branch)
+        def scm = new GithubPipelineScm(project, branch, 'dotnet-bot-readonly-public-clone-token')
         newPipeline.setSourceControl(scm)
         return newPipeline
     }
