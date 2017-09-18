@@ -87,6 +87,7 @@ dotnet/roslyn branch=features/remotels server=dotnet-ci
 dotnet/roslyn branch=features/localfunc-region-analysis server=dotnet-ci
 dotnet/roslyn-analyzers branch=master server=dotnet-ci
 dotnet/roslyn-analyzers branch=dev15.3 server=dotnet-ci
+dotnet/roslyn-tools branch=master server=dotnet-ci
 dotnet/project-system branch=master server=dotnet-ci
 dotnet/project-system branch=dev15.0.x server=dotnet-ci
 dotnet/project-system branch=dev15.3.x server=dotnet-ci
