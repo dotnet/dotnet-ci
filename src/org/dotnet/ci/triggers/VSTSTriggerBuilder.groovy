@@ -39,7 +39,7 @@ class VSTSTriggerBuilder implements TriggerBuilder {
      * @return New trigger builder
      */
     def static VSTSTriggerBuilder triggerOnPullRequest() {
-        assert false : "nyi"
+        return new VSTSTriggerBuilder(TriggerType.PULLREQUEST)
     }
 
     /**
@@ -57,7 +57,7 @@ class VSTSTriggerBuilder implements TriggerBuilder {
     void emitTrigger(def job) {
     
         if (this._triggerType == TriggerType.PULLREQUEST) {
-            assert false : "nyi"
+            this.emitPRTrigger(job)
         }
         else if (this._triggerType == TriggerType.COMMIT) {
             this.emitCommitTrigger(job)
@@ -74,22 +74,30 @@ class VSTSTriggerBuilder implements TriggerBuilder {
     def private emitCommitTrigger(def job) {
         job.with {
             triggers {
-                // ISSUE: Today the push trigger has a bug, which causes it to not
-                // work for all configured projects and all branches.  This is being fixed.  In the meantime,
-                // set up an scm trigger instead.  This is inefficient but doable in the interim.
-                // Uncomment this when fixed.
-                // teamPushTrigger()
-
-                // poll every 5 mins.
-                scm('H/5 * * * *') {
-                    ignorePostCommitHooks(true)
-                }
+                teamPushTrigger()
             }
         }
 
         // Record the push trigger.  We look up in the side table to see what branches this
         // job was set up to build
         JobReport.Report.addPushTriggeredJob(job.name)
+        Utilities.addJobRetry(job)
+    }
+
+    /**
+     * Emits a PR trigger.
+     *
+     */
+    def private emitPRTrigger(def job) {
+        job.with {
+            triggers {
+                teamPRPushTrigger()
+            }
+        }
+
+        // Record the PR trigger.  We look up in the side table to see what branches this
+        // job was set up to build
+        JobReport.Report.addPRTriggeredJob(job.name)
         Utilities.addJobRetry(job)
     }
 }
