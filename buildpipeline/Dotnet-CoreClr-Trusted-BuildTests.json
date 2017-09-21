@@ -50,7 +50,7 @@
       },
       "inputs": {
         "filename": "sync.cmd",
-        "arguments": "-n -AzureAccount=$(CloudDropAccountName) -AzureToken=$(CloudDropAccessToken) -Container=$(Label)-$(Rid) -RuntimeId=$(Rid)",
+        "arguments": "-ab -AzureAccount=$(CloudDropAccountName) -AzureToken=$(CloudDropAccessToken) -Container=$(PB_ContainerName) -RuntimeId=$(Rid) -BlobNamePrefix=$(PB_BlobNamePrefix)$(PB_BuildType)/TestNativeBins/$(Rid) -- /p:DownloadDirectory=./packages/TestNativeBins/$(Rid)",
         "workingFolder": "",
         "failOnStandardError": "false"
       }
@@ -68,7 +68,7 @@
       },
       "inputs": {
         "filename": "sync.cmd",
-        "arguments": "-ab -AzureAccount=$(CloudDropAccountName) -AzureToken=$(CloudDropAccessToken) -Container=$(Label) -BlobNamePrefix=$(PB_BuildType)/pkg/Microsoft",
+        "arguments": "-ab -AzureAccount=$(CloudDropAccountName) -AzureToken=$(CloudDropAccessToken) -Container=$(PB_ContainerName) -BlobNamePrefix=$(PB_BlobNamePrefix)$(PB_BuildType)/pkg/Microsoft",
         "workingFolder": "",
         "failOnStandardError": "false"
       }
@@ -86,7 +86,7 @@
       },
       "inputs": {
         "filename": "sync.cmd",
-        "arguments": "-ab -AzureAccount=$(CloudDropAccountName) -AzureToken=$(CloudDropAccessToken) -Container=$(Label) -BlobNamePrefix=$(PB_BuildType)/pkg/runtime",
+        "arguments": "-ab -AzureAccount=$(CloudDropAccountName) -AzureToken=$(CloudDropAccessToken) -Container=$(PB_ContainerName) -BlobNamePrefix=$(PB_BlobNamePrefix)$(PB_BuildType)/pkg/runtime",
         "workingFolder": "",
         "failOnStandardError": "false"
       }
