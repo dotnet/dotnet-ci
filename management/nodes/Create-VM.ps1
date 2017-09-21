@@ -30,6 +30,7 @@ param (
     [string]$ImageVHD = $null,
     [ValidateSet('Windows','Linux')]
     [string]$OperatingSystem = $null,
+    [ValidateLength(0, 14)]
     [string]$VMName = $(Read-Host -prompt "VM name to deploy"),
     [string]$ResourceGroupName = 'dotnet-ci-user-vms',
     [string]$Location = 'westus2',
@@ -153,5 +154,5 @@ else {
 New-AzureRmVM -ResourceGroupName $ResourceGroupName -Location $Location -VM $vm
 
 # Retrieve the connection info
-Write-Output "\nRetrieving connection information..."
+Write-Output "`r`nRetrieving connection information..."
 .\Get-Connection-Info.ps1 $VMName -ResourceGroupName $ResourceGroupName
