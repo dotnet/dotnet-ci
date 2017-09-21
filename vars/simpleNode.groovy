@@ -1,4 +1,5 @@
 import org.dotnet.ci.util.Agents
+import org.dotnet.ci.util.Constants
 
 // Example:
 //
@@ -11,8 +12,9 @@ import org.dotnet.ci.util.Agents
 // that supports docker.
 // Parameters:
 //  label - label to use
+//  timeoutInMinutes - Timeout in minutes for the body of the node.
 //  body - Closure, see example
-def call(String label, Closure body) {
+def call(String label, int timeoutInMinutes, Closure body) {
     node (label) {
         // Clean.  Currently processes are killed at the end of the node block, but we don't have an easy way to run the cleanup
         // after the node block exits currently.  Cleaning at the start should be sufficient.
@@ -23,7 +25,7 @@ def call(String label, Closure body) {
         try {
             timestamps {
                 // Wrap in the default timeout of 120 mins
-                timeout(120) {
+                timeout(timeoutInMinutes) {
                     body()
                 }
             }
@@ -54,6 +56,15 @@ def call(String label, Closure body) {
     }
 }
 
+// Runs a set of functionality on the default node
+// that supports docker.
+// Parameters:
+//  label - label to use
+//  body - Closure, see example
+def call(String label, Closure body) {
+    simpleNode(label, Constants.DEFAULT_PIPELINE_TIMEOUT, body)
+}
+
 // Example:
 //
 // simpleNode('OSX10.12', 'latest') { <= braces define the closure, implicitly passed as the last parameter
@@ -65,8 +76,19 @@ def call(String label, Closure body) {
 // that supports docker.
 // Parameters:
 //  osName - Docker image to use
-//  imageVersion - Version of the OS image.  See Agents.getMachineAffinity
+//  version - Version of the OS image.  See Agents.getMachineAffinity
 //  body - Closure, see example
-def call(String osName, version, Closure body) {
-    simpleNode(Agents.getAgentLabel(osName, version), body)
+def call(String osName, String version, Closure body) {
+    simpleNode(Agents.getAgentLabel(osName, version), Constants.DEFAULT_PIPELINE_TIMEOUT, body)
+}
+
+// Runs a set of functionality on the default node
+// that supports docker.
+// Parameters:
+//  osName - Docker image to use
+//  version - Version of the OS image.  See Agents.getMachineAffinity
+//  timeoutInMinutes - Timeout in minutes for the body of the node
+//  body - Closure, see example
+def call(String osName, String version, int timeoutInMinutes, Closure body) {
+    simpleNode(Agents.getAgentLabel(osName, version), timeoutInMinutes, body)
 }
