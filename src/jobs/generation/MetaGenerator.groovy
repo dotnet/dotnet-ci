@@ -329,7 +329,7 @@ repos.each { repoInfo ->
 
                         if (isDSLPRFromSameRepo) {
                             if (isVSTS) {
-                                refspec('+refs/pull/${ghprbPullId}/merge:refs/remotes/pull/${ghprbPullId}/merge')
+                                refspec(vstsRefspec)
                             }
                             else {
                                 refspec('+refs/pull/${ghprbPullId}/*:refs/remotes/origin/pr/${ghprbPullId}/*')
@@ -348,7 +348,7 @@ repos.each { repoInfo ->
                     // If this is a PR DSL test, then pull the SDK from the PR branch
                     if (isDSLPRFromSameRepo) {
                         if (isVSTS) {
-                            branch("*/${repoInfo.utilitiesRepoBranch}")
+                            branch(vstsBranch)
                         }
                         else {
                             branch('${sha1}')
@@ -371,7 +371,7 @@ repos.each { repoInfo ->
 
                         if (isPRTest) {
                             if (isVSTS) {
-                                refspec('+refs/pull/${ghprbPullId}/merge:refs/remotes/pull/${ghprbPullId}/merge')
+                                refspec(vstsRefspec)
                             }
                             else {
                                 refspec('+refs/pull/${ghprbPullId}/*:refs/remotes/origin/pr/${ghprbPullId}/*')
@@ -394,7 +394,7 @@ repos.each { repoInfo ->
                     // If not a PR, then the branch name should be the target branch
                     if (isPRTest) {
                         if (isVSTS) {
-                            branch("*/${repoInfo.branch}")
+                            branch(vstsBranch)
                         }
                         else {
                             branch('${sha1}')
