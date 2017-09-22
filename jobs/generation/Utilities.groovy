@@ -332,6 +332,7 @@ class Utilities {
                                 'win2016-20161018-1':'win2016-20161018-1',
                                 // Docker 17.06.1-ee-2
                                 'win2016-20170921':'win2016-20170921',
+                                'latest-docker':'win2016-20170921',
                                 // Latest auto image w/docker (move to latest-or-auto when possible)
                                 'latest-containers':'win2016-20161018-1',
                                 // Latest auto image.
