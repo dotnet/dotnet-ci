@@ -30,7 +30,6 @@ param (
     [string]$ImageVHD = $null,
     [ValidateSet('Windows','Linux')]
     [string]$OperatingSystem = $null,
-    [ValidateLength(0, 14)]
     [string]$VMName = $(Read-Host -prompt "VM name to deploy"),
     [string]$ResourceGroupName = 'dotnet-ci-user-vms',
     [string]$Location = 'westus2',
