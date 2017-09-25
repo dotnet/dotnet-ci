@@ -32,11 +32,12 @@ dotnet/core-setup branch=release/uwp6.0 server=dotnet-ci
 dotnet/codeformatter branch=master server=dotnet-ci2
 dotnet/coreclr branch=master server=dotnet-ci
 dotnet/coreclr branch=master server=dotnet-ci4
-dotnet/coreclr branch=master server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy utilitiesRepoBranch=dev/pipelinesupport
 dotnet/coreclr branch=master server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
+dotnet/coreclr branch=master server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy utilitiesRepoBranch=dev/pipelinesupport
 dotnet/coreclr branch=release/1.1.0 server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/coreclr branch=release/2.0.0 server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 jorive/coreclr branch=dev/baseline-with-new-api server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
+nategraf/coreclr branch=perf-ci-test server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/coreclr branch=release/1.0.0 server=dotnet-ci
 dotnet/coreclr branch=release/1.1.0 server=dotnet-ci
 dotnet/coreclr branch=release/2.0.0 server=dotnet-ci
@@ -59,16 +60,16 @@ dotnet/dotnet-docker-nightly branch=master server=dotnet-ci
 dotnet/orleans branch=master server=dotnet-ci
 dotnet/ProjFileTools branch=master server=dotnet-ci
 dotnet/roslyn branch=dev15.0.x server=dotnet-ci
-dotnet/roslyn branch=dev15.0.x subFolder=perf definitionScript=perf.groovy server=dotnet-ci2
+dotnet/roslyn branch=dev15.0.x subFolder=perf definitionScript=perf.groovy server=dotnet-ci2 useFilteredGenerationTriggers=false
 dotnet/roslyn branch=dev15.3.x server=dotnet-ci
-dotnet/roslyn branch=dev15.3.x subFolder=perf definitionScript=perf.groovy server=dotnet-ci2
+dotnet/roslyn branch=dev15.3.x subFolder=perf definitionScript=perf.groovy server=dotnet-ci2 useFilteredGenerationTriggers=false
 dotnet/roslyn branch=dev15.4.x server=dotnet-ci
-dotnet/roslyn branch=dev15.4.x subFolder=perf definitionScript=perf.groovy server=dotnet-ci2
+dotnet/roslyn branch=dev15.4.x subFolder=perf definitionScript=perf.groovy server=dotnet-ci2 useFilteredGenerationTriggers=false
 dotnet/roslyn branch=dev16 server=dotnet-ci
 dotnet/roslyn branch=master server=dotnet-ci
-dotnet/roslyn branch=master subFolder=perf definitionScript=perf.groovy server=dotnet-ci2
+dotnet/roslyn branch=master subFolder=perf definitionScript=perf.groovy server=dotnet-ci2 useFilteredGenerationTriggers=false
 dotnet/roslyn branch=dev15.5.x server=dotnet-ci
-dotnet/roslyn branch=dev15.5.x subFolder=perf definitionScript=perf.groovy server=dotnet-ci2
+dotnet/roslyn branch=dev15.5.x subFolder=perf definitionScript=perf.groovy server=dotnet-ci2 useFilteredGenerationTriggers=false
 dotnet/roslyn branch=microupdate server=dotnet-ci
 dotnet/roslyn branch=features/DefaultInterfaceImplementation server=dotnet-ci
 dotnet/roslyn branch=features/editorconfig-in-compiler server=dotnet-ci
@@ -84,12 +85,15 @@ dotnet/roslyn branch=features/remotels server=dotnet-ci
 dotnet/roslyn branch=features/localfunc-region-analysis server=dotnet-ci
 dotnet/roslyn-analyzers branch=master server=dotnet-ci
 dotnet/roslyn-analyzers branch=dev15.3 server=dotnet-ci
+dotnet/roslyn-tools branch=master server=dotnet-ci
 dotnet/project-system branch=master server=dotnet-ci
 dotnet/project-system branch=dev15.0.x server=dotnet-ci
 dotnet/project-system branch=dev15.3.x server=dotnet-ci
 dotnet/project-system branch=dev15.4.x server=dotnet-ci
 dotnet/project-system branch=RepoToolset-Exp server=dotnet-ci
 dotnet/source-build branch=master server=dotnet-ci
+dotnet/source-build branch=release/2.0 server=dotnet-ci
+dotnet/source-build branch=dev/release/2.0 server=dotnet-ci
 dotnet/sdk branch=master server=dotnet-ci
 dotnet/sdk branch=rel/1.0.0 server=dotnet-ci
 dotnet/sdk branch=rel/1.1.0 server=dotnet-ci
@@ -120,6 +124,7 @@ Microsoft/ChakraCore branch=release/1.4-ci server=dotnet-ci2
 Microsoft/ChakraCore branch=release/1.5 server=dotnet-ci2
 Microsoft/ChakraCore branch=release/1.6 server=dotnet-ci2
 Microsoft/ChakraCore branch=release/1.7 server=dotnet-ci2
+Microsoft/ChakraCore branch=intl-icu server=dotnet-ci2
 Microsoft/ChakraCore branch=wasm.simd server=dotnet-ci2
 Microsoft/ChakraCore branch=builtins server=dotnet-ci2
 Microsoft/ConcordExtensibilitySamples branch=master server=dotnet-ci
@@ -140,7 +145,6 @@ dotnet/templating branch=rel/vs2017/post-rtw server=dotnet-ci
 dotnet/templating branch=rel/vs2017/3-Preview2 server=dotnet-ci
 dotnet/templating branch=rel/vs2017/3-Preview3 server=dotnet-ci
 dotnet/templating branch=rel/2.1.0-preview1 server=dotnet-ci
-john-soklaski/roslyn branch=benchview_integration server=dotnet-ci2 definitionScript=perf.groovy
 drewscoggins/corefx branch=master server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 drewscoggins/corefx branch=PerfRuns server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/core branch=master server=dotnet-ci2

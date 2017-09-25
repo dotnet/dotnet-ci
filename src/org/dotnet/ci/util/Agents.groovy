@@ -133,8 +133,6 @@ class Agents {
                             // High Sierra
                             'OSX10.13' :
                                 [
-                                // Generic version label
-                                '' : 'osx-10.13',
                                 // Latest auto image.
                                 'latest':'osx-10.13',
                                 // For elevated runs
@@ -213,10 +211,10 @@ class Agents {
                                 'latest-dev15-3-preview7' : 'win2016-20170802',
                                 // win2016-base + Dev15.3 preview 7
                                 'latest-dev15-3-preview7-internal' : 'win2016-20170802-internal',
-                                // win2016-base + Dev15.3
-                                'latest-dev15-3' : 'win2016-20170814',
-                                // win2016-base + Dev15.3
-                                'latest-dev15-3-internal' : 'win2016-20170814-internal',
+                                // win2016-base + Dev15.3.4
+                                'latest-dev15-3' : 'win2016-20170919',
+                                // win2016-base + Dev15.3.4
+                                'latest-dev15-3-internal' : 'win2016-20170919-internal',
                                 // For elevated runs
                                 'latest-elevated':'win2012-20170608-elevated',
                                 // For arm64 builds
@@ -232,6 +230,9 @@ class Agents {
                                 [
                                 // First working containers image
                                 'win2016-20161018-1':'win2016-20161018-1',
+                                // Docker 17.06.1-ee-2
+                                'win2016-20170921':'win2016-20170921',
+                                'latest-docker':'win2016-20170921',
                                 // Latest auto image w/docker (move to latest when possible)
                                 'latest-containers':'win2016-20161018-1',
                                 // Latest auto image.
