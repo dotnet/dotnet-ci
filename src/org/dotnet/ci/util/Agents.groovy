@@ -50,11 +50,11 @@ class Agents {
                             'Ubuntu14.04' :
                                 [
                                 // Generic version label
-                                '':'auto-ubuntu1404-20160211',
-                                // Specific auto-image label
-                                '201626':'auto-ubuntu1404-201626',
+                                '':'ubuntu1404-20160211',
+                                // Specific image label
+                                '201626':'ubuntu1404-201626',
                                 // Contains an updated version of mono
-                                '20160211':'auto-ubuntu1404-20160211.1',
+                                '20160211':'ubuntu1404-20160211.1',
                                 // Contains npm, njs, nvm
                                 '20161020':'ubuntu1404-20161020',
                                 // Contains 20160211-1 + gdb + mono 4.6.2.16
@@ -64,7 +64,7 @@ class Agents {
                                 // Contains the rootfs setup for arm builds.
                                 '20170821':'ubuntu1404-20170821',
                                 // Contains Mono 5.0.1
-                                'arm-cross-latest':'auto-ubuntu1404-20170120',
+                                'arm-cross-latest':'ubuntu1404-20170120',
                                 // Contains the rootfs setup for arm64 builds.
                                 'arm64-cross-latest':'ubuntu1604-20170526',
                                 // Pool of arm64 lab machines 4k page size
@@ -76,34 +76,34 @@ class Agents {
                                 // Latest auto image.
                                 'latest':'ubuntu1404-20170821',
                                 // For outerloop runs.
-                                'outer-latest':'auto-ubuntu1404-201626outer',
+                                'outer-latest':'ubuntu1404-201626outer',
                                 // For internal Ubuntu runs
-                                'latest-internal':'auto-ubuntu1404-20160211.1-internal'
+                                'latest-internal':'ubuntu1404-20160211.1-internal'
                                 ],
                             'Ubuntu15.10' :
                                 [
                                 // Generic version label
-                                '' : 'auto-ubuntu1510-20160307',
+                                '' : 'ubuntu1510-20160307',
                                 // Latest auto image.
-                                'latest':'auto-ubuntu1510-20160307',
+                                'latest':'ubuntu1510-20160307',
                                 // For outerloop runs.
-                                'outer-latest':'auto-ubuntu1510-20160307outer'
+                                'outer-latest':'ubuntu1510-20160307outer'
                                 ],
                             'Ubuntu16.04' :
                                 [
-                                // Contains auto-ubuntu1604-20160803 + gdb + mono 4.6.2.16
+                                // Contains ubuntu1604-20160803 + gdb + mono 4.6.2.16
                                 '20170109':'ubuntu1604-20170109',
                                 //Contains Mono 5.0.1
                                 '20170731':'ubuntu1604-20170731',
                                 // Latest auto image.
                                 'latest':'ubuntu1604-20170731',
-                                // auto-ubuntu1604-20160510 + docker.
+                                // ubuntu1604-20160510 + docker.
                                 // Move this to latest after validation
                                 'latest-docker':'ubuntu1604-20170216',
                                 // For outerloop runs.
                                 'outer-latest':'ubuntu1604-20170216-outer',
                                 // For outerloop runs, using Linux kernel version 4.6.2
-                                'outer-linux462': 'auto-auto-ubuntu1604-20160510-20160715outer'
+                                'outer-linux462': 'ubuntu1604-20160510-20160715outer'
                                 ],
                             'Ubuntu16.10' :
                                 [
@@ -148,14 +148,14 @@ class Agents {
                             'Windows_NT' :
                                 [
                                 // Older images.  VS update 1
-                                '20160325' : 'auto-win2012-20160325',
+                                '20160325' : 'win2012-20160325',
                                 // Older images.  VS update 1
-                                '20160325-elevated' : 'auto-win2012-20160325-elevated',
+                                '20160325-elevated' : 'win2012-20160325-elevated',
                                 // Older images.  VS update 3
-                                '20160627' : 'auto-win2012-20160627',
+                                '20160627' : 'win2012-20160627',
                                 // Older images.  VS update 3
-                                '20160627-elevated' : 'auto-win2012-20160627-elevated',
-                                // auto-win2012-20160824 + .NET 4.6.2
+                                '20160627-elevated' : 'win2012-20160627-elevated',
+                                // win2012-20160824 + .NET 4.6.2
                                 '20161027' : 'win2012-20161027',
                                 // win2016-20170303 + Python 3.2
                                 '20170427' : 'win2012-20170809',
@@ -164,9 +164,9 @@ class Agents {
                                 // the generic unversioned label except for special cases.
                                 'latest':'win2012-20170608',
                                 // Win2012.R2 + VS2013.5 + VS2015.3 + VS15.P3
-                                'latest-dev15':'auto-win2012-20160707',
+                                'latest-dev15':'win2012-20160707',
                                 // Win2012.R2 + VS2013.5 + VS2015.3 + VS15.P4
-                                'latest-dev15-preview4':'auto-win2012-20160912',
+                                'latest-dev15-preview4':'win2012-20160912',
                                 // Win2016 + VS15.P5
                                 'latest-dev15-preview5':'win2016-20161013-1',
                                 // Win2016 + VS15.RC2
@@ -180,9 +180,9 @@ class Agents {
                                 // Win2016 + VS15.3 Preview1
                                 'latest-dev15-3':'win2016-20170507',
                                 // Dev15 image
-                                'latest-dev15':'auto-win2012-20160506',
+                                'latest-dev15':'win2012-20160506',
                                 // For internal runs
-                                'latest-internal':'auto-win2012-20160707-internal',
+                                'latest-internal':'win2012-20160707-internal',
                                 // For internal runs - Win2016 + VS15.RC2
                                 'latest-dev15-rc2-internal':'win2016-20170105-internal',
                                 // For internal runs - Win2016 + VS15.RC4
@@ -196,7 +196,7 @@ class Agents {
                                 // win2016-base + d15prerel-26423.1
                                 'latest-d15prerel-internal' : 'win2016-20170531-internal',
                                 // For internal runs which don't need/want the static 'windows-internal' pool
-                                'latest-dev15-internal':'auto-win2012-20160707-internal',
+                                'latest-dev15-internal':'win2012-20160707-internal',
                                 // win2016-base + Dev15.3 preview 1
                                 'latest-dev15-3-preview1' : 'win2016-20170510',
                                 // win2016-base + Dev15.3 preview 1
@@ -242,7 +242,7 @@ class Agents {
                                 // Latest auto image w/docker (move to latest when possible)
                                 'latest-containers':'win2016-20161018-1',
                                 // Latest auto image.
-                                'latest':'auto-win2016-20160223'
+                                'latest':'win2016-20160223'
                                 ],
                             'Windows 10' :
                                 [
@@ -257,11 +257,11 @@ class Agents {
                                 ],
                             'RHEL7.2' :
                                 [
-                                '' : 'auto-rhel72-20170525',
+                                '' : 'rhel72-20170525',
                                 // Latest auto image.
-                                'latest':'auto-rhel72-20170525',
+                                'latest':'rhel72-20170525',
                                 // For outerloop runs.
-                                'outer-latest':'auto-rhel72-20160412.1outer'
+                                'outer-latest':'rhel72-20160412.1outer'
                                 ],
                             'CentOS7.1' :
                                 [
@@ -270,14 +270,14 @@ class Agents {
                                 // For outerloop runs.
                                 'outer-latest':'centos71-20170216-outer',
                                 // For outerloop runs, using Linux kernel version 4.6.4
-                                'outer-linux464': 'auto-auto-centos71-20160609.1-20160715outer'
+                                'outer-linux464': 'centos71-20160609.1-20160715outer'
                                 ],
                             'Debian8.2' :
                                 [
-                                '' : 'auto-deb82-20160323',
-                                '20160323':'auto-deb82-20160323',
+                                '' : 'deb82-20160323',
+                                '20160323':'deb82-20160323',
                                 // Latest auto image.
-                                'latest':'auto-deb82-20160323'
+                                'latest':'deb82-20160323'
                                 ],
                             'Debian8.4' :
                                 [
@@ -298,9 +298,9 @@ class Agents {
                                 // Use ubuntu14.04 images
                                 // Contains the rootfs setup for arm/arm64 builds.  Move this label forward
                                 // till we have the working build/test, then apply to everything.
-                                'arm-cross-latest':'auto-ubuntu1404-20170120',
+                                'arm-cross-latest':'ubuntu1404-20170120',
                                 // Latest auto image.
-                                'latest':'auto-ubuntu1404-20170120',
+                                'latest':'ubuntu1404-20170120',
                                 ],
                                 // Some nodes don't have git, which is what is required for the
                                 // generators.
