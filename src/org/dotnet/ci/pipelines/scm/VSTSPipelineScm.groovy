@@ -7,7 +7,6 @@ class VSTSPipelineScm implements PipelineScm {
     private String _branch
     private String _credentials
     private String _collection
-    boolean isVSTS = getScmType() == 'VSTS'
 
     public VSTSPipelineScm(String project, String branch, String credentials, String collection) {
         _project = project
@@ -25,12 +24,7 @@ class VSTSPipelineScm implements PipelineScm {
     }
 
     private String getGitUrl() {
-        if (isVSTS) {
-            return Utilities.calculateVSTSGitURL(this._collection, this._project)
-        }
-        else {
-            return Utilities.calculateGitHubURL(this._project)
-        }
+        return Utilities.calculateVSTSGitURL(this._collection, this._project)
     }
 
     /**
@@ -43,19 +37,11 @@ class VSTSPipelineScm implements PipelineScm {
         job.with {
             // Set up parameters for this job
             parameters {
-                if (isVSTS) {
-                    stringParam('VSTSCollectionName', repoInfo.collection, 'VSTS collection name')
-                    stringParam('VSTSCredentialsId', repoInfo.credentials, 'VSTS credentials id')
-                    stringParam('VSTSRepoUrl', this.getGitUrl(), 'VSTS repo to clone.')
-                    stringParam('VSTSRefspec', vstsRefspec, 'VSTS refspec')
-                    stringParam('VSTSBranchOrCommit', vstsBranchOrCommit, 'VSTS commit hash')
-                }
-                else {
-                    stringParam('sha1', '', 'Incoming sha1 parameter from the GHPRB plugin.')
-                    stringParam('GitBranchOrCommit', '${sha1}', 'Git branch or commit to build.  If a branch, builds the HEAD of that branch.  If a commit, then checks out that specific commit.')
-                    stringParam('GitRepoUrl', this.getGitUrl(), 'Git repo to clone.')
-                    stringParam('GitRefSpec', '+refs/pull/${ghprbPullId}/*:refs/remotes/origin/pr/${ghprbPullId}/*', 'RefSpec.  WHEN SUBMITTING PRIVATE JOB FROM YOUR OWN REPO, CLEAR THIS FIELD (or it won\'t find your code)')
-                }
+                stringParam('VSTSCollectionName', repoInfo.collection, 'VSTS collection name')
+                stringParam('VSTSCredentialsId', repoInfo.credentials, 'VSTS credentials id')
+                stringParam('VSTSRepoUrl', this.getGitUrl(), 'VSTS repo to clone.')
+                stringParam('VSTSRefspec', vstsRefspec, 'VSTS refspec')
+                stringParam('VSTSBranchOrCommit', vstsBranchOrCommit, 'VSTS commit hash')
                 stringParam('DOTNET_CLI_TELEMETRY_PROFILE', "IsInternal_CIServer;${_project}", 'This is used to differentiate the internal CI usage of CLI in telemetry.  This gets exposed in the environment and picked up by the CLI product.')
                 
                 stringParam('QualifiedRepoName', this._project, 'Combined GitHub org and repo name')
@@ -73,16 +59,10 @@ class VSTSPipelineScm implements PipelineScm {
                             remote {
                                 // Sets up the project field to the non-parameterized version
                                 url(this.getGitUrl())
-                                if (isVSTS) {
-                                    // Set the refspec to be the parmeterized version
-                                    refspec('${VSTSRefspec}')
-                                    // Set URL to the parameterized version
-                                    url('${VSTSRepoUrl}')
-                                }
-                                else {
-                                    refspec('${GitRefSpec}')
-                                    url('${GitRepoUrl}')
-                                }
+                                // Set the refspec to be the parmeterized version
+                                refspec('${VSTSRefspec}')
+                                // Set URL to the parameterized version
+                                url('${VSTSRepoUrl}')
                                 // Set the credentials, which are always required
                                 credentials(this._credentials)
                             }
