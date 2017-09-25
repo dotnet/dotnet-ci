@@ -703,13 +703,10 @@ class Utilities {
                 booleanParam('AutoSaveReproEnv', false, 'Save Repro Environment automatically for this job.')
                 // Telemetry
                 stringParam('DOTNET_CLI_TELEMETRY_PROFILE', "IsInternal_CIServer;${project}", 'This is used to differentiate the internal CI usage of CLI in telemetry.  This gets exposed in the environment and picked up by the CLI product.')
-<<<<<<< HEAD:src/jobs/generation/Utilities.groovy
                 // Project name (without org)
                 stringParam('GithubProjectName', Utilities.getProjectName(project), 'Project name ')
                 // Org name (without repo)
                 stringParam('GithubOrgName', Utilities.getOrgName(project), 'Project name passed to the DSL generator')
-=======
->>>>>>> master:jobs/generation/Utilities.groovy
                 stringParam('QualifiedRepoName', project, 'Combined Github/VSTS project/org and repo name')
                 stringParam('BranchName', Utilities.getBranchName(defaultBranch), 'Branch name (without */)')
             }
