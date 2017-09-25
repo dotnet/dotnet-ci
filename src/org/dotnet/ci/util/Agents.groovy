@@ -117,8 +117,6 @@ class Agents {
                             // El Capitan
                             'OSX10.11' :
                                 [
-                                // Generic version label
-                                '' : 'osx-10.11',
                                 // Latest auto image.
                                 'latest':'osx-10.11',
                                 // For elevated runs
@@ -127,18 +125,14 @@ class Agents {
                             // Sierra
                             'OSX10.12' :
                                 [
-                                // Generic version label
-                                '' : 'osx-10.12',
                                 // Latest auto image.
-                                'latest':'osx-10.12',
+                                'latest':'osx-10.12 || OSX.1012.Amd64.Open',
                                 // For elevated runs
                                 'latest-elevated':'osx-10.12-elevated'
                                 ],
                             // High Sierra
                             'OSX10.13' :
                                 [
-                                // Generic version label
-                                '' : 'osx-10.13',
                                 // Latest auto image.
                                 'latest':'osx-10.13',
                                 // For elevated runs
