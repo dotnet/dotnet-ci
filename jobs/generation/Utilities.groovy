@@ -157,6 +157,8 @@ class Utilities {
                                 '20170118':'ubuntu1404-20170118',
                                 // Contains the rootfs setup for arm builds.
                                 '20170821':'ubuntu1404-20170821',
+                                // 20170821 + clang 3.9
+                                '20170925':'ubuntu1404-20170925',
                                 // Contains Mono 5.0.1
                                 'arm-cross-latest':'auto-ubuntu1404-20170120',
                                 // Contains the rootfs setup for arm64 builds.
@@ -174,17 +176,12 @@ class Utilities {
                                 // For internal Ubuntu runs
                                 'latest-or-auto-internal':'auto-ubuntu1404-20160211.1-internal'
                                 ],
-                            'Ubuntu15.10' :
-                                [
-                                // Generic version label
-                                '' : 'auto-ubuntu1510-20160307',
-                                // Latest auto image.
-                                'latest-or-auto':'auto-ubuntu1510-20160307',
-                                // For outerloop runs.
-                                'outer-latest-or-auto':'auto-ubuntu1510-20160307outer'
-                                ],
                             'Ubuntu16.04' :
                                 [
+                                // 20170526 + clang 3.9
+                                '20170925':'ubuntu1604-20170925',
+                                // Contains the rootfs setup for arm64 builds.
+                                'arm64-cross-latest':'ubuntu1604-20170526',
                                 // Contains auto-ubuntu1604-20160803 + gdb + mono 4.6.2.16
                                 '20170109':'ubuntu1604-20170109',
                                 //Contains Mono 5.0.1
@@ -201,6 +198,8 @@ class Utilities {
                                 ],
                             'Ubuntu16.10' :
                                 [
+                                // 20170216 + clang 3.9
+                                '20170925':'ubuntu1610-20170925',
                                 // Latest auto image.  This will be used for transitioning
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.

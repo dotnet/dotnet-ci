@@ -24,6 +24,8 @@ ubuntu1604-20170216,ubuntu1604-20170216,Linux,system,Microsoft.Compute/Images/do
 ubuntu1604-20170216-outer,ubuntu1604-20170216-outer,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1604-20170830-osDisk.ca156cab-c57e-45fd-b980-57199ac0e78a.vhd,All,./startupScripts/ubuntu1604-20170216-outer.sh,/mnt/j
 ubuntu1604-20170526,ubuntu1604-20170526,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1604-20170906-osDisk.a4a70718-78cb-49be-b8f3-ffb1ec7fcbb6.vhd,All,./startupScripts/ubuntu1604-20170526.sh,/mnt/j
 ubuntu1604-20170731,ubuntu1604-20170731,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1604-20170828-osDisk.8d2c4f36-cf52-4b99-8ef4-f7a2fc8f85ec.vhd,All,./startupScripts/ubuntu1604-20170216.sh,/mnt/j
+ubuntu1604-20170925,ubuntu1604-20170925,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1604-20170925-osDisk.b5a4de2d-a4f0-45dd-8da3-143cbbf36d4d.vhd,All,./startupScripts/ubuntu1604-20170925.sh,/mnt/j
+ubuntu1604-20170925-outer,ubuntu1604-20170925-outer,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1604-20170925-osDisk.b5a4de2d-a4f0-45dd-8da3-143cbbf36d4d.vhd,All,./startupScripts/ubuntu1604-20170925-outer.sh,/mnt/j
 ubuntu1610-20170216,ubuntu1610-20170216,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1610-20170830-osDisk.b5133ea4-898f-4344-869f-3b5eda534480.vhd,All,./startupScripts/ubuntu1610-20170216.sh,/mnt/j
 ubuntu1610-20170216,ubuntu1610-20170216,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1610-20170830-osDisk.b5133ea4-898f-4344-869f-3b5eda534480.vhd,All,./startupScripts/ubuntu1610-20170216.sh,/mnt/j
 ubuntu1610-20170925,ubuntu1610-20170925,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1610-20170925-osDisk.a51e7ef8-7bb6-4e8b-a108-c5269a099c3d.vhd,All,./startupScripts/ubuntu1610-20170925.sh,/mnt/j
