@@ -186,6 +186,8 @@ class Utilities {
                                 '20170109':'ubuntu1604-20170109',
                                 //Contains Mono 5.0.1
                                 '20170731':'ubuntu1604-20170731',
+                                // 20170731 + clang 3.9
+                                '20170925-1':'ubuntu1604-20170925-1',
                                 // Latest auto image.
                                 'latest-or-auto':'ubuntu1604-20170731',
                                 // auto-ubuntu1604-20160510 + docker.
