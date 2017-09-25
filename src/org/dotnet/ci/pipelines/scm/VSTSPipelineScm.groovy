@@ -48,7 +48,7 @@ class VSTSPipelineScm implements PipelineScm {
                     stringParam('VSTSCredentialsId', repoInfo.credentials, 'VSTS credentials id')
                     stringParam('VSTSRepoUrl', this.getGitUrl(), 'VSTS repo to clone.')
                     stringParam('VSTSRefspec', vstsRefspec, 'VSTS refspec')
-                    stringParam('VSTSBranch', vstsBranch, 'VSTS commit hash')
+                    stringParam('VSTSBranchOrCommit', vstsBranchOrCommit, 'VSTS commit hash')
                 }
                 else {
                     stringParam('sha1', '', 'Incoming sha1 parameter from the GHPRB plugin.')

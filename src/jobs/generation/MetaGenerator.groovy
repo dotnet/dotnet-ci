@@ -348,7 +348,7 @@ repos.each { repoInfo ->
                     // If this is a PR DSL test, then pull the SDK from the PR branch
                     if (isDSLPRFromSameRepo) {
                         if (isVSTS) {
-                            branch(vstsBranch)
+                            branch(vstsBranchOrCommit)
                         }
                         else {
                             branch('${sha1}')
@@ -394,7 +394,7 @@ repos.each { repoInfo ->
                     // If not a PR, then the branch name should be the target branch
                     if (isPRTest) {
                         if (isVSTS) {
-                            branch(vstsBranch)
+                            branch(vstsBranchOrCommit)
                         }
                         else {
                             branch('${sha1}')
