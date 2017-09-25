@@ -64,9 +64,9 @@ stage ('Run Tests') {
                 }
             },
 
-            "simpleNode - osx-10.12" : {
+            "simpleNode - Explicit expression" : {
                 timeout (60) {
-                    simpleNode('osx-10.12') {
+                    simpleNode('osx-10.12 || OSX.1012.Amd64.Open') {
                         checkoutRepo()
                     }
                 }
