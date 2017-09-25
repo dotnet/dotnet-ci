@@ -276,6 +276,18 @@ class Pipeline {
         return triggerPipelineOnGithubPRComment(context, null, parameters)
     }
 
+    // Triggers a puipeline on every VSTS PR.
+    // Parameters:
+    //  context - The context that appears for the status check in the VSTS UI
+    //  parameter - Optional set of key/value pairs of string parameters that will be passed to the pipeline
+    public def triggerPipelineOnEveryVSTSPR(String context, Map<String,Object> parameters = [:]) {
+        // Create a trigger builder and pass it to the generic triggerPipelineOnEvent
+        VSTSTriggerBuilder builder = VSTSTriggerBuilder.triggerOnPullRequest()
+
+        // Call the generic API
+        return triggerPipelineOnEvent(builder, parameters)
+    }
+
     /**
      * Triggers a pipeline on every push.
      *
@@ -295,7 +307,7 @@ class Pipeline {
         }
     }
 
-    // Triggers a pipeline on a Github Push
+    // Triggers a pipeline on a VSTS Push
     // Parameters:
     //  parameters - Parameters to pass to the pipeline on a push
     // Returns:
