@@ -146,10 +146,10 @@ stage ('Run Tests') {
 
             "getUserEmail - GitHub PR" : {
                 simpleNode('Ubuntu14.04', 'latest') {
-                    withEnv(['ghprbPullAuthorEmail=blah@blah.com', 'ghprbGhRepository=foo/bar']) {
+                    // withEnv(['ghprbPullAuthorEmail=blah@blah.com', 'ghprbGhRepository=foo/bar']) {
                         def userEmail = getUserEmail()
                         assert userEmail == 'blah@blah.com' : "Expected getUserEmail would return blah@blah.com, actually got ${userEmail}"
-                    }
+                    // }
                 }
             },
 
