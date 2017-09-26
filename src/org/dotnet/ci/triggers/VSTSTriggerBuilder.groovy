@@ -106,7 +106,7 @@ class VSTSTriggerBuilder implements TriggerBuilder {
     def private emitCommitTrigger(def job) {
         job.with {
             triggers {
-                TeamPushTrigger(job, this._targetBranches, this._contextString)
+                TeamPushTrigger(job, this._contextString)
             }
             // Record the push trigger.  We look up in the side table to see what branches this
             // job was set up to build
