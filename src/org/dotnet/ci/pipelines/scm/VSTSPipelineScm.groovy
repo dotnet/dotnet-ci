@@ -41,7 +41,7 @@ class VSTSPipelineScm implements PipelineScm {
                 stringParam('VSTSCredentialsId', this._credentials, 'VSTS credentials id')
                 stringParam('VSTSRepoUrl', this.getGitUrl(), 'VSTS repo to clone.')
                 stringParam('vstsRefspec', '', 'VSTS refspec')
-                stringParam('vstsBranchOrCommit', '*/master', 'VSTS commit hash')
+                stringParam('vstsBranchOrCommit', '*/${this._branch}', 'VSTS commit hash')
                 stringParam('DOTNET_CLI_TELEMETRY_PROFILE', "IsInternal_CIServer;${_project}", 'This is used to differentiate the internal CI usage of CLI in telemetry.  This gets exposed in the environment and picked up by the CLI product.')
 
                 stringParam('QualifiedRepoName', this._project, 'Combined GitHub org and repo name')
@@ -60,7 +60,7 @@ class VSTSPipelineScm implements PipelineScm {
                                 // Sets up the project field to the non-parameterized version
                                 url(this.getGitUrl())
                                 // Set the refspec to be the parmeterized version
-                                refspec('${VSTSRefspec}')
+                                refspec('${vstsRefspec}')
                                 // Set URL to the parameterized version
                                 url('${VSTSRepoUrl}')
                                 // Set the credentials, which are always required
@@ -96,7 +96,7 @@ class VSTSPipelineScm implements PipelineScm {
                 stringParam('VSTSCredentialsId', this._credentials, 'VSTS credentials id')
                 stringParam('VSTSRepoUrl', this.getGitUrl(), 'VSTS repo to clone.')
                 stringParam('vstsRefspec', '+refs/heads/*:refs/remotes/origin/*', 'VSTS refspec')
-                stringParam('vstsBranchOrCommit', '*/master', 'VSTS commit hash')
+                stringParam('vstsBranchOrCommit', "*/${this._branch}", 'VSTS commit hash')
 
                 stringParam('GitBranchOrCommit', "*/${this._branch}", 'Git branch or commit to build.  If a branch, builds the HEAD of that branch.  If a commit, then checks out that specific commit.')
                 stringParam('DOTNET_CLI_TELEMETRY_PROFILE', "IsInternal_CIServer;${_project}", 'This is used to differentiate the internal CI usage of CLI in telemetry.  This gets exposed in the environment and picked up by the CLI product.')

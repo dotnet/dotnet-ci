@@ -282,6 +282,7 @@ class Pipeline {
     public def triggerPipelineOnEveryVSTSPR(String context, Map<String,Object> parameters = [:]) {
         // Create a trigger builder and pass it to the generic triggerPipelineOnEvent
         VSTSTriggerBuilder builder = VSTSTriggerBuilder.triggerOnPullRequest(context)
+        builder.triggerForBranch(this._scm.getBranch())
 
         // Call the generic API
         return triggerPipelineOnEvent(builder, parameters)

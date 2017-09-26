@@ -13,9 +13,10 @@ class VSTSTriggerBuilder implements TriggerBuilder {
         PULLREQUEST
     }
     
-    TriggerType _triggerType;
-    String _contextString;
-    
+    TriggerType _triggerType
+    String _contextString
+    String _targetBranches
+
     /**
      * Construct a new VSTS trigger builder
      *
@@ -60,6 +61,17 @@ class VSTSTriggerBuilder implements TriggerBuilder {
     }
 
     /**
+     * Set the job to trigger on the specified branches
+     *
+     * @param branch Branches to trigger on. Regular expressions
+     *
+     */
+    def triggerForBranches(String branches) {
+        assert this._triggerType == TriggerType.PULLREQUEST
+        this._targetBranches = branches
+    }
+
+    /**
      * Returns true if the trigger is a PR trigger
      *
      * @return True if the trigger is a PR trigger
@@ -94,7 +106,7 @@ class VSTSTriggerBuilder implements TriggerBuilder {
     def private emitCommitTrigger(def job) {
         job.with {
             triggers {
-                TeamPushTrigger(job, this._contextString)
+                TeamPushTrigger(job, this._targetBranches, this._contextString)
             }
             // Record the push trigger.  We look up in the side table to see what branches this
             // job was set up to build
@@ -111,9 +123,9 @@ class VSTSTriggerBuilder implements TriggerBuilder {
     def private emitPRTrigger(def job) {
         job.with {
             triggers {
-                TeamPRPushTrigger(job, this._contextString)
+                TeamPRPushTrigger(job, this._targetBranches, this._contextString)
             }
-            JobReport.Report.addPRTriggeredJob(job.name)
+            JobReport.Report.addPRTriggeredJob(job.name, (String[])[this._targetBranches], this._contextString, null, null)
         }
 
         Utilities.addJobRetry(job)
