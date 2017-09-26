@@ -616,6 +616,20 @@ class Utilities {
     }
 
     /**
+     * Adds a VSTS PR trigger
+     */
+    def static addVSTSPRTrigger(def job) {
+        job.with {
+            triggers {
+                TeamPRPushTrigger()
+            }
+            JobReport.Report.addPRTriggeredJob(job.name)
+        }
+
+        Utilities.addJobRetry(job)
+    }
+
+    /**
      * Calculates the github scm URL give a project name
      *
      * @param project Github project

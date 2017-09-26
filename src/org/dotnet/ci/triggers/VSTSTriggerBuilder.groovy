@@ -76,11 +76,11 @@ class VSTSTriggerBuilder implements TriggerBuilder {
             triggers {
                 teamPushTrigger()
             }
+            // Record the push trigger.  We look up in the side table to see what branches this
+            // job was set up to build
+            JobReport.Report.addPushTriggeredJob(job.name)
         }
 
-        // Record the push trigger.  We look up in the side table to see what branches this
-        // job was set up to build
-        JobReport.Report.addPushTriggeredJob(job.name)
         Utilities.addJobRetry(job)
     }
 
@@ -93,11 +93,9 @@ class VSTSTriggerBuilder implements TriggerBuilder {
             triggers {
                 teamPRPushTrigger()
             }
+            JobReport.Report.addPRTriggeredJob(job.name)
         }
 
-        // Record the PR trigger.  We look up in the side table to see what branches this
-        // job was set up to build
-        JobReport.Report.addPRTriggeredJob(job.name)
         Utilities.addJobRetry(job)
     }
 }
