@@ -376,6 +376,8 @@ class Utilities {
                                 ],
                             'Debian8.4' :
                                 [
+                                // 20170214 + clang 3.9
+                                '20170925':'deb84-20170925',
                                 // Latest auto image.
                                 'latest-or-auto':'deb84-20170214',
                                 // For outerloop runs
@@ -383,6 +385,8 @@ class Utilities {
                                 ],
                             'Fedora24' :
                                 [
+                                // fedora24-20170420 + clang 3.9
+                                '20170926':'fedora24-20170926',
                                 // Latest auto image.
                                 'latest-or-auto':'fedora24-20170420',
                                 // For outerloop runs
