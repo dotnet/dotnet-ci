@@ -352,7 +352,6 @@ class Utilities {
                                 ],
                             'RHEL7.2' :
                                 [
-                                '' : 'auto-rhel72-20170525',
                                 // Latest auto image.
                                 'latest-or-auto':'auto-rhel72-20170525',
                                 // For outerloop runs.
@@ -360,6 +359,8 @@ class Utilities {
                                 ],
                             'CentOS7.1' :
                                 [
+                                // centos71-20170216 + clang 3.9
+                                '20170926':'centos71-20170926',
                                 // Latest auto image.
                                 'latest-or-auto':'centos71-20170216',
                                 // For outerloop runs.
