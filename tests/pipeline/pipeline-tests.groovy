@@ -57,7 +57,7 @@ stage ('Run Tests') {
             },
 
             // Test that simple nodes work, of various types
-            "simpleNode - custom timeout" : {
+            /*"simpleNode - custom timeout" : {
                 timeout (60) {
                     simpleNode('Windows_NT', 'latest', 30) {
                         checkoutRepo()
@@ -72,7 +72,7 @@ stage ('Run Tests') {
                         checkoutRepo()
                     }
                 }
-            },
+            },*/
 
             "simpleNode - Ubuntu14.04 - latest" : {
                 timeout (60) {
@@ -90,7 +90,7 @@ stage ('Run Tests') {
                 }
             },
 
-            "simpleDockerNode1" : {
+            /*"simpleDockerNode1" : {
                 timeout (60) {
                     simpleDockerNode('microsoft/dotnet-buildtools-prereqs:rhel7_prereqs_2') {
                         checkoutRepo()
@@ -104,7 +104,7 @@ stage ('Run Tests') {
                         checkoutRepo()
                     }
                 }
-            },
+            },*/
 
             "getBranch" : {
                 // getBranch
