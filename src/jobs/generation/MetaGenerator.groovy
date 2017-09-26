@@ -534,9 +534,9 @@ repos.each { repoInfo ->
                         }
                     } else {
                         if (isVSTS) {
-                            teamPushTrigger()
+                            Utilities.addVSTSPushTrigger(jobGenerator, "Gen (${repoInfo.server}) - ${repoInfo.branch}/${repoInfo.definitionScript}")
                         } else {
-                            githubPush()
+                            Utilities.addGithubPushTrigger(jobGenerator);
                         }
                     }
                 }

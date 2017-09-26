@@ -449,7 +449,18 @@ class Utilities {
         // Record the push trigger.  We look up in the side table to see what branches this
         // job was set up to build
         JobReport.Report.addPushTriggeredJob(job.name)
-        addJobRetry(job)
+        Utilities.addJobRetry(job)
+    }
+
+    def static addVSTSPushTrigger(def job, String contextString) {
+        job.with {
+            triggers {
+                TeamPushTrigger(job, contextString)
+            }
+            JobReport.Report.addPushTriggeredJob(job.name)
+        }
+
+        Utilities.addJobRetry(job)
     }
 
     /**

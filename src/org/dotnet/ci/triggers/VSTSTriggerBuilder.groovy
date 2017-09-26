@@ -94,7 +94,7 @@ class VSTSTriggerBuilder implements TriggerBuilder {
     def private emitCommitTrigger(def job) {
         job.with {
             triggers {
-                teamPushTrigger(job, this._contextString)
+                TeamPushTrigger(job, this._contextString)
             }
             // Record the push trigger.  We look up in the side table to see what branches this
             // job was set up to build
@@ -111,7 +111,7 @@ class VSTSTriggerBuilder implements TriggerBuilder {
     def private emitPRTrigger(def job) {
         job.with {
             triggers {
-                teamPRPushTrigger(job, this._contextString)
+                TeamPRPushTrigger(job, this._contextString)
             }
             JobReport.Report.addPRTriggeredJob(job.name)
         }
