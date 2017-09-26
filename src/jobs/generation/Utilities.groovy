@@ -618,10 +618,10 @@ class Utilities {
     /**
      * Adds a VSTS PR trigger
      */
-    def static addVSTSPRTrigger(def job) {
+    def static addVSTSPRTrigger(def job, String contextString) {
         job.with {
             triggers {
-                TeamPRPushTrigger()
+                TeamPRPushTrigger(job, contextString)
             }
             JobReport.Report.addPRTriggeredJob(job.name)
         }

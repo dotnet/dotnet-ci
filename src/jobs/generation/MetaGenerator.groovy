@@ -429,8 +429,8 @@ repos.each { repoInfo ->
                 if (isVSTS) {
                     stringParam('VSTSCollectionName', repoInfo.collection, 'VSTS collection name')
                     stringParam('VSTSCredentialsId', repoInfo.credentials, 'VSTS credentials id')
-                    stringParam('VSTSRefspec', vstsRefspec, 'VSTS refspec')
-                    stringParam('VSTSRBranchOrCommit', vstsBranchOrCommit, 'VSTS branch or commit')
+                    stringParam('vstsRefspec', '', 'VSTS refspec')
+                    stringParam('vstsBranchOrCommit', '*/master', 'VSTS branch or commit')
                 }
                 else {
                     stringParam('GithubProject', repoInfo.project, 'Project name passed to the DSL generator')
@@ -510,7 +510,7 @@ repos.each { repoInfo ->
 
         if (isPRTest) {
             if (isVSTS) {
-                Utilities.addVSTSPRTrigger(jobGenerator)
+                Utilities.addVSTSPRTrigger(jobGenerator, "Gen CI(${repoInfo.server}) - ${repoInfo.branch}/${repoInfo.definitionScript}")
             }
             else {
                 // Enable the github PR trigger, but add a trigger phrase so

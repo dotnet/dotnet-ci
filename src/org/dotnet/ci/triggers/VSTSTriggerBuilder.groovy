@@ -14,6 +14,7 @@ class VSTSTriggerBuilder implements TriggerBuilder {
     }
     
     TriggerType _triggerType;
+    String _contextString;
     
     /**
      * Construct a new VSTS trigger builder
@@ -23,23 +24,39 @@ class VSTSTriggerBuilder implements TriggerBuilder {
     private def VSTSTriggerBuilder(TriggerType triggerType) {
         this._triggerType = triggerType
     }
-    
+
+    /**
+     * Construct a new VSTS trigger builder
+     *
+     * @param triggerType Type of VSTS trigger
+     *
+     * @param contextString Context string of the job to be triggered
+     */
+    private def VSTSTriggerBuilder(TriggerType triggerType, String contextString) {
+        this._triggerType = triggerType
+        this._contextString = contextString
+    }
+
     /**
      * Trigger the pipeline job on a commit
      *
+     * @param contextString Context string of the job to be triggered
+     *
      * @return New trigger builder
      */
-    def static VSTSTriggerBuilder triggerOnCommit() {
-        return new VSTSTriggerBuilder(TriggerType.COMMIT)
+    def static VSTSTriggerBuilder triggerOnCommit(String contextString = null) {
+        return new VSTSTriggerBuilder(TriggerType.COMMIT, contextString)
     }
     
     /**
      * Trigger the pipeline job on a PR
      *
+     * @param contextString Context string of the job to be triggered
+     *
      * @return New trigger builder
      */
-    def static VSTSTriggerBuilder triggerOnPullRequest() {
-        return new VSTSTriggerBuilder(TriggerType.PULLREQUEST)
+    def static VSTSTriggerBuilder triggerOnPullRequest(String contextString = null) {
+        return new VSTSTriggerBuilder(TriggerType.PULLREQUEST, contextString)
     }
 
     /**
@@ -50,10 +67,13 @@ class VSTSTriggerBuilder implements TriggerBuilder {
     public boolean isPRTrigger() {
         return (this._triggerType == TriggerType.PULLREQUEST)
     }
-    
-    // Emits the trigger for a job
-    // Parameters:
-    //  job - Job to emit the trigger for.
+
+    /**
+     * Emits the trigger for a job
+     *
+     * @param job Job to emit the trigger for
+     *
+     */
     void emitTrigger(def job) {
     
         if (this._triggerType == TriggerType.PULLREQUEST) {
@@ -74,7 +94,7 @@ class VSTSTriggerBuilder implements TriggerBuilder {
     def private emitCommitTrigger(def job) {
         job.with {
             triggers {
-                teamPushTrigger()
+                teamPushTrigger(job, this._contextString)
             }
             // Record the push trigger.  We look up in the side table to see what branches this
             // job was set up to build
@@ -91,7 +111,7 @@ class VSTSTriggerBuilder implements TriggerBuilder {
     def private emitPRTrigger(def job) {
         job.with {
             triggers {
-                teamPRPushTrigger()
+                teamPRPushTrigger(job, this._contextString)
             }
             JobReport.Report.addPRTriggeredJob(job.name)
         }

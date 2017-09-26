@@ -37,13 +37,13 @@ class VSTSPipelineScm implements PipelineScm {
         job.with {
             // Set up parameters for this job
             parameters {
-                stringParam('VSTSCollectionName', repoInfo.collection, 'VSTS collection name')
-                stringParam('VSTSCredentialsId', repoInfo.credentials, 'VSTS credentials id')
+                stringParam('VSTSCollectionName', this._collection, 'VSTS collection name')
+                stringParam('VSTSCredentialsId', this._credentials, 'VSTS credentials id')
                 stringParam('VSTSRepoUrl', this.getGitUrl(), 'VSTS repo to clone.')
-                stringParam('VSTSRefspec', vstsRefspec, 'VSTS refspec')
-                stringParam('VSTSBranchOrCommit', vstsBranchOrCommit, 'VSTS commit hash')
+                stringParam('vstsRefspec', '', 'VSTS refspec')
+                stringParam('vstsBranchOrCommit', '*/master', 'VSTS commit hash')
                 stringParam('DOTNET_CLI_TELEMETRY_PROFILE', "IsInternal_CIServer;${_project}", 'This is used to differentiate the internal CI usage of CLI in telemetry.  This gets exposed in the environment and picked up by the CLI product.')
-                
+
                 stringParam('QualifiedRepoName', this._project, 'Combined GitHub org and repo name')
                 stringParam('RepoName', Utilities.getRepoName(this._project), 'Repo name')
                 stringParam('OrgOrProjectName', Utilities.getOrgOrProjectName(this._project), 'Organization/VSTS project name')
@@ -92,6 +92,12 @@ class VSTSPipelineScm implements PipelineScm {
         job.with {
             // Set up parameters for this job
             parameters {
+                stringParam('VSTSCollectionName', this._collection, 'VSTS collection name')
+                stringParam('VSTSCredentialsId', this._credentials, 'VSTS credentials id')
+                stringParam('VSTSRepoUrl', this.getGitUrl(), 'VSTS repo to clone.')
+                stringParam('vstsRefspec', '+refs/heads/*:refs/remotes/origin/*', 'VSTS refspec')
+                stringParam('vstsBranchOrCommit', '*/master', 'VSTS commit hash')
+
                 stringParam('GitBranchOrCommit', "*/${this._branch}", 'Git branch or commit to build.  If a branch, builds the HEAD of that branch.  If a commit, then checks out that specific commit.')
                 stringParam('DOTNET_CLI_TELEMETRY_PROFILE', "IsInternal_CIServer;${_project}", 'This is used to differentiate the internal CI usage of CLI in telemetry.  This gets exposed in the environment and picked up by the CLI product.')
                 stringParam('QualifiedRepoName', this._project, 'Combined GitHub org and repo name')
