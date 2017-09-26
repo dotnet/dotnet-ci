@@ -339,7 +339,7 @@ class Utilities {
         Utilities.addRetentionPolicy(job, isPR)
         // Add a webhook to gather job events for Jenkins monitoring.
         // The event hook is the id of the event hook URL in the Jenkins store
-        Utilities.setBuildEventWebHooks(job, ['helix-int-notification-url', 'helix-prod-notification-url', 'legacy-notification-url'])
+        Utilities.setBuildEventWebHooks(job, ['helix-int-notification-url', 'helix-prod-notification-url'])
     }
 
     def private static String joinStrings(Iterable<String> strings, String combineDelim) {
