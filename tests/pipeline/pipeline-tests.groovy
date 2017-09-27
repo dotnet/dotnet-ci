@@ -56,6 +56,24 @@ stage ('Run Tests') {
                 }
             },
 
+            // Test that simple nodes work, of various types
+            /*"simpleNode - custom timeout" : {
+                timeout (60) {
+                    simpleNode('Windows_NT', 'latest', 30) {
+                        checkoutRepo()
+                    }
+                }
+            },
+
+            // Test that simple nodes work, of various types
+            "simpleNode - custom timeout2" : {
+                timeout (60) {
+                    simpleNode('Windows_NT', 30) {
+                        checkoutRepo()
+                    }
+                }
+            },*/
+
             "simpleNode - Ubuntu14.04 - latest" : {
                 timeout (60) {
                     simpleNode('Ubuntu14.04', 'latest') {
@@ -71,6 +89,22 @@ stage ('Run Tests') {
                     }
                 }
             },
+
+            /*"simpleDockerNode1" : {
+                timeout (60) {
+                    simpleDockerNode('microsoft/dotnet-buildtools-prereqs:rhel7_prereqs_2') {
+                        checkoutRepo()
+                    }
+                }
+            },
+
+            "simpleDockerNode1 - custom timeout" : {
+                timeout (60) {
+                    simpleDockerNode('microsoft/dotnet-buildtools-prereqs:rhel7_prereqs_2', 15) {
+                        checkoutRepo()
+                    }
+                }
+            },*/
 
             "getBranch" : {
                 // getBranch
