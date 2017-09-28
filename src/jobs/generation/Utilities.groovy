@@ -455,7 +455,6 @@ class Utilities {
         job.with {
             triggers {
                 teamPushTrigger {
-                    job(job)
                     jobContext(contextString)
                 }
             }
@@ -635,7 +634,6 @@ class Utilities {
         job.with {
             triggers {
                 teamPRPushTrigger {
-                    job(job)
                     targetBranches(branchName)
                     jobContext(contextString)
                 }

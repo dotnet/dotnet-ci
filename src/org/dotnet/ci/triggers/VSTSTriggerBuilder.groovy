@@ -107,7 +107,6 @@ class VSTSTriggerBuilder implements TriggerBuilder {
         job.with {
             triggers {
                 teamPushTrigger {
-                    job(job)
                     jobContext(this._contextString)
                 }
             }
@@ -127,7 +126,6 @@ class VSTSTriggerBuilder implements TriggerBuilder {
         job.with {
             triggers {
                 teamPRPushTrigger {
-                    job(job)
                     targetBranches(this._targetBranch)
                     jobContext(this._contextString)
                 }
