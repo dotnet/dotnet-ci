@@ -352,6 +352,8 @@ class Utilities {
                                 ],
                             'RHEL7.2' :
                                 [
+                                // 20170525 + clang 3.9
+                                '20170928':'rhel72-20170928',
                                 // Latest auto image.
                                 'latest-or-auto':'auto-rhel72-20170525',
                                 // For outerloop runs.
