@@ -1,7 +1,5 @@
 package org.dotnet.ci.triggers;
 
-import hudson.plugins.tfs.TeamPRPushTrigger
-import hudson.plugins.tfs.TeamPushTrigger
 import jobs.generation.JobReport
 import jobs.generation.Utilities
 
@@ -108,7 +106,7 @@ class VSTSTriggerBuilder implements TriggerBuilder {
     def private emitCommitTrigger(def job) {
         job.with {
             triggers {
-                TeamPushTrigger(job, this._contextString)
+                teamPushTrigger(job, this._contextString)
             }
             // Record the push trigger.  We look up in the side table to see what branches this
             // job was set up to build
@@ -125,7 +123,7 @@ class VSTSTriggerBuilder implements TriggerBuilder {
     def private emitPRTrigger(def job) {
         job.with {
             triggers {
-                TeamPRPushTrigger(job, this._targetBranch, this._contextString)
+                teamPRPushTrigger(job, this._targetBranch, this._contextString)
             }
             JobReport.Report.addPRTriggeredJob(job.name, (String[])[this._targetBranch], this._contextString, null, null)
         }

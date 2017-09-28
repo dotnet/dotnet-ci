@@ -1,7 +1,5 @@
 package jobs.generation;
 
-import hudson.plugins.tfs.TeamPRPushTrigger
-import hudson.plugins.tfs.TeamPushTrigger
 // Import the newer utility APIs, which we call in a few selection methods.
 import org.dotnet.ci.util.Agents
     
@@ -456,7 +454,7 @@ class Utilities {
     def static addVSTSPushTrigger(def job, String contextString) {
         job.with {
             triggers {
-                TeamPushTrigger(job, contextString)
+                teamPushTrigger(job, contextString)
             }
             JobReport.Report.addPushTriggeredJob(job.name)
         }
@@ -633,7 +631,7 @@ class Utilities {
     def static addVSTSPRTrigger(def job, String branchName, String contextString) {
         job.with {
             triggers {
-                TeamPRPushTrigger(job, branchName, contextString)
+                teamPRPushTrigger(job, branchName, contextString)
             }
             JobReport.Report.addPRTriggeredJob(job.name, (String[])[branchName], contextString, null, null)
         }
