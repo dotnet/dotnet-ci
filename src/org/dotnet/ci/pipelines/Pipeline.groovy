@@ -275,7 +275,7 @@ class Pipeline {
         return triggerPipelineOnGithubPRComment(context, null, parameters)
     }
 
-    // Triggers a puipeline on every VSTS PR.
+    // Triggers a pipeline on every VSTS PR.
     // Parameters:
     //  context - The context that appears for the status check in the VSTS UI
     //  parameter - Optional set of key/value pairs of string parameters that will be passed to the pipeline

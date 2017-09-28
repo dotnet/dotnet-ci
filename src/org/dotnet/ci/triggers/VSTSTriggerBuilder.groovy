@@ -125,7 +125,7 @@ class VSTSTriggerBuilder implements TriggerBuilder {
             triggers {
                 TeamPRPushTrigger(job, this._targetBranch, this._contextString)
             }
-            JobReport.Report.addPRTriggeredJob(job.name, [this._targetBranch], this._contextString, null, null)
+            JobReport.Report.addPRTriggeredJob(job.name, (String[])[this._targetBranch], this._contextString, null, null)
         }
 
         Utilities.addJobRetry(job)
