@@ -205,8 +205,7 @@ class Pipeline {
      */
     public def triggerPipelineOnEveryPR(String context, Map<String,Object> parameters = [:]) {
         if (this._scm.getScmType() == 'VSTS') {
-            // TODO: VSTS PR checks
-            assert false : "VSTS PR pipelines are NYI"
+            return triggerPipelineOnEveryVSTSPR(context, parameters)
         }
         else if (this._scm.getScmType() == 'GitHub') {
             return triggerPipelineOnEveryGithubPR(context, parameters)
@@ -276,6 +275,19 @@ class Pipeline {
         return triggerPipelineOnGithubPRComment(context, null, parameters)
     }
 
+    // Triggers a pipeline on every VSTS PR.
+    // Parameters:
+    //  context - The context that appears for the status check in the VSTS UI
+    //  parameter - Optional set of key/value pairs of string parameters that will be passed to the pipeline
+    public def triggerPipelineOnEveryVSTSPR(String context, Map<String,Object> parameters = [:]) {
+        // Create a trigger builder and pass it to the generic triggerPipelineOnEvent
+        VSTSTriggerBuilder builder = VSTSTriggerBuilder.triggerOnPullRequest(context)
+        builder.triggerForBranch(this._scm.getBranch())
+
+        // Call the generic API
+        return triggerPipelineOnEvent(builder, parameters)
+    }
+
     /**
      * Triggers a pipeline on every push.
      *
@@ -295,13 +307,33 @@ class Pipeline {
         }
     }
 
-    // Triggers a pipeline on a Github Push
+    /**
+     * Triggers a pipeline on every push.
+     *
+     * @param context Context of the pipeline job to be triggered
+     * @param parameters Parameters to pass to the pipeline
+     *
+     * @return Newly created job
+     */
+    public def triggerPipelineOnPush(String context, Map<String,Object> parameters = [:]) {
+        if (this._scm.getScmType() == 'VSTS') {
+            return triggerPipelineOnVSTSPush(parameters, context)
+        }
+        else if (this._scm.getScmType() == 'GitHub') {
+            return triggerPipelineOnGithubPush(parameters)
+        }
+        else {
+            assert false : "NYI, unknown scm type"
+        }
+    }
+
+    // Triggers a pipeline on a VSTS Push
     // Parameters:
     //  parameters - Parameters to pass to the pipeline on a push
     // Returns:
     //  Newly created job
-    public def triggerPipelineOnVSTSPush(Map<String,Object> parameters = [:]) {
-        VSTSTriggerBuilder builder = VSTSTriggerBuilder.triggerOnCommit()
+    public def triggerPipelineOnVSTSPush(Map<String,Object> parameters = [:], String contextString = null) {
+        VSTSTriggerBuilder builder = VSTSTriggerBuilder.triggerOnCommit(contextString)
 
         // Call the generic API
         return triggerPipelineOnEvent(builder, parameters)

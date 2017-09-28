@@ -448,7 +448,18 @@ class Utilities {
         // Record the push trigger.  We look up in the side table to see what branches this
         // job was set up to build
         JobReport.Report.addPushTriggeredJob(job.name)
-        addJobRetry(job)
+        Utilities.addJobRetry(job)
+    }
+
+    def static addVSTSPushTrigger(def job, String contextString) {
+        job.with {
+            triggers {
+                TeamPushTrigger(job, contextString)
+            }
+            JobReport.Report.addPushTriggeredJob(job.name)
+        }
+
+        Utilities.addJobRetry(job)
     }
 
     /**
@@ -612,6 +623,20 @@ class Utilities {
         }
 
         Utilities.addGithubPRTriggerImpl(job, null, contextString, triggerPhraseString, triggerOnPhraseOnly, true, null, null)
+    }
+
+    /**
+     * Adds a VSTS PR trigger
+     */
+    def static addVSTSPRTrigger(def job, String branchName, String contextString) {
+        job.with {
+            triggers {
+                TeamPRPushTrigger(job, branchName, contextString)
+            }
+            JobReport.Report.addPRTriggeredJob(job.name, (String[])[branchName], contextString, null, null)
+        }
+
+        Utilities.addJobRetry(job)
     }
 
     /**

@@ -329,7 +329,7 @@ repos.each { repoInfo ->
 
                         if (isDSLPRFromSameRepo) {
                             if (isVSTS) {
-                                // TODO: VSTS PR refspec
+                                refspec('${vstsRefspec}')
                             }
                             else {
                                 refspec('+refs/pull/${ghprbPullId}/*:refs/remotes/origin/pr/${ghprbPullId}/*')
@@ -348,7 +348,7 @@ repos.each { repoInfo ->
                     // If this is a PR DSL test, then pull the SDK from the PR branch
                     if (isDSLPRFromSameRepo) {
                         if (isVSTS) {
-                            // TODO: VSTS PR branch
+                            branch('${vstsBranchOrCommit}')
                         }
                         else {
                             branch('${sha1}')
@@ -371,7 +371,7 @@ repos.each { repoInfo ->
 
                         if (isPRTest) {
                             if (isVSTS) {
-                                // TODO: VSTS PR refspec
+                                refspec('${vstsRefspec}')
                             }
                             else {
                                 refspec('+refs/pull/${ghprbPullId}/*:refs/remotes/origin/pr/${ghprbPullId}/*')
@@ -394,7 +394,7 @@ repos.each { repoInfo ->
                     // If not a PR, then the branch name should be the target branch
                     if (isPRTest) {
                         if (isVSTS) {
-                            // TODO: VSTS PR branch
+                            branch('${vstsBranchOrCommit}')
                         }
                         else {
                             branch('${sha1}')
@@ -429,6 +429,8 @@ repos.each { repoInfo ->
                 if (isVSTS) {
                     stringParam('VSTSCollectionName', repoInfo.collection, 'VSTS collection name')
                     stringParam('VSTSCredentialsId', repoInfo.credentials, 'VSTS credentials id')
+                    stringParam('vstsRefspec', '', 'VSTS refspec')
+                    stringParam('vstsBranchOrCommit', repoInfo.branch, 'VSTS branch or commit')
                 }
                 else {
                     stringParam('GithubProject', repoInfo.project, 'Project name passed to the DSL generator')
@@ -508,7 +510,7 @@ repos.each { repoInfo ->
 
         if (isPRTest) {
             if (isVSTS) {
-                // TODO: VSTS PR trigger
+                Utilities.addVSTSPRTrigger(jobGenerator, repoInfo.branch, "Gen CI(${repoInfo.server}) - ${repoInfo.branch}/${repoInfo.definitionScript}")
             }
             else {
                 // Enable the github PR trigger, but add a trigger phrase so
@@ -531,7 +533,11 @@ repos.each { repoInfo ->
                             ignorePostCommitHooks(true)
                         }
                     } else {
-                        githubPush()
+                        if (isVSTS) {
+                            Utilities.addVSTSPushTrigger(jobGenerator, "Gen (${repoInfo.server}) - ${repoInfo.branch}/${repoInfo.definitionScript}")
+                        } else {
+                            Utilities.addGithubPushTrigger(jobGenerator);
+                        }
                     }
                 }
             }
