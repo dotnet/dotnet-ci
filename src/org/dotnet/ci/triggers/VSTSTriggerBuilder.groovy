@@ -106,7 +106,10 @@ class VSTSTriggerBuilder implements TriggerBuilder {
     def private emitCommitTrigger(def job) {
         job.with {
             triggers {
-                teamPushTrigger(job, this._contextString)
+                teamPushTrigger {
+                    job(job)
+                    jobContext(this._contextString)
+                }
             }
             // Record the push trigger.  We look up in the side table to see what branches this
             // job was set up to build
@@ -123,7 +126,11 @@ class VSTSTriggerBuilder implements TriggerBuilder {
     def private emitPRTrigger(def job) {
         job.with {
             triggers {
-                teamPRPushTrigger(job, this._targetBranch, this._contextString)
+                teamPRPushTrigger {
+                    job(job)
+                    targetBranches(this._targetBranch)
+                    jobContext(this._contextString)
+                }
             }
             JobReport.Report.addPRTriggeredJob(job.name, (String[])[this._targetBranch], this._contextString, null, null)
         }
