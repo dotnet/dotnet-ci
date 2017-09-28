@@ -169,6 +169,10 @@ dotnet/dotnet-ci branch=dev/pipelinesupport utilitiesRepoBranch=dev/pipelinesupp
 # Tests for DSL
 dotnet/dotnet-ci branch=dev/pipelinesupport utilitiesRepoBranch=dev/pipelinesupport definitionScript=tests/dsl/*.groovy isDSLTest=true server=dotnet-ci2 subFolder=dslTests
 # Tests for pipelines
+dotnet/dotnet-ci branch=dev/pipelinesupport utilitiesRepoBranch=dev/pipelinesupport definitionScript=tests/pipeline/tests.groovy server=dotnet-ci subFolder=pipelineTests
+# Tests for DSL
+dotnet/dotnet-ci branch=dev/pipelinesupport utilitiesRepoBranch=dev/pipelinesupport definitionScript=tests/dsl/*.groovy isDSLTest=true server=dotnet-ci subFolder=dslTests
+# Tests for pipelines
 Tools/DotNet-CI-Trusted credentials=vsts-dotnet-ci-trusted-creds collection=mseng branch=dev/pipelinesupport utilitiesRepoBranch=dev/pipelinesupport definitionScript=tests/pipeline/tests.groovy server=dotnet-vsts subFolder=pipelineTests
 # Tests for dsl
 Tools/DotNet-CI-Trusted credentials=vsts-dotnet-ci-trusted-creds collection=mseng branch=dev/pipelinesupport utilitiesRepoBranch=dev/pipelinesupport definitionScript=tests/dsl/*.groovy isDSLTest=true server=dotnet-vsts subFolder=dslTests
