@@ -1,5 +1,7 @@
 package org.dotnet.ci.triggers;
 
+import hudson.plugins.tfs.TeamPRPushTrigger
+import hudson.plugins.tfs.TeamPushTrigger
 import jobs.generation.JobReport
 import jobs.generation.Utilities
 
