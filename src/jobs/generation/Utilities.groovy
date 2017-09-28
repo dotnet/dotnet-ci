@@ -454,7 +454,10 @@ class Utilities {
     def static addVSTSPushTrigger(def job, String contextString) {
         job.with {
             triggers {
-                teamPushTrigger(job, contextString)
+                teamPushTrigger {
+                    job(job)
+                    jobContext(contextString)
+                }
             }
             JobReport.Report.addPushTriggeredJob(job.name)
         }
@@ -631,7 +634,11 @@ class Utilities {
     def static addVSTSPRTrigger(def job, String branchName, String contextString) {
         job.with {
             triggers {
-                teamPRPushTrigger(job, branchName, contextString)
+                teamPRPushTrigger {
+                    job(job)
+                    targetBranches(branchName)
+                    jobContext(contextString)
+                }
             }
             JobReport.Report.addPRTriggeredJob(job.name, (String[])[branchName], contextString, null, null)
         }
