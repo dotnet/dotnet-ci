@@ -1,5 +1,7 @@
 package jobs.generation;
 
+import hudson.plugins.tfs.TeamPRPushTrigger
+import hudson.plugins.tfs.TeamPushTrigger
 // Import the newer utility APIs, which we call in a few selection methods.
 import org.dotnet.ci.util.Agents
     
