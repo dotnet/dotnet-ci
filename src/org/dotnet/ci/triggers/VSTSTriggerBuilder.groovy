@@ -15,7 +15,7 @@ class VSTSTriggerBuilder implements TriggerBuilder {
     
     TriggerType _triggerType
     String _contextString
-    String _targetBranches
+    String _targetBranch
 
     /**
      * Construct a new VSTS trigger builder
@@ -61,14 +61,14 @@ class VSTSTriggerBuilder implements TriggerBuilder {
     }
 
     /**
-     * Set the job to trigger on the specified branches
+     * Set the job to trigger on the specified branch
      *
-     * @param branch Branches to trigger on. Regular expressions
+     * @param branch Branch to trigger on.
      *
      */
-    def triggerForBranches(String branches) {
+    def triggerForBranch(String branch) {
         assert this._triggerType == TriggerType.PULLREQUEST
-        this._targetBranches = branches
+        this._targetBranch = branch
     }
 
     /**
@@ -123,9 +123,9 @@ class VSTSTriggerBuilder implements TriggerBuilder {
     def private emitPRTrigger(def job) {
         job.with {
             triggers {
-                TeamPRPushTrigger(job, this._targetBranches, this._contextString)
+                TeamPRPushTrigger(job, this._targetBranch, this._contextString)
             }
-            JobReport.Report.addPRTriggeredJob(job.name, (String[])[this._targetBranches], this._contextString, null, null)
+            JobReport.Report.addPRTriggeredJob(job.name, [this._targetBranch], this._contextString, null, null)
         }
 
         Utilities.addJobRetry(job)
