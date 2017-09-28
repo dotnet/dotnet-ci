@@ -41,7 +41,7 @@ class VSTSPipelineScm implements PipelineScm {
                 stringParam('VSTSCredentialsId', this._credentials, 'VSTS credentials id')
                 stringParam('VSTSRepoUrl', this.getGitUrl(), 'VSTS repo to clone.')
                 stringParam('vstsRefspec', '', 'VSTS refspec')
-                stringParam('vstsBranchOrCommit', '*/${this._branch}', 'VSTS commit hash')
+                stringParam('vstsBranchOrCommit', "*/${this._branch}", 'VSTS commit hash')
                 stringParam('DOTNET_CLI_TELEMETRY_PROFILE', "IsInternal_CIServer;${_project}", 'This is used to differentiate the internal CI usage of CLI in telemetry.  This gets exposed in the environment and picked up by the CLI product.')
 
                 stringParam('QualifiedRepoName', this._project, 'Combined GitHub org and repo name')
