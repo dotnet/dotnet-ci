@@ -170,7 +170,7 @@ class Utilities {
                                 // Image installing the latest mono-devel
                                 'latest-mono-devel':'ubuntu1404-20160211-1-latest-mono',
                                 // Latest auto image.
-                                'latest-or-auto':'ubuntu1404-20170821',
+                                'latest-or-auto':'ubuntu1404-20170925',
                                 // For outerloop runs.
                                 'outer-latest-or-auto':'auto-ubuntu1404-201626outer',
                                 // For internal Ubuntu runs
@@ -181,7 +181,7 @@ class Utilities {
                                 // 20170526 + clang 3.9
                                 '20170925':'ubuntu1604-20170925',
                                 // Contains the rootfs setup for arm64 builds.
-                                'arm64-cross-latest':'ubuntu1604-20170526',
+                                'arm64-cross-latest':'ubuntu1604-20170925',
                                 // Contains auto-ubuntu1604-20160803 + gdb + mono 4.6.2.16
                                 '20170109':'ubuntu1604-20170109',
                                 //Contains Mono 5.0.1
@@ -189,7 +189,7 @@ class Utilities {
                                 // 20170731 + clang 3.9
                                 '20170925-1':'ubuntu1604-20170925-1',
                                 // Latest auto image.
-                                'latest-or-auto':'ubuntu1604-20170731',
+                                'latest-or-auto':'ubuntu1604-20170925-1',
                                 // auto-ubuntu1604-20160510 + docker.
                                 // Move this to latest-or-auto after validation
                                 'latest-or-auto-docker':'ubuntu1604-20170216',
@@ -205,15 +205,13 @@ class Utilities {
                                 // Latest auto image.  This will be used for transitioning
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
-                                'latest-or-auto':'ubuntu1610-20170216',
+                                'latest-or-auto':'ubuntu1610-20170925',
                                 // For outerloop runs.
                                 'outer-latest-or-auto':'ubuntu1610-20170216-outer',
                                 ],
                             // El Capitan
                             'OSX10.11' :
                                 [
-                                // Generic version label
-                                '' : 'osx-10.11',
                                 // Latest auto image.
                                 'latest-or-auto':'osx-10.11',
                                 // For elevated runs
@@ -257,7 +255,8 @@ class Utilities {
                                 // win2016-20170303 + Python 3.2
                                 '20170427-elevated' : 'win2012-20170809-elevated',
                                 // the generic unversioned label except for special cases.
-                                'latest-or-auto':'win2012-20170608',
+                                // Now contains VS2017
+                                'latest-or-auto':'win2012-20170929',
                                 // Win2012.R2 + VS2013.5 + VS2015.3 + VS15.P3
                                 'latest-or-auto-dev15':'auto-win2012-20160707',
                                 // Win2012.R2 + VS2013.5 + VS2015.3 + VS15.P4
@@ -317,7 +316,7 @@ class Utilities {
                                 // win2016-base + Dev15.3.4
                                 'latest-dev15-3-internal' : 'win2016-20170919-internal',
                                 // For elevated runs
-                                'latest-or-auto-elevated':'win2012-20170608-elevated',
+                                'latest-or-auto-elevated':'win2012-20170929-elevated',
                                 // For arm64 builds
                                 'latest-arm64':'win2012-20170810',
                                 // For perf runs
@@ -355,7 +354,7 @@ class Utilities {
                                 // 20170525 + clang 3.9
                                 '20170928':'rhel72-20170928',
                                 // Latest auto image.
-                                'latest-or-auto':'auto-rhel72-20170525',
+                                'latest-or-auto':'rhel72-20170928',
                                 // For outerloop runs.
                                 'outer-latest-or-auto':'auto-rhel72-20160412.1outer'
                                 ],
@@ -364,7 +363,7 @@ class Utilities {
                                 // centos71-20170216 + clang 3.9
                                 '20170926':'centos71-20170926',
                                 // Latest auto image.
-                                'latest-or-auto':'centos71-20170216',
+                                'latest-or-auto':'centos71-20170926',
                                 // For outerloop runs.
                                 'outer-latest-or-auto':'centos71-20170216-outer',
                                 // For outerloop runs, using Linux kernel version 4.6.4
@@ -372,7 +371,6 @@ class Utilities {
                                 ],
                             'Debian8.2' :
                                 [
-                                '' : 'auto-deb82-20160323',
                                 '20160323':'auto-deb82-20160323',
                                 // Latest auto image.
                                 'latest-or-auto':'auto-deb82-20160323'
@@ -382,7 +380,7 @@ class Utilities {
                                 // 20170214 + clang 3.9
                                 '20170925':'deb84-20170925',
                                 // Latest auto image.
-                                'latest-or-auto':'deb84-20170214',
+                                'latest-or-auto':'deb84-20170925',
                                 // For outerloop runs
                                 'outer-latest-or-auto':'deb84-20170214-outer'
                                 ],
@@ -391,7 +389,7 @@ class Utilities {
                                 // fedora24-20170420 + clang 3.9
                                 '20170926':'fedora24-20170926',
                                 // Latest auto image.
-                                'latest-or-auto':'fedora24-20170420',
+                                'latest-or-auto':'fedora24-20170926',
                                 // For outerloop runs
                                 'outer-latest-or-auto':'fedora24-20170420-outer'
                                 ],
