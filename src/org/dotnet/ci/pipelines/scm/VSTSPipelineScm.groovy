@@ -37,19 +37,14 @@ class VSTSPipelineScm implements PipelineScm {
         job.with {
             // Set up parameters for this job
             parameters {
-                stringParam('VSTSCollectionName', this._collection, 'VSTS collection name')
-                stringParam('VSTSCredentialsId', this._credentials, 'VSTS credentials id')
-                stringParam('VSTSRepoUrl', this.getGitUrl(), 'VSTS repo to clone.')
-                stringParam('vstsRefspec', '', 'VSTS refspec')
-                stringParam('vstsBranchOrCommit', "*/${this._branch}", 'VSTS commit hash')
+                // TODO: VSTS PR params
+                stringParam('sha1', '', 'Incoming sha1 parameter from the GHPRB plugin.')
+                stringParam('GitBranchOrCommit', '${sha1}', 'Git branch or commit to build.  If a branch, builds the HEAD of that branch.  If a commit, then checks out that specific commit.')
+                stringParam('GitRepoUrl', this.getGitUrl(), 'Git repo to clone.')
+                stringParam('GitRefSpec', '+refs/pull/*:refs/remotes/origin/pr/*', 'RefSpec.  WHEN SUBMITTING PRIVATE JOB FROM YOUR OWN REPO, CLEAR THIS FIELD (or it won\'t find your code)')
                 stringParam('DOTNET_CLI_TELEMETRY_PROFILE', "IsInternal_CIServer;${_project}", 'This is used to differentiate the internal CI usage of CLI in telemetry.  This gets exposed in the environment and picked up by the CLI product.')
-
-                stringParam('QualifiedRepoName', this._project, 'Combined GitHub org and repo name')
                 stringParam('RepoName', Utilities.getRepoName(this._project), 'Repo name')
                 stringParam('OrgOrProjectName', Utilities.getOrgOrProjectName(this._project), 'Organization/VSTS project name')
-                stringParam('BranchName', Utilities.getBranchName(this._branch), 'Branch name')
-                booleanParam('AutoSaveReproEnv', false, 'Save Repro Environment automatically for this job.')
-                stringParam('VersionControlLocation', 'VSTS', 'Where the version control sits (VSTS or GitHub)')
             }
 
             definition {
@@ -60,15 +55,15 @@ class VSTSPipelineScm implements PipelineScm {
                                 // Sets up the project field to the non-parameterized version
                                 url(this.getGitUrl())
                                 // Set the refspec to be the parmeterized version
-                                refspec('${vstsRefspec}')
+                                refspec('${GitRefSpec}')
                                 // Set URL to the parameterized version
-                                url('${VSTSRepoUrl}')
+                                url('${GitRepoUrl}')
                                 // Set the credentials, which are always required
                                 credentials(this._credentials)
                             }
 
                             // Set the branch
-                            branch('${vstsBranchOrCommit}')
+                            branch('${GitBranchOrCommit}')
                             
                             // Raise the clone timeout
                             extensions {
@@ -92,19 +87,10 @@ class VSTSPipelineScm implements PipelineScm {
         job.with {
             // Set up parameters for this job
             parameters {
-                stringParam('VSTSCollectionName', this._collection, 'VSTS collection name')
-                stringParam('VSTSCredentialsId', this._credentials, 'VSTS credentials id')
-                stringParam('VSTSRepoUrl', this.getGitUrl(), 'VSTS repo to clone.')
-                stringParam('vstsRefspec', '+refs/heads/*:refs/remotes/origin/*', 'VSTS refspec')
-                stringParam('vstsBranchOrCommit', "*/${this._branch}", 'VSTS commit hash')
-
+                stringParam('GitBranchOrCommit', "*/${this._branch}", 'Git branch or commit to build.  If a branch, builds the HEAD of that branch.  If a commit, then checks out that specific commit.')
                 stringParam('DOTNET_CLI_TELEMETRY_PROFILE', "IsInternal_CIServer;${_project}", 'This is used to differentiate the internal CI usage of CLI in telemetry.  This gets exposed in the environment and picked up by the CLI product.')
-                stringParam('QualifiedRepoName', this._project, 'Combined GitHub org and repo name')
                 stringParam('RepoName', Utilities.getRepoName(this._project), 'Repo name')
                 stringParam('OrgOrProjectName', Utilities.getOrgOrProjectName(this._project), 'Organization/VSTS project name')
-                stringParam('BranchName', Utilities.getBranchName(this._branch), 'Branch name')
-                booleanParam('AutoSaveReproEnv', false, 'Save Repro Environment automatically for this job.')
-                stringParam('VersionControlLocation', 'VSTS', 'Where the version control sits (VSTS or GitHub)')
             }
 
             definition {
@@ -117,7 +103,7 @@ class VSTSPipelineScm implements PipelineScm {
                                 credentials(this._credentials)
                             }
 
-                            branch('${vstsBranchOrCommit}')
+                            branch('${GitBranchOrCommit}')
                             
                             // Raise up the timeout
                             extensions {
