@@ -335,6 +335,11 @@ repos.each { repoInfo ->
                                 refspec('+refs/pull/${ghprbPullId}/*:refs/remotes/origin/pr/${ghprbPullId}/*')
                             }
                         }
+                        else {
+                            if (isPRTest && isVSTS) { // Non-DSL PR runs will use wrong refspec & commit combo and fail without this specifical handling.
+                                refspec('${vstsRefspec}')
+                            }
+                        }
                     }
                     extensions {
                         relativeTargetDirectory('dotnet-ci-sdk')
@@ -355,7 +360,12 @@ repos.each { repoInfo ->
                         }
                     }
                     else {
-                        branch("*/${repoInfo.utilitiesRepoBranch}")
+                        if (isPRTest && isVSTS) { // Non-DSL PR runs will use wrong refspec & commit combo and fail without this specifical handling.
+                            branch('${vstsBranchOrCommit}')
+                        }
+                        else {
+                            branch("*/${repoInfo.utilitiesRepoBranch}")
+                        }
                     }
                 }
                 //
