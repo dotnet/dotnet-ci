@@ -57,7 +57,7 @@ class Pipeline {
     // Replace all the unsafe characters in the input string
     // with _
     // See Jenkins.java's checkGoodName for source of the bad characters
-    private String getValidJobNameString(String input) {
+    private static String getValidJobNameString(String input) {
         String finalString = ''
         for (int i = 0; i < input.length(); i++) {
             char ch = input.charAt(i)
@@ -74,7 +74,7 @@ class Pipeline {
         return shortenString(finalString, maxElementLength)
     }
 
-    private String shortenString(String input, int max) {
+    private static String shortenString(String input, int max) {
         if (input.length() < max) {
             return input
         }
@@ -93,7 +93,7 @@ class Pipeline {
 
     // Determines a full job name for a pipeline job from the base job and parameter set
     // 
-    private String getPipelineJobName(Map<String,Object> parameters = [:]) {
+    public static String getPipelineJobName(String _baseJobName, Map<String,Object> parameters = [:]) {
         // Take the base job name and append '-'' if there are any parameters
         // If parameters, walk the parameter list.  Append X=Y forms, replacing any
         // invalid characters with _, separated by comma
@@ -203,12 +203,12 @@ class Pipeline {
      *
      * @return Newly created job
      */
-    public def triggerPipelineOnEveryPR(String context, Map<String,Object> parameters = [:]) {
+    public def triggerPipelineOnEveryPR(String context, Map<String,Object> parameters = [:], String jobName = null) {
         if (this._scm.getScmType() == 'VSTS') {
-            return triggerPipelineOnEveryVSTSPR(context, parameters)
+            return triggerPipelineOnEveryVSTSPR(context, parameters, jobName)
         }
         else if (this._scm.getScmType() == 'GitHub') {
-            return triggerPipelineOnEveryGithubPR(context, parameters)
+            return triggerPipelineOnEveryGithubPR(context, parameters, jobName)
         }
         else {
             assert false : "NYI, unknown scm type"
@@ -219,9 +219,9 @@ class Pipeline {
     // Parameters:
     //  context - The context that appears for the status check in the Github UI
     //  parameter - Optional set of key/value pairs of string parameters that will be passed to the pipeline
-    public def triggerPipelineOnEveryGithubPR(String context, Map<String,Object> parameters = [:]) {
+    public def triggerPipelineOnEveryGithubPR(String context, Map<String,Object> parameters = [:], String jobName = null) {
         // Create the default trigger phrase based on the context
-        return triggerPipelineOnEveryGithubPR(context, null, parameters)
+        return triggerPipelineOnEveryGithubPR(context, null, parameters, jobName)
     }
 
     // Triggers a puipeline on every Github PR, with a custom trigger phrase.
@@ -229,7 +229,7 @@ class Pipeline {
     //  context - The context that appears for the status check in the Github UI
     //  triggerPhrase - The trigger phrase that can relaunch the pipeline
     //  parameters - Optional set of key/value pairs of string parameters that will be passed to the pipeline
-    public def triggerPipelineOnEveryGithubPR(String context, String triggerPhrase, Map<String,Object> parameters = [:]) {
+    public def triggerPipelineOnEveryGithubPR(String context, String triggerPhrase, Map<String,Object> parameters = [:], String jobName = null) {
         // Create a trigger builder and pass it to the generic triggerPipelineOnEvent
         GithubTriggerBuilder builder = GithubTriggerBuilder.triggerOnPullRequest()
         builder.setGithubContext(context)
@@ -243,7 +243,7 @@ class Pipeline {
         builder.triggerForBranch(this._scm.getBranch())
 
         // Call the generic API
-        return triggerPipelineOnEvent(builder, parameters)
+        return triggerPipelineOnEvent(builder, parameters, jobName)
     }
 
     // Triggers a pipeline on a Github PR when the specified phrase is commented.
@@ -251,7 +251,7 @@ class Pipeline {
     //  context - The context that appears for the status check in the Github UI
     //  triggerPhrase - The trigger phrase that can relaunch the pipeline
     //  parameters - Optional set of key/value pairs of string parameters that will be passed to the pipeline
-    public def triggerPipelineOnGithubPRComment(String context, String triggerPhrase, Map<String,Object> parameters = [:]) {
+    public def triggerPipelineOnGithubPRComment(String context, String triggerPhrase, Map<String,Object> parameters = [:], String jobName = null) {
         // Create the trigger event and call the helper API
         GithubTriggerBuilder builder = GithubTriggerBuilder.triggerOnPullRequest()
         builder.setGithubContext(context)
@@ -262,7 +262,7 @@ class Pipeline {
         builder.triggerForBranch(this._scm.getBranch())
 
         // Call the generic API
-        return triggerPipelineOnEvent(builder, parameters)
+        return triggerPipelineOnEvent(builder, parameters, jobName)
     }
 
     // Triggers a pipeline on a Github PR, using the context as the trigger phrase
@@ -270,22 +270,22 @@ class Pipeline {
     //  context - The context to show on GitHub + trigger phrase that will launch the job
     // Returns:
     //  Newly created pipeline job
-    public def triggerPipelineOnGithubPRComment(String context, Map<String,Object> parameters = [:]) {
+    public def triggerPipelineOnGithubPRComment(String context, Map<String,Object> parameters = [:], String jobName = null) {
         // Create the default trigger phrase based on the context
-        return triggerPipelineOnGithubPRComment(context, null, parameters)
+        return triggerPipelineOnGithubPRComment(context, null, parameters, jobName)
     }
 
     // Triggers a pipeline on every VSTS PR.
     // Parameters:
     //  context - The context that appears for the status check in the VSTS UI
     //  parameter - Optional set of key/value pairs of string parameters that will be passed to the pipeline
-    public def triggerPipelineOnEveryVSTSPR(String context, Map<String,Object> parameters = [:]) {
+    public def triggerPipelineOnEveryVSTSPR(String context, Map<String,Object> parameters = [:], String jobName) {
         // Create a trigger builder and pass it to the generic triggerPipelineOnEvent
         VSTSTriggerBuilder builder = VSTSTriggerBuilder.triggerOnPullRequest(context)
         builder.triggerForBranch(this._scm.getBranch())
 
         // Call the generic API
-        return triggerPipelineOnEvent(builder, parameters)
+        return triggerPipelineOnEvent(builder, parameters, jobName)
     }
 
     /**
@@ -295,12 +295,12 @@ class Pipeline {
      *
      * @return Newly created job
      */
-    public def triggerPipelineOnPush(Map<String,Object> parameters = [:]) {
+    public def triggerPipelineOnPush(Map<String,Object> parameters = [:], String jobName = null) {
         if (this._scm.getScmType() == 'VSTS') {
-            return triggerPipelineOnVSTSPush(parameters)
+            return triggerPipelineOnVSTSPush(parameters, jobName)
         }
         else if (this._scm.getScmType() == 'GitHub') {
-            return triggerPipelineOnGithubPush(parameters)
+            return triggerPipelineOnGithubPush(parameters, jobName)
         }
         else {
             assert false : "NYI, unknown scm type"
@@ -315,12 +315,12 @@ class Pipeline {
      *
      * @return Newly created job
      */
-    public def triggerPipelineOnPush(String context, Map<String,Object> parameters = [:]) {
+    public def triggerPipelineOnPush(String context, Map<String,Object> parameters = [:], String jobName = null) {
         if (this._scm.getScmType() == 'VSTS') {
-            return triggerPipelineOnVSTSPush(parameters, context)
+            return triggerPipelineOnVSTSPush(parameters, context, jobName)
         }
         else if (this._scm.getScmType() == 'GitHub') {
-            return triggerPipelineOnGithubPush(parameters)
+            return triggerPipelineOnGithubPush(parameters, jobName)
         }
         else {
             assert false : "NYI, unknown scm type"
@@ -332,11 +332,11 @@ class Pipeline {
     //  parameters - Parameters to pass to the pipeline on a push
     // Returns:
     //  Newly created job
-    public def triggerPipelineOnVSTSPush(Map<String,Object> parameters = [:], String contextString = null) {
+    public def triggerPipelineOnVSTSPush(Map<String,Object> parameters = [:], String contextString = null, String jobName = null) {
         VSTSTriggerBuilder builder = VSTSTriggerBuilder.triggerOnCommit(contextString)
 
         // Call the generic API
-        return triggerPipelineOnEvent(builder, parameters)
+        return triggerPipelineOnEvent(builder, parameters, jobName)
     }
 
     // Triggers a pipeline on a Github Push
@@ -344,20 +344,20 @@ class Pipeline {
     //  parameters - Parameters to pass to the pipeline on a push
     // Returns:
     //  Newly created job
-    public def triggerPipelineOnGithubPush(Map<String,Object> parameters = [:]) {
+    public def triggerPipelineOnGithubPush(Map<String,Object> parameters = [:], String jobName = null) {
         GithubTriggerBuilder builder = GithubTriggerBuilder.triggerOnCommit()
 
         // Call the generic API
-        return triggerPipelineOnEvent(builder, parameters)
+        return triggerPipelineOnEvent(builder, parameters, jobName)
     }
 
     // Triggers a pipeline periodically, if changes have been made to the
     // source control in question.
-    public def triggerPipelinePeriodically(String cronString, Map<String,Object> parameters = [:]) {
+    public def triggerPipelinePeriodically(String cronString, Map<String,Object> parameters = [:], String jobName = null) {
         GenericTriggerBuilder builder = GenericTriggerBuilder.triggerPeriodically(cronString)
 
         // Call the generic API
-        return triggerPipelineOnEvent(builder, parameters)
+        return triggerPipelineOnEvent(builder, parameters, jobName)
     }
 
     /* Creates a pipeline that only triggers manually
@@ -366,11 +366,11 @@ class Pipeline {
      *
      * @return Newly created job
      */
-    public def triggerPipelineManually(Map<String,Object> parameters = [:]) {
+    public def triggerPipelineManually(Map<String,Object> parameters = [:], String jobName = null) {
         GenericTriggerBuilder builder = GenericTriggerBuilder.triggerManually()
 
         // Call the generic API
-        return triggerPipelineOnEvent(builder, parameters)
+        return triggerPipelineOnEvent(builder, parameters, jobName)
     }
 
     // Creates a pipeline job for a generic trigger event
@@ -379,13 +379,16 @@ class Pipeline {
     //  parameter - Parameter set to run the pipeline with
     // Returns
     //  Newly created pipeline job
-    public def triggerPipelineOnEvent(TriggerBuilder triggerBuilder, Map<String,Object> params = [:]) {
+    public def triggerPipelineOnEvent(TriggerBuilder triggerBuilder, Map<String,Object> params = [:], String jobName = null) {
         // Determine the job name
         // Job name is based off the parameters 
 
         def isPR = triggerBuilder.isPRTrigger()
-        def jobName = getPipelineJobName(params)
-        def fullJobName = Utilities.getFullJobName(jobName, isPR)
+        def _jobName = jobName
+        if(_jobName == null) {
+            _jobName = Pipeline.getPipelineJobName(_baseJobName, params)
+        }
+        def fullJobName = Utilities.getFullJobName(_jobName, isPR)
 
         // Create the standard pipeline job
         def newJob = createStandardPipelineJob(fullJobName, isPR, params)
