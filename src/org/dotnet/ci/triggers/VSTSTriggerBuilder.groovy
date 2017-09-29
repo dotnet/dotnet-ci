@@ -130,7 +130,7 @@ class VSTSTriggerBuilder implements TriggerBuilder {
                     jobContext(this._contextString)
                 }
             }
-            JobReport.Report.addPRTriggeredJob(job.name, (String[])[this._targetBranch], this._contextString, null, false)
+            JobReport.Report.addPRTriggeredJob(job.name, (String[])[this._targetBranch], this._contextString, '', false)
         }
 
         Utilities.addJobRetry(job)
