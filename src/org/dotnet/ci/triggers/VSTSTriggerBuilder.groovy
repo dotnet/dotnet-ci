@@ -13,8 +13,10 @@ class VSTSTriggerBuilder implements TriggerBuilder {
         PULLREQUEST
     }
     
-    TriggerType _triggerType;
-    
+    TriggerType _triggerType
+    String _contextString
+    String _targetBranch
+
     /**
      * Construct a new VSTS trigger builder
      *
@@ -23,23 +25,50 @@ class VSTSTriggerBuilder implements TriggerBuilder {
     private def VSTSTriggerBuilder(TriggerType triggerType) {
         this._triggerType = triggerType
     }
-    
+
+    /**
+     * Construct a new VSTS trigger builder
+     *
+     * @param triggerType Type of VSTS trigger
+     *
+     * @param contextString Context string of the job to be triggered
+     */
+    private def VSTSTriggerBuilder(TriggerType triggerType, String contextString) {
+        this._triggerType = triggerType
+        this._contextString = contextString
+    }
+
     /**
      * Trigger the pipeline job on a commit
      *
+     * @param contextString Context string of the job to be triggered
+     *
      * @return New trigger builder
      */
-    def static VSTSTriggerBuilder triggerOnCommit() {
-        return new VSTSTriggerBuilder(TriggerType.COMMIT)
+    def static VSTSTriggerBuilder triggerOnCommit(String contextString = null) {
+        return new VSTSTriggerBuilder(TriggerType.COMMIT, contextString)
     }
     
     /**
      * Trigger the pipeline job on a PR
      *
+     * @param contextString Context string of the job to be triggered
+     *
      * @return New trigger builder
      */
-    def static VSTSTriggerBuilder triggerOnPullRequest() {
-        assert false : "nyi"
+    def static VSTSTriggerBuilder triggerOnPullRequest(String contextString = null) {
+        return new VSTSTriggerBuilder(TriggerType.PULLREQUEST, contextString)
+    }
+
+    /**
+     * Set the job to trigger on the specified branch
+     *
+     * @param branch Branch to trigger on.
+     *
+     */
+    def triggerForBranch(String branch) {
+        assert this._triggerType == TriggerType.PULLREQUEST
+        this._targetBranch = branch
     }
 
     /**
@@ -50,14 +79,17 @@ class VSTSTriggerBuilder implements TriggerBuilder {
     public boolean isPRTrigger() {
         return (this._triggerType == TriggerType.PULLREQUEST)
     }
-    
-    // Emits the trigger for a job
-    // Parameters:
-    //  job - Job to emit the trigger for.
+
+    /**
+     * Emits the trigger for a job
+     *
+     * @param job Job to emit the trigger for
+     *
+     */
     void emitTrigger(def job) {
     
         if (this._triggerType == TriggerType.PULLREQUEST) {
-            assert false : "nyi"
+            this.emitPRTrigger(job)
         }
         else if (this._triggerType == TriggerType.COMMIT) {
             this.emitCommitTrigger(job)
@@ -74,22 +106,33 @@ class VSTSTriggerBuilder implements TriggerBuilder {
     def private emitCommitTrigger(def job) {
         job.with {
             triggers {
-                // ISSUE: Today the push trigger has a bug, which causes it to not
-                // work for all configured projects and all branches.  This is being fixed.  In the meantime,
-                // set up an scm trigger instead.  This is inefficient but doable in the interim.
-                // Uncomment this when fixed.
-                // teamPushTrigger()
-
-                // poll every 5 mins.
-                scm('H/5 * * * *') {
-                    ignorePostCommitHooks(true)
+                teamPushTrigger {
+                    jobContext(this._contextString)
                 }
             }
+            // Record the push trigger.  We look up in the side table to see what branches this
+            // job was set up to build
+            JobReport.Report.addPushTriggeredJob(job.name)
         }
 
-        // Record the push trigger.  We look up in the side table to see what branches this
-        // job was set up to build
-        JobReport.Report.addPushTriggeredJob(job.name)
+        Utilities.addJobRetry(job)
+    }
+
+    /**
+     * Emits a PR trigger.
+     *
+     */
+    def private emitPRTrigger(def job) {
+        job.with {
+            triggers {
+                teamPRPushTrigger {
+                    targetBranches(this._targetBranch)
+                    jobContext(this._contextString)
+                }
+            }
+            JobReport.Report.addPRTriggeredJob(job.name, (String[])[this._targetBranch], this._contextString, '', false)
+        }
+
         Utilities.addJobRetry(job)
     }
 }
