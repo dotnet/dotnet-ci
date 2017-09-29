@@ -638,7 +638,7 @@ class Utilities {
                     jobContext(contextString)
                 }
             }
-            JobReport.Report.addPRTriggeredJob(job.name, (String[])[branchName], contextString, null, null)
+            JobReport.Report.addPRTriggeredJob(job.name, (String[])[branchName], contextString, null, false)
         }
 
         Utilities.addJobRetry(job)
