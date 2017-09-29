@@ -587,7 +587,7 @@ class Utilities {
         Utilities.addRetentionPolicy(job, isPR)
         // Add a webhook to gather job events for Jenkins monitoring.
         // The event hook is the id of the event hook URL in the Jenkins store
-        Utilities.setBuildEventWebHooks(job, ['helix-int-notification-url', 'helix-prod-notification-url', 'legacy-notification-url'])
+        Utilities.setBuildEventWebHooks(job, ['helix-int-notification-url', 'helix-prod-notification-url'])
     }
 
     def private static String joinStrings(Iterable<String> strings, String combineDelim) {
@@ -1266,14 +1266,24 @@ class Utilities {
      * Each call to this overwrites the previous set of notifications
      *
      * @param job Job to add hook to
-     * @param endPoints List of credential IDs of the endpoints to run
+     * @param targetEndpoints List of credential IDs of the endpoints to run
      */
-    private static void setBuildEventWebHooks(def job, def endPoints) {
+    private static void setBuildEventWebHooks(def job, def targetEndpoints) {
         job.with {
-            notifications {
-                endPoints.each { endPoint ->
-                    endpoint(endPoint) {
-                        event('all')
+            properties {
+                hudsonNotificationProperty {
+                    endpoints {
+                        targetEndpoints.each { targetEndpoint ->
+                            // Use the secret endpoint to source the endpoint URL from credentials
+                            endpoint {
+                                urlInfo {
+                                    urlType('SECRET')
+                                    urlOrId(targetEndpoint)
+                                }
+                                event('all')
+                                retries(3)
+                            }
+                        }
                     }
                 }
             }
