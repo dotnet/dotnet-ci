@@ -68,7 +68,7 @@ class VSTSPipelineScm implements PipelineScm {
                             }
 
                             // Set the branch
-                            branch('${GitBranchOrCommit}')
+                            branch('${vstsBranchOrCommit}')
                             
                             // Raise the clone timeout
                             extensions {
@@ -117,7 +117,7 @@ class VSTSPipelineScm implements PipelineScm {
                                 credentials(this._credentials)
                             }
 
-                            branch('${GitBranchOrCommit}')
+                            branch('${vstsBranchOrCommit}')
                             
                             // Raise up the timeout
                             extensions {
