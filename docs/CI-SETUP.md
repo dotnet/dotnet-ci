@@ -42,7 +42,7 @@ Below contains information on how to onboard your project onto Jenkins.
     * Powershell
     * Bash/Shell scripting
   Let the .NET CI administrators know what will be needed (@mmitche, netciadmin alias)
-  3. Send a PR to dotnet-ci adding your repo to jobs\data\repolist.txt.  The server (dotnet-ci or dotnet-ci2) is specified in the line.  Typically dotnet-ci is used, though newer repos may use dotnet-ci2.
+  3. Send a PR to dotnet-ci adding your repo to jobs\data\repolist.txt.  The server (dotnet-ci or dotnet-ci2) is specified in the line.  Typically dotnet-ci is used, though newer repos may use dotnet-ci2. Private repos could use dotnet-vsts.
   4. Ensure your repo is accessible by @dotnet-bot and @mmitche.
   5. Configure web hooks for the CI.  You need two entries:
     * A GitHub webhook for push events - Go into the repo settings, click "Webhooks", then click "Add webhook".
@@ -55,6 +55,25 @@ Below contains information on how to onboard your project onto Jenkins.
       - "Let me select individual events"
         - Pull request
         - Issue comment
+	Similarly private repos also need two entries:
+    * A VSTS webhook for push events - Go into the repo settings, click "Service Hooks", then click "Create a new subscription..." ("+" icon)
+        - Service: Jenkins, then click "Next"
+		- Trigger on this type of event: "Code pushed"
+		- Repository: your repo selected from the dropdown list (for example "DotNet-CI-Trusted"), then click "Next"
+		- Perform this action: "Trigger Git build"
+		- Jenkins base URL: https://dotnet-vsts.westus2.cloudapp.azure.com
+		- User name: {youralias}@microsoft.com
+		- User API token (or password): Go to https://dotnet-vsts.westus2.cloudapp.azure.com/user/{youralias}@microsoft.com/configure, click "SHOW API TOKEN...", paste "API Token" in.
+		- Integration level: "TFS plugin for Jenkins", then click "Test" and "Finish".
+    * A VSTS webhook for push events - Go into the repo settings, click "Service Hooks", then click "Create a new subscription..." ("+" icon)
+        - Service: Jenkins, then click "Next"
+		- Trigger on this type of event: "Pull request merge commit created"
+		- Repository: your repo selected from the dropdown list (for example "DotNet-CI-Trusted"), then click "Next"
+		- Perform this action: "Trigger Git build"
+		- Jenkins base URL: https://dotnet-vsts.westus2.cloudapp.azure.com
+		- User name: {youralias}@microsoft.com
+		- User API token (or password): Go to https://dotnet-vsts.westus2.cloudapp.azure.com/user/{youralias}@microsoft.com/configure, click "SHOW API TOKEN...", paste "API Token" in.
+		- Integration level: "TFS plugin for Jenkins", then click "Test" and "Finish".	
   6. Create a file called netci.groovy in root of your repo in the target branch (this could also be named something different based on the line in the repolist.txt file).
   7. [Write your CI definition](WRITING-NETCI.md)
   8. PR the netci.groovy file, /cc @mmitche for review and comment "test ci please" to the PR thread.
