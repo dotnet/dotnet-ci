@@ -67,10 +67,10 @@ foreach ($resourceGroup in $resourceGroups) {
                 Write-Error "NIC $nicName doesn't have a public IP address"
             }
             else {
-                Write-Host "Removing PIP $pipName"
-                
                 # Parse out the name of the PIP
                 $pipName = $pipId.Substring($pipId.LastIndexOf('/') + 1)
+
+                Write-Host "Removing PIP $pipName"
             
                 # Remove the PIP
                 Remove-AzureRmPublicIpAddress -Name $pipName -ResourceGroupName $resourceGroup -Force
