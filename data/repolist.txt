@@ -92,7 +92,6 @@ dotnet/project-system branch=master server=dotnet-ci
 dotnet/project-system branch=dev15.0.x server=dotnet-ci
 dotnet/project-system branch=dev15.3.x server=dotnet-ci
 dotnet/project-system branch=dev15.4.x server=dotnet-ci
-dotnet/project-system branch=RepoToolset-Exp server=dotnet-ci
 dotnet/source-build branch=master server=dotnet-ci
 dotnet/source-build branch=release/2.0 server=dotnet-ci
 dotnet/source-build branch=dev/release/2.0 server=dotnet-ci
