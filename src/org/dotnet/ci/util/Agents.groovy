@@ -78,7 +78,7 @@ class Agents {
                                 // For outerloop runs.
                                 'outer-latest':'ubuntu1404-201626outer',
                                 // For internal Ubuntu runs
-                                'latest-or-internal':'ubuntu1404-20160211.1-internal'
+                                'latest-internal':'ubuntu1404-20160211.1-internal'
                                 ],
                             'Ubuntu16.04' :
                                 [
@@ -96,7 +96,7 @@ class Agents {
                                 'latest':'ubuntu1604-20170925-1',
                                 // ubuntu1604-20160510 + docker.
                                 // Move this to latest after validation
-                                'latest-or-docker':'ubuntu1604-20170216',
+                                'latest-docker':'ubuntu1604-20170216',
                                 // For outerloop runs.
                                 'outer-latest':'ubuntu1604-20170216-outer',
                                 // For outerloop runs, using Linux kernel version 4.6.2
@@ -119,7 +119,7 @@ class Agents {
                                 // Latest auto image.
                                 'latest':'osx-10.11',
                                 // For elevated runs
-                                'latest-or-elevated':'osx-10.11-elevated'
+                                'latest-elevated':'osx-10.11-elevated'
                                 ],
                             // Sierra
                             'OSX10.12' :
@@ -127,7 +127,7 @@ class Agents {
                                 // Latest auto image.
                                 'latest':'osx-10.12 || OSX.1012.Amd64.Open',
                                 // For elevated runs
-                                'latest-or-elevated':'osx-10.12-elevated'
+                                'latest-elevated':'osx-10.12-elevated'
                                 ],
                             // High Sierra
                             'OSX10.13' :
@@ -135,7 +135,7 @@ class Agents {
                                 // Latest auto image.
                                 'latest':'osx-10.13',
                                 // For elevated runs
-                                'latest-or-elevated':'osx-10.13-elevated'
+                                'latest-elevated':'osx-10.13-elevated'
                                 ],
                             // This is Windows Server 2012 R2
                             'Windows_NT' :
@@ -158,31 +158,31 @@ class Agents {
                                 // Now contains VS2017
                                 'latest':'win2012-20170929',
                                 // Win2012.R2 + VS2013.5 + VS2015.3 + VS15.P3
-                                'latest-or-dev15':'win2012-20160707',
+                                'latest-dev15':'win2012-20160707',
                                 // Win2012.R2 + VS2013.5 + VS2015.3 + VS15.P4
-                                'latest-or-dev15-preview4':'win2012-20160912',
+                                'latest-dev15-preview4':'win2012-20160912',
                                 // Win2016 + VS15.P5
-                                'latest-or-dev15-preview5':'win2016-20161013-1',
+                                'latest-dev15-preview5':'win2016-20161013-1',
                                 // Win2016 + VS15.RC2
-                                'latest-or-dev15-rc2':'win2016-20170105',
+                                'latest-dev15-rc2':'win2016-20170105',
                                 // Win2016 + VS15.RC4
-                                'latest-or-dev15-rc':'win2016-20170214',
+                                'latest-dev15-rc':'win2016-20170214',
                                 // Win2016 + VS15.0
-                                'latest-or-dev15-0':'win2016-20170712',
+                                'latest-dev15-0':'win2016-20170712',
                                 // For internal runs - Win2016 + VS15.1
                                 'latest-dev15-1':'win2016-20170427',
                                 // Win2016 + VS15.3 Preview1
-                                'latest-or-dev15-3':'win2016-20170507',
+                                'latest-dev15-3':'win2016-20170507',
                                 // Dev15 image
                                 'latest-dev15':'win2012-20160506',
                                 // For internal runs
-                                'latest-or-internal':'win2012-20160707-internal',
+                                'latest-internal':'win2012-20160707-internal',
                                 // For internal runs - Win2016 + VS15.RC2
-                                'latest-or-dev15-rc2-internal':'win2016-20170105-internal',
+                                'latest-dev15-rc2-internal':'win2016-20170105-internal',
                                 // For internal runs - Win2016 + VS15.RC4
-                                'latest-or-dev15-internal':'win2016-20170214-internal',
+                                'latest-dev15-internal':'win2016-20170214-internal',
                                 // For internal runs - Win2016 + VS15.0
-                                'latest-or-dev15-0-internal':'win2016-20170712-internal',
+                                'latest-dev15-0-internal':'win2016-20170712-internal',
                                 // For internal runs - Win2016 + VS15.1
                                 'latest-dev15-1-internal':'win2016-20170427-internal',
                                 // win2016-base + d15prerel-26423.1
@@ -216,11 +216,11 @@ class Agents {
                                 // win2016-base + Dev15.3.4
                                 'latest-dev15-3-internal' : 'win2016-20170919-internal',
                                 // For elevated runs
-                                'latest-or-elevated':'win2012-20170929-elevated',
+                                'latest-elevated':'win2012-20170929-elevated',
                                 // For arm64 builds
                                 'latest-arm64':'win2012-20170810',
                                 // For perf runs
-                                'latest-or-perf':'windows-perf-internal',
+                                'latest-perf':'windows-perf-internal',
                                 // Win2016
                                 'win2016-base': 'win2016-base',
                                 // Win2016

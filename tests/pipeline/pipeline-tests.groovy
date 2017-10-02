@@ -57,7 +57,7 @@ stage ('Run Tests') {
             },
 
             // Test that simple nodes work, of various types
-            /*"simpleNode - custom timeout" : {
+            "simpleNode - custom timeout" : {
                 timeout (60) {
                     simpleNode('Windows_NT', 'latest', 30) {
                         checkoutRepo()
@@ -68,11 +68,11 @@ stage ('Run Tests') {
             // Test that simple nodes work, of various types
             "simpleNode - custom timeout2" : {
                 timeout (60) {
-                    simpleNode('Windows_NT', 30) {
+                    simpleNode('osx-10.12 || OSX.1012.Amd64.Open', 30) {
                         checkoutRepo()
                     }
                 }
-            },*/
+            },
 
             "simpleNode - Ubuntu14.04 - latest" : {
                 timeout (60) {
@@ -90,7 +90,7 @@ stage ('Run Tests') {
                 }
             },
 
-            /*"simpleDockerNode1" : {
+            "simpleDockerNode1" : {
                 timeout (60) {
                     simpleDockerNode('microsoft/dotnet-buildtools-prereqs:rhel7_prereqs_2') {
                         checkoutRepo()
@@ -104,7 +104,7 @@ stage ('Run Tests') {
                         checkoutRepo()
                     }
                 }
-            },*/
+            },
 
             "getBranch" : {
                 // getBranch
@@ -186,10 +186,10 @@ stage ('Run Tests') {
                     def userEmail = getUserEmail()
                     assert userEmail == 'blah@blah.com' : "Expected getUserEmail would return blah@blah.com, actually got ${userEmail}"
                 }
-            },*/
+            },
 
             // Test temporarily disabled because of issue with withEnv
-            /*"getUserEmail - GitHub PR, no email": {
+            "getUserEmail - GitHub PR, no email": {
                 withEnv(['ghprbPullAuthorLogin=baz', 'ghprbGhRepository=foo/bar', 'ghprbPullAuthorEmail=']) {
                     def userEmail = getUserEmail()
                     assert userEmail == 'baz@github.login' : "Expected getUserEmail would return baz@github.login, actually got ${userEmail}"
@@ -256,7 +256,7 @@ stage ('Run Tests') {
 
                             withCredentials([string(credentialsId: 'CloudDropAccessToken', variable: 'CloudDropAccessToken'),
                                  string(credentialsId: 'OutputCloudResultsAccessToken', variable: 'OutputCloudResultsAccessToken')]) {
-                                bat '..\\Tools\\dotnetcli\\dotnet.exe ..\\Tools\\MSBuild.dll submit-job.proj /p:CloudDropAccountName=dotnetbuilddrops /p:CloudDropAccessToken=%CloudDropAccessToken% /p:CloudResultsAccountName=dotnetjobresults /p:CloudResultsAccessToken=%OutputCloudResultsAccessToken%'
+                                 bat '..\\Tools\\dotnetcli\\dotnet.exe msbuild submit-job.proj /p:CloudDropAccountName=dotnetbuilddrops /p:CloudDropAccessToken=%CloudDropAccessToken% /p:CloudResultsAccountName=dotnetjobresults /p:CloudResultsAccessToken=%OutputCloudResultsAccessToken%'
                             }
                         }
 
@@ -322,7 +322,7 @@ stage ('Run Tests') {
 
                             withCredentials([string(credentialsId: 'CloudDropAccessToken', variable: 'CloudDropAccessToken'),
                                  string(credentialsId: 'OutputCloudResultsAccessToken', variable: 'OutputCloudResultsAccessToken')]) {
-                                bat '..\\Tools\\dotnetcli\\dotnet.exe ..\\Tools\\MSBuild.dll submit-job.proj /p:CloudDropAccountName=dotnetbuilddrops /p:CloudDropAccessToken=%CloudDropAccessToken% /p:CloudResultsAccountName=dotnetjobresults /p:CloudResultsAccessToken=%OutputCloudResultsAccessToken%'
+                                bat '..\\Tools\\dotnetcli\\dotnet.exe msbuild submit-job.proj /p:CloudDropAccountName=dotnetbuilddrops /p:CloudDropAccessToken=%CloudDropAccessToken% /p:CloudResultsAccountName=dotnetjobresults /p:CloudResultsAccessToken=%OutputCloudResultsAccessToken%'
                             }
                         }
 
