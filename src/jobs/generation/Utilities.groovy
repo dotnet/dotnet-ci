@@ -848,25 +848,18 @@ class Utilities {
     }
 
     /**
-     * Add the ability to repro a failed job
+     * Add the ability to repro a failed job.
      *
      * @param job Job to modify
-     * 
      */
     def static addReproBuild(def job) {
-        // Currently only supported on dotnet-ci4.
-        // Remove when rolled out.
-        if (GenerationSettings.getServerName() != "dotnet-ci4") {
-            return
-        }
-
         job.with {
             publishers {
-                reproToolPublisher{      
+                reproToolPublisher {
                     StorageName("workspaceUpload")
-                    StorageAccount("testblobupload")
+                    StorageAccount("reproworkspace")
                     StorageContainer("workspace")
-                    APIBaseURI("https://repro-tool-int.westus2.cloudapp.azure.com/")
+                    APIBaseURI("https://repro-tool.westus2.cloudapp.azure.com/")
                     CredentialsId("")
                 }
             }
