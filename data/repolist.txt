@@ -165,24 +165,24 @@ adiaaida/coreclr branch=dev/pipeline server=dotnet-ci3 definitionScript=buildpip
 Microsoft/testfx branch=master server=dotnet-ci
 sbomer/coreclr branch=master server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy
 # Tests for pipelines
-dotnet/dotnet-ci branch=dev/pipelinesupport definitionScript=tests/pipeline/tests.groovy server=dotnet-ci3 subFolder=pipelineTests
+dotnet/dotnet-ci branch=master definitionScript=tests/pipeline/tests.groovy server=dotnet-ci3 subFolder=pipelineTests
 # Tests for DSL
-dotnet/dotnet-ci branch=dev/pipelinesupport definitionScript=tests/dsl/*.groovy isDSLTest=true server=dotnet-ci3 subFolder=dslTests
+dotnet/dotnet-ci branch=master definitionScript=tests/dsl/*.groovy isDSLTest=true server=dotnet-ci3 subFolder=dslTests
 # Tests for pipelines
-dotnet/dotnet-ci branch=dev/pipelinesupport definitionScript=tests/pipeline/tests.groovy server=dotnet-ci2 subFolder=pipelineTests
+dotnet/dotnet-ci branch=master definitionScript=tests/pipeline/tests.groovy server=dotnet-ci2 subFolder=pipelineTests
 # Tests for DSL
-dotnet/dotnet-ci branch=dev/pipelinesupport definitionScript=tests/dsl/*.groovy isDSLTest=true server=dotnet-ci2 subFolder=dslTests
+dotnet/dotnet-ci branch=master definitionScript=tests/dsl/*.groovy isDSLTest=true server=dotnet-ci2 subFolder=dslTests
 # Tests for pipelines
-dotnet/dotnet-ci branch=dev/pipelinesupport definitionScript=tests/pipeline/tests.groovy server=dotnet-ci subFolder=pipelineTests
+dotnet/dotnet-ci branch=master definitionScript=tests/pipeline/tests.groovy server=dotnet-ci subFolder=pipelineTests
 # Tests for DSL
-dotnet/dotnet-ci branch=dev/pipelinesupport definitionScript=tests/dsl/*.groovy isDSLTest=true server=dotnet-ci subFolder=dslTests
+dotnet/dotnet-ci branch=master definitionScript=tests/dsl/*.groovy isDSLTest=true server=dotnet-ci subFolder=dslTests
 # Tests for pipelines
-Tools/DotNet-CI-Trusted credentials=vsts-dotnet-ci-trusted-creds collection=mseng branch=dev/pipelinesupport definitionScript=tests/pipeline/tests.groovy server=dotnet-vsts subFolder=pipelineTests
+Tools/DotNet-CI-Trusted credentials=vsts-dotnet-ci-trusted-creds collection=mseng branch=master definitionScript=tests/pipeline/tests.groovy server=dotnet-vsts subFolder=pipelineTests
 # Tests for dsl
-Tools/DotNet-CI-Trusted credentials=vsts-dotnet-ci-trusted-creds collection=mseng branch=dev/pipelinesupport definitionScript=tests/dsl/*.groovy isDSLTest=true server=dotnet-vsts subFolder=dslTests
+Tools/DotNet-CI-Trusted credentials=vsts-dotnet-ci-trusted-creds collection=mseng branch=master definitionScript=tests/dsl/*.groovy isDSLTest=true server=dotnet-vsts subFolder=dslTests
 # Tests for pipelines
-dotnet/dotnet-ci branch=dev/pipelinesupport definitionScript=tests/pipeline/tests.groovy server=dotnet-ci4 subFolder=pipelineTests
+dotnet/dotnet-ci branch=master definitionScript=tests/pipeline/tests.groovy server=dotnet-ci4 subFolder=pipelineTests
 # Tests for DSL
-dotnet/dotnet-ci branch=dev/pipelinesupport definitionScript=tests/dsl/*.groovy isDSLTest=true server=dotnet-ci4 subFolder=dslTests
+dotnet/dotnet-ci branch=master definitionScript=tests/dsl/*.groovy isDSLTest=true server=dotnet-ci4 subFolder=dslTests
 # chcosta test for pipelines
 DevDiv/Dotnet-CoreFX-Trusted branch=vsts-to-jenkins server=dotnet-vsts credentials=vsts-dotnet-trusted-creds collection=devdiv definitionScript=buildpipeline/pipelinejobs.groovy
