@@ -256,7 +256,7 @@ class Agents {
                                 // Latest auto image.
                                 'latest':'rhel72-20170928',
                                 // For outerloop runs.
-                                'outer-latest':'rhel72-20160412.1outer'
+                                'outer-latest':'rhel72-20160412-1-outer'
                                 ],
                             'CentOS7.1' :
                                 [
