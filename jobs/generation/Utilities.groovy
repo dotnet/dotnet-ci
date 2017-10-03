@@ -1331,7 +1331,7 @@ class Utilities {
                 batchFile("powershell -Command \"Add-Type -Assembly 'System.IO.Compression.FileSystem'; [System.IO.Compression.ZipFile]::ExtractToDirectory('cross-integration.zip', 'cross-tool')\"")
                 def orgName = Utilities.getOrgName(project)
                 def repoName = Utilities.getProjectName(project)
-                batchFile("cd cross-tool && cross --organization ${orgName} --repository ${repoName} --token %UPDATE_TOKEN% --logfile cross-log.json %ghprbPullId% ")
+                batchFile("cd cross-tool && cross --organization ${orgName} --repository ${repoName} --token %UPDATE_TOKEN% --writecomments --logfile cross-log.json %ghprbPullId% ")
             }
 
             // Ensure credentials are bound
@@ -1342,6 +1342,22 @@ class Utilities {
                     string('UPDATE_TOKEN', 'cross-update-token')
                 }
             }
+
+            triggers {
+                githubPullRequest {
+                    useGitHubHooks()
+                    permitAll()
+                    extensions {
+                        commitStatus {
+                            context('CROSS Check')
+                            statusUrl('https://wikilinkhere')
+                        }
+                    }
+                    onlyTriggerPhrase(!runByDefault)
+                    triggerPhrase('(?i).*test\\W+cross\\W+please.*')
+                    whiteListTargetBranches([branch])
+                }
+            }
         }
 
 
@@ -1349,7 +1365,6 @@ class Utilities {
         Utilities.setMachineAffinity(crossJob, 'Windows_NT', 'latest-or-auto')
         Utilities.addPrivatePermissions(crossJob, ['Microsoft'])
         Utilities.standardJobSetup(crossJob, project, true, "*/${branch}")
-        Utilities.addGithubPRTriggerForBranch(crossJob, branch, 'CROSS Check', '(?i).*test\\W+cross\\W+please.*', !runByDefault)
         Utilities.addArchival(crossJob, '**/cross-log.json')
     }
 
