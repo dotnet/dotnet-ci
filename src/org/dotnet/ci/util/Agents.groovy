@@ -76,7 +76,7 @@ class Agents {
                                 // Latest auto image.
                                 'latest':'ubuntu1404-20170925',
                                 // For outerloop runs.
-                                'outer-latest':'ubuntu1404-201626outer',
+                                'outer-latest':'ubuntu1404-20160206-outer',
                                 // For internal Ubuntu runs
                                 'latest-internal':'ubuntu1404-20160211.1-internal'
                                 ],
