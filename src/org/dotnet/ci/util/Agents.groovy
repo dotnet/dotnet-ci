@@ -49,8 +49,6 @@ class Agents {
         def machineMap    = [
                             'Ubuntu14.04' :
                                 [
-                                // Generic version label
-                                '':'ubuntu1404-20160211',
                                 // Specific image label
                                 '201626':'ubuntu1404-201626',
                                 // Contains an updated version of mono
@@ -63,6 +61,8 @@ class Agents {
                                 '20170118':'ubuntu1404-20170118',
                                 // Contains the rootfs setup for arm builds.
                                 '20170821':'ubuntu1404-20170821',
+                                // 20170821 + clang 3.9
+                                '20170925':'ubuntu1404-20170925',
                                 // Contains Mono 5.0.1
                                 'arm-cross-latest':'ubuntu1404-20170120',
                                 // Contains the rootfs setup for arm64 builds.
@@ -74,29 +74,26 @@ class Agents {
                                 // Image installing the latest mono-devel
                                 'latest-mono-devel':'ubuntu1404-20160211-1-latest-mono',
                                 // Latest auto image.
-                                'latest':'ubuntu1404-20170821',
+                                'latest':'ubuntu1404-20170925',
                                 // For outerloop runs.
-                                'outer-latest':'ubuntu1404-201626outer',
+                                'outer-latest':'ubuntu1404-20160206-outer',
                                 // For internal Ubuntu runs
                                 'latest-internal':'ubuntu1404-20160211.1-internal'
                                 ],
-                            'Ubuntu15.10' :
-                                [
-                                // Generic version label
-                                '' : 'ubuntu1510-20160307',
-                                // Latest auto image.
-                                'latest':'ubuntu1510-20160307',
-                                // For outerloop runs.
-                                'outer-latest':'ubuntu1510-20160307outer'
-                                ],
                             'Ubuntu16.04' :
                                 [
+                                // 20170526 + clang 3.9
+                                '20170925':'ubuntu1604-20170925',
+                                // Contains the rootfs setup for arm64 builds.
+                                'arm64-cross-latest':'ubuntu1604-20170925',
                                 // Contains ubuntu1604-20160803 + gdb + mono 4.6.2.16
                                 '20170109':'ubuntu1604-20170109',
                                 //Contains Mono 5.0.1
                                 '20170731':'ubuntu1604-20170731',
+                                // 20170731 + clang 3.9
+                                '20170925-1':'ubuntu1604-20170925-1',
                                 // Latest auto image.
-                                'latest':'ubuntu1604-20170731',
+                                'latest':'ubuntu1604-20170925-1',
                                 // ubuntu1604-20160510 + docker.
                                 // Move this to latest after validation
                                 'latest-docker':'ubuntu1604-20170216',
@@ -107,18 +104,18 @@ class Agents {
                                 ],
                             'Ubuntu16.10' :
                                 [
+                                // 20170216 + clang 3.9
+                                '20170925':'ubuntu1610-20170925',
                                 // Latest auto image.  This will be used for transitioning
                                 // to the auto images, at which point we will move back to
                                 // the generic unversioned label except for special cases.
-                                'latest':'ubuntu1610-20170216',
+                                'latest':'ubuntu1610-20170925',
                                 // For outerloop runs.
                                 'outer-latest':'ubuntu1610-20170216-outer',
                                 ],
                             // El Capitan
                             'OSX10.11' :
                                 [
-                                // Generic version label
-                                '' : 'osx-10.11',
                                 // Latest auto image.
                                 'latest':'osx-10.11',
                                 // For elevated runs
@@ -127,7 +124,7 @@ class Agents {
                             // Sierra
                             'OSX10.12' :
                                 [
-                                // Latest (helix/static).
+                                // Latest auto image.
                                 'latest':'osx-10.12 || OSX.1012.Amd64.Open',
                                 // For elevated runs
                                 'latest-elevated':'osx-10.12-elevated'
@@ -135,8 +132,6 @@ class Agents {
                             // High Sierra
                             'OSX10.13' :
                                 [
-                                // Generic version label
-                                '' : 'osx-10.13',
                                 // Latest auto image.
                                 'latest':'osx-10.13',
                                 // For elevated runs
@@ -160,7 +155,8 @@ class Agents {
                                 // win2016-20170303 + Python 3.2
                                 '20170427-elevated' : 'win2012-20170809-elevated',
                                 // the generic unversioned label except for special cases.
-                                'latest':'win2012-20170608',
+                                // Now contains VS2017
+                                'latest':'win2012-20171002',
                                 // Win2012.R2 + VS2013.5 + VS2015.3 + VS15.P3
                                 'latest-dev15':'win2012-20160707',
                                 // Win2012.R2 + VS2013.5 + VS2015.3 + VS15.P4
@@ -215,8 +211,12 @@ class Agents {
                                 'latest-dev15-3-preview7' : 'win2016-20170802',
                                 // win2016-base + Dev15.3 preview 7
                                 'latest-dev15-3-preview7-internal' : 'win2016-20170802-internal',
+                                // win2016-base + Dev15.3.4
+                                'latest-dev15-3' : 'win2016-20170919',
+                                // win2016-base + Dev15.3.4
+                                'latest-dev15-3-internal' : 'win2016-20170919-internal',
                                 // For elevated runs
-                                'latest-elevated':'win2012-20170608-elevated',
+                                'latest-elevated':'win2012-20171002-elevated',
                                 // For arm64 builds
                                 'latest-arm64':'win2012-20170810',
                                 // For perf runs
@@ -230,6 +230,9 @@ class Agents {
                                 [
                                 // First working containers image
                                 'win2016-20161018-1':'win2016-20161018-1',
+                                // Docker 17.06.1-ee-2
+                                'win2016-20170921':'win2016-20170921',
+                                'latest-docker':'win2016-20170921',
                                 // Latest auto image w/docker (move to latest when possible)
                                 'latest-containers':'win2016-20161018-1',
                                 // Latest auto image.
@@ -246,69 +249,47 @@ class Agents {
                                 // Latest auto image.
                                 'latest':'win2008-20170303'
                                 ],
-                            'FreeBSD' :
-                                [
-                                // Latest auto image.
-                                'latest':'freebsd-20161026'
-                                ],
                             'RHEL7.2' :
                                 [
-                                '' : 'rhel72-20170525',
+                                // 20170525 + clang 3.9
+                                '20170928':'rhel72-20170928',
                                 // Latest auto image.
-                                'latest':'rhel72-20170525',
+                                'latest':'rhel72-20170928',
                                 // For outerloop runs.
-                                'outer-latest':'rhel72-20160412.1outer'
+                                'outer-latest':'rhel72-20160412-1-outer'
                                 ],
                             'CentOS7.1' :
                                 [
+                                // centos71-20170216 + clang 3.9
+                                '20170926':'centos71-20170926',
                                 // Latest auto image.
-                                'latest':'centos71-20170216',
+                                'latest':'centos71-20170926',
                                 // For outerloop runs.
                                 'outer-latest':'centos71-20170216-outer',
                                 // For outerloop runs, using Linux kernel version 4.6.4
                                 'outer-linux464': 'centos71-20160609.1-20160715outer'
                                 ],
-                            'OpenSUSE13.2' :
-                                [
-                                '' : 'suse132-20160315',
-                                // Latest auto image.
-                                'latest':'suse132-20160315',
-                                // For outerloop runs
-                                'outer-latest':'suse132-20160315outer'
-                                ],
-                            'OpenSUSE42.1' :
-                                [
-                                // Latest auto image.
-                                'latest':'suse421-20170216',
-                                // For outerloop runs
-                                'outer-latest':'suse421-20170216-outer'
-                                ],
                             'Debian8.2' :
                                 [
-                                '' : 'deb82-20160323',
                                 '20160323':'deb82-20160323',
                                 // Latest auto image.
                                 'latest':'deb82-20160323'
                                 ],
                             'Debian8.4' :
                                 [
+                                // 20170214 + clang 3.9
+                                '20170925':'deb84-20170925',
                                 // Latest auto image.
-                                'latest':'deb84-20170214',
+                                'latest':'deb84-20170925',
                                 // For outerloop runs
                                 'outer-latest':'deb84-20170214-outer'
                                 ],
-                            'Fedora23' :
-                                [
-                                '' : 'fedora23-20160622',
-                                // Latest auto image.
-                                'latest':'fedora23-20160622',
-                                // For outerloop runs
-                                'outer-latest':'fedora23-20160622outer'
-                                ],
                             'Fedora24' :
                                 [
+                                // fedora24-20170420 + clang 3.9
+                                '20170926':'fedora24-20170926',
                                 // Latest auto image.
-                                'latest':'fedora24-20170420',
+                                'latest':'fedora24-20170926',
                                 // For outerloop runs
                                 'outer-latest':'fedora24-20170420-outer'
                                 ],
@@ -325,7 +306,6 @@ class Agents {
                                 // generators.
                             'Generators' :
                                 [
-                                '' : '!windowsnano16',
                                 'latest':'!windowsnano16 && !performance && !dtap'
                                 ]
                             ]

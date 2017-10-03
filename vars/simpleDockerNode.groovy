@@ -1,4 +1,5 @@
 import org.dotnet.ci.util.Agents
+import org.dotnet.ci.util.Constants
 
 // Example:
 //
@@ -7,7 +8,15 @@ import org.dotnet.ci.util.Agents
 //     sh 'echo Hello world'
 // }
 
-
+// Runs a set of functionality on the default node
+// that supports docker.
+// Parameters:
+//  dockerImageName - Docker image to use
+//  timeoutInMinutes - Timeout in minutes for the body
+//  body - Closure, see example
+def call(String dockerImageName, int timeoutInMinutes, Closure body) {
+    simpleDockerNode(dockerImageName, 'latest', timeoutInMinutes, body)
+}
 
 // Runs a set of functionality on the default node
 // that supports docker.
@@ -15,7 +24,7 @@ import org.dotnet.ci.util.Agents
 //  dockerImageName - Docker image to use
 //  body - Closure, see example
 def call(String dockerImageName, Closure body) {
-    call(dockerImageName, 'latest', body)
+    simpleDockerNode(dockerImageName, 'latest', Constants.DEFAULT_PIPELINE_TIMEOUT, body)
 }
 
 // Runs a set of functionality on the default node
@@ -23,11 +32,39 @@ def call(String dockerImageName, Closure body) {
 // Parameters:
 //  dockerImageName - Docker image to use
 //  hostVersion - Host VM version.  See Agents.getDockerMachineAffinity for explanation.
+//  timeoutInMinutes - Timeout in minutes for the body
 //  body - Closure, see example
 def call(String dockerImageName, String hostVersion, Closure body) {
+    simpleDockerNode(dockerImageName, hostVersion, Constants.DEFAULT_PIPELINE_TIMEOUT, body)
+}
+
+// Runs a set of functionality on the default node
+// that supports docker.
+// Parameters:
+//  dockerImageName - Docker image to use
+//  hostVersion - Host VM version.  See Agents.getDockerMachineAffinity for explanation.
+//  timeoutInMinutes - Timeout in minutes for the body
+//  body - Closure, see example
+def call(String dockerImageName, String hostVersion, int timeoutInMinutes, Closure body) {
+    call(dockerImageName, hostVersion, timeoutInMinutes, '', body)
+}
+
+// Runs a set of functionality on the default node
+// that supports docker.
+// Parameters:
+//  dockerImageName - Docker image to use
+//  hostVersion - Host VM version.  See Agents.getDockerMachineAffinity for explanation.
+//  timeoutInMinutes - Timeout in minutes for the body
+// dockerArgs - additional docker parameters for the docker node
+//  body - Closure, see example
+def call(String dockerImageName, String hostVersion, String dockerArgs, Closure body) {
+    call(dockerImageName, hostVersion, Constants.DEFAULT_PIPELINE_TIMEOUT, dockerArgs, body)
+}
+
+def call(String dockerImageName, String hostVersion, int timeoutInMinutes, String dockerArgs, Closure body) {
     node (Agents.getDockerAgentLabel(hostVersion)) {
         timestamps {
-            timeout(120) {
+            timeout(timeoutInMinutes) {
                 def dockerImage = docker.image(dockerImageName)
                 // Force pull.
                 retry (3) {
@@ -39,7 +76,7 @@ def call(String dockerImageName, String hostVersion, Closure body) {
                 // users in our container.  This bug is filed as https://issues.jenkins-ci.org/browse/JENKINS-38438.
                 // In the meantime, we can pass -u to the inside() step which will append to the command line and
                 // override the original -u.
-                dockerImage.inside('-u 0:0') {
+                dockerImage.inside('-u 0:0 ' + dockerArgs) {
                     try {
                         // Make the log folder
                         makeLogFolder()

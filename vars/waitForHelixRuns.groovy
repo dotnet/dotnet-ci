@@ -179,7 +179,6 @@ def call (def helixRunsBlob, String prStatusPrefix) {
                             state = 3
                             return true
                         }
-                        return false
                     }
                     catch (Exception ex) {
                         println(ex.toString());
@@ -187,6 +186,7 @@ def call (def helixRunsBlob, String prStatusPrefix) {
                         println(ex.getStackTrace());
                         println('Allowing retry to occur...')
                     }
+                    return false
                 }
             }
         }

@@ -37,13 +37,12 @@ class VSTSPipelineScm implements PipelineScm {
         job.with {
             // Set up parameters for this job
             parameters {
-                // TODO: VSTS PR params
-                stringParam('sha1', '', 'Incoming sha1 parameter from the GHPRB plugin.')
-                stringParam('GitBranchOrCommit', '${sha1}', 'Git branch or commit to build.  If a branch, builds the HEAD of that branch.  If a commit, then checks out that specific commit.')
+                stringParam('vstsBranchOrCommit', "*/${this._branch}", 'VSTS commit hash')
+                stringParam('GitBranchOrCommit', '${vstsBranchOrCommit}', 'Git branch or commit to build.  If a branch, builds the HEAD of that branch.  If a commit, then checks out that specific commit.')
                 stringParam('GitRepoUrl', this.getGitUrl(), 'Git repo to clone.')
-                stringParam('GitRefSpec', '+refs/pull/${ghprbPullId}/*:refs/remotes/origin/pr/${ghprbPullId}/*', 'RefSpec.  WHEN SUBMITTING PRIVATE JOB FROM YOUR OWN REPO, CLEAR THIS FIELD (or it won\'t find your code)')
+                stringParam('vstsRefspec', '', 'VSTS refspec')
+                stringParam('GitRefSpec', '${vstsRefspec}', 'RefSpec.  WHEN SUBMITTING PRIVATE JOB FROM YOUR OWN REPO, CLEAR THIS FIELD (or it won\'t find your code)')
                 stringParam('DOTNET_CLI_TELEMETRY_PROFILE', "IsInternal_CIServer;${_project}", 'This is used to differentiate the internal CI usage of CLI in telemetry.  This gets exposed in the environment and picked up by the CLI product.')
-                
                 stringParam('QualifiedRepoName', this._project, 'Combined GitHub org and repo name')
                 stringParam('RepoName', Utilities.getRepoName(this._project), 'Repo name')
                 stringParam('OrgOrProjectName', Utilities.getOrgOrProjectName(this._project), 'Organization/VSTS project name')

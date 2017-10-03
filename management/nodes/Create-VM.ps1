@@ -153,5 +153,5 @@ else {
 New-AzureRmVM -ResourceGroupName $ResourceGroupName -Location $Location -VM $vm
 
 # Retrieve the connection info
-Write-Output "\nRetrieving connection information..."
+Write-Output "`r`nRetrieving connection information..."
 .\Get-Connection-Info.ps1 $VMName -ResourceGroupName $ResourceGroupName
