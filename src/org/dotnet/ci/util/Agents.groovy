@@ -156,7 +156,7 @@ class Agents {
                                 '20170427-elevated' : 'win2012-20170809-elevated',
                                 // the generic unversioned label except for special cases.
                                 // Now contains VS2017
-                                'latest':'win2012-20171002',
+                                'latest':'win2012-20171003',
                                 // Win2012.R2 + VS2013.5 + VS2015.3 + VS15.P3
                                 'latest-dev15':'win2012-20160707',
                                 // Win2012.R2 + VS2013.5 + VS2015.3 + VS15.P4
@@ -216,7 +216,7 @@ class Agents {
                                 // win2016-base + Dev15.3.4
                                 'latest-dev15-3-internal' : 'win2016-20170919-internal',
                                 // For elevated runs
-                                'latest-elevated':'win2012-20171002-elevated',
+                                'latest-elevated':'win2012-20171003-elevated',
                                 // For arm64 builds
                                 'latest-arm64':'win2012-20170810',
                                 // For perf runs
