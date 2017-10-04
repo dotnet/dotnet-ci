@@ -36,8 +36,3 @@ Example:
 In this, saying 'test suse' Will queue up OpenSUSE testing.  Presumably in this case, the same test phrase was used across all configurations and architectures, so each job that was given that phrase will be queued.
 
 In the future, there are plans for easy ways to determine what the phrases are, or avoid them altogether where possible.
-
-## Stashpop
-
-TODO
-

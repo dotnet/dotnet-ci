@@ -142,7 +142,7 @@ windowsPipeline.triggerPipelineOnPush(['Configuration':configuration])
 ```
 
 ## Available Triggers
-* triggerPipelineOnEveryPR (GitHub, VSTS support coming soon) - Triggers the pipeline on every PR.
+* triggerPipelineOnEveryPR (GitHub, VSTS) - Triggers the pipeline on every PR.
     `myPipeline.triggerPipelineOnEveryPR('GitHub Status Check Name', ['paramA':'valueA', 'paramB,valueB'])`
 * triggerPipelineOnEveryGithubPR (GitHub) - Triggers the pipeline on every PR.
     `myPipeline.triggerPipelineOnEveryGithubPR('GitHub Status Check Name', ['paramA':'valueA', 'paramB,valueB'])`
@@ -160,6 +160,7 @@ windowsPipeline.triggerPipelineOnPush(['Configuration':configuration])
     `myPipeline.triggerPipelineOnPush(['paramA':'valueA', 'paramB,valueB'])`
 * triggerPipelinePeriodically (GitHub/VSTS) - Triggers a pipeline on a shedule, specified by cron job syntax.
     `myPipeline.triggerPipelineOnPush('@hourly', ['paramA':'valueA', 'paramB,valueB'])`
+* triggerPipelineManually (GitHub/VSTS) - Adds a pipeline job that can be triggered when desired by manual or REST API interaction.
 
 # Writing .NET CI Pipelines
 
@@ -195,6 +196,8 @@ Jenkins injects a number of default parameters into pipelines, and the .NET CI S
 * GitBranchOrCommit (added by .NET CI) - Branch/commit to build
 * RepoName (added by .NET CI) - Repository, with org/project name
 * OrgOrProjectName (added by .NET CI) - GitHub org or VSTS Project name containing the repo
+* QualifiedRepoName (added by .NET CI) - Combination of OrgOrProjectName and RepoName
+* BranchName - Target branch for this job
 
 ## Node/Docker Blocks
 

@@ -6,10 +6,14 @@ Contains documentation and some implementation functionality for the .NET CI sys
 
 Start [here.](docs/CI-ONBOARDING.md)
 
+## Looking for the repo list to add another branch for your project?
+
+Go [here.](data/repolist.txt)
+
 ## Looking for information on how to write your jobs
 
-* [Pipeline jobs(new)](docs/WRITING-NETCI.md)
-* [Classic jobs](docs/WRITING-NETCI.md)
+* [Pipeline jobs(new)](docs/CI-PIPELINES.md)
+* [Classic jobs](docs/CI-CLASSIC.md)
 
 ## Looking for a general system overview?
 

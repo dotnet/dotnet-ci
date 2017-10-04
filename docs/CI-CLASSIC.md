@@ -23,8 +23,8 @@ Below is presented a 'classic' CI definition, annotated.
 import jobs.generation.Utilities;
 
 // Defines a the new of the repo, used elsewhere in the file
-def project = GithubProject
-def branch = GithubBranchName
+def project = QualifiedRepoName
+def branch = BranchName
 
 // Generate the builds for debug and release, commit and PRJob
 [true, false].each { isPR -> // Defines a closure over true and false, value assigned to isPR
@@ -51,7 +51,7 @@ def branch = GithubBranchName
             }
         }
         
-        Utilities.setMachineAffinity(newJob, 'Windows_NT', 'latest-or-auto')
+        Utilities.setMachineAffinity(newJob, 'Windows_NT', 'latest')
         
         // This call performs remaining common job setup on the newly created job.
         // It does the following:
@@ -75,10 +75,74 @@ def branch = GithubBranchName
 }
 ```
 
+## General setup for a classic style job
+
+```
+// Import the utility functionality.
+import jobs.generation.Utilities
+
+// Grab the incoming parameters
+def project = QualifiedRepoName
+def branch = BranchName
+
+// Create the name for a new job
+def newJobName = Utilities.getFullJobName(project, "Linux_Debug", false /* not a PR */)
+// Create the job with the name and add some build steps to it
+def newJob = job(newJobName) {
+    steps {
+        shell('echo Hello World')
+    }
+}
+// Call standard job setup to give the job default options, source control, etc.
+Utilities.standardJobSetup(newJob, project, , false /* not a PR */, "*/${branch}")
+// Set what type of machine it runs on
+Utilities.setMachineAffinity(newJob, 'Ubuntu14.04', 'latest')
+// And add some kind of trigger
+Utilities.addGithubPushTrigger(newJob)
+```
+
 ## What kind of functionality is available in a classic definition?
 
 Below is presented a limited list of available functionality.  For a full listing, see [the Utilities class](../src/jobs/generation/Utilities.groovy) as well as [the job dsl reference](https://ci2.dot.net/plugin/job-dsl/api-viewer/index.html)
 
-## Build functionality
+### Incoming parameters 
 
-## Triggers
+The generator job recieves a number of incoming parameters.  On all jobs, you'll find
+* QualifiedRepoName - For VSTS repos, this is 'Project/RepoName', for GitHub this is 'Org/RepoName'.  This is typically used to pass information to the various utilities that create job functionality, like cloning source code.
+* BranchName - Typically used to pass information to the various utilities that create job functionality, like cloning source code.  Also used to make triggers branch specific.
+* GithubProject (*Deprecated*) - Same as QualifiedRepoName
+* GithubBranchName (*Deprecated*) - Same as BranchName
+
+### Build/Job construction functionality
+
+* Utilities.getFullJobName(projectName, jobName, isPRJob) - Constructs a full job name based.  
+* Utilities.setMachineAffinity(job, osName, version) - Sets 'job' to execute on a machine label obtained by looking up OS 'osName' at version 'version' in the image map.  Typically, the version is specific as 'latest'. The image map is located at https://github.com/dotnet/dotnet-ci/blob/master/src/org/dotnet/ci/util/Agents.groovy#L36. ***Note: This area of CI will come under change in the near future, and setMachineAffinity may change significantly.***
+* Utilities.standardJobSetup(job project, isPR, branch) - Call after constructing a new job (see above).  Sets up the default options for a job, including source code.  'branch' should be passed in the form */branch (see above).
+* Utilities.setJobTimeout(job, jobTimeoutInMinutes) - Must be called after standardJobSetup.  Sets the job timeout in minutes
+* Utilities.addArchival(job, archivalSettings) - Adds archival with the set of specified settings.  A bit easier to use than the old style below.  Please see [ArchivalSettings](https://github.com/dotnet/dotnet-ci/blob/master/src/jobs/generation/ArchivalSettings.groovy) for complete information on constructing an archival setup. Example:
+    ```
+    def archivalSettings = new ArchivalSettings()
+    archivalSettings.addFiles("**/artifacts/**")
+    archivalSettings.excludeFiles("**/artifacts/${configName}/obj/**")
+    archivalSettings.excludeFiles("**/artifacts/${configName}/tmp/**")
+    archivalSettings.excludeFiles("**/artifacts/${configName}/VSSetup.obj/**")
+    archivalSettings.setFailIfNothingArchived()
+    archivalSettings.setArchiveOnFailure()
+
+    Utilities.addArchival(job, archivalSettings)
+    ```
+* Utilities.addArchival(job, filesToArchive, filesToExclude (optional), doNotFailedIfNothingArchived (optional, defaults to false), archiveOnlyIfSuccessful (optional, defaults to true)) (*Deprecated*) - Adds archival to a job.  Files are archived on the Jenkins server based on the retention policy for the job.  filesToArchive and filesToExclude are glob syntax.
+    
+    ```
+    Utilities.addArchival(newJob, '*.binlog', '', true, false) // archive *.binlog, don't exclude anything, don't fail if there are no files, archive in case of failure too
+    ```
+* Utilities.addXUnitDotNETResults(job, resultsFilePattern, skipIfNoTestFiles (optional, false)) - Finds and archives xunit results at the end of the job.  The results file pattern is a glob.  If skipIfNoTestFiles is left at false and there are no test result files, the job result will be failed.
+* Utilities.addMSTestResults(job, resultsFilePattern, skipIfNoTestFiles (optional, false)) - Finds and archives MSTest results at the end of the job.  The results file pattern is a glob.  If skipIfNoTestFiles is left at false and there are no test result files, the job result will be failed.
+
+### Triggers
+
+* Utilities.addGithubPushTrigger(job) - For all source code branches cloned in the job, runs the job if any of them receives a push notification from GitHub.
+* Utilities.addGithubPRTriggerForBranch(job, branchName, context, triggerPhraseString (regex, optional), triggerOnPhraseOnly (boolean, optional)) - Upon a PR to 'branchName', the job will be launched.  On GitHub a status check will appear in the PR with the text in 'context'.  If ommitted, the triggerPhrase becomes 'test ${context}'.  If specified, then by default the job will only run when a comment matches the trigger phrase regex.  This can be overriden by passing false for the optional 'triggerOnPhraseOnly'.
+* Utilities.addVSTSPushTrigger(job) - For all source code branches cloned in the job, runs the job if any of them receives a push notification from VSTS.
+* Utilities.addVSTSPRTrigger(job, branchName, contextString) - Triggers the job on every VSTS PR to branch 'branchName'. 'contextString' is displayed in the VSTS UI.
+* Utilities.addPeriodicTrigger(job, cronString, alwaysRuns (optional, defaults to false)) - Triggers a job periodically, using the cronString.  If alwaysRuns is false, then the job will only run if the source code changes.
