@@ -4,20 +4,17 @@ Contains documentation and some implementation functionality for the .NET CI sys
 
 ## Getting started and need to onboard your project?
 
-Start [here.](docs/CI-SETUP.md)
+Start [here.](docs/CI-ONBOARDING.md)
 
-## Looking for info on how to write the CI scripts?
+## Looking for the repo list to add another branch for your project?
 
-Look [here.](docs/WRITING-NETCI.md)
+Go [here.](data/repolist.txt)
 
-## Looking for more information on day to day developer workflows?
+## Looking for information on how to write your jobs
 
-Look [here.](docs/WORKFLOWS.md)
+* [Pipeline jobs(new)](docs/CI-PIPELINES.md)
+* [Classic jobs](docs/CI-CLASSIC.md)
 
-## Looking for the link of the mirror repo in VSTS?
+## Looking for a general system overview?
 
-https://mseng.visualstudio.com/Tools/Engineering%20Infrastructure/_git/DotNet-CI-Trusted?version=GBdev%2Fpipelinesupport
-
-## Looking for information on management, system setup, etc.?
-
-todo add info here
+Look [here.](docs/SYSTEM-OVERVIEW.md)

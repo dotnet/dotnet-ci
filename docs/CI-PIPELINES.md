@@ -17,7 +17,7 @@ Jenkins Pipelines were introduced a few years back and became a 'first class' ci
 
 Assuming some familiarity with the existing .NET CI system (netci.groovy), this section details the current FreeStyle (netci.groovy) lifecycle and how the Jenkins pipeline workflow is different.
 
-## Freestyle Jobs Today
+## Classic (Freestyle) Workflow Today
 
 1. User adds an entry to the [repo list](../data/repolist.txt).
 2. Each jenkins server notices a change to the [repo list](../data/repolist.txt) and reads the file.  It creates a folder for each entry in the list that is targeted at the server and a 'generator' job which watches the repo/branch combo for the changes in the CI definition file (usually netci.groovy)
@@ -112,22 +112,19 @@ Pipelines improve upon this substantially.  Becuase the pipeline script, where m
 
 The following details the process by which you can onboard your projects onto the new pipelines.
 
-1. Make a PR that adds an entry to the repo list for pipelines.  At the time of writing, the repo lists live in the dev/pipelinesupport branch of dotnet/dotnet-ci and dotnet/dotnet-ci-internal.  dotnet-ci should be used for OSS pipelines, dotnet-ci-internal for VSTS/private pipelines.
-    1. [OSS](https://github.com/dotnet/dotnet-ci/blob/dev/pipelinesupport/data/repolist.txt)
-    2. [VSTS/Internal](https://github.com/dotnet/dotnet-ci-internal/blob/dev/pipelinesupport/data/repolist.txt)
+1. Make a PR that adds an entry to the repo list. dotnet/dotnet-ci and dotnet/dotnet-ci-internal.  dotnet-ci should be used for OSS pipelines, dotnet-ci-internal for VSTS/private pipelines.
+    1. [OSS](https://github.com/dotnet/dotnet-ci/blob/master/data/repolist.txt)
+    2. [VSTS/Internal](https://github.com/dotnet/dotnet-ci-internal/blob/master/data/repolist.txt)
     3. The entry should have the following characteristics, in addition to the other typical parameters:
         * OSS GitHub pipelines
-            * server=dotnet-ci3
-            * utilitiesRepoBranch=dev/pipelinesupport
             * definitionScript=<path to declaration script in your repo>
         * VSTS pipelines
             * The first entry, is <project>/<repo-name>
             * server=dotnet-vsts
             * credentials=<please see mmitche for info, but generally
             * collection=<project collection server, mseng or devdiv>
-            * utilitiesRepoBranch=dev/pipelinesupport
             * definitionScript=<path to declaration script in your repo>
-2. Add your pipeline declaration script at the indicated place in your repo.   For a sample starter, please see the [sample](sample-declaration.groovy).  For a list of triggers, please see [Pipeline.groovy](../src/org/dotnet/ci/pipelines/Pipeline.groovy).  Methods that set up triggers for pipelines start with 'trigger'.  The triggers are also listed [below](#available-triggers).  It's recommended that you check-in your pipeline declaration prior to writing your pipeline script, with manual (triggerPipelineManually) or GitHub comment (triggerPipelineOnGithubPRComment) triggers enabled.  Then verification/development of your new pipeline can be done in PR or by manually launching it against your dev branch/fork.
+2. Add your pipeline declaration script at the indicated place in your repo.   For a sample starter, please see the [sample](sample-pipeline-declaration.groovy).  For a list of triggers, please see [Pipeline.groovy](../src/org/dotnet/ci/pipelines/Pipeline.groovy).  Methods that set up triggers for pipelines start with 'trigger'.  The triggers are also listed [below](#available-triggers).  It's recommended that you check-in your pipeline declaration prior to writing your pipeline script, with manual (triggerPipelineManually) or GitHub comment (triggerPipelineOnGithubPRComment) triggers enabled.  Then verification/development of your new pipeline can be done in PR or by manually launching it against your dev branch/fork.
 3. Write your pipeline.  Please see [below](#writing-net-ci-pipelines) for information.
 
 # Writing .NET CI Pipeline Declarations
@@ -145,7 +142,7 @@ windowsPipeline.triggerPipelineOnPush(['Configuration':configuration])
 ```
 
 ## Available Triggers
-* triggerPipelineOnEveryPR (GitHub, VSTS support coming soon) - Triggers the pipeline on every PR.
+* triggerPipelineOnEveryPR (GitHub, VSTS) - Triggers the pipeline on every PR.
     `myPipeline.triggerPipelineOnEveryPR('GitHub Status Check Name', ['paramA':'valueA', 'paramB,valueB'])`
 * triggerPipelineOnEveryGithubPR (GitHub) - Triggers the pipeline on every PR.
     `myPipeline.triggerPipelineOnEveryGithubPR('GitHub Status Check Name', ['paramA':'valueA', 'paramB,valueB'])`
@@ -163,6 +160,7 @@ windowsPipeline.triggerPipelineOnPush(['Configuration':configuration])
     `myPipeline.triggerPipelineOnPush(['paramA':'valueA', 'paramB,valueB'])`
 * triggerPipelinePeriodically (GitHub/VSTS) - Triggers a pipeline on a shedule, specified by cron job syntax.
     `myPipeline.triggerPipelineOnPush('@hourly', ['paramA':'valueA', 'paramB,valueB'])`
+* triggerPipelineManually (GitHub/VSTS) - Adds a pipeline job that can be triggered when desired by manual or REST API interaction.
 
 # Writing .NET CI Pipelines
 
@@ -198,6 +196,8 @@ Jenkins injects a number of default parameters into pipelines, and the .NET CI S
 * GitBranchOrCommit (added by .NET CI) - Branch/commit to build
 * RepoName (added by .NET CI) - Repository, with org/project name
 * OrgOrProjectName (added by .NET CI) - GitHub org or VSTS Project name containing the repo
+* QualifiedRepoName (added by .NET CI) - Combination of OrgOrProjectName and RepoName
+* BranchName - Target branch for this job
 
 ## Node/Docker Blocks
 
