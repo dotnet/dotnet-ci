@@ -253,8 +253,10 @@ class Agents {
                                 [
                                 // 20170525 + clang 3.9
                                 '20170928':'rhel72-20170928',
+                                // 20170928 + libclang-3.9-dev
+                                '20171003':'rhel72-20171003',
                                 // Latest auto image.
-                                'latest':'rhel72-20170928',
+                                'latest':'rhel72-20171003',
                                 // For outerloop runs.
                                 'outer-latest':'rhel72-20160412-1-outer'
                                 ],
@@ -262,12 +264,12 @@ class Agents {
                                 [
                                 // centos71-20170216 + clang 3.9
                                 '20170926':'centos71-20170926',
+                                // centos71-20170926 + libclang-3.9-dev
+                                '20171005':'centos71-20171005',
                                 // Latest auto image.
-                                'latest':'centos71-20170926',
+                                'latest':'centos71-20171005',
                                 // For outerloop runs.
-                                'outer-latest':'centos71-20170216-outer',
-                                // For outerloop runs, using Linux kernel version 4.6.4
-                                'outer-linux464': 'centos71-20160609.1-20160715outer'
+                                'outer-latest':'centos71-20171005-outer',
                                 ],
                             'Debian8.2' :
                                 [
@@ -282,16 +284,18 @@ class Agents {
                                 // Latest auto image.
                                 'latest':'deb84-20170925',
                                 // For outerloop runs
-                                'outer-latest':'deb84-20170214-outer'
+                                'outer-latest':'deb84-20170925-outer'
                                 ],
                             'Fedora24' :
                                 [
                                 // fedora24-20170420 + clang 3.9
                                 '20170926':'fedora24-20170926',
+                                // fedora24-20170926 + libclang-3.9-dev
+                                '20171005':'fedora24-20171005',
                                 // Latest auto image.
-                                'latest':'fedora24-20170926',
+                                'latest':'fedora24-20171005',
                                 // For outerloop runs
-                                'outer-latest':'fedora24-20170420-outer'
+                                'outer-latest':'fedora24-20171005-outer'
                                 ],
                             'Tizen' :
                                 [
