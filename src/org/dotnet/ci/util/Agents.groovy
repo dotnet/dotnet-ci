@@ -111,7 +111,7 @@ class Agents {
                                 // the generic unversioned label except for special cases.
                                 'latest':'ubuntu1610-20170925',
                                 // For outerloop runs.
-                                'outer-latest':'ubuntu1610-20170216-outer',
+                                'outer-latest':'ubuntu1610-20170925-outer',
                                 ],
                             // El Capitan
                             'OSX10.11' :
