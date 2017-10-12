@@ -151,7 +151,6 @@ Microsoft/Vipr branch=master server=dotnet-ci
 Microsoft/visualfsharp branch=master server=dotnet-ci2
 Microsoft/visualfsharp branch=vs2017-rtm server=dotnet-ci2
 Microsoft/PartsUnlimited branch=master server=dotnet-ci
-dotnet/testimpact branch=post-dev15.5 server=dotnet-ci
 dotnet/templating branch=master server=dotnet-ci
 dotnet/templating branch=rel/vs2017/post-rtw server=dotnet-ci
 dotnet/templating branch=rel/vs2017/3-Preview2 server=dotnet-ci
