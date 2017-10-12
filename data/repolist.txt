@@ -95,10 +95,12 @@ dotnet/roslyn branch=features/localfunc-region-analysis server=dotnet-ci
 dotnet/roslyn-analyzers branch=master server=dotnet-ci
 dotnet/roslyn-analyzers branch=dev15.3 server=dotnet-ci
 dotnet/roslyn-tools branch=master server=dotnet-ci
+dotnet/roslyn branch=post-dev15.5-contrib server=dotnet-ci
 dotnet/project-system branch=master server=dotnet-ci
 dotnet/project-system branch=dev15.0.x server=dotnet-ci
 dotnet/project-system branch=dev15.3.x server=dotnet-ci
 dotnet/project-system branch=dev15.4.x server=dotnet-ci
+dotnet/project-system branch=post-dev15.5 server=dotnet-ci
 dotnet/source-build branch=master server=dotnet-ci
 dotnet/source-build branch=release/2.0 server=dotnet-ci
 dotnet/source-build branch=dev/release/2.0 server=dotnet-ci
@@ -149,6 +151,7 @@ Microsoft/Vipr branch=master server=dotnet-ci
 Microsoft/visualfsharp branch=master server=dotnet-ci2
 Microsoft/visualfsharp branch=vs2017-rtm server=dotnet-ci2
 Microsoft/PartsUnlimited branch=master server=dotnet-ci
+dotnet/testimpact branch=post-dev15.5 server=dotnet-ci
 dotnet/templating branch=master server=dotnet-ci
 dotnet/templating branch=rel/vs2017/post-rtw server=dotnet-ci
 dotnet/templating branch=rel/vs2017/3-Preview2 server=dotnet-ci
