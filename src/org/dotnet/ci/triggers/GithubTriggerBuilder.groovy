@@ -187,7 +187,7 @@ class GithubTriggerBuilder implements TriggerBuilder {
     def private emitCommitTrigger(def job) {
         job.with {
             triggers {
-                githubPush()
+                scm('H/15 * * * *')
             }
         }
 
