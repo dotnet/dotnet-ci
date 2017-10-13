@@ -2,12 +2,12 @@
 // If a PR, and GitHub, we grab the source branch, which must live in the same repo.
 // Note that we can't use the library isPR for this.
 boolean isPRTest = false
-String repository = ghprbGhRepository
+String repository = env.ghprbAuthorRepoGitUrl
 String libraryImportBranch
-if (repository != null && repository != "") {
+if (ghprbAuthorRepoGitUrl != null && ghprbAuthorRepoGitUrl != "") {
     echo "This is a GitHub PR test"
     // Check that the PR source branch came from the correct location (otherwise the tests are expected to fail)
-    if (repository != 'dotnet/dotnet-ci') {
+    if (ghprbAuthorRepoGitUrl.indexOf('dotnet/dotnet-ci') == -1) {
          error "PRs tests of functionality that changes the CI pipeline SDK are only valid for branches pushed to dotnet/dotnet-ci.  If you need that testing please push your branch to dotnet-ci.  Otherwise ignore this failure"
     }
 
