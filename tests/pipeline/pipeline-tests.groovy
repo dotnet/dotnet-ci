@@ -2,7 +2,7 @@
 // If a PR, and GitHub, we grab the source branch, which must live in the same repo.
 // Note that we can't use the library isPR for this.
 boolean isPRTest = false
-String repository = env["ghprbAuthorRepoGitUrl"]
+String repository = env.ghprbAuthorRepoGitUrl
 String libraryImportBranch
 if (ghprbAuthorRepoGitUrl != null && ghprbAuthorRepoGitUrl != "") {
     echo "This is a GitHub PR test"
