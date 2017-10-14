@@ -230,9 +230,9 @@ class Agents {
                                 [
                                 // First working containers image
                                 'win2016-20161018-1':'win2016-20161018-1',
-                                // Docker 17.06.1-ee-2
-                                'win2016-20170921':'win2016-20170921',
-                                'latest-docker':'win2016-20170921',
+                                // Docker 17.06.2-ee-3
+                                'win2016-20171014':'win2016-20171014',
+                                'latest-docker':'win2016-20171014',
                                 // Latest auto image w/docker (move to latest when possible)
                                 'latest-containers':'win2016-20161018-1',
                                 // Latest auto image.
