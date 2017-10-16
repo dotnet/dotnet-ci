@@ -51,6 +51,7 @@ dotnet/coreclr branch=release/1.1.0 server=dotnet-ci
 dotnet/coreclr branch=release/2.0.0 server=dotnet-ci
 dotnet/coreclr branch=release/uwp6.0 server=dotnet-ci
 dotnet/coreclr branch=dev/unix_test_workflow server=dotnet-ci
+dotnet/corefx branch=dev/release/2.0.0 server=dotnet-ci definitionScript=buildpipeline/pipelinejobs.groovy
 dotnet/corefx branch=master server=dotnet-ci
 dotnet/corefx branch=release/1.0.0 server=dotnet-ci
 dotnet/corefx branch=release/1.1.0 server=dotnet-ci
@@ -192,5 +193,3 @@ Tools/DotNet-CI-Trusted credentials=vsts-dotnet-ci-trusted-creds collection=msen
 dotnet/dotnet-ci branch=master definitionScript=tests/pipeline/tests.groovy server=dotnet-ci4 subFolder=pipelineTests
 # Tests for DSL
 dotnet/dotnet-ci branch=master definitionScript=tests/dsl/*.groovy isDSLTest=true server=dotnet-ci4 subFolder=dslTests
-# chcosta test for pipelines
-DevDiv/Dotnet-CoreFX-Trusted branch=vsts-to-jenkins server=dotnet-vsts credentials=vsts-dotnet-trusted-creds collection=devdiv definitionScript=buildpipeline/pipelinejobs.groovy
