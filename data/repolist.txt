@@ -141,6 +141,7 @@ Microsoft/ChakraCore branch=wasm.simd server=dotnet-ci2
 Microsoft/ChakraCore branch=builtins server=dotnet-ci2
 Microsoft/ConcordExtensibilitySamples branch=master server=dotnet-ci
 Microsoft/dotnet-apiport branch=master server=dotnet-ci2
+Microsoft/dotnet-apiport branch=dev server=dotnet-ci2
 Microsoft/MIEngine branch=master server=dotnet-ci
 Microsoft/msbuild branch=master server=dotnet-ci2
 Microsoft/msbuild branch=vs15.4 server=dotnet-ci2
