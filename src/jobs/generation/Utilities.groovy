@@ -165,7 +165,7 @@ class Utilities {
      *                by .1, .2, etc. or it could be a static image version (like a perf label).
      */
     def static setMachineAffinity(def job, String osName, String version = '') {
-        def machineLabel = Agents.getAgentLabel(osName, version)
+        String machineLabel = Agents.getAgentLabel(osName, version)
         job.with {
             label(machineLabel)
         }
