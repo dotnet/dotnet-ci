@@ -76,7 +76,7 @@ class Agents {
                                 // Latest auto image.
                                 'latest':'ubuntu1404-20170925',
                                 // For outerloop runs.
-                                'outer-latest':'ubuntu1404-20160206-outer',
+                                'outer-latest':'ubuntu1404-20170925-outer',
                                 // For internal Ubuntu runs
                                 'latest-internal':'ubuntu1404-20160211.1-internal'
                                 ],
@@ -98,7 +98,7 @@ class Agents {
                                 // Move this to latest after validation
                                 'latest-docker':'ubuntu1604-20170216',
                                 // For outerloop runs.
-                                'outer-latest':'ubuntu1604-20170216-outer',
+                                'outer-latest':'ubuntu1604-20170925-1-outer',
                                 // For outerloop runs, using Linux kernel version 4.6.2
                                 'outer-linux462': 'ubuntu1604-20160510-20160715outer'
                                 ],
