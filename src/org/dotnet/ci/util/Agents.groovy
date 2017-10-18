@@ -117,7 +117,7 @@ class Agents {
                             'OSX10.11' :
                                 [
                                 // Latest auto image.
-                                'latest':'osx-10.11',
+                                'latest':'osx-10.11 || OSX.1011.Amd64.Open',
                                 // For elevated runs
                                 'latest-elevated':'osx-10.11-elevated'
                                 ],
@@ -133,7 +133,7 @@ class Agents {
                             'OSX10.13' :
                                 [
                                 // Latest auto image.
-                                'latest':'osx-10.13',
+                                'latest':'osx-10.13 || OSX.1013.Amd64.Open',
                                 // For elevated runs
                                 'latest-elevated':'osx-10.13-elevated'
                                 ],
