@@ -18,7 +18,7 @@ def call(String label, int timeoutInMinutes, Closure body) {
     node (label) {
         // Clean.  Currently processes are killed at the end of the node block, but we don't have an easy way to run the cleanup
         // after the node block exits currently.  Cleaning at the start should be sufficient.
-        step([$class: 'WsCleanup'])
+        cleanWs deleteDirs: true, patterns: [[pattern: '**/*', type: 'INCLUDE']]
         // Make the log folder
         makeLogFolder()
         // Wrap in a try finally that cleans up the workspace
@@ -47,7 +47,7 @@ def call(String label, int timeoutInMinutes, Closure body) {
                     // For now, kill the most common culprit (return status instead of failing if the process wasn't found
                     bat script: 'taskkill /F /IM VBCSCompiler.exe', returnStatus: true
                 }
-                step([$class: 'WsCleanup'])
+                cleanWs deleteDirs: true, patterns: [[pattern: '**/*', type: 'INCLUDE']]
             }
             catch (e) {
                 echo "Some files could not be cleaned up because of running processes.  These processes will be killed immediately and cleanup will happen before the node upon node-reuse"
