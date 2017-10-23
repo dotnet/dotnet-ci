@@ -17,7 +17,7 @@ import org.dotnet.ci.util.Constants
 def call(String label, int timeoutInMinutes, Closure body) {
     node (label) {
         // Clean.  Currently processes are killed at the end of the node block, but we don't have an easy way to run the cleanup
-        // after the node block exits currently.  Cleaning at the start should be sufficient.
+        // after the node block exits.  Cleaning at the start should be sufficient.
         cleanWs deleteDirs: true, patterns: [[pattern: '**/*', type: 'INCLUDE']]
         // Make the log folder
         makeLogFolder()
