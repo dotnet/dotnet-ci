@@ -311,6 +311,8 @@ class Utilities {
                     cleanWhenFailure(true)
                     cleanWhenAborted(true)
                     cleanWhenUnstable(true)
+                    includePattern('**/src/**')
+                    deleteDirectories(true)
                 }
             }
 

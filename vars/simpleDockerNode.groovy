@@ -98,7 +98,7 @@ def call(String dockerImageName, String hostVersion, int timeoutInMinutes, Strin
                         echo "Cleaning workspace ${WORKSPACE}"
                         sh 'rm -rf *'
                         // Use the workspace cleaner now.
-                        step([$class: 'WsCleanup'])
+                        cleanWs deleteDirs: true, patterns: [[pattern: '**/*', type: 'INCLUDE']]
                     }
                 }
             }
