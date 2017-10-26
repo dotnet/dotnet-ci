@@ -153,7 +153,8 @@ Microsoft/xunit-performance branch=master server=dotnet-ci
 Microsoft/xunit-performance branch=citest server=dotnet-ci
 Microsoft/Vipr branch=master server=dotnet-ci
 Microsoft/visualfsharp branch=master server=dotnet-ci2
-Microsoft/visualfsharp branch=vs2017-rtm server=dotnet-ci2
+Microsoft/visualfsharp branch=dev15.5 server=dotnet-ci2
+Microsoft/visualfsharp branch=dev15.6 server=dotnet-ci2
 Microsoft/PartsUnlimited branch=master server=dotnet-ci
 dotnet/templating branch=master server=dotnet-ci
 dotnet/templating branch=rel/vs2017/post-rtw server=dotnet-ci
