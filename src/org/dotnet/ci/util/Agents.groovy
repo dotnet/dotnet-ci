@@ -71,6 +71,8 @@ class Agents {
                                 'arm64-small-page-size':'arm64_ubuntu',
                                 // Pool of arm64 lab machines 64k page size
                                 'arm64-huge-page-size':'arm64_ubuntu_huge_pages',
+                                // Pool of arm64 Windows_NT lab machines
+                                'arm64-windows_nt':'arm64-windows_nt',
                                 // Image installing the latest mono-devel
                                 'latest-mono-devel':'ubuntu1404-20160211-1-latest-mono',
                                 // Latest auto image.
