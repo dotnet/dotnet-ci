@@ -220,7 +220,7 @@ class Agents {
                                 // For elevated runs
                                 'latest-elevated':'win2012-20171003-elevated',
                                 // For arm64 builds
-                                'latest-arm64':'win2012-20170810',
+                                'latest-arm64':'win2012-20171027',
                                 // For perf runs
                                 'latest-perf':'windows-perf-internal',
                                 // Win2016
