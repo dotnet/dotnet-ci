@@ -71,8 +71,6 @@ class Agents {
                                 'arm64-small-page-size':'arm64_ubuntu',
                                 // Pool of arm64 lab machines 64k page size
                                 'arm64-huge-page-size':'arm64_ubuntu_huge_pages',
-                                // Pool of arm64 Windows_NT lab machines
-                                'arm64-windows_nt':'arm64-windows_nt',
                                 // Image installing the latest mono-devel
                                 'latest-mono-devel':'ubuntu1404-20160211-1-latest-mono',
                                 // Latest auto image.
@@ -221,6 +219,8 @@ class Agents {
                                 'latest-elevated':'win2012-20171003-elevated',
                                 // For arm64 builds
                                 'latest-arm64':'win2012-20171027',
+                                // Pool of arm64 Windows_NT lab machines
+                                'arm64-windows_nt':'arm64-windows_nt',
                                 // For perf runs
                                 'latest-perf':'windows-perf-internal',
                                 // Win2016
