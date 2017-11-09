@@ -39,6 +39,7 @@ dotnet/core-setup branch=release/1.1.0 server=dotnet-ci
 dotnet/core-setup branch=release/2.0.0 server=dotnet-ci
 dotnet/core-setup branch=release/uwp6.0 server=dotnet-ci
 dotnet/codeformatter branch=master server=dotnet-ci2
+dotnet/coreclr branch=dev/defaultintf server=dotnet-ci
 dotnet/coreclr branch=master server=dotnet-ci
 dotnet/coreclr branch=master server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/coreclr branch=master server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy
