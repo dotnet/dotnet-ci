@@ -774,7 +774,7 @@ class Utilities {
             addPRTestSCM(job, project,  null)
         }
         else {
-            addScm(job, project, buildBranch, null)
+            addScm(job, project, '${GitBranchOrCommit}', null)
         }
     }
 
@@ -783,7 +783,7 @@ class Utilities {
             addPRTestSCM(job, project,  subdir)
         }
         else {
-            addScm(job, project, buildBranch, subdir)
+            addScm(job, project, '${GitBranchOrCommit}', null)
         }
     }
 
