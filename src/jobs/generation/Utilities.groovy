@@ -774,7 +774,7 @@ class Utilities {
             addPRTestSCM(job, project,  null)
         }
         else {
-            addNonPRScm(job, project, '${GitBranchOrCommit}', null)
+            addNonPRScm(job, project, null)
         }
     }
 
@@ -783,11 +783,11 @@ class Utilities {
             addPRTestSCM(job, project,  subdir)
         }
         else {
-            addNonPRScm(job, project, '${GitBranchOrCommit}', null)
+            addNonPRScm(job, project, null)
         }
     }
 
-    def private static addNonPRScm(def job, String project, String subdir = null) {
+    def private static addNonPRScm(def job, String project, String subdir) {
         job.with {
             scm {
                 git {
@@ -795,7 +795,7 @@ class Utilities {
                         github(project)
                     }
 
-                    branch(buildBranch)
+                    branch('${GitBranchOrCommit}')
 
                     // Raise up the timeout
                     extensions {
@@ -815,7 +815,7 @@ class Utilities {
      * Adds private job/PR test SCM.  This is slightly different than normal
      * SCM since we use the parameterized fields for the refspec, repo, and branch
      */
-    def private static addPRTestSCM(def job, String project, String subdir = null) {
+    def private static addPRTestSCM(def job, String project, String subdir) {
         job.with {
             scm {
                 git {
