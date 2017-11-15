@@ -783,7 +783,7 @@ class Utilities {
             addPRTestSCM(job, project,  subdir)
         }
         else {
-            addNonPRScm(job, project, null)
+            addNonPRScm(job, project, subdir)
         }
     }
 
