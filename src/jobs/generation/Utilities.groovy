@@ -769,16 +769,25 @@ class Utilities {
         }
     }
 
-    def static addScm(def job, String project, boolean isPR, String buildBranch = '${GitBranchOrCommit}') {
+    def public static addScm(def job, String project, boolean isPR) {
         if (isPR) {
-            addPRTestSCM(job, project)
+            addPRTestSCM(job, project,  null)
         }
         else {
-            addScm(job, project, buildBranch)
+            addNonPRScm(job, project, null)
         }
     }
 
-    def static addScm(def job, String project, String buildBranch = '${GitBranchOrCommit}') {
+    def public static addScmInSubDirectory(def job, String project, boolean isPR, String subdir) {
+        if (isPR) {
+            addPRTestSCM(job, project,  subdir)
+        }
+        else {
+            addNonPRScm(job, project, subdir)
+        }
+    }
+
+    def private static addNonPRScm(def job, String project, String subdir) {
         job.with {
             scm {
                 git {
@@ -786,10 +795,13 @@ class Utilities {
                         github(project)
                     }
 
-                    branch(buildBranch)
+                    branch('${GitBranchOrCommit}')
 
                     // Raise up the timeout
                     extensions {
+                        if (subdir != null) {
+                            relativeTargetDirectory(subdir)
+                        }
                         cloneOptions {
                             timeout(90)
                         }
@@ -803,7 +815,7 @@ class Utilities {
      * Adds private job/PR test SCM.  This is slightly different than normal
      * SCM since we use the parameterized fields for the refspec, repo, and branch
      */
-    def static addPRTestSCM(def job, String project) {
+    def private static addPRTestSCM(def job, String project, String subdir) {
         job.with {
             scm {
                 git {
@@ -821,6 +833,9 @@ class Utilities {
 
                     // Raise up the timeout
                     extensions {
+                        if (subdir != null) {
+                            relativeTargetDirectory(subdir)
+                        }
                         cloneOptions {
                             timeout(90)
                         }
