@@ -6,7 +6,7 @@ def project = QualifiedRepoName
 def branch = BranchName
 
 [true, false].each { isPR ->
-    def newJob = job(Utilities.getFullJobName(project, "FooBarTest", isPR)) {
+    def newJob = job(Utilities.getFullJobName(project, "checkouttosubdir", isPR)) {
         steps {
             batchFile("echo Hello World")
         }
