@@ -787,7 +787,7 @@ class Utilities {
         }
     }
 
-    def private static addScm(def job, String project, String subdir = null) {
+    def private static addNonPRScm(def job, String project, String subdir = null) {
         job.with {
             scm {
                 git {
