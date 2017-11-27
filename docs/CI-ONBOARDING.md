@@ -12,10 +12,11 @@ Below contains information on how to onboard your project onto Jenkins.
   * A GitHub webhook for pull request events - Go into the repo settings, click "Webhooks", then click "Add webhook".
     - Payload URL: https://ci.dot.net/ghprbhook/ (For projects on dotnet-ci2, use https://ci2.dot.net/ghprbhook/, and for projects on dotnet-ci3, use https://ci3.dot.net/ghprbhook/)
     - Content type: application/x-www-form-urlencoded
+    - Shared secret - GitHubPRBuilderSharedSecret from DCIKeyVault
     - "Let me select individual events"
       - Pull request
       - Issue comment
-Similarly private repos also need two entries:
+4. Similarly private repos on VSTS also need two entries:
   * A VSTS webhook for push events - Go into the repo settings, click "Service Hooks", then click "Create a new subscription..." ("+" icon)
       - Service: Jenkins, then click "Next"
   - Trigger on this type of event: "Code pushed"
