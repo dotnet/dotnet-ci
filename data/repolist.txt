@@ -21,10 +21,10 @@ dotnet/cli branch=rel/1.0.0 server=dotnet-ci
 dotnet/cli branch=rel/1.0.1 server=dotnet-ci
 dotnet/cli branch=rel/1.1.0 server=dotnet-ci
 dotnet/cli branch=release/2.0.0 server=dotnet-ci
+dotnet/cli branch=release/2.1 server=dotnet-ci
 dotnet/cli branch=release/2.0-vs server=dotnet-ci
 dotnet/cli branch=release/15.5 server=dotnet-ci
 dotnet/cli branch=dev/release/2.0 server=dotnet-ci
-dotnet/cli branch=dev/release/2.1 server=dotnet-ci
 dotnet/cli branch=dev/repo-refactoring server=dotnet-ci
 dotnet/core-sdk branch=dev/release/2.0 server=dotnet-ci
 dotnet/core-sdk branch=dev/repo-refactoring server=dotnet-ci
