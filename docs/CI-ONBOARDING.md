@@ -26,7 +26,7 @@ Below contains information on how to onboard your project onto Jenkins.
   - User name: {youralias}@microsoft.com
   - User API token (or password): Go to https://dotnet-vsts.westus2.cloudapp.azure.com/user/{youralias}@microsoft.com/configure, click "SHOW API TOKEN...", paste "API Token" in.
   - Integration level: "TFS plugin for Jenkins", then click "Test" and "Finish".
-  * A VSTS webhook for push events - Go into the repo settings, click "Service Hooks", then click "Create a new subscription..." ("+" icon)
+  * A VSTS webhook for PR events - Go into the repo settings, click "Service Hooks", then click "Create a new subscription..." ("+" icon)
       - Service: Jenkins, then click "Next"
   - Trigger on this type of event: "Pull request merge commit created"
   - Repository: your repo selected from the dropdown list (for example "DotNet-CI-Trusted"), then click "Next"
