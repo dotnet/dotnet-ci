@@ -508,9 +508,9 @@ repos.each { repoInfo ->
 
             wrappers {
                 timestamps()
-                // 10 minute execution timeout
+                // 30 minute execution timeout
                 timeout {
-                    absolute(10)
+                    absolute(30)
                 }
             }
         }
