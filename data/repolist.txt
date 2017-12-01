@@ -97,6 +97,7 @@ dotnet/roslyn branch=features/privateProtected server=dotnet-ci
 dotnet/roslyn branch=features/readonly-ref server=dotnet-ci
 dotnet/roslyn branch=features/non-trailing server=dotnet-ci
 dotnet/roslyn branch=features/recursive-patterns server=dotnet-ci
+dotnet/roslyn branch=features/ref-reassignment server=dotnet-ci
 dotnet/roslyn branch=features/strongname server=dotnet-ci
 dotnet/roslyn branch=features/source-build server=dotnet-ci
 dotnet/roslyn branch=features/remotels server=dotnet-ci
