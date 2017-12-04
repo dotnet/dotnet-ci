@@ -85,6 +85,7 @@ dotnet/roslyn branch=dev15.5.x server=dotnet-ci
 dotnet/roslyn branch=dev15.5.x subFolder=perf definitionScript=perf.groovy server=dotnet-ci2 useFilteredGenerationTriggers=false
 dotnet/roslyn branch=dev15.5-preview1-staging server=dotnet-ci
 dotnet/roslyn branch=dev15.5-preview1-staging subFolder=perf definitionScript=perf.groovy server=dotnet-ci2 useFilteredGenerationTriggers=false
+dotnet/roslyn branch=dev15.6-preview1-vs-deps server=dotnet-ci
 dotnet/roslyn branch=microupdate server=dotnet-ci
 dotnet/roslyn branch=features/compiler server=dotnet-ci
 dotnet/roslyn branch=features/range server=dotnet-ci
