@@ -72,8 +72,6 @@ dotnet/orleans branch=master server=dotnet-ci
 dotnet/ProjFileTools branch=master server=dotnet-ci
 dotnet/roslyn branch=dev15.0.x server=dotnet-ci
 dotnet/roslyn branch=dev15.0.x subFolder=perf definitionScript=perf.groovy server=dotnet-ci2 useFilteredGenerationTriggers=false
-dotnet/roslyn branch=dev15.3.x server=dotnet-ci
-dotnet/roslyn branch=dev15.3.x subFolder=perf definitionScript=perf.groovy server=dotnet-ci2 useFilteredGenerationTriggers=false
 dotnet/roslyn branch=dev15.4.x server=dotnet-ci
 dotnet/roslyn branch=dev15.4.x subFolder=perf definitionScript=perf.groovy server=dotnet-ci2 useFilteredGenerationTriggers=false
 dotnet/roslyn branch=dev16 server=dotnet-ci
@@ -83,32 +81,25 @@ dotnet/roslyn branch=master-vs-deps server=dotnet-ci
 dotnet/roslyn branch=master-vs-deps subFolder=perf definitionScript=perf.groovy server=dotnet-ci2 useFilteredGenerationTriggers=false
 dotnet/roslyn branch=dev15.5.x server=dotnet-ci
 dotnet/roslyn branch=dev15.5.x subFolder=perf definitionScript=perf.groovy server=dotnet-ci2 useFilteredGenerationTriggers=false
-dotnet/roslyn branch=dev15.5-preview1-staging server=dotnet-ci
-dotnet/roslyn branch=dev15.5-preview1-staging subFolder=perf definitionScript=perf.groovy server=dotnet-ci2 useFilteredGenerationTriggers=false
 dotnet/roslyn branch=dev15.6-preview1-vs-deps server=dotnet-ci
 dotnet/roslyn branch=microupdate server=dotnet-ci
 dotnet/roslyn branch=features/compiler server=dotnet-ci
 dotnet/roslyn branch=features/range server=dotnet-ci
 dotnet/roslyn branch=features/DefaultInterfaceImplementation server=dotnet-ci
 dotnet/roslyn branch=features/editorconfig-in-compiler server=dotnet-ci
-dotnet/roslyn branch=features/ioperation server=dotnet-ci
 dotnet/roslyn branch=features/NullableReferenceTypes server=dotnet-ci
 dotnet/roslyn branch=features/patterns server=dotnet-ci
-dotnet/roslyn branch=features/privateProtected server=dotnet-ci
 dotnet/roslyn branch=features/readonly-ref server=dotnet-ci
-dotnet/roslyn branch=features/non-trailing server=dotnet-ci
 dotnet/roslyn branch=features/recursive-patterns server=dotnet-ci
 dotnet/roslyn branch=features/ref-reassignment server=dotnet-ci
 dotnet/roslyn branch=features/strongname server=dotnet-ci
 dotnet/roslyn branch=features/source-build server=dotnet-ci
 dotnet/roslyn branch=features/remotels server=dotnet-ci
-dotnet/roslyn branch=features/localfunc-region-analysis server=dotnet-ci
 dotnet/roslyn branch=features/vs-for-mac-refactorings server=dotnet-ci
 dotnet/roslyn branch=features/vs-for-mac-packages server=dotnet-ci
 dotnet/roslyn-analyzers branch=master server=dotnet-ci
 dotnet/roslyn-analyzers branch=dev15.3 server=dotnet-ci
 dotnet/roslyn-tools branch=master server=dotnet-ci
-dotnet/roslyn branch=post-dev15.5-contrib server=dotnet-ci
 dotnet/project-system branch=master server=dotnet-ci
 dotnet/project-system branch=dev15.0.x server=dotnet-ci
 dotnet/project-system branch=dev15.4.x server=dotnet-ci
