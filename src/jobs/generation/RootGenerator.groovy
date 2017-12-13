@@ -401,7 +401,7 @@ job('swap_space_monitor_remover') {
 
     // Run hourly
     triggers {
-        cron('@hourly')
+        cron('@daily')
     }
 
     // We stream from the workspace since in the groovy 2.0 plugin, the scripts
@@ -414,6 +414,53 @@ job('swap_space_monitor_remover') {
                 stringSystemScriptSource {
                     script {
                         script (readFileFromWorkspace('scripts/disable_swap_space_monitor.groovy'))
+                        // Don't execute in sandbox
+                        sandbox (false)
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Node cleaner.  This is due to a bug or two in the azure vm agents plugin, which will block removal of agents that go offline
+// for non-user caused reasons.  This removes those nodes once a day
+job('node_cleaner') {
+    logRotator {
+        daysToKeep(7)
+    }
+
+    // Source is just basic git for dotnet-ci
+    scm {
+        git {
+            remote {
+                if (isVSTS) {
+                    url("https://mseng.visualstudio.com/Tools/_git/DotNet-CI-Trusted")
+                    credentials('vsts-dotnet-ci-trusted-creds')
+                }
+                else {
+                    github("dotnet/dotnet-ci")
+                }
+            }
+            branch("*/${SDKImplementationBranch}")
+        }
+    }
+
+    // Run hourly
+    triggers {
+        cron('@hourly')
+    }
+
+    // We stream from the workspace since in the groovy 2.0 plugin, the scripts
+    // read from disk always execute in the sandbox. This is not the case with inline scripts.
+    // This is a bug.  https://issues.jenkins-ci.org/browse/JENKINS-43700
+    steps {
+        // Rather
+        systemGroovy {
+            source {
+                stringSystemScriptSource {
+                    script {
+                        script (readFileFromWorkspace('scripts/remove_offline_nodes.groovy'))
                         // Don't execute in sandbox
                         sandbox (false)
                     }
