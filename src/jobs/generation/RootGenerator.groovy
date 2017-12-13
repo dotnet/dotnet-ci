@@ -401,7 +401,7 @@ job('swap_space_monitor_remover') {
 
     // Run hourly
     triggers {
-        cron('@daily')
+        cron('@hourly')
     }
 
     // We stream from the workspace since in the groovy 2.0 plugin, the scripts
@@ -448,7 +448,7 @@ job('node_cleaner') {
 
     // Run hourly
     triggers {
-        cron('@hourly')
+        cron('@daily')
     }
 
     // We stream from the workspace since in the groovy 2.0 plugin, the scripts
