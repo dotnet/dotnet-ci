@@ -35,6 +35,7 @@ dotnet/xliff-tasks branch=master server=dotnet-ci
 dotnet/cli-migrate branch=master server=dotnet-ci
 dotnet/dotnet-cli-archiver branch=master server=dotnet-ci
 dotnet/core-setup branch=master server=dotnet-ci
+dotnet/core-setup branch=master server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy
 dotnet/core-setup branch=release/1.0.0 server=dotnet-ci
 dotnet/core-setup branch=release/1.1.0 server=dotnet-ci
 dotnet/core-setup branch=release/2.0.0 server=dotnet-ci
