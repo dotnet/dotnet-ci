@@ -133,9 +133,9 @@ class Utilities {
         if (rawBranchName.indexOf("*/") == 0) {
             branchName = rawBranchName.substring(2)
         }
-		else if (rawBranchName.indexOf("refs/heads/") == 0) { // remove refs/heads/ for branch name
-			branchName = rawBranchName.substring(11)
-		}
+        else if (rawBranchName.indexOf("refs/heads/") == 0) { // remove refs/heads/ for branch name
+          branchName = rawBranchName.substring(11)
+        }
         return branchName
     }
 
@@ -695,18 +695,18 @@ class Utilities {
      * @param job Job to change
      * @param project Github project
      * @param isPR True if this is a PR job, false otherwise.
-     * @param defaultBranch Branch to build by default if this is NOT a PR job. Defaults to *&#x2215;master.
+     * @param branch Branch to build by default if this is NOT a PR job.
      */
-    def static addStandardParameters(def job, String project, boolean isPR, String defaultBranch = '*/master') {
-		if (defaultBranch.indexOf('*/') == 0){
-			defaultBranch = defaultBranch.replace('*','refs/heads')
-		}
+    def private static addStandardParameters(def job, String project, boolean isPR, String branch) {
+        if (branch.indexOf('*/') == 0){
+          branch = branch.replace('*','refs/heads')
+        }
         String defaultRefSpec = getDefaultRefSpec(null)
         if (isPR) {
-            defaultBranch = getDefaultBranchOrCommitPR(null)
+            branch = getDefaultBranchOrCommitPR(null)
         }
 
-        addStandardParametersEx(job, project, isPR, defaultBranch, defaultRefSpec)
+        addStandardParametersEx(job, project, isPR, branch, defaultRefSpec)
     }
 
     /**
@@ -733,10 +733,7 @@ class Utilities {
      * Adds parameters to a non-PR job.  Right now this is only the git branch or commit.
      * This is added so that downstream jobs get the same hash as the root job
      */
-    def private static addStandardNonPRParameters(def job, String project, String defaultBranch = '*/master') {
-		if (defaultBranch.indexOf('*/') == 0){
-			defaultBranch = defaultBranch.replace('*','refs/heads')
-		}
+    def private static addStandardNonPRParameters(def job, String project, String defaultBranch) {
         job.with {
             parameters {
                 stringParam('GitBranchOrCommit', defaultBranch, 'Git branch or commit to build.  If a branch, builds the HEAD of that branch.  If a commit, then checks out that specific commit.')
