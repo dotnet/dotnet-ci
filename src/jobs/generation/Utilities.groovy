@@ -189,14 +189,14 @@ class Utilities {
      * @param job Job to set up.
      * @param project Name of project
      * @param isPR True if job is PR job, false otherwise.
-     * @param defaultBranch If not a PR job, the branch that we should be building.
+     * @param branch If not a PR job, the branch that we should be building.
      */
-    def static standardJobSetup(def job, String project, boolean isPR, String defaultBranch = '*/master') {
+    def static standardJobSetup(def job, String project, boolean isPR, String branch) {
         String defaultRefSpec = getDefaultRefSpec(null)
         if (isPR) {
-            defaultBranch = getDefaultBranchOrCommitPR(null)
+            branch = getDefaultBranchOrCommitPR(null)
         }
-        standardJobSetupEx(job, project, isPR, defaultBranch, defaultRefSpec)
+        standardJobSetupEx(job, project, isPR, branch, defaultRefSpec)
     }
 
     /**
@@ -692,26 +692,6 @@ class Utilities {
     /**
      * Adds the standard parameters for PR and Push jobs.
      *
-     * @param job Job to change
-     * @param project Github project
-     * @param isPR True if this is a PR job, false otherwise.
-     * @param branch Branch to build by default if this is NOT a PR job.
-     */
-    def private static addStandardParameters(def job, String project, boolean isPR, String branch) {
-        if (branch.indexOf('*/') == 0){
-          branch = branch.replace('*','refs/heads')
-        }
-        String defaultRefSpec = getDefaultRefSpec(null)
-        if (isPR) {
-            branch = getDefaultBranchOrCommitPR(null)
-        }
-
-        addStandardParametersEx(job, project, isPR, branch, defaultRefSpec)
-    }
-
-    /**
-     * Adds the standard parameters for PR and Push jobs.
-     *
      * @param job Job to set up.
      * @param project Name of project
      * @param isPR True if job is PR job, false otherwise.
@@ -719,6 +699,10 @@ class Utilities {
      * @param defaultRefSpec the refs that Jenkins must sync on a PR job
      */
     def private static addStandardParametersEx(def job, String project, boolean isPR, String defaultBranchOrCommit, String defaultRefSpec) {
+        if (defaultBranchOrCommit.indexOf('*/') == 0){
+            defaultBranchOrCommit = defaultBranchOrCommit.replace('*/','/refs/heads')
+        }
+
         if (isPR) {
             addStandardPRParameters(job, project, defaultBranchOrCommit, defaultRefSpec)
         }

@@ -13,5 +13,5 @@ def branch = BranchName
     }
 
     Utilities.setMachineAffinity(newJob, "Windows_NT", 'latest-or-auto')
-    Utilities.standardJobSetup(newJob, project, isPR, "*/${branch}")
+    Utilities.standardJobSetup(newJob, project, isPR, "refs/heads/${branch}")
 }

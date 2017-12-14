@@ -364,7 +364,7 @@ repos.each { repoInfo ->
                             branch('${vstsBranchOrCommit}')
                         }
                         else {
-                            branch("*/${repoInfo.utilitiesRepoBranch}")
+                            branch("refs/heads/${repoInfo.utilitiesRepoBranch}")
                         }
                     }
                 }
@@ -411,7 +411,7 @@ repos.each { repoInfo ->
                         }
                     }
                     else {
-                        branch("*/${repoInfo.branch}")
+                        branch("refs/heads/${repoInfo.branch}")
                     }
 
                     // Set up polling ignore, unless this is a DSL test

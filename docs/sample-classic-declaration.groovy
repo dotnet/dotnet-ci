@@ -39,7 +39,7 @@ def branch = BranchName
         //   3. Adds standard parameters for PR and push jobs.
         //      These allow PR jobs to be used for simple private testing, for instance.
         // See the documentation for this function to see additional optional parameters.
-        Utilities.standardJobSetup(newJob, project, isPR, "*/${branch}")
+        Utilities.standardJobSetup(newJob, project, isPR, "refs/heads/${branch}")
         
         // The following two calls add triggers for push and PR jobs
         // In Github, the PR trigger will appear as "Windows Debug" and "Windows Release" and will be run
