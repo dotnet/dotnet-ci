@@ -6,7 +6,7 @@ import org.dotnet.ci.util.Agents
 class Utilities {
 
     private static String DefaultBranchOrCommitPR = '${sha1}'
-    private static String DefaultBranchOrCommitPush = '*/master'
+    private static String DefaultBranchOrCommitPush = 'refs/heads/master'
     private static String DefaultRefSpec = '+refs/pull/${ghprbPullId}/*:refs/remotes/origin/pr/${ghprbPullId}/*'
 
     /**
@@ -123,15 +123,18 @@ class Utilities {
     /**
      * Retrieve the branch name without the
      *
-     * @param rawBranchName Branch name, potentially with star slash
+     * @param rawBranchName Branch name, potentially with star slash or with refs slash heads slash
      *
-     * @return Branch namer without star slash
+     * @return Branch namer without star slash or refs slash heads slash
      */
     def private static getBranchName(String rawBranchName) {
         // Remove */ for branch name
         String branchName = rawBranchName
         if (rawBranchName.indexOf("*/") == 0) {
             branchName = rawBranchName.substring(2)
+        }
+        else if (rawBranchName.indexOf("refs/heads/") == 0) { // remove refs/heads/ for branch name
+          branchName = rawBranchName.substring(11)
         }
         return branchName
     }
@@ -692,15 +695,18 @@ class Utilities {
      * @param job Job to change
      * @param project Github project
      * @param isPR True if this is a PR job, false otherwise.
-     * @param defaultBranch Branch to build by default if this is NOT a PR job. Defaults to *&#x2215;master.
+     * @param branch Branch to build by default if this is NOT a PR job.
      */
-    def static addStandardParameters(def job, String project, boolean isPR, String defaultBranch = '*/master') {
+    def private static addStandardParameters(def job, String project, boolean isPR, String branch) {
+        if (branch.indexOf('*/') == 0){
+          branch = branch.replace('*','refs/heads')
+        }
         String defaultRefSpec = getDefaultRefSpec(null)
         if (isPR) {
-            defaultBranch = getDefaultBranchOrCommitPR(null)
+            branch = getDefaultBranchOrCommitPR(null)
         }
 
-        addStandardParametersEx(job, project, isPR, defaultBranch, defaultRefSpec)
+        addStandardParametersEx(job, project, isPR, branch, defaultRefSpec)
     }
 
     /**
@@ -727,7 +733,7 @@ class Utilities {
      * Adds parameters to a non-PR job.  Right now this is only the git branch or commit.
      * This is added so that downstream jobs get the same hash as the root job
      */
-    def private static addStandardNonPRParameters(def job, String project, String defaultBranch = '*/master') {
+    def private static addStandardNonPRParameters(def job, String project, String defaultBranch) {
         job.with {
             parameters {
                 stringParam('GitBranchOrCommit', defaultBranch, 'Git branch or commit to build.  If a branch, builds the HEAD of that branch.  If a commit, then checks out that specific commit.')
@@ -1190,7 +1196,7 @@ class Utilities {
         // Cross tool currently works on Windows only
         Utilities.setMachineAffinity(crossJob, 'Windows_NT', 'latest-or-auto')
         Utilities.addPrivatePermissions(crossJob, ['Microsoft'])
-        Utilities.standardJobSetup(crossJob, project, true, "*/${branch}")
+        Utilities.standardJobSetup(crossJob, project, true, "refs/heads/${branch}")
         Utilities.addGithubPRTriggerForBranch(crossJob, branch, 'CROSS Check', '(?i).*test\\W+cross\\W+please.*', !runByDefault)
         Utilities.addArchival(crossJob, '**/cross-log.json')
     }
