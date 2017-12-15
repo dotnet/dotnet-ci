@@ -700,7 +700,7 @@ class Utilities {
      */
     def private static addStandardParametersEx(def job, String project, boolean isPR, String defaultBranchOrCommit, String defaultRefSpec) {
         if (defaultBranchOrCommit.indexOf('*/') == 0){
-            defaultBranchOrCommit = defaultBranchOrCommit.replace('*/','/refs/heads')
+            defaultBranchOrCommit = defaultBranchOrCommit.replace('*/','refs/heads/')
         }
 
         if (isPR) {
