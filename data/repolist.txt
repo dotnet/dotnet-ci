@@ -100,6 +100,7 @@ dotnet/roslyn branch=features/source-build server=dotnet-ci
 dotnet/roslyn branch=features/remotels server=dotnet-ci
 dotnet/roslyn branch=features/vs-for-mac-refactorings server=dotnet-ci
 dotnet/roslyn branch=features/vs-for-mac-packages server=dotnet-ci
+dotnet/roslyn branch=features/async-streams server=dotnet-ci
 dotnet/roslyn-analyzers branch=master server=dotnet-ci
 dotnet/roslyn-analyzers branch=dev15.3 server=dotnet-ci
 dotnet/roslyn-tools branch=master server=dotnet-ci
