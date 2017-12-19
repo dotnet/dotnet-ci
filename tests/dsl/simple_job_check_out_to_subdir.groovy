@@ -13,6 +13,7 @@ def branch = BranchName
     }
 
     Utilities.setMachineAffinity(newJob, "Windows_NT", 'latest-or-auto')
+    // Leave */ on this, should be replaced by refs/heads/
     Utilities.standardJobSetup(newJob, project, isPR, "*/${branch}")
 
     // After calling standardJobSetup, modify the job so it checks out to a subdir

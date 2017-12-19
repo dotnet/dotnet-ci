@@ -47,7 +47,7 @@ folder('GenPRTest') {}
                         }
                     }
 
-                    branch("*/${RepoListLocationBranch}")
+                    branch("refs/heads/${RepoListLocationBranch}")
 
                     extensions {
                         relativeTargetDirectory('dotnet-ci-repolist')
@@ -94,7 +94,7 @@ folder('GenPRTest') {}
                         }
                     }
 
-                    branch("*/${RepoListLocationBranch}")
+                    branch("refs/heads/${RepoListLocationBranch}")
                     
                     // On older versions of DSL this is a top level git element called relativeTargetDir
                     extensions {
@@ -112,7 +112,7 @@ folder('GenPRTest') {}
                         }
                     }
 
-                    branch("*/${SDKImplementationBranch}")
+                    branch("refs/heads/${SDKImplementationBranch}")
 
                     extensions {
                         relativeTargetDirectory('dotnet-ci-sdk')
@@ -262,7 +262,7 @@ job('disable_jobs_in_folder') {
                     github("dotnet/dotnet-ci")
                 }
             }
-            branch("*/${SDKImplementationBranch}")
+            branch("refs/heads/${SDKImplementationBranch}")
         }
     }
 
@@ -306,7 +306,7 @@ job('workspace_cleaner') {
                     github("dotnet/dotnet-ci")
                 }
             }
-            branch("*/${SDKImplementationBranch}")
+            branch("refs/heads/${SDKImplementationBranch}")
         }
     }
 
@@ -350,7 +350,7 @@ job('system_cleaner') {
                     github("dotnet/dotnet-ci")
                 }
             }
-            branch("*/${SDKImplementationBranch}")
+            branch("refs/heads/${SDKImplementationBranch}")
         }
     }
 
@@ -395,7 +395,7 @@ job('swap_space_monitor_remover') {
                     github("dotnet/dotnet-ci")
                 }
             }
-            branch("*/${SDKImplementationBranch}")
+            branch("refs/heads/${SDKImplementationBranch}")
         }
     }
 
@@ -442,7 +442,7 @@ job('node_cleaner') {
                     github("dotnet/dotnet-ci")
                 }
             }
-            branch("*/${SDKImplementationBranch}")
+            branch("refs/heads/${SDKImplementationBranch}")
         }
     }
 
@@ -488,7 +488,7 @@ job('generator_cleaner') {
                     github("dotnet/dotnet-ci")
                 }
             }
-            branch("*/${SDKImplementationBranch}")
+            branch("refs/heads/${SDKImplementationBranch}")
         }
     }
 

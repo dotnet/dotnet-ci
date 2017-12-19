@@ -11,7 +11,7 @@ param (
     [Parameter(Mandatory=$true)]
     [string]$ResourceGroupName,
     [switch]$RunForever = $false,
-    $Servers = @("https://ci.dot.net","https://ci2.dot.net","https://ci3.dot.net","https://dotnet-ci4.westus2.cloudapp.azure.com"),
+    $Servers = @("https://ci.dot.net","https://ci2.dot.net","https://ci3.dot.net"),
     [string]$Regex = '.*[a-f0-9]{6}$',
     [switch]$DryRun = $false
 )
