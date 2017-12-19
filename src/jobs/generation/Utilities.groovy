@@ -698,7 +698,7 @@ class Utilities {
      * @param defaultBranchOrCommit Commit / branch to build.
      * @param defaultRefSpec the refs that Jenkins must sync on a PR job
      */
-    def private static addStandardParametersEx(def job, String project, boolean isPR, String defaultBranchOrCommit, String defaultRefSpec) {
+    def static addStandardParametersEx(def job, String project, boolean isPR, String defaultBranchOrCommit, String defaultRefSpec) {
         if (defaultBranchOrCommit.indexOf('*/') == 0){
             defaultBranchOrCommit = defaultBranchOrCommit.replace('*/','refs/heads/')
         }
