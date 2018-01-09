@@ -95,6 +95,7 @@ dotnet/roslyn branch=features/constraints server=dotnet-ci
 dotnet/roslyn branch=features/range server=dotnet-ci
 dotnet/roslyn branch=features/DefaultInterfaceImplementation server=dotnet-ci
 dotnet/roslyn branch=features/editorconfig-in-compiler server=dotnet-ci
+dotnet/roslyn branch=features/ExpressionVariables server=dotnet-ci
 dotnet/roslyn branch=features/NullableReferenceTypes server=dotnet-ci
 dotnet/roslyn branch=features/patterns server=dotnet-ci
 dotnet/roslyn branch=features/readonly-ref server=dotnet-ci
