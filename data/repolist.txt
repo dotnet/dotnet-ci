@@ -114,6 +114,7 @@ dotnet/project-system branch=dev15.0.x server=dotnet-ci
 dotnet/project-system branch=dev15.4.x server=dotnet-ci
 dotnet/project-system branch=dev15.5.x server=dotnet-ci
 dotnet/project-system branch=dev15.6-preview2 server=dotnet-ci
+dotnet/project-system branch=dev15.6 server=dotnet-ci
 dotnet/source-build branch=master server=dotnet-ci
 dotnet/source-build branch=release/2.0 server=dotnet-ci
 dotnet/source-build branch=dev/release/2.0 server=dotnet-ci
