@@ -77,8 +77,8 @@ def call (def helixRunsBlob, String prStatusPrefix) {
                         // If the job info hasn't been propagated to the helix api, then we need to wait around.
                         boolean isNotStarted = statusContent.JobList == null
                         boolean isPending = !isNotStarted && statusContent.WorkItems.Running == 0 && statusContent.WorkItems.Finished == 0
-                        boolean isFinished = !isNotStarted && statusContent.WorkItems.None == 0 && statusContent.WorkItems.Unscheduled == 0 && statusContent.WorkItems.Waiting == 0 && statusContent.WorkItems.Running == 0
-                        boolean someFinished = statusContent.WorkItems.Finished > 0 || statusContent.WorkItems.None > 0
+                        boolean isFinished = !isNotStarted && statusContent.WorkItems.Unscheduled == 0 && statusContent.WorkItems.Waiting == 0 && statusContent.WorkItems.Running == 0
+                        boolean someFinished = statusContent.WorkItems.Finished > 0
                         boolean isRunning = !isNotStarted && !isPending && !isFinished
                         // Construct the link to the results page.
                         def mcResultsUrl = "https://mc.dot.net/#/user/${getEncodedUrl(statusContent.Creator)}/${getEncodedUrl(statusContent.Source)}/${getEncodedUrl(statusContent.Type)}/${getEncodedUrl(statusContent.Build)}"
