@@ -133,6 +133,11 @@ def call (def helixRunsBlob, String prStatusPrefix) {
                                 passed = false
                                 failedRunMap[queueId] = mcResultsUrl
                                 subMessage = "Catastrophic Failure: ${workItemStatus.fail} work items failed"
+                            } else if (workItemStatus.none) {
+                                resultValue = "PROCESSING XUNIT"
+                                isFinished = false
+                                isRunning = true
+                                subMessage = "Processing XUnit Results: ${workItemStatus.none} remaining"
                             } else if (analyses.size() > 0) {
                                 assert analyses.size() == 1 : "More than one set of analysis results"
                                 def analysis = analyses[0]
