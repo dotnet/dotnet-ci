@@ -92,6 +92,7 @@ dotnet/roslyn branch=dev15.6.x-vs-deps subFolder=perf definitionScript=perf.groo
 dotnet/roslyn branch=dev15.6-preview1-vs-deps server=dotnet-ci
 dotnet/roslyn branch=dev15.6-preview2 server=dotnet-ci
 dotnet/roslyn branch=dev15.6-preview2-vs-deps server=dotnet-ci
+dotnet/roslyn branch=dev15.6-preview3-vs-deps server=dotnet-ci
 dotnet/roslyn branch=microupdate server=dotnet-ci
 dotnet/roslyn branch=features/compiler server=dotnet-ci
 dotnet/roslyn branch=features/constraints server=dotnet-ci
