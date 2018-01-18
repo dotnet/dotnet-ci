@@ -31,9 +31,9 @@ param (
     [ValidateSet('Windows','Linux')]
     [string]$OperatingSystem = $null,
     [string]$VMName = $(Read-Host -prompt "VM name to deploy"),
-    [string]$ResourceGroupName = 'dotnet-ci-user-vms',
-    [string]$Location = 'westus2',
-    [string]$StorageAccountName = 'dotnetciuservmstorage2',
+    [string]$ResourceGroupName = 'dotnet-ci-user-vms-west',
+    [string]$Location = 'westus',
+    [string]$StorageAccountName = 'dotnetciuservmstorage3',
     [string]$VNetName = 'dotnet-ci-user-vms-vnet',
     [string]$VNetSubnetName = 'dotnet-ci-user-vms-vnet-subnet',
     [string]$VMSize = 'Standard_D3_v2'
