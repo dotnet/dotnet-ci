@@ -215,6 +215,8 @@ class Agents {
                                 'latest-dev15-3' : 'win2016-20170919',
                                 // win2016-base + Dev15.3.4
                                 'latest-dev15-3-internal' : 'win2016-20170919-internal',
+                                // win2016-base + Dev15.5.3
+                                'latest-dev15-5' : 'win2016-20180117',
                                 // For elevated runs
                                 'latest-elevated':'win2012-20171003-elevated',
                                 // For arm64 builds
