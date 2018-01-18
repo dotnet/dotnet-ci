@@ -4,6 +4,10 @@ dotnet-ci2-vms
 dotnet-ci3-vms
 dotnet-ci4-vms
 dotnet-vsts-vms
-# Need to be able to deal with multiple subscriptions in this case
-# dotnet-ci3-vms
 dotnet-ci-user-vms
+dotnet-ci1-vms-west
+dotnet-ci2-vms-west
+dotnet-ci3-vms-west
+dotnet-ci4-vms-west
+dotnet-vsts-vms-west
+dotnet-ci-user-vms-west

@@ -11,7 +11,7 @@
 
 param (
     [string]$ImageName = $(Read-Host -prompt "VM image to lookup"),
-    [string]$StorageAccountName = 'dotnetciuservmstorage1',
+    [string]$StorageAccountName = 'dotnetciuservmstorage3',
     [string]$ImageCsv = 'Images.csv'
 )
 

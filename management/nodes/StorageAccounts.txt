@@ -5,6 +5,9 @@ dotnetci2vmstorage2
 dotnetci3vmstorage2
 dotnetci4vmstorage2
 dotnetvstsvmstorage2
-# Need to be able to deal with multiple subscriptions in this case
-# dotnetci3vmstorage1
 dotnetciuservmstorage2
+dotnetci1vmstorage3
+dotnetci2vmstorage3
+dotnetci3vmstorage3
+dotnetci4vmstorage3
+dotnetciuservmstorage3
