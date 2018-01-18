@@ -67,7 +67,7 @@ stage ('Run Tests') {
             // Test that simple nodes work, of various types
             "simpleNode - custom timeout" : {
                 timeout (60) {
-                    simpleNode('Windows_NT', 'latest-dev15-5', 30) {
+                    simpleNode('Windows_NT', 'latest', 30) {
                         checkoutRepo()
                     }
                 }
