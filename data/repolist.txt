@@ -142,7 +142,9 @@ dotnet/standard branch=master server=dotnet-ci
 dotnet/standard branch=release/2.0.0 server=dotnet-ci
 dotnet/interactive-window branch=master server=dotnet-ci
 dotnet/symreader branch=master server=dotnet-ci
+dotnet/symreader branch=release/1.3.0 server=dotnet-ci
 dotnet/symreader-portable branch=master server=dotnet-ci
+dotnet/symreader-portable branch=release/1.5.0 server=dotnet-ci
 dotnet/symreader-converter branch=master server=dotnet-ci2
 dotnet/metadata-tools branch=master server=dotnet-ci2
 dotnet/symstore branch=master server=dotnet-ci
