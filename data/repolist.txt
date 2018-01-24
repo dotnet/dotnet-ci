@@ -159,6 +159,7 @@ dotnet/wcf branch=master server=dotnet-ci
 dotnet/wcf branch=release/1.0.0 server=dotnet-ci
 dotnet/wcf branch=release/1.1.0 server=dotnet-ci
 dotnet/wcf branch=release/uwp6.0 server=dotnet-ci
+dotnet/wcf branch=release/2.1.0 server=dotnet-ci
 Microsoft/ChakraCore branch=master server=dotnet-ci
 Microsoft/ChakraCore branch=master-ci server=dotnet-ci2
 Microsoft/ChakraCore branch=release/1.2 server=dotnet-ci
