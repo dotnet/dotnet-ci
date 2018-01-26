@@ -78,6 +78,7 @@ dotnet/corefx branch=release/2.1 server=dotnet-ci
 dotnet/corefx branch=release/2.1 server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy
 dotnet/corefxlab branch=master server=dotnet-ci
 dotnet/corert branch=master server=dotnet-ci
+dotnet/dotnet-dotnet-buildtools-prereqs-docker branch=master server=dotnet-ci
 dotnet/dotnet-docker branch=master server=dotnet-ci
 dotnet/dotnet-docker-nightly branch=master server=dotnet-ci
 dotnet/orleans branch=master server=dotnet-ci
