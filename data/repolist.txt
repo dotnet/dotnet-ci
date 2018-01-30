@@ -54,6 +54,7 @@ dotnet/coreclr branch=master server=dotnet-ci2 definitionScript=perf.groovy subF
 dotnet/coreclr branch=master server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy
 dotnet/coreclr branch=release/1.1.0 server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/coreclr branch=release/2.0.0 server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
+dotnet/coreclr branch=release/2.1 server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 jorive/coreclr branch=dev/baseline-with-new-api server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 nategraf/coreclr branch=perf-ci-test server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/coreclr branch=release/1.0.0 server=dotnet-ci
@@ -75,6 +76,7 @@ dotnet/corefx branch=release/2.0.0 server=dotnet-ci2 definitionScript=perf.groov
 dotnet/corefx branch=master server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy
 dotnet/corefx branch=release/uwp6.0 server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy
 dotnet/corefx branch=release/2.1 server=dotnet-ci
+dotnet/corefx branch=release/2.1 server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/corefx branch=release/2.1 server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy
 dotnet/corefxlab branch=master server=dotnet-ci
 dotnet/corert branch=master server=dotnet-ci
