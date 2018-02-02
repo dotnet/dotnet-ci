@@ -10,4 +10,4 @@ def reproJob = job(Utilities.getFullJobName(project, 'simple_repro', false)) {
     }
     label('test-vm')
 }
-Utilities.standardJobSetup(reproJob, project, false, "*/${branch}")
+Utilities.standardJobSetup(reproJob, project, false, "refs/heads/${branch}")

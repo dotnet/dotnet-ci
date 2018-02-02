@@ -47,7 +47,7 @@ folder('GenPRTest') {}
                         }
                     }
 
-                    branch("*/${RepoListLocationBranch}")
+                    branch("refs/heads/${RepoListLocationBranch}")
 
                     extensions {
                         relativeTargetDirectory('dotnet-ci-repolist')
@@ -94,7 +94,7 @@ folder('GenPRTest') {}
                         }
                     }
 
-                    branch("*/${RepoListLocationBranch}")
+                    branch("refs/heads/${RepoListLocationBranch}")
                     
                     // On older versions of DSL this is a top level git element called relativeTargetDir
                     extensions {
@@ -112,7 +112,7 @@ folder('GenPRTest') {}
                         }
                     }
 
-                    branch("*/${SDKImplementationBranch}")
+                    branch("refs/heads/${SDKImplementationBranch}")
 
                     extensions {
                         relativeTargetDirectory('dotnet-ci-sdk')
@@ -262,7 +262,7 @@ job('disable_jobs_in_folder') {
                     github("dotnet/dotnet-ci")
                 }
             }
-            branch("*/${SDKImplementationBranch}")
+            branch("refs/heads/${SDKImplementationBranch}")
         }
     }
 
@@ -306,13 +306,15 @@ job('workspace_cleaner') {
                     github("dotnet/dotnet-ci")
                 }
             }
-            branch("*/${SDKImplementationBranch}")
+            branch("refs/heads/${SDKImplementationBranch}")
         }
     }
 
     triggers {
         cron('0 0 * * *')
     }
+       
+    label('!windowsnano16 && !performance && !dtap')
 
     // We stream from the workspace since in the groovy 2.0 plugin, the scripts
     // read from disk always execute in the sandbox. This is not the case with inline scripts.
@@ -350,7 +352,7 @@ job('system_cleaner') {
                     github("dotnet/dotnet-ci")
                 }
             }
-            branch("*/${SDKImplementationBranch}")
+            branch("refs/heads/${SDKImplementationBranch}")
         }
     }
 
@@ -395,7 +397,7 @@ job('swap_space_monitor_remover') {
                     github("dotnet/dotnet-ci")
                 }
             }
-            branch("*/${SDKImplementationBranch}")
+            branch("refs/heads/${SDKImplementationBranch}")
         }
     }
 
@@ -423,6 +425,53 @@ job('swap_space_monitor_remover') {
     }
 }
 
+// Node cleaner.  This is due to a bug or two in the azure vm agents plugin, which will block removal of agents that go offline
+// for non-user caused reasons.  This removes those nodes once a day
+job('node_cleaner') {
+    logRotator {
+        daysToKeep(7)
+    }
+
+    // Source is just basic git for dotnet-ci
+    scm {
+        git {
+            remote {
+                if (isVSTS) {
+                    url("https://mseng.visualstudio.com/Tools/_git/DotNet-CI-Trusted")
+                    credentials('vsts-dotnet-ci-trusted-creds')
+                }
+                else {
+                    github("dotnet/dotnet-ci")
+                }
+            }
+            branch("refs/heads/${SDKImplementationBranch}")
+        }
+    }
+
+    // Run hourly
+    triggers {
+        cron('@daily')
+    }
+
+    // We stream from the workspace since in the groovy 2.0 plugin, the scripts
+    // read from disk always execute in the sandbox. This is not the case with inline scripts.
+    // This is a bug.  https://issues.jenkins-ci.org/browse/JENKINS-43700
+    steps {
+        // Rather
+        systemGroovy {
+            source {
+                stringSystemScriptSource {
+                    script {
+                        script (readFileFromWorkspace('scripts/remove_offline_nodes.groovy'))
+                        // Don't execute in sandbox
+                        sandbox (false)
+                    }
+                }
+            }
+        }
+    }
+}
+
 // Create the generator cleaner job
 job('generator_cleaner') {
     logRotator {
@@ -441,7 +490,7 @@ job('generator_cleaner') {
                     github("dotnet/dotnet-ci")
                 }
             }
-            branch("*/${SDKImplementationBranch}")
+            branch("refs/heads/${SDKImplementationBranch}")
         }
     }
 

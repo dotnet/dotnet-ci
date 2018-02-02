@@ -1,5 +1,6 @@
 // Removes offline nodes from AzureVMAgents that weren't taken offline for user reasons
 
+import jenkins.model.Jenkins
 import com.microsoft.azure.vmagent.AzureVMAgent 
 
 def nodes = Jenkins.instance.getNodes()

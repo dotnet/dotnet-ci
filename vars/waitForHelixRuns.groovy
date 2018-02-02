@@ -23,47 +23,47 @@ def call (def helixRunsBlob, String prStatusPrefix) {
     def mcUrlMap = [:]
     def failedRunMap = [:]
     def passed = true
-    timestamps {
-        // Wrap in the default timeout of 15 mins
-        timeout(15) {
-            for (int i = 0; i < helixRunsBlob.size(); i++) {
-                waitUntil(minRecurrencePeriod: 60, maxRecurrencePeriod: 180, unit: 'SECONDS') {
-                    try {
-                        def currentRun = helixRunsBlob[i];
-                        def queueId = currentRun['QueueId']
-                        def correlationId = currentRun['CorrelationId']
-                        def statusUrl = "https://helix.dot.net/api/2017-04-14/jobs/${correlationId}/details"
-                        def statusResponse = httpRequest consoleLogResponseBody: true, url: statusUrl
-                        assert statusResponse != null
-                        assert statusResponse.content != null
-                        def statusContent = (new JsonSlurperClassic()).parseText(statusResponse.content)
-                        def mcResultsUrl = "https://mc.dot.net/#/user/${getEncodedUrl(statusContent.Creator)}/${getEncodedUrl(statusContent.Source)}/${getEncodedUrl(statusContent.Type)}/${getEncodedUrl(statusContent.Build)}"
-                        mcUrlMap[queueId] = mcResultsUrl
-                    }
-                    catch (Exception ex) {
-                        println(ex.toString());
-                        println(ex.getMessage().toString());
-                        println(ex.getStackTrace().toString());
-                        return false
-                    }
-                    return true
+
+    // Wrap in the default timeout of 15 mins
+    timeout(15) {
+        for (int i = 0; i < helixRunsBlob.size(); i++) {
+            waitUntil(minRecurrencePeriod: 60, maxRecurrencePeriod: 180, unit: 'SECONDS') {
+                try {
+                    def currentRun = helixRunsBlob[i];
+                    def queueId = currentRun['QueueId']
+                    def correlationId = currentRun['CorrelationId']
+                    def statusUrl = "https://helix.dot.net/api/2017-04-14/jobs/${correlationId}/details"
+                    def statusResponse = httpRequest consoleLogResponseBody: true, url: statusUrl
+                    assert statusResponse != null
+                    assert statusResponse.content != null
+                    def statusContent = (new JsonSlurperClassic()).parseText(statusResponse.content)
+                    def mcResultsUrl = "https://mc.dot.net/#/user/${getEncodedUrl(statusContent.Creator)}/${getEncodedUrl(statusContent.Source)}/${getEncodedUrl(statusContent.Type)}/${getEncodedUrl(statusContent.Build)}"
+                    mcUrlMap[queueId] = mcResultsUrl
                 }
+                catch (Exception ex) {
+                    println(ex.toString());
+                    println(ex.getMessage().toString());
+                    println(ex.getStackTrace().toString());
+                    return false
+                }
+                return true
             }
         }
-        addSummaryLink('Test Run Results', mcUrlMap)
+    }
+    addSummaryLink('Test Run Results', mcUrlMap)
 
-        for (int i = 0; i < helixRunsBlob.size(); i++) {
-            def currentRun = helixRunsBlob[i];
-            def queueId = currentRun['QueueId']
-            def correlationId = currentRun['CorrelationId']
+    for (int i = 0; i < helixRunsBlob.size(); i++) {
+        def currentRun = helixRunsBlob[i];
+        def queueId = currentRun['QueueId']
+        def correlationId = currentRun['CorrelationId']
 
-            helixRunTasks[queueId] = {
-                // State to minimize status updates.
-                // 0 = Not yet updated/started
-                // 1 = Pending updated
-                // 2 = Started updated
-                int state = 0;
-
+        helixRunTasks[queueId] = {
+            // State to minimize status updates.
+            // 0 = Not yet updated/started
+            // 1 = Pending updated
+            // 2 = Started updated
+            int state = 0;
+            timestamps {
                 // Wait until the Helix runs complete. Wait up to 5 mins between checks
                 waitUntil(minRecurrencePeriod: 120, maxRecurrencePeriod: 300, unit: 'SECONDS') {
                     try {
@@ -133,6 +133,11 @@ def call (def helixRunsBlob, String prStatusPrefix) {
                                 passed = false
                                 failedRunMap[queueId] = mcResultsUrl
                                 subMessage = "Catastrophic Failure: ${workItemStatus.fail} work items failed"
+                            } else if (workItemStatus.none) {
+                                resultValue = "PROCESSING XUNIT"
+                                isFinished = false
+                                isRunning = true
+                                subMessage = "Processing XUnit Results: ${workItemStatus.none} remaining"
                             } else if (analyses.size() > 0) {
                                 assert analyses.size() == 1 : "More than one set of analysis results"
                                 def analysis = analyses[0]
