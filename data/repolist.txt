@@ -160,6 +160,8 @@ dotnet/sdk branch=dev15.1.x server=dotnet-ci
 dotnet/sdk branch=release/2.1.1xx server=dotnet-ci
 dotnet/sdk branch=release/2.1.2xx server=dotnet-ci
 dotnet/sdk branch=release/2.1.3xx server=dotnet-ci
+dotnet/sdk branch=master server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
+dotnet/sdk branch=release/2.0.0 server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/standard branch=master server=dotnet-ci
 dotnet/standard branch=release/2.0.0 server=dotnet-ci
 dotnet/interactive-window branch=master server=dotnet-ci
