@@ -123,8 +123,6 @@ dotnet/roslyn branch=features/ref-reassignment server=dotnet-ci
 dotnet/roslyn branch=features/strongname server=dotnet-ci
 dotnet/roslyn branch=features/source-build server=dotnet-ci
 dotnet/roslyn branch=features/remotels server=dotnet-ci
-dotnet/roslyn branch=features/vs-for-mac-refactorings server=dotnet-ci
-dotnet/roslyn branch=features/vs-for-mac-packages server=dotnet-ci
 dotnet/roslyn branch=features/async-streams server=dotnet-ci
 dotnet/roslyn branch=features/dataflow server=dotnet-ci
 dotnet/roslyn branch=features/tuple-equality server=dotnet-ci
