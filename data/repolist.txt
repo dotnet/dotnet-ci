@@ -245,3 +245,5 @@ Tools/DotNet-CI-Trusted credentials=vsts-dotnet-ci-trusted-creds collection=msen
 dotnet/dotnet-ci branch=master definitionScript=tests/pipeline/tests.groovy server=dotnet-ci4 subFolder=pipelineTests
 # Tests for DSL
 dotnet/dotnet-ci branch=master definitionScript=tests/dsl/*.groovy isDSLTest=true server=dotnet-ci4 subFolder=dslTests
+#AspNetCore
+aspnet/CORS branch=dev server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
