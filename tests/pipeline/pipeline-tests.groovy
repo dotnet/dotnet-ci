@@ -63,6 +63,14 @@ stage ('Run Tests') {
                     }
                 }
             },
+            
+            "simpleNode - Windows_NT - RS3 client ES-ES" : {
+                timeout (60) {
+                    simpleNode('Windows.10.Amd64.ClientRS3.ES.Open') {
+                        checkoutRepo()
+                    }
+                }
+            },
 
             // Test that simple nodes work, of various types
             "simpleNode - custom timeout" : {
