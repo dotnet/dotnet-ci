@@ -3,12 +3,12 @@
 # Format:,,,,,,,
 # Image Name,Labels,Storage Account Sub Path,Semi-colon delimited list of storage accounts, or All for all storage accounts in StorageAccounts.txt,,,
 ImageName,Labels,OSType,Container,BlobName,StorageAccounts,StartupScriptPath,AgentWorkspace
-centos71-20170216,centos71-20170216,Linux,system,Microsoft.Compute/Images/dotnetci/centos71-20170905-osDisk.d6bde4fb-cf0d-4894-8523-b20c1e8c5a31.vhd,All,./startupScripts/centos71-20170216.sh,/mnt/resource/j
-centos71-20170216-outer,centos71-20170216-outer,Linux,system,Microsoft.Compute/Images/dotnetci/centos71-20170905-osDisk.d6bde4fb-cf0d-4894-8523-b20c1e8c5a31.vhd,All,./startupScripts/centos71-20170216-outer.sh,/mnt/resource/j
 centos71-20170926,centos71-20170926,Linux,system,Microsoft.Compute/Images/dotnetci/centos71-20170926-osDisk.216c7f19-11c6-4829-95ac-19e684844ad7.vhd,All,./startupScripts/centos71-20170926.sh,/mnt/resource/j
 centos71-20170926-outer,centos71-20170926-outer,Linux,system,Microsoft.Compute/Images/dotnetci/centos71-20170926-osDisk.216c7f19-11c6-4829-95ac-19e684844ad7.vhd,All,./startupScripts/centos71-20170926-outer.sh,/mnt/resource/j
 centos71-20171005,centos71-20171005,Linux,system,Microsoft.Compute/Images/dotnetci/centos71-20171005-osDisk.d9393456-eb1f-465a-ad48-38f3b4b0a144.vhd,All,./startupScripts/centos71-20171005.sh,/mnt/resource/j
 centos71-20171005-outer,centos71-20171005-outer,Linux,system,Microsoft.Compute/Images/dotnetci/centos71-20171005-osDisk.d9393456-eb1f-465a-ad48-38f3b4b0a144.vhd,All,./startupScripts/centos71-20171005-outer.sh,/mnt/resource/j
+centos71-20180222,centos71-20180222,Linux,system,Microsoft.Compute/Images/dotnetci/centos71-20180222-osDisk.a158a528-afbd-41a9-8e70-eff48f85e029.vhd,All,./startupScripts/centos71-20180222.sh,/mnt/resource/j
+centos71-20180222-outer,centos71-20180222-outer,Linux,system,Microsoft.Compute/Images/dotnetci/centos71-20180222-osDisk.a158a528-afbd-41a9-8e70-eff48f85e029.vhd,All,./startupScripts/centos71-20180222-outer.sh,/mnt/resource/j
 deb82-20160323,auto-deb82-20160323,Linux,system,Microsoft.Compute/Images/dotnetci/deb82-20170829-osDisk.10405edc-6adb-4b59-9082-925a1b7c21fb.vhd,All,./startupScripts/deb82-20160323.sh,/mnt/resource/j
 deb84-20170214,deb84-20170214,Linux,system,Microsoft.Compute/Images/dotnetci/deb84-20170829-osDisk.398a74ca-2f9a-4cf9-ae25-005580cfe03f.vhd,All,./startupScripts/deb84-20170214.sh,/mnt/resource/j
 deb84-20170214-outer,deb84-20170214-outer,Linux,system,Microsoft.Compute/Images/dotnetci/deb84-20170829-osDisk.398a74ca-2f9a-4cf9-ae25-005580cfe03f.vhd,All,./startupScripts/deb84-20170214-outer.sh,/mnt/resource/j
