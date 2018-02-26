@@ -1086,7 +1086,7 @@ class Utilities {
                         failureNew(100)
                     }
                     thresholdMode(ThresholdMode.PERCENT)
-                    timeMargin(3000)
+                    timeMargin(60000)
                 }
             }
         }
