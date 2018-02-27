@@ -216,7 +216,7 @@ Microsoft/PartsUnlimited branch=master server=dotnet-ci
 dotnet/templating branch=master server=dotnet-ci
 dotnet/templating branch=rel/2.1.0-preview1 server=dotnet-ci
 dotnet/templating branch=rel/2.1.0-preview2 server=dotnet-ci
-aspnet/aspnet-docker branch=dev server=dotnet-ci definitionScript=build-pipeline/pipelinejobs.groovy
+aspnet/aspnet-docker branch=dev server=dotnet-ci3 definitionScript=build-pipeline/pipelinejobs.groovy
 aspnet/websdk branch=master server=dotnet-ci
 aspnet/websdk branch=release/2.1 server=dotnet-ci
 drewscoggins/corefx branch=master server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
