@@ -65,6 +65,8 @@ class Agents {
                                 '20170925':'ubuntu1404-20170925',
                                 // Contains Mono 5.0.1
                                 'arm-cross-latest':'ubuntu1404-20170120',
+                                // Pool of arm Ubuntu Tegra machines. Agent label is a Helix queue name.
+                                'arm-latest':'ubuntu.1404.arm32.open',
                                 // Contains the rootfs setup for arm64 builds.
                                 'arm64-cross-latest':'ubuntu1604-20170526',
                                 // Pool of arm64 lab machines 4k page size
