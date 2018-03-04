@@ -62,6 +62,7 @@ dotnet/coreclr branch=release/1.0.0 server=dotnet-ci
 dotnet/coreclr branch=release/1.1.0 server=dotnet-ci
 dotnet/coreclr branch=release/2.0.0 server=dotnet-ci
 dotnet/coreclr branch=release/uwp6.0 server=dotnet-ci
+dotnet/coreclr branch=release/uwp6.1 server=dotnet-ci
 dotnet/coreclr branch=dev/unix_test_workflow server=dotnet-ci
 dotnet/coreclr branch=release/2.1 server=dotnet-ci
 dotnet/coreclr branch=release/2.1 server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy
