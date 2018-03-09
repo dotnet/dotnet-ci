@@ -221,9 +221,6 @@ Microsoft/PartsUnlimited branch=master server=dotnet-ci
 dotnet/templating branch=master server=dotnet-ci
 dotnet/templating branch=rel/2.1.0-preview1 server=dotnet-ci
 dotnet/templating branch=rel/2.1.0-preview2 server=dotnet-ci
-aspnet/aspnet-docker branch=dev server=dotnet-ci3 definitionScript=build-pipeline/pipelinejobs.groovy
-aspnet/websdk branch=master server=dotnet-ci
-aspnet/websdk branch=release/2.1 server=dotnet-ci
 drewscoggins/corefx branch=master server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 drewscoggins/corefx branch=PerfRuns server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/core branch=master server=dotnet-ci2
@@ -262,4 +259,8 @@ dotnet/dotnet-ci branch=master definitionScript=tests/pipeline/tests.groovy serv
 # Tests for DSL
 dotnet/dotnet-ci branch=master definitionScript=tests/dsl/*.groovy isDSLTest=true server=dotnet-ci4 subFolder=dslTests
 #AspNetCore
+aspnet/aspnet-docker branch=dev server=dotnet-ci3 definitionScript=build-pipeline/pipelinejobs.groovy
+aspnet/aspnet-docker branch=master server=dotnet-ci3 definitionScript=build-pipeline/pipelinejobs.groovy
 aspnet/CORS branch=dev server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
+aspnet/websdk branch=master server=dotnet-ci
+aspnet/websdk branch=release/2.1 server=dotnet-ci
