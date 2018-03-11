@@ -112,6 +112,7 @@ dotnet/roslyn branch=dev15.7.x-vs-deps server=dotnet-ci
 dotnet/roslyn branch=dev15.7-preview1 server=dotnet-ci
 dotnet/roslyn branch=dev15.7-preview1-vs-deps server=dotnet-ci
 dotnet/roslyn branch=microupdate server=dotnet-ci
+dotnet/roslyn branch=features/codecov server=dotnet-ci
 dotnet/roslyn branch=features/compiler server=dotnet-ci
 dotnet/roslyn branch=features/constraints server=dotnet-ci
 dotnet/roslyn branch=features/range server=dotnet-ci
