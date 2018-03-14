@@ -96,7 +96,7 @@ class Agents {
                                 'latest':'ubuntu1604-20170925-1',
                                 // ubuntu1604-20160510 + docker.
                                 // Move this to latest after validation
-                                'latest-docker':'ubuntu1604-20170216',
+                                'latest-docker':'ubuntu1604-20180314',
                                 // For outerloop runs.
                                 'outer-latest':'ubuntu1604-20170925-1-outer',
                                 // For outerloop runs, using Linux kernel version 4.6.2
