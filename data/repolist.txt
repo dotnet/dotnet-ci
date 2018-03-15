@@ -215,6 +215,7 @@ Microsoft/Vipr branch=master server=dotnet-ci
 Microsoft/visualfsharp branch=master server=dotnet-ci2
 Microsoft/visualfsharp branch=dev15.6 server=dotnet-ci2
 Microsoft/visualfsharp branch=dev15.7 server=dotnet-ci2
+Microsoft/visualfsharp branch=dev15.8 server=dotnet-ci2
 Microsoft/PartsUnlimited branch=master server=dotnet-ci
 dotnet/templating branch=master server=dotnet-ci
 dotnet/templating branch=rel/2.1.0-preview1 server=dotnet-ci
