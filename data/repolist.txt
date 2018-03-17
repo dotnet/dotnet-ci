@@ -128,11 +128,10 @@ dotnet/roslyn branch=features/source-build server=dotnet-ci
 dotnet/roslyn branch=features/remotels server=dotnet-ci
 dotnet/roslyn branch=features/async-streams server=dotnet-ci
 dotnet/roslyn branch=features/dataflow server=dotnet-ci
-dotnet/roslyn branch=features/tuple-equality server=dotnet-ci
+dotnet/roslyn branch=features/il-verify server=dotnet-ci
 dotnet/roslyn branch=features/stackalloc-init server=dotnet-ci
 dotnet/roslyn branch=features/custom-fixed server=dotnet-ci
 dotnet/roslyn branch=features/localsinit server=dotnet-ci
-dotnet/roslyn branch=features/verification server=dotnet-ci
 dotnet/roslyn branch=features/fixed-buffers server=dotnet-ci
 dotnet/roslyn branch=features/generic-attributes server=dotnet-ci
 dotnet/roslyn branch=features/quick-info-party server=dotnet-ci
