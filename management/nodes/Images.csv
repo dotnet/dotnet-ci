@@ -3,12 +3,12 @@
 # Format:,,,,,,,
 # Image Name,Labels,Storage Account Sub Path,Semi-colon delimited list of storage accounts, or All for all storage accounts in StorageAccounts.txt,,,
 ImageName,Labels,OSType,Container,BlobName,StorageAccounts,StartupScriptPath,AgentWorkspace
-centos71-20170216,centos71-20170216,Linux,system,Microsoft.Compute/Images/dotnetci/centos71-20170905-osDisk.d6bde4fb-cf0d-4894-8523-b20c1e8c5a31.vhd,All,./startupScripts/centos71-20170216.sh,/mnt/resource/j
-centos71-20170216-outer,centos71-20170216-outer,Linux,system,Microsoft.Compute/Images/dotnetci/centos71-20170905-osDisk.d6bde4fb-cf0d-4894-8523-b20c1e8c5a31.vhd,All,./startupScripts/centos71-20170216-outer.sh,/mnt/resource/j
 centos71-20170926,centos71-20170926,Linux,system,Microsoft.Compute/Images/dotnetci/centos71-20170926-osDisk.216c7f19-11c6-4829-95ac-19e684844ad7.vhd,All,./startupScripts/centos71-20170926.sh,/mnt/resource/j
 centos71-20170926-outer,centos71-20170926-outer,Linux,system,Microsoft.Compute/Images/dotnetci/centos71-20170926-osDisk.216c7f19-11c6-4829-95ac-19e684844ad7.vhd,All,./startupScripts/centos71-20170926-outer.sh,/mnt/resource/j
 centos71-20171005,centos71-20171005,Linux,system,Microsoft.Compute/Images/dotnetci/centos71-20171005-osDisk.d9393456-eb1f-465a-ad48-38f3b4b0a144.vhd,All,./startupScripts/centos71-20171005.sh,/mnt/resource/j
 centos71-20171005-outer,centos71-20171005-outer,Linux,system,Microsoft.Compute/Images/dotnetci/centos71-20171005-osDisk.d9393456-eb1f-465a-ad48-38f3b4b0a144.vhd,All,./startupScripts/centos71-20171005-outer.sh,/mnt/resource/j
+centos71-20180222,centos71-20180222,Linux,system,Microsoft.Compute/Images/dotnetci/centos71-20180222-osDisk.a158a528-afbd-41a9-8e70-eff48f85e029.vhd,All,./startupScripts/centos71-20180222.sh,/mnt/resource/j
+centos71-20180222-outer,centos71-20180222-outer,Linux,system,Microsoft.Compute/Images/dotnetci/centos71-20180222-osDisk.a158a528-afbd-41a9-8e70-eff48f85e029.vhd,All,./startupScripts/centos71-20180222-outer.sh,/mnt/resource/j
 deb82-20160323,auto-deb82-20160323,Linux,system,Microsoft.Compute/Images/dotnetci/deb82-20170829-osDisk.10405edc-6adb-4b59-9082-925a1b7c21fb.vhd,All,./startupScripts/deb82-20160323.sh,/mnt/resource/j
 deb84-20170214,deb84-20170214,Linux,system,Microsoft.Compute/Images/dotnetci/deb84-20170829-osDisk.398a74ca-2f9a-4cf9-ae25-005580cfe03f.vhd,All,./startupScripts/deb84-20170214.sh,/mnt/resource/j
 deb84-20170214-outer,deb84-20170214-outer,Linux,system,Microsoft.Compute/Images/dotnetci/deb84-20170829-osDisk.398a74ca-2f9a-4cf9-ae25-005580cfe03f.vhd,All,./startupScripts/deb84-20170214-outer.sh,/mnt/resource/j
@@ -36,9 +36,12 @@ ubuntu1604-20170216,ubuntu1604-20170216,Linux,system,Microsoft.Compute/Images/do
 ubuntu1604-20170216-outer,ubuntu1604-20170216-outer,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1604-20170830-osDisk.ca156cab-c57e-45fd-b980-57199ac0e78a.vhd,All,./startupScripts/ubuntu1604-20170216-outer.sh,/mnt/j
 ubuntu1604-20170526,ubuntu1604-20170526,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1604-20170906-osDisk.a4a70718-78cb-49be-b8f3-ffb1ec7fcbb6.vhd,All,./startupScripts/ubuntu1604-20170526.sh,/mnt/j
 ubuntu1604-20170731,ubuntu1604-20170731,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1604-20170828-osDisk.8d2c4f36-cf52-4b99-8ef4-f7a2fc8f85ec.vhd,All,./startupScripts/ubuntu1604-20170216.sh,/mnt/j
-ubuntu1604-20170925-1,ubuntu1604-20170925-1,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1604-20171003-osDisk.f1f7365d-e328-4ecd-b9f2-0628e40e3a4b.vhd,All,./startupScripts/ubuntu1604-20170925-1.sh,/mnt/j
+ubuntu1604-20170925-1,ubuntu1604-20170925-1,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1604-20180301-osDisk.8df7e68b-02c5-4f35-bf90-4ee97b851540.vhd,All,./startupScripts/ubuntu1604-20170925-1.sh,/mnt/j
 ubuntu1604-20170925,ubuntu1604-20170925,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1604-20170925-osDisk.b5a4de2d-a4f0-45dd-8da3-143cbbf36d4d.vhd,All,./startupScripts/ubuntu1604-20170925.sh,/mnt/j
 ubuntu1604-20170925-outer,ubuntu1604-20170925-outer,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1604-20170925-osDisk.b5a4de2d-a4f0-45dd-8da3-143cbbf36d4d.vhd,All,./startupScripts/ubuntu1604-20170925-outer.sh,/mnt/j
+ubuntu1604-20180314,ubuntu1604-20180314,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1604-20180314-osDisk.69fe6f7a-998e-42bc-8b7a-d411bfa3dbe1.vhd,All,./startupScripts/ubuntu1604-20170216.sh,/mnt/j
+ubuntu1604-20180314-outer,ubuntu1604-20180314-outer,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1604-20180314-osDisk.69fe6f7a-998e-42bc-8b7a-d411bfa3dbe1.vhd,All,./startupScripts/ubuntu1604-20170216-outer.sh,/mnt/j
+
 ubuntu1610-20170216,ubuntu1610-20170216,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1610-20170830-osDisk.b5133ea4-898f-4344-869f-3b5eda534480.vhd,All,./startupScripts/ubuntu1610-20170216.sh,/mnt/j
 ubuntu1610-20170216,ubuntu1610-20170216,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1610-20170830-osDisk.b5133ea4-898f-4344-869f-3b5eda534480.vhd,All,./startupScripts/ubuntu1610-20170216.sh,/mnt/j
 ubuntu1610-20170925,ubuntu1610-20170925,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1610-20170925-osDisk.a51e7ef8-7bb6-4e8b-a108-c5269a099c3d.vhd,All,./startupScripts/ubuntu1610-20170925.sh,/mnt/j
@@ -74,3 +77,4 @@ win2016-20170814-internal,win2016-20170814-internal,Windows,system,Microsoft.Com
 win2016-20170919,win2016-20170919,Windows,system,Microsoft.Compute/Images/dotnetci/win2016-20170919-osDisk.be037f44-ef3a-47a8-8bc7-5bc447dffd40.vhd,All,./startupScripts/win2016-20170919.ps1,D:\j
 win2016-20170919-internal,win2016-20170919-internal,Windows,system,Microsoft.Compute/Images/dotnetci/win2016-20170919-osDisk.be037f44-ef3a-47a8-8bc7-5bc447dffd40.vhd,All,./startupScripts/win2016-20170919-internal.ps1,D:\j
 win2016-20171014,win2016-20171014,Windows,system,Microsoft.Compute/Images/dotnetci/win2016-20171014-osDisk.dd535afd-aba9-4098-9745-4e0ec310f466.vhd,All,./startupScripts/win2016-20171014.ps1,D:\j
+win2016-20180117,win2016-20180117,Windows,system,Microsoft.Compute/Images/dotnetci/win2016-20180118-osDisk.8ec1c369-8807-4d47-8fba-168549a09851.vhd,All,./startupScripts/win2016-20180117.ps1,D:\j

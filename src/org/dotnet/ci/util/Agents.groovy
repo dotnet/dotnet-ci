@@ -96,7 +96,7 @@ class Agents {
                                 'latest':'ubuntu1604-20170925-1',
                                 // ubuntu1604-20160510 + docker.
                                 // Move this to latest after validation
-                                'latest-docker':'ubuntu1604-20170216',
+                                'latest-docker':'ubuntu1604-20180314',
                                 // For outerloop runs.
                                 'outer-latest':'ubuntu1604-20170925-1-outer',
                                 // For outerloop runs, using Linux kernel version 4.6.2
@@ -215,6 +215,8 @@ class Agents {
                                 'latest-dev15-3' : 'win2016-20170919',
                                 // win2016-base + Dev15.3.4
                                 'latest-dev15-3-internal' : 'win2016-20170919-internal',
+                                // win2016-base + Dev15.5.3
+                                'latest-dev15-5' : 'win2016-20180117',
                                 // For elevated runs
                                 'latest-elevated':'win2012-20171003-elevated',
                                 // For arm64 builds

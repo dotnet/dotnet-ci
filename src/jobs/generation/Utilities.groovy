@@ -1030,7 +1030,7 @@ class Utilities {
                     xUnitDotNET {
                         pattern(resultFilePattern)
                         skipNoTestFiles(skipIfNoTestFiles)
-                        failIfNotNew(true)
+                        failIfNotNew(false)
                         deleteOutputFiles(true)
                         stopProcessingIfError(true)
                     }
@@ -1068,7 +1068,7 @@ class Utilities {
                     msTest {
                         pattern(resultFilePattern)
                         skipNoTestFiles(skipIfNoTestFiles)
-                        failIfNotNew(true)
+                        failIfNotNew(false)
                         deleteOutputFiles(true)
                         stopProcessingIfError(true)
                     }
@@ -1086,7 +1086,7 @@ class Utilities {
                         failureNew(100)
                     }
                     thresholdMode(ThresholdMode.PERCENT)
-                    timeMargin(3000)
+                    timeMargin(60000)
                 }
             }
         }

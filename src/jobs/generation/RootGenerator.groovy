@@ -313,6 +313,8 @@ job('workspace_cleaner') {
     triggers {
         cron('0 0 * * *')
     }
+       
+    label('!windowsnano16 && !performance && !dtap')
 
     // We stream from the workspace since in the groovy 2.0 plugin, the scripts
     // read from disk always execute in the sandbox. This is not the case with inline scripts.
