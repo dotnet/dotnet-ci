@@ -72,6 +72,14 @@ stage ('Run Tests') {
                 }
             },
 
+            "simpleNode - Windows.10.Amd64.ClientRS3.DevEx.Open" : {
+                timeout (60) {
+                    simpleNode('Windows.10.Amd64.ClientRS3.DevEx.Open') {
+                        checkoutRepo()
+                    }
+                }
+            },
+
             // Test that simple nodes work, of various types
             "simpleNode - custom timeout" : {
                 timeout (60) {
