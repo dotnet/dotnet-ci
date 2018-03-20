@@ -157,17 +157,26 @@ class Utilities {
         return bootstrapRidMap.get(os, null)
     }
     
-    
+    /**
+     * Given the direct name of a label, set the machine affinity for a job.  This override is useful for Helix queues
+     *
+     * @param job Job to set affinity for
+     * @param labelName Label to set the job to.  THis is useful for helix.
+     */
+    def static setMachineAffinity(def job, String labelName) {
+        job.with {
+            label(labelName)
+        }
+    }
 
     /**
      * Given the name of an OS, set the nodes that this job runs on.
      *
      * @param job Job to set affinity for
      * @param osName Name of OS to to run on.
-     * @param version Optional version of the image.  This version can be the date potentially followed
-     *                by .1, .2, etc. or it could be a static image version (like a perf label).
+     * @param version Version of the image.
      */
-    def static setMachineAffinity(def job, String osName, String version = '') {
+    def static setMachineAffinity(def job, String osName, String version) {
         String machineLabel = Agents.getAgentLabel(osName, version)
         job.with {
             label(machineLabel)
