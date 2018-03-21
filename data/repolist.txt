@@ -127,7 +127,7 @@ dotnet/roslyn branch=features/source-build server=dotnet-ci
 dotnet/roslyn branch=features/remotels server=dotnet-ci
 dotnet/roslyn branch=features/async-streams server=dotnet-ci
 dotnet/roslyn branch=features/dataflow server=dotnet-ci
-dotnet/roslyn branch=features/tuple-equality server=dotnet-ci
+dotnet/roslyn branch=features/decon-default server=dotnet-ci
 dotnet/roslyn branch=features/stackalloc-init server=dotnet-ci
 dotnet/roslyn branch=features/custom-fixed server=dotnet-ci
 dotnet/roslyn branch=features/localsinit server=dotnet-ci
