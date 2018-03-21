@@ -26,7 +26,7 @@ rhel72-20170928,rhel72-20170928,Linux,system,Microsoft.Compute/Images/dotnetci/r
 rhel72-20171003,rhel72-20171003,Linux,system,Microsoft.Compute/Images/dotnetci/rhel72-20171003-osDisk.3fbbd1ec-9bd1-4c1b-9c64-423c551c9598.vhd,All,./startupScripts/rhel72-20171003.sh,/mnt/resource/j
 ubuntu1404-20160206-outer,auto-ubuntu1404-201626outer,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1404-20170824-osDisk.41082b53-90fc-4744-ad52-536471659d76.vhd,All,./startupScripts/ubuntu1404-20160206-outer.sh,/mnt/j
 ubuntu1404-20160211-1-latest-mono,ubuntu1404-20160211-1-latest-mono,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1404-20170821-osDisk.715042c0-8f22-4a7d-9c64-23463fa4bf7a.vhd,All,./startupScripts/ubuntu1404-20160211-1.sh,/mnt/j
-ubuntu1404-20170120,ubuntu1404-20160120,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1404-20170824-osDisk.717f9775-9d81-432e-bbf0-cc4203d7d1ce.vhd,All,./startupScripts/ubuntu1404-20161019.sh,/mnt/j
+ubuntu1404-20170120,ubuntu1404-20160120,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1404-20180320-osDisk.afbf9b23-9ec3-44d4-b2ce-29bec7604487.vhd,All,./startupScripts/ubuntu1404-20161019.sh,/mnt/j
 ubuntu1404-20161020,ubuntu1404-20161020,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1404-20170822-osDisk.73ac155d-5855-4660-8ba4-30d4645dfdca.vhd,All,./startupScripts/ubuntu1404-20161020.sh,/mnt/j
 ubuntu1404-20170109,ubuntu1404-20170109,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1404-20170828-osDisk.2d38110f-1ba4-4962-9ba9-d8e6854aeaf1.vhd,All,./startupScripts/ubuntu1404-20170109.sh,/mnt/j
 ubuntu1404-20170118,ubuntu1404-20170118,Linux,system,Microsoft.Compute/Images/dotnetci/ubuntu1404-20170829-osDisk.9dfcc9eb-95b6-453e-adbf-e284e1d8205a.vhd,All,./startupScripts/ubuntu1404-20170118.sh,/mnt/j
