@@ -269,7 +269,7 @@ stage ('Run Tests') {
         <TargetQueues>Windows.10.Amd64.Open</TargetQueues>
         <HelixLogFolder>\$(MSBuildThisFileDirectory)</HelixLogFolder>
         <HelixCorrelationInfoFileName>job-info.json</HelixCorrelationInfoFileName>
-        <HelixJobProperties>{ "operatingSystem": "pizza" }</HelixJobProperties>
+        <HelixJobProperties>{ "architecture":"x86", "configuration":"Release", "operatingSystem": "pizza" }</HelixJobProperties>
         <ArchivesRoot>\$(MSBuildThisFileDirectory)</ArchivesRoot>
     </PropertyGroup>
     <Target Name="Build" DependsOnTargets="HelixCloudBuild"/>
@@ -335,7 +335,7 @@ stage ('Run Tests') {
         <TargetQueues>Windows.10.Amd64.Open</TargetQueues>
         <HelixLogFolder>\$(MSBuildThisFileDirectory)</HelixLogFolder>
         <HelixCorrelationInfoFileName>job-info.json</HelixCorrelationInfoFileName>
-        <HelixJobProperties>{ "operatingSystem": "pizza" }</HelixJobProperties>
+        <HelixJobProperties>{ "architecture":"x64", "configuration":"Debug", "operatingSystem": "pizza" }</HelixJobProperties>
         <ArchivesRoot>\$(MSBuildThisFileDirectory)</ArchivesRoot>
     </PropertyGroup>
     <Target Name="Build" DependsOnTargets="HelixCloudBuild"/>

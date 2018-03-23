@@ -21,6 +21,7 @@ def call (def helixRunsBlob, String prStatusPrefix) {
     // Parallel stages that wait for the runs.
     def helixRunTasks = [:]
     def mcUrlMap = [:]
+    def helixRunKeys = [:]
     def failedRunMap = [:]
     def passed = true
 
@@ -38,7 +39,24 @@ def call (def helixRunsBlob, String prStatusPrefix) {
                     assert statusResponse.content != null
                     def statusContent = (new JsonSlurperClassic()).parseText(statusResponse.content)
                     def mcResultsUrl = "https://mc.dot.net/#/user/${getEncodedUrl(statusContent.Creator)}/${getEncodedUrl(statusContent.Source)}/${getEncodedUrl(statusContent.Type)}/${getEncodedUrl(statusContent.Build)}"
-                    mcUrlMap[queueId] = mcResultsUrl
+
+                    // Attempt to use the property bag (arch and config), if available, to make the helix keys to the task map more descriptive.
+                    helixRunKeys[correlationId] = queueId
+
+                    if (statusContent.Properties != null) {
+                        if (statusContent.Properties.architecture != null) {
+                            helixRunKeys[correlationId] += " - ${statusContent.Properties.architecture}"
+                        }
+                        if (statusContent.Properties.configuration != null) {
+                            helixRunKeys[correlationId] += " - ${statusContent.Properties.configuration}"
+                        }
+                    }
+
+                    // Append correlation id
+                    helixRunKeys[correlationId] += " (${correlationId})"
+
+                    // Set the results url
+                    mcUrlMap[helixRunKeys[correlationId]] = mcResultsUrl
                 }
                 catch (Exception ex) {
                     println(ex.toString());
@@ -57,7 +75,7 @@ def call (def helixRunsBlob, String prStatusPrefix) {
         def queueId = currentRun['QueueId']
         def correlationId = currentRun['CorrelationId']
 
-        helixRunTasks[queueId] = {
+        helixRunTasks[helixRunKeys[correlationId]] = {
             // State to minimize status updates.
             // 0 = Not yet updated/started
             // 1 = Pending updated
@@ -131,7 +149,7 @@ def call (def helixRunsBlob, String prStatusPrefix) {
                             if (workItemStatus.fail) {
                                 resultValue = "FAILURE"
                                 passed = false
-                                failedRunMap[queueId] = mcResultsUrl
+                                failedRunMap[helixRunKeys[correlationId]] = mcResultsUrl
                                 subMessage = "Catastrophic Failure: ${workItemStatus.fail} work items failed"
                             } else if (workItemStatus.none) {
                                 resultValue = "PROCESSING XUNIT"
@@ -156,7 +174,7 @@ def call (def helixRunsBlob, String prStatusPrefix) {
                                 if (failedTests > 0) {
                                     resultValue = "FAILURE"
                                     passed = false
-                                    failedRunMap[queueId] = mcResultsUrl
+                                    failedRunMap[helixRunKeys[correlationId]] = mcResultsUrl
                                     subMessage = "Failed ${failedTests}/${totalTests} (${skippedTests} skipped)"
                                 }
                                 else {
