@@ -20,7 +20,7 @@ import hudson.Util
 def call (def helixRunsBlob, String prStatusPrefix) {
     // Parallel stages that wait for the runs.
     def helixRunTasks = [:]
-    def mcUrlMap = [:]
+    def correlationIdUrlMap = [:]
     def helixRunKeys = [:]
     def failedRunMap = [:]
     def passed = true
@@ -42,6 +42,7 @@ def call (def helixRunsBlob, String prStatusPrefix) {
 
                     // Attempt to use the property bag (arch and config), if available, to make the helix keys to the task map more descriptive.
                     helixRunKeys[correlationId] = queueId
+                    correlationIdUrlMap[correlationId] = mcResultsUrl
 
                     if (statusContent.Properties != null) {
                         if (statusContent.Properties.architecture != null) {
@@ -51,15 +52,6 @@ def call (def helixRunsBlob, String prStatusPrefix) {
                             helixRunKeys[correlationId] += " - ${statusContent.Properties.configuration}"
                         }
                     }
-
-                    // Find a dupe if one exists.  If it exists, append the correlation id.
-                    def dupe = helixRunKeys.find { it.value == helixRunKeys[correlationId] }
-                    if (dupe != null) {
-                        helixRunKeys[correlationId] += " (${correlationId})"
-                        helixRunKeys[dupe.key] += " (${correlationId})"
-                    }
-
-                    mcUrlMap[helixRunKeys[correlationId]] = mcResultsUrl
                 }
                 catch (Exception ex) {
                     println(ex.toString());
@@ -71,6 +63,20 @@ def call (def helixRunsBlob, String prStatusPrefix) {
             }
         }
     }
+    // Dedupe the values in the run keys map, then map those keys into the results map
+    def tempRunKeys = [:]
+    helixRunKeys.each { k, v ->
+        def allEntries = helixRunKeys.findAll { it.value == v }
+        if (allEntries.size() > 1) {
+            tempRunKeys.putAll(allEntries.collectEntries { a,b ->
+                [a, "${b} - (${a})"]
+            })
+        } else {
+            tempRunKeys.putAll(allEntries)
+        }
+    }
+    helixRunKeys = tempRunKeys
+    mcUrlMap[helixRunKeys[correlationId]] = mcResultsUrl
     addSummaryLink('Test Run Results', mcUrlMap)
 
     for (int i = 0; i < helixRunsBlob.size(); i++) {
