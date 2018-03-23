@@ -41,13 +41,7 @@ def call (def helixRunsBlob, String prStatusPrefix) {
                     def mcResultsUrl = "https://mc.dot.net/#/user/${getEncodedUrl(statusContent.Creator)}/${getEncodedUrl(statusContent.Source)}/${getEncodedUrl(statusContent.Type)}/${getEncodedUrl(statusContent.Build)}"
 
                     // Attempt to use the property bag (arch and config), if available, to make the helix keys to the task map more descriptive.
-                    // If we cannot make it unique, then append the correlation id
-                    if (helixRunKeys[correlationId] != null) {
-                        // Already exists.  Append correlation ID
-                        helixRunKeys[correlationId] = "${queueId} - ${correlationId}"
-                    } else {
-                        helixRunKeys[correlationId] = queueId
-                    }
+                    helixRunKeys[correlationId] = queueId
 
                     if (statusContent.Properties != null) {
                         if (statusContent.Properties.architecture != null) {
@@ -56,6 +50,13 @@ def call (def helixRunsBlob, String prStatusPrefix) {
                         if (statusContent.Properties.configuration != null) {
                             helixRunKeys[correlationId] += " - ${statusContent.Properties.configuration}"
                         }
+                    }
+
+                    // Find a dupe if one exists.  If it exists, append the correlation id.
+                    def dupe = helixRunKeys.find { it.value == helixRunKeys[correlationId] }
+                    if (dupe != null) {
+                        helixRunKeys[correlationId] += " (${correlationId})"
+                        helixRunKeys[dupe.key] += " (${correlationId})"
                     }
 
                     mcUrlMap[helixRunKeys[correlationId]] = mcResultsUrl
