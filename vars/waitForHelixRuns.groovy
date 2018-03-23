@@ -52,7 +52,7 @@ def call (def helixRunsBlob, String prStatusPrefix) {
                         }
                     }
 
-                    // Append correlatio id
+                    // Append correlation id
                     helixRunKeys[correlationId] += " (${correlationId})"
 
                     // Set the results url
