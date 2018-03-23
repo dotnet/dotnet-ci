@@ -76,7 +76,7 @@ def call (def helixRunsBlob, String prStatusPrefix) {
         }
     }
     helixRunKeys = tempRunKeys
-    mcUrlMap[helixRunKeys[correlationId]] = mcResultsUrl
+    mcUrlMap[helixRunKeys[correlationId]] = correlationIdUrlMap[correlationId]
     addSummaryLink('Test Run Results', mcUrlMap)
 
     for (int i = 0; i < helixRunsBlob.size(); i++) {
