@@ -42,7 +42,6 @@ def call (def helixRunsBlob, String prStatusPrefix) {
 
                     // Attempt to use the property bag (arch and config), if available, to make the helix keys to the task map more descriptive.
                     helixRunKeys[correlationId] = queueId
-                    mcUrlMap[correlationId] = mcResultsUrl
 
                     if (statusContent.Properties != null) {
                         if (statusContent.Properties.architecture != null) {
@@ -55,6 +54,9 @@ def call (def helixRunsBlob, String prStatusPrefix) {
 
                     // Append correlatio id
                     helixRunKeys[correlationId] += " (${correlationId})"
+
+                    // Set the results url
+                    mcUrlMap[helixRunKeys[correlationId]] = mcResultsUrl
                 }
                 catch (Exception ex) {
                     println(ex.toString());
