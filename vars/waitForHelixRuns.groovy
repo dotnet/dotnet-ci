@@ -48,13 +48,13 @@ def call (def helixRunsBlob, String prStatusPrefix) {
                     } else {
                         helixRunKeys[correlationId] = queueId
                     }
-                    
+
                     if (statusContent.Properties != null) {
                         if (statusContent.Properties.architecture != null) {
-                            helixRunKeys[correlationId] += " ${statusContent.Properties.architecture}"
+                            helixRunKeys[correlationId] += " - ${statusContent.Properties.architecture}"
                         }
                         if (statusContent.Properties.configuration != null) {
-                            helixRunKeys[correlationId] += " ${statusContent.Properties.configuration}"
+                            helixRunKeys[correlationId] += " - ${statusContent.Properties.configuration}"
                         }
                     }
 
