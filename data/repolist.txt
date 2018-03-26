@@ -94,23 +94,15 @@ dotnet/orleans branch=master server=dotnet-ci
 dotnet/ProjFileTools branch=master server=dotnet-ci
 dotnet/roslyn branch=dev15.0.x server=dotnet-ci
 dotnet/roslyn branch=dev15.0.x subFolder=perf definitionScript=perf.groovy server=dotnet-ci2 useFilteredGenerationTriggers=false
-dotnet/roslyn branch=dev15.4.x server=dotnet-ci
-dotnet/roslyn branch=dev15.4.x subFolder=perf definitionScript=perf.groovy server=dotnet-ci2 useFilteredGenerationTriggers=false
 dotnet/roslyn branch=dev16 server=dotnet-ci
 dotnet/roslyn branch=master server=dotnet-ci
 dotnet/roslyn branch=master subFolder=perf definitionScript=perf.groovy server=dotnet-ci2 useFilteredGenerationTriggers=false
 dotnet/roslyn branch=master-vs-deps server=dotnet-ci
 dotnet/roslyn branch=master-vs-deps subFolder=perf definitionScript=perf.groovy server=dotnet-ci2 useFilteredGenerationTriggers=false
-dotnet/roslyn branch=dev15.5.x server=dotnet-ci
-dotnet/roslyn branch=dev15.5.x subFolder=perf definitionScript=perf.groovy server=dotnet-ci2 useFilteredGenerationTriggers=false
 dotnet/roslyn branch=dev15.6.x server=dotnet-ci
 dotnet/roslyn branch=dev15.6.x subFolder=perf definitionScript=perf.groovy server=dotnet-ci2 useFilteredGenerationTriggers=false
 dotnet/roslyn branch=dev15.6.x-vs-deps server=dotnet-ci
 dotnet/roslyn branch=dev15.6.x-vs-deps subFolder=perf definitionScript=perf.groovy server=dotnet-ci2 useFilteredGenerationTriggers=false
-dotnet/roslyn branch=dev15.6-preview1-vs-deps server=dotnet-ci
-dotnet/roslyn branch=dev15.6-preview2 server=dotnet-ci
-dotnet/roslyn branch=dev15.6-preview2-vs-deps server=dotnet-ci
-dotnet/roslyn branch=dev15.6-preview3-vs-deps server=dotnet-ci
 dotnet/roslyn branch=dev15.7.x server=dotnet-ci
 dotnet/roslyn branch=dev15.7.x-vs-deps server=dotnet-ci
 dotnet/roslyn branch=dev15.7-preview3 server=dotnet-ci
