@@ -121,7 +121,7 @@ class Agents {
                                 // Latest auto image.
                                 'latest':'osx-10.11 || OSX.1011.Amd64.Open',
                                 // For elevated runs
-                                'latest-elevated':'osx-10.11-elevated'
+                                'latest-elevated':'osx-10.11-elevated || OSX.1011.Amd64.Open'
                                 ],
                             // Sierra
                             'OSX10.12' :
@@ -129,7 +129,7 @@ class Agents {
                                 // Latest auto image.
                                 'latest':'osx-10.12 || OSX.1012.Amd64.Open',
                                 // For elevated runs
-                                'latest-elevated':'osx-10.12-elevated'
+                                'latest-elevated':'osx-10.12-elevated || OSX.1012.Amd64.Open'
                                 ],
                             // High Sierra
                             'OSX10.13' :
@@ -137,7 +137,7 @@ class Agents {
                                 // Latest auto image.
                                 'latest':'osx-10.13 || OSX.1013.Amd64.Open',
                                 // For elevated runs
-                                'latest-elevated':'osx-10.13-elevated'
+                                'latest-elevated':'osx-10.13-elevated || OSX.1013.Amd64.Open'
                                 ],
                             // This is Windows Server 2012 R2
                             'Windows_NT' :
