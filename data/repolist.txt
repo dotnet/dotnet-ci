@@ -126,6 +126,7 @@ dotnet/roslyn branch=features/remotels server=dotnet-ci
 dotnet/roslyn branch=features/async-streams server=dotnet-ci
 dotnet/roslyn branch=features/dataflow server=dotnet-ci
 dotnet/roslyn branch=features/decon-default server=dotnet-ci
+dotnet/roslyn branch=features/embeddedRegex server=dotnet-ci
 dotnet/roslyn branch=features/custom-fixed server=dotnet-ci
 dotnet/roslyn branch=features/localsinit server=dotnet-ci
 dotnet/roslyn branch=features/verification server=dotnet-ci
