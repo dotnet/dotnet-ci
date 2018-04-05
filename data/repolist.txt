@@ -211,9 +211,9 @@ Microsoft/visualfsharp branch=dev15.6 server=dotnet-ci2
 Microsoft/visualfsharp branch=dev15.7 server=dotnet-ci2
 Microsoft/visualfsharp branch=dev15.8 server=dotnet-ci2
 Microsoft/PartsUnlimited branch=master server=dotnet-ci
+dotnet/templating branch=stabilize server=dotnet-ci
 dotnet/templating branch=master server=dotnet-ci
-dotnet/templating branch=rel/2.1.0-preview1 server=dotnet-ci
-dotnet/templating branch=rel/2.1.0-preview2 server=dotnet-ci
+dotnet/templating branch=release/2.1 server=dotnet-ci
 drewscoggins/corefx branch=master server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 drewscoggins/corefx branch=PerfRuns server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/core branch=master server=dotnet-ci2
