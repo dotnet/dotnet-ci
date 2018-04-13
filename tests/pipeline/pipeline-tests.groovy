@@ -106,6 +106,14 @@ stage ('Run Tests') {
                 }
             },
 
+            "simpleNode - arm32" : {
+                timeout (60) {
+                    simpleNode('ubuntu.1404.arm32.open') {
+                        checkoutRepo()
+                    }
+                }
+            },
+
             "simpleNode - Explicit expression" : {
                 timeout (60) {
                     simpleNode('osx-10.12 || OSX.1012.Amd64.Open') {
