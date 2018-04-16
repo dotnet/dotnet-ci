@@ -1026,6 +1026,26 @@ class Utilities {
     }
 
     /**
+     * Deletes the azure vm agent the job ran on (only azure vm agent supported) after running a job, when idle.
+     *
+     * @param job Job to modify
+     * @param onlyIfFailed If true, deletes only if the job failed.
+     */
+    def static deleteAgentAfterJob(def job, boolean onlyIfFailed) {
+        job.with {
+            publishers {
+                azureVMAgentPostBuildAction {
+                    if (onlyIfFailed) {
+                        agentPostBuildAction('Delete agent if the build was not successful (when idle).')
+                    } else {
+                        agentPostBuildAction('Delete agent after build execution (when idle).')
+                    }
+                }
+            }
+        }
+    }
+
+    /**
      * Adds xunit.NET v2 test results.
      *
      * @param job Job to modify
