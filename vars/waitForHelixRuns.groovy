@@ -59,8 +59,8 @@ def call (def helixRunsBlob, String prStatusPrefix) {
                     mcUrlMap[helixRunKeys[correlationId]] = mcResultsUrl
                 }
                 catch (Exception ex) {
+                    println("Failed obtain Helix work item information:");
                     println(ex.toString());
-                    println(ex.getMessage().toString());
                     println(ex.getStackTrace().toString());
                     return false
                 }
