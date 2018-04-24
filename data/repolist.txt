@@ -240,6 +240,7 @@ Microsoft/vstest branch=future server=dotnet-ci
 Microsoft/vstest branch=rel/15.6 server=dotnet-ci
 Microsoft/vstest branch=perf-improvements server=dotnet-ci
 Microsoft/vstest branch=rel/15.7 server=dotnet-ci
+Microsoft/vstest branch=dn-core-code-coverage server=dotnet-ci
 mmitche/coreclr branch=dev/pipeline server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy
 adiaaida/coreclr branch=dev/pipeline server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy
 dotnet/coreclr branch=master server=dotnet-ci2 definitionScript=buildpipeline/perf_pipelinejobs.groovy
