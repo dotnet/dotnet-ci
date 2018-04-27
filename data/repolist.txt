@@ -215,6 +215,7 @@ Microsoft/msbuild branch=vs15.5 server=dotnet-ci2
 Microsoft/msbuild branch=vs15.6 server=dotnet-ci2
 Microsoft/msbuild branch=vs15.7 server=dotnet-ci2
 Microsoft/msbuild branch=vs15.7-preview4 server=dotnet-ci2
+Microsoft/msbuild branch=vs15.7_sourcebuild server=dotnet-ci2
 Microsoft/TypeScript branch=master server=dotnet-ci2
 Microsoft/xunit-performance branch=master server=dotnet-ci
 Microsoft/xunit-performance branch=citest server=dotnet-ci
