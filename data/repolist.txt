@@ -132,6 +132,7 @@ dotnet/roslyn branch=features/optest server=dotnet-ci
 dotnet/roslyn branch=features/fixed-buffers server=dotnet-ci
 dotnet/roslyn branch=features/quick-info-party server=dotnet-ci
 dotnet/roslyn branch=features/invertif server=dotnet-ci
+dotnet/roslyn branch=features/razorFar server=dotnet-ci
 dotnet/roslyn-analyzers branch=master server=dotnet-ci
 dotnet/roslyn-analyzers branch=dev15.3 server=dotnet-ci
 dotnet/roslyn-analyzers branch=features/dataflow server=dotnet-ci
