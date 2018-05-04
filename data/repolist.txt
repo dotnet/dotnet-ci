@@ -120,6 +120,7 @@ dotnet/roslyn branch=features/recursive-patterns server=dotnet-ci
 dotnet/roslyn branch=features/build-demo server=dotnet-ci
 dotnet/roslyn branch=features/remotels server=dotnet-ci
 dotnet/roslyn branch=features/async-streams server=dotnet-ci
+dotnet/roslyn branch=features/generic-attributes server=dotnet-ci
 dotnet/roslyn branch=features/ref-partial server=dotnet-ci
 dotnet/roslyn branch=features/dataflow server=dotnet-ci
 dotnet/roslyn branch=features/decon-default server=dotnet-ci
