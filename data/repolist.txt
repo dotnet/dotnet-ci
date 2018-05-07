@@ -91,6 +91,7 @@ dotnet/dotnet-buildtools-prereqs-docker branch=master server=dotnet-ci
 dotnet/docker-tools branch=master server=dotnet-ci
 dotnet/dotnet-docker branch=master server=dotnet-ci
 dotnet/dotnet-docker branch=nightly server=dotnet-ci
+dotnet/machinelearning branch=master server=dotnet-ci2
 dotnet/orleans branch=master server=dotnet-ci
 dotnet/platform-compat branch=master server=dotnet-ci2
 dotnet/ProjFileTools branch=master server=dotnet-ci
