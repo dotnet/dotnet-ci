@@ -110,6 +110,7 @@ dotnet/roslyn branch=dev15.8-preview2 server=dotnet-ci
 dotnet/roslyn branch=dev15.8-preview2-vs-deps server=dotnet-ci
 dotnet/roslyn branch=microupdate server=dotnet-ci
 dotnet/roslyn branch=features/codecov server=dotnet-ci
+dotnet/roslyn branch=features/compiler server=dotnet-ci
 dotnet/roslyn branch=features/range server=dotnet-ci
 dotnet/roslyn branch=features/ranges-v2 server=dotnet-ci
 dotnet/roslyn branch=features/DefaultInterfaceImplementation server=dotnet-ci
