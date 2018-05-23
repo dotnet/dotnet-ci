@@ -278,6 +278,7 @@ aspnet/CORS branch=dev server=dotnet-ci3 definitionScript=build/buildpipeline/pi
 aspnet/CORS branch=release/2.1 server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
 aspnet/EntityFrameworkCore branch=dev server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
 aspnet/EntityFrameworkCore branch=release/2.1 server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
+aspnet/IISIntegration branch=dev server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
 aspnet/KestrelHttpServer branch=dev server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
 aspnet/KestrelHttpServer branch=release/2.1 server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
 aspnet/Mvc branch=dev server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
