@@ -203,8 +203,6 @@ Microsoft/ChakraCore branch=release/1.8 server=dotnet-ci2
 Microsoft/ChakraCore branch=release/1.8-ci server=dotnet-ci2
 Microsoft/ChakraCore branch=release/1.9 server=dotnet-ci2
 Microsoft/ChakraCore branch=release/1.9-ci server=dotnet-ci2
-Microsoft/ChakraCore branch=intl-icu server=dotnet-ci2
-Microsoft/ChakraCore branch=builtins server=dotnet-ci2
 Microsoft/ConcordExtensibilitySamples branch=master server=dotnet-ci
 Microsoft/dotnet-apiport branch=master server=dotnet-ci2
 Microsoft/dotnet-apiport branch=dev server=dotnet-ci2
