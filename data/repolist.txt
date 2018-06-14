@@ -88,6 +88,7 @@ dotnet/corefx branch=release/2.1 server=dotnet-ci3 definitionScript=buildpipelin
 dotnet/corefxlab branch=master server=dotnet-ci
 dotnet/corefxlab branch=release/2.1 server=dotnet-ci
 dotnet/corert branch=master server=dotnet-ci
+dotnet/corert branch=r2r server=dotnet-ci
 dotnet/dotnet-buildtools-prereqs-docker branch=master server=dotnet-ci
 dotnet/docker-tools branch=master server=dotnet-ci
 dotnet/dotnet-docker branch=master server=dotnet-ci
