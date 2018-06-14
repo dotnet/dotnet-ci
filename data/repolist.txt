@@ -120,6 +120,7 @@ dotnet/roslyn branch=features/DefaultInterfaceImplementation server=dotnet-ci
 dotnet/roslyn branch=features/editorconfig-in-compiler server=dotnet-ci
 dotnet/roslyn branch=features/enhanced-using server=dotnet-ci
 dotnet/roslyn branch=features/ExpressionVariables server=dotnet-ci
+dotnet/roslyn branch=features/null-operator-enhancements server=dotnet-ci
 dotnet/roslyn branch=features/NullableReferenceTypes server=dotnet-ci
 dotnet/roslyn branch=features/NullableDogfood server=dotnet-ci
 dotnet/roslyn branch=features/patterns server=dotnet-ci
