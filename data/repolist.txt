@@ -124,7 +124,6 @@ dotnet/roslyn branch=features/ExpressionVariables server=dotnet-ci
 dotnet/roslyn branch=features/null-operator-enhancements server=dotnet-ci
 dotnet/roslyn branch=features/NullableReferenceTypes server=dotnet-ci
 dotnet/roslyn branch=features/NullableDogfood server=dotnet-ci
-dotnet/roslyn branch=features/patterns server=dotnet-ci
 dotnet/roslyn branch=features/recursive-patterns server=dotnet-ci
 dotnet/roslyn branch=features/build-demo server=dotnet-ci
 dotnet/roslyn branch=features/remotels server=dotnet-ci
@@ -140,7 +139,6 @@ dotnet/roslyn branch=features/localsinit server=dotnet-ci
 dotnet/roslyn branch=features/verification server=dotnet-ci
 dotnet/roslyn branch=features/optest server=dotnet-ci
 dotnet/roslyn branch=features/fixed-buffers server=dotnet-ci
-dotnet/roslyn branch=features/quick-info-party server=dotnet-ci
 dotnet/roslyn branch=features/invertif server=dotnet-ci
 dotnet/roslyn branch=features/razorFar server=dotnet-ci
 dotnet/roslyn-analyzers branch=master server=dotnet-ci
