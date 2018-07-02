@@ -284,25 +284,25 @@ dotnet/dotnet-ci branch=master definitionScript=tests/dsl/*.groovy isDSLTest=tru
 #AspNetCore
 aspnet/aspnet-docker branch=dev server=dotnet-ci3 definitionScript=build-pipeline/pipelinejobs.groovy
 aspnet/aspnet-docker branch=master server=dotnet-ci3 definitionScript=build-pipeline/pipelinejobs.groovy
-aspnet/CORS branch=dev server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
+aspnet/CORS branch=master server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
 aspnet/CORS branch=release/2.1 server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
 aspnet/CORS branch=release/2.2 server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
-aspnet/EntityFrameworkCore branch=dev server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
+aspnet/EntityFrameworkCore branch=master server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
 aspnet/EntityFrameworkCore branch=release/2.1 server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
 aspnet/EntityFrameworkCore branch=release/2.2 server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
-aspnet/IISIntegration branch=dev server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
+aspnet/IISIntegration branch=master server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
 aspnet/IISIntegration branch=release/2.1 server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
 aspnet/IISIntegration branch=release/2.2 server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
-aspnet/KestrelHttpServer branch=dev server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
+aspnet/KestrelHttpServer branch=master server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
 aspnet/KestrelHttpServer branch=release/2.1 server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
 aspnet/KestrelHttpServer branch=release/2.2 server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
-aspnet/Mvc branch=dev server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
+aspnet/Mvc branch=master server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
 aspnet/Mvc branch=release/2.1 server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
 aspnet/Mvc branch=release/2.2 server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
-aspnet/Razor branch=dev server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
+aspnet/Razor branch=master server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
 aspnet/Razor branch=release/2.1 server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
 aspnet/Razor branch=release/2.2 server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
-aspnet/SignalR branch=dev server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
+aspnet/SignalR branch=master server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
 aspnet/SignalR branch=release/2.1 server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
 aspnet/SignalR branch=release/2.2 server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
 aspnet/websdk branch=master server=dotnet-ci
