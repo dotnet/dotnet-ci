@@ -118,6 +118,10 @@ dotnet/roslyn branch=dev15.7.x server=dotnet-ci
 dotnet/roslyn branch=dev15.7.x-vs-deps server=dotnet-ci
 dotnet/roslyn branch=dev15.8-preview4 server=dotnet-ci
 dotnet/roslyn branch=dev15.8-preview4-vs-deps server=dotnet-ci
+dotnet/roslyn branch=dev15.8.x server=dotnet-ci
+dotnet/roslyn branch=dev15.8.x-vs-deps server=dotnet-ci
+dotnet/roslyn branch=dev15.9.x server=dotnet-ci
+dotnet/roslyn branch=dev15.9.x-vs-deps server=dotnet-ci
 dotnet/roslyn branch=microupdate server=dotnet-ci
 dotnet/roslyn branch=features/codecov server=dotnet-ci
 dotnet/roslyn branch=features/compiler server=dotnet-ci
