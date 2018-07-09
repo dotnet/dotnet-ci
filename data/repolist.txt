@@ -112,8 +112,6 @@ dotnet/roslyn branch=dev15.0.x server=dotnet-ci
 dotnet/roslyn branch=dev16 server=dotnet-ci
 dotnet/roslyn branch=master server=dotnet-ci
 dotnet/roslyn branch=master-vs-deps server=dotnet-ci
-dotnet/roslyn branch=dev15.6.x server=dotnet-ci
-dotnet/roslyn branch=dev15.6.x-vs-deps server=dotnet-ci
 dotnet/roslyn branch=dev15.7.x server=dotnet-ci
 dotnet/roslyn branch=dev15.7.x-vs-deps server=dotnet-ci
 dotnet/roslyn branch=dev15.7-preview3 server=dotnet-ci
@@ -127,12 +125,10 @@ dotnet/roslyn branch=dev15.8-preview4-vs-deps server=dotnet-ci
 dotnet/roslyn branch=microupdate server=dotnet-ci
 dotnet/roslyn branch=features/codecov server=dotnet-ci
 dotnet/roslyn branch=features/compiler server=dotnet-ci
-dotnet/roslyn branch=features/range server=dotnet-ci
 dotnet/roslyn branch=features/ranges-v2 server=dotnet-ci
 dotnet/roslyn branch=features/DefaultInterfaceImplementation server=dotnet-ci
 dotnet/roslyn branch=features/editorconfig-in-compiler server=dotnet-ci
 dotnet/roslyn branch=features/enhanced-using server=dotnet-ci
-dotnet/roslyn branch=features/ExpressionVariables server=dotnet-ci
 dotnet/roslyn branch=features/null-operator-enhancements server=dotnet-ci
 dotnet/roslyn branch=features/NullableReferenceTypes server=dotnet-ci
 dotnet/roslyn branch=features/NullableDogfood server=dotnet-ci
@@ -148,11 +144,7 @@ dotnet/roslyn branch=features/dataflow server=dotnet-ci
 dotnet/roslyn branch=features/decon-default server=dotnet-ci
 dotnet/roslyn branch=features/embeddedRegex server=dotnet-ci
 dotnet/roslyn branch=features/embeddedJson server=dotnet-ci
-dotnet/roslyn branch=features/custom-fixed server=dotnet-ci
-dotnet/roslyn branch=features/localsinit server=dotnet-ci
-dotnet/roslyn branch=features/verification server=dotnet-ci
 dotnet/roslyn branch=features/optest server=dotnet-ci
-dotnet/roslyn branch=features/fixed-buffers server=dotnet-ci
 dotnet/roslyn branch=features/invertif server=dotnet-ci
 dotnet/roslyn branch=features/razorFar server=dotnet-ci
 dotnet/roslyn-analyzers branch=master server=dotnet-ci
