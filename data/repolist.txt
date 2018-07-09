@@ -132,6 +132,8 @@ dotnet/roslyn branch=features/recursive-patterns server=dotnet-ci
 dotnet/roslyn branch=features/build-demo server=dotnet-ci
 dotnet/roslyn branch=features/remotels server=dotnet-ci
 dotnet/roslyn branch=features/async-streams server=dotnet-ci
+dotnet/roslyn branch=features/verbatim-interpolated server=dotnet-ci
+dotnet/roslyn branch=features/continuation-comments server=dotnet-ci
 dotnet/roslyn branch=features/target-typed-new server=dotnet-ci
 dotnet/roslyn branch=features/caller-expression server=dotnet-ci
 dotnet/roslyn branch=features/generic-attributes server=dotnet-ci
