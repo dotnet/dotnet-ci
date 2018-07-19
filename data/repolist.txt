@@ -241,6 +241,7 @@ Microsoft/visualfsharp branch=master server=dotnet-ci2
 Microsoft/visualfsharp branch=dev15.6 server=dotnet-ci2
 Microsoft/visualfsharp branch=dev15.7 server=dotnet-ci2
 Microsoft/visualfsharp branch=dev15.8 server=dotnet-ci2
+Microsoft/visualfsharp branch=dev15.9 server=dotnet-ci2
 Microsoft/visualfsharp branch=dev16.0 server=dotnet-ci2
 Microsoft/PartsUnlimited branch=master server=dotnet-ci
 dotnet/templating branch=stabilize server=dotnet-ci
