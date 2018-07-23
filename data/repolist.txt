@@ -60,6 +60,7 @@ dotnet/core-setup branch=release/2.2 server=dotnet-ci3 definitionScript=buildpip
 dotnet/codeformatter branch=master server=dotnet-ci2
 dotnet/coreclr branch=dev/defaultintf server=dotnet-ci
 dotnet/coreclr branch=feature/utf8string server=dotnet-ci
+dotnet/coreclr branch=feature/utf8string server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy
 dotnet/coreclr branch=master server=dotnet-ci
 dotnet/coreclr branch=master server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/coreclr branch=master server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy
@@ -81,6 +82,7 @@ dotnet/coreclr branch=release/2.2 server=dotnet-ci
 dotnet/coreclr branch=release/2.2 server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy
 dotnet/corefx branch=dev/release/2.0.0 server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy
 dotnet/corefx branch=feature/utf8string server=dotnet-ci
+dotnet/corefx branch=feature/utf8string server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy
 dotnet/corefx branch=release/2.0.0 server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy
 dotnet/corefx branch=master server=dotnet-ci
 dotnet/corefx branch=release/1.0.0 server=dotnet-ci
