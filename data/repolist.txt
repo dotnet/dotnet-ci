@@ -165,6 +165,7 @@ dotnet/project-system branch=dev15.8.x server=dotnet-ci
 dotnet/project-system branch=dev15.9.x server=dotnet-ci
 dotnet/source-build branch=master server=dotnet-ci
 dotnet/source-build branch=release/2.1 server=dotnet-ci
+dotnet/source-build branch=release/2.2 server=dotnet-ci
 dotnet/sdk branch=master server=dotnet-ci
 dotnet/sdk branch=experimental-classic-projects server=dotnet-ci
 dotnet/sdk branch=rel/1.0.0 server=dotnet-ci
