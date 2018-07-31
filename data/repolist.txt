@@ -242,12 +242,8 @@ Microsoft/TypeScript branch=master server=dotnet-ci2
 Microsoft/xunit-performance branch=master server=dotnet-ci
 Microsoft/xunit-performance branch=citest server=dotnet-ci
 Microsoft/Vipr branch=master server=dotnet-ci
-Microsoft/visualfsharp branch=master server=dotnet-ci2
-Microsoft/visualfsharp branch=dev15.6 server=dotnet-ci2
 Microsoft/visualfsharp branch=dev15.7 server=dotnet-ci2
 Microsoft/visualfsharp branch=dev15.8 server=dotnet-ci2
-Microsoft/visualfsharp branch=dev15.9 server=dotnet-ci2
-Microsoft/visualfsharp branch=dev16.0 server=dotnet-ci2
 Microsoft/PartsUnlimited branch=master server=dotnet-ci
 dotnet/templating branch=stabilize server=dotnet-ci
 dotnet/templating branch=master server=dotnet-ci
