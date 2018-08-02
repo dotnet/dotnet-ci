@@ -27,6 +27,7 @@ dotnet/cli branch=release/2.1.1xx server=dotnet-ci
 dotnet/cli branch=release/2.1.2xx server=dotnet-ci
 dotnet/cli branch=release/2.1.3xx server=dotnet-ci
 dotnet/cli branch=release/2.1.4xx server=dotnet-ci
+dotnet/cli branch=release/2.1.5xx server=dotnet-ci
 dotnet/cli branch=release/2.1.401 server=dotnet-ci
 dotnet/cli branch=release/2.2.1xx server=dotnet-ci
 dotnet/cli branch=release/2.0-vs server=dotnet-ci
