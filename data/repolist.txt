@@ -164,7 +164,6 @@ dotnet/roslyn-analyzers branch=features/dataflow server=dotnet-ci
 dotnet/roslyn-tools branch=master server=dotnet-ci
 dotnet/project-system branch=master server=dotnet-ci
 dotnet/project-system branch=dev15.0.x server=dotnet-ci
-dotnet/project-system branch=dev15.7.x server=dotnet-ci
 dotnet/project-system branch=dev15.8.x server=dotnet-ci
 dotnet/project-system branch=dev15.9.x server=dotnet-ci
 dotnet/project-system branch=dev15.9-preview1 server=dotnet-ci
