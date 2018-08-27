@@ -281,15 +281,15 @@ class Utilities {
             // Enable the log rotator
             logRotator {
                 if (isPR) {
-                    artifactDaysToKeep(7)
+                    artifactDaysToKeep(5)
                     daysToKeep(7)
-                    artifactNumToKeep(30)
+                    artifactNumToKeep(25)
                     numToKeep(150)
                 }
                 else {
-                    artifactDaysToKeep(7)
+                    artifactDaysToKeep(5)
                     daysToKeep(21)
-                    artifactNumToKeep(30)
+                    artifactNumToKeep(25)
                     numToKeep(100)
                 }
             }
