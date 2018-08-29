@@ -592,7 +592,7 @@ class Utilities {
     def static addDefaultPrivateGithubPRTriggerForBranch(def job, def branchName, String contextString, Iterable<String> permittedOrgs, Iterable<String> permittedUsers) {
         assert contextString != ''
 
-        String triggerPhraseString = "(?i).*test\\W+${contextString}.*"
+        String triggerPhraseString = "(?i).*test\\W+${java.util.regex.Pattern.quote(contextString)}.*"
 
         Utilities.addGithubPRTriggerImpl(job, branchName, contextString, triggerPhraseString, false, false, permittedOrgs, permittedUsers)
     }
@@ -615,7 +615,7 @@ class Utilities {
 
         if (triggerPhraseString == '') {
             triggerOnPhraseOnly = false
-            triggerPhraseString = "(?i).*test\\W+${contextString}.*"
+            triggerPhraseString = "(?i).*test\\W+${java.util.regex.Pattern.quote(contextString)}.*"
         }
 
         Utilities.addGithubPRTriggerImpl(job, branchName, contextString, triggerPhraseString, triggerOnPhraseOnly, true, null, null)
@@ -636,7 +636,7 @@ class Utilities {
 
         if (triggerPhraseString == '') {
             triggerOnPhraseOnly = false
-            triggerPhraseString = "(?i).*test\\W+${contextString}.*"
+            triggerPhraseString = "(?i).*test\\W+${java.util.regex.Pattern.quote(contextString)}.*"
         }
 
         Utilities.addGithubPRTriggerImpl(job, null, contextString, triggerPhraseString, triggerOnPhraseOnly, true, null, null)
