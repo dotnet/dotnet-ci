@@ -156,9 +156,13 @@ class Agents {
                                 '20170427' : 'win2012-20170809',
                                 // win2016-20170303 + Python 3.2
                                 '20170427-elevated' : 'win2012-20170809-elevated',
+                                // Dev 15.0
+                                '20171003' : 'win2012-20171003',
+                                // Dev 15.0
+                                '20171003-elevated' : 'win2012-20171003-elevated',
                                 // the generic unversioned label except for special cases.
                                 // Now contains VS2017
-                                'latest':'win2012-20171003',
+                                'latest':'win2012-20180911',
                                 // Win2012.R2 + VS2013.5 + VS2015.3 + VS15.P3
                                 'latest-dev15':'win2012-20160707',
                                 // Win2012.R2 + VS2013.5 + VS2015.3 + VS15.P4
@@ -220,7 +224,7 @@ class Agents {
                                 // win2016-base + Dev15.5.3
                                 'latest-dev15-5' : 'win2016-20180117',
                                 // For elevated runs
-                                'latest-elevated':'win2012-20171003-elevated',
+                                'latest-elevated':'win2012-20180911-elevated',
                                 // For arm64 builds
                                 'latest-arm64':'win2012-20171027',
                                 // Pool of arm64 Windows_NT lab machines
