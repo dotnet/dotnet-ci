@@ -58,6 +58,8 @@ win2012-20171002,win2012-20171002,Windows,system,Microsoft.Compute/Images/dotnet
 win2012-20171002-elevated,win2012-20171002-elevated,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20171002-osDisk.93557456-4eea-4a49-9d47-11c7975212cf.vhd,All,./startupScripts/win2012-20171002-elevated.ps1,D:\j
 win2012-20171003,win2012-20171003,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20171003-osDisk.929c4ad2-0928-4a0c-ae83-502bbf1babae.vhd,All,./startupScripts/win2012-20171003.ps1,D:\j
 win2012-20171003-elevated,win2012-20171003-elevated,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20171003-osDisk.929c4ad2-0928-4a0c-ae83-502bbf1babae.vhd,All,./startupScripts/win2012-20171003-elevated.ps1,D:\j
+win2012-20180911,win2012-20180911,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20180911-osDisk.92acd58b-0d11-4217-971c-6a2114239ff3.vhd,All,./startupScripts/win2012-20180911.ps1,D:\j
+win2012-20180911-elevated,win2012-20180911-elevated,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20180911-osDisk.92acd58b-0d11-4217-971c-6a2114239ff3.vhd,All,./startupScripts/win2012-20180911-elevated.ps1,D:\j
 win2012-20170809-elevated,win2012-20170809-elevated,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20170809-osDisk.ef241cfc-5386-4f2c-aa97-6d18e8e3b743.vhd,All,./startupScripts/win2012-20170809-elevated.ps1,D:\j
 win2012-20170810,win2012-20170810,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20170831-osDisk.19ccc82b-22a3-457e-b13f-f5ddb9f37688.vhd,All,./startupScripts/win2012-20170810.ps1,D:\j
 win2012-20171027,win2012-20171027,Windows,system,Microsoft.Compute/Images/dotnetci/win2012-20171027-osDisk.a84cf04a-f463-4747-afe7-d79299f898e9.vhd,All,./startupScripts/win2012-20171027.ps1,D:\j
