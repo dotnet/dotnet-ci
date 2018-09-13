@@ -131,6 +131,7 @@ dotnet/roslyn branch=dev15.9-preview2 server=dotnet-ci
 dotnet/roslyn branch=dev15.9-preview2-vs-deps server=dotnet-ci
 dotnet/roslyn branch=dev15.9.x server=dotnet-ci
 dotnet/roslyn branch=dev15.9.x-vs-deps server=dotnet-ci
+dotnet/roslyn branch=dev16.0.x server=dotnet-ci
 dotnet/roslyn branch=microupdate server=dotnet-ci
 dotnet/roslyn branch=features/codecov server=dotnet-ci
 dotnet/roslyn branch=features/compiler server=dotnet-ci
