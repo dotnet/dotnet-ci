@@ -41,12 +41,9 @@ dotnet/diagnostics branch=master server=dotnet-ci
 dotnet/toolset branch=dev/release/2.0 server=dotnet-ci
 dotnet/toolset branch=dev/repo-refactoring server=dotnet-ci
 dotnet/toolset branch=master server=dotnet-ci
-dotnet/CliCommandLineParser branch=master server=dotnet-ci
 dotnet/CliCommandLineParser branch=release/2.1.3xx server=dotnet-ci
 dotnet/xliff-tasks branch=master server=dotnet-ci
-dotnet/cli-migrate branch=master server=dotnet-ci
 dotnet/cli-migrate branch=release/2.1.3xx server=dotnet-ci
-dotnet/dotnet-cli-archiver branch=master server=dotnet-ci
 dotnet/core-setup branch=feature/utf8string server=dotnet-ci
 dotnet/core-setup branch=master server=dotnet-ci
 dotnet/core-setup branch=master server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy
@@ -179,7 +176,6 @@ dotnet/project-system branch=features/LanguageService server=dotnet-ci
 dotnet/source-build branch=master server=dotnet-ci
 dotnet/source-build branch=release/2.1 server=dotnet-ci
 dotnet/source-build branch=release/2.2 server=dotnet-ci
-dotnet/sdk branch=master server=dotnet-ci
 dotnet/sdk branch=experimental-classic-projects server=dotnet-ci
 dotnet/sdk branch=rel/1.0.0 server=dotnet-ci
 dotnet/sdk branch=rel/1.1.0 server=dotnet-ci
