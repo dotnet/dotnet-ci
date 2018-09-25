@@ -115,7 +115,7 @@ def call(String dockerImageName, String dockerRegistryUrl, String registryCreden
                             // but this is unlikely.  This will probably eventually be fixed on the workspace cleanup
                             // side of things, so don't worry about it too much
                             echo "Cleaning workspace ${WORKSPACE}"
-                            sh 'rm -rf *'
+                            sh 'rm -rf ..?* .[!.]* *'
                             // Use the workspace cleaner now.
                             cleanWs deleteDirs: true, patterns: [[pattern: '**/*', type: 'INCLUDE']]
                         }
