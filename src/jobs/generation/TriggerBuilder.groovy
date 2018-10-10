@@ -71,7 +71,7 @@ class TriggerBuilder {
         this.context = context
         // If the trigger phrase isn't set yet, then set it now
         if (this.triggerPhrase == null) {
-            this.triggerPhrase  = "(?i).*test\\W+${context}.*"
+            this.triggerPhrase  = "(?i).*test\\W+${java.util.regex.Pattern.quote(context)}.*"
         }
     }
 
