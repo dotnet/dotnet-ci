@@ -1165,35 +1165,9 @@ class Utilities {
     /**
      * Adds cross integration to this repo
      */
+    @Deprecated
     def static addCROSSCheck(def dslFactory, String project, String branch, boolean runByDefault = true) {
-        def crossJob = dslFactory.job(Utilities.getFullJobName(project, 'CROSS_check', true)) {
-            steps {
-                // Download the tool
-                batchFile("powershell -Command \"wget '%CROSS_SOURCE%' -OutFile cross-integration.zip\"")
-                // Unzip it
-                batchFile("powershell -Command \"Add-Type -Assembly 'System.IO.Compression.FileSystem'; [System.IO.Compression.ZipFile]::ExtractToDirectory('cross-integration.zip', 'cross-tool')\"")
-                def orgName = Utilities.getOrgName(project)
-                def repoName = Utilities.getProjectName(project)
-                batchFile("cd cross-tool && cross --organization ${orgName} --repository ${repoName} --token %UPDATE_TOKEN% --logfile cross-log.json %ghprbPullId% ")
-            }
-
-            // Ensure credentials are bound
-            wrappers {
-                // SAAS URL
-                credentialsBinding {
-                    string('CROSS_SOURCE', 'cross-sas-url')
-                    string('UPDATE_TOKEN', 'cross-update-token')
-                }
-            }
-        }
-
-
-        // Cross tool currently works on Windows only
-        Utilities.setMachineAffinity(crossJob, 'Windows_NT', 'latest-or-auto')
-        Utilities.addPrivatePermissions(crossJob, ['Microsoft'])
-        Utilities.standardJobSetup(crossJob, project, true, "refs/heads/${branch}")
-        Utilities.addGithubPRTriggerForBranch(crossJob, branch, 'CROSS Check', '(?i).*test\\W+cross\\W+please.*', !runByDefault)
-        Utilities.addArchival(crossJob, '**/cross-log.json')
+        println("CROSS is permanently disabled, please remove calls to addCROSSCheck()");
     }
 
     /**
