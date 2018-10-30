@@ -317,9 +317,6 @@ aspnet/Mvc branch=release/2.2 server=dotnet-ci3 definitionScript=build/buildpipe
 aspnet/Razor branch=master server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
 aspnet/Razor branch=release/2.1 server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
 aspnet/Razor branch=release/2.2 server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
-aspnet/SignalR branch=master server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
-aspnet/SignalR branch=release/2.1 server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
-aspnet/SignalR branch=release/2.2 server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
 aspnet/websdk branch=master server=dotnet-ci
 aspnet/websdk branch=release/2.1.3xx server=dotnet-ci
 aspnet/websdk branch=release/2.1.4xx server=dotnet-ci
