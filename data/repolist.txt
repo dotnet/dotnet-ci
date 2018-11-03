@@ -17,7 +17,6 @@ dotnet/buildtools branch=release/1.1.0 server=dotnet-ci
 dotnet/buildtools branch=release/2.0.0 server=dotnet-ci
 dotnet/buildtools branch=release/2.1 server=dotnet-ci
 dotnet/buildtools branch=release/2.2 server=dotnet-ci
-dotnet/cli branch=master server=dotnet-ci
 dotnet/cli branch=rel/1.0.0 server=dotnet-ci
 dotnet/cli branch=rel/1.0.1 server=dotnet-ci
 dotnet/cli branch=rel/1.1.0 server=dotnet-ci
@@ -28,6 +27,7 @@ dotnet/cli branch=release/2.1.2xx server=dotnet-ci
 dotnet/cli branch=release/2.1.3xx server=dotnet-ci
 dotnet/cli branch=release/2.1.4xx server=dotnet-ci
 dotnet/cli branch=release/2.1.5xx server=dotnet-ci
+dotnet/cli branch=release/2.1.6xx server=dotnet-ci
 dotnet/cli branch=release/2.1.401 server=dotnet-ci
 dotnet/cli branch=release/2.2.1xx server=dotnet-ci
 dotnet/cli branch=release/2.2.2xx server=dotnet-ci
@@ -191,6 +191,7 @@ dotnet/sdk branch=release/2.1.2xx server=dotnet-ci
 dotnet/sdk branch=release/2.1.3xx server=dotnet-ci
 dotnet/sdk branch=release/2.1.4xx server=dotnet-ci
 dotnet/sdk branch=release/2.1.5xx server=dotnet-ci
+dotnet/sdk branch=release/2.1.6xx server=dotnet-ci
 dotnet/sdk branch=release/2.2.1xx server=dotnet-ci
 dotnet/sdk branch=release/2.2.2xx server=dotnet-ci
 dotnet/sdk branch=release/2.1 server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
