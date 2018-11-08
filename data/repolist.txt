@@ -146,6 +146,7 @@ dotnet/roslyn branch=features/nested-stackalloc server=dotnet-ci
 dotnet/roslyn branch=features/null-operator-enhancements server=dotnet-ci
 dotnet/roslyn branch=features/NullableReferenceTypes server=dotnet-ci
 dotnet/roslyn branch=features/NullableDogfood server=dotnet-ci
+dotnet/roslyn branch=features/razor-far server=dotnet-ci
 dotnet/roslyn branch=features/recursive-patterns server=dotnet-ci
 dotnet/roslyn branch=features/build-demo server=dotnet-ci
 dotnet/roslyn branch=features/remotels server=dotnet-ci
