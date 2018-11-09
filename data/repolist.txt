@@ -57,7 +57,6 @@ dotnet/core-setup branch=release/2.1 server=dotnet-ci3 definitionScript=buildpip
 dotnet/core-setup branch=release/2.2 server=dotnet-ci
 dotnet/core-setup branch=release/2.2 server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy
 dotnet/codeformatter branch=master server=dotnet-ci2
-dotnet/coreclr branch=dev/defaultintf server=dotnet-ci
 dotnet/coreclr branch=feature/utf8string server=dotnet-ci
 dotnet/coreclr branch=feature/utf8string server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy
 dotnet/coreclr branch=master server=dotnet-ci
