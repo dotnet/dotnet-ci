@@ -122,7 +122,6 @@ dotnet/roslyn branch=features/codecov server=dotnet-ci
 dotnet/roslyn branch=features/compiler server=dotnet-ci
 dotnet/roslyn branch=features/ranges-v2 server=dotnet-ci
 dotnet/roslyn branch=features/DefaultInterfaceImplementation server=dotnet-ci
-dotnet/roslyn branch=features/editorconfig-in-compiler server=dotnet-ci
 dotnet/roslyn branch=features/enhanced-using server=dotnet-ci
 dotnet/roslyn branch=features/nested-stackalloc server=dotnet-ci
 dotnet/roslyn branch=features/null-operator-enhancements server=dotnet-ci
