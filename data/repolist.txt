@@ -264,7 +264,6 @@ dotnet/dotnet-ci branch=master definitionScript=tests/dsl/*.groovy isDSLTest=tru
 aspnet/aspnet-docker branch=dev server=dotnet-ci3 definitionScript=build-pipeline/pipelinejobs.groovy
 aspnet/aspnet-docker branch=master server=dotnet-ci3 definitionScript=build-pipeline/pipelinejobs.groovy
 aspnet/CORS branch=release/2.1 server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
-aspnet/EntityFrameworkCore branch=master server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
 aspnet/EntityFrameworkCore branch=release/2.1 server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
 aspnet/EntityFrameworkCore branch=release/2.2 server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
 aspnet/IISIntegration branch=master server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
