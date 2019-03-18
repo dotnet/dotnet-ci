@@ -118,7 +118,6 @@ dotnet/sdk branch=release/2.2.1xx server=dotnet-ci2 definitionScript=perf.groovy
 dotnet/sdk branch=release/2.2.2xx server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/sdk branch=master server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/sdk branch=release/2.0.0 server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
-dotnet/standard branch=master server=dotnet-ci
 dotnet/standard branch=release/2.0.0 server=dotnet-ci
 dotnet/interactive-window branch=master server=dotnet-ci
 dotnet/symreader branch=master server=dotnet-ci
