@@ -38,7 +38,6 @@ dotnet/diagnostics branch=master server=dotnet-ci
 dotnet/CliCommandLineParser branch=release/2.1.3xx server=dotnet-ci
 dotnet/xliff-tasks branch=master server=dotnet-ci
 dotnet/cli-migrate branch=release/2.1.3xx server=dotnet-ci
-dotnet/core-setup branch=feature/utf8string server=dotnet-ci
 dotnet/core-setup branch=release/1.0.0 server=dotnet-ci
 dotnet/core-setup branch=release/1.1.0 server=dotnet-ci
 dotnet/core-setup branch=release/uwp6.0 server=dotnet-ci
@@ -47,8 +46,6 @@ dotnet/core-setup branch=release/2.1 server=dotnet-ci3 definitionScript=buildpip
 dotnet/core-setup branch=release/2.2 server=dotnet-ci
 dotnet/core-setup branch=release/2.2 server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy
 dotnet/codeformatter branch=master server=dotnet-ci2
-dotnet/coreclr branch=feature/utf8string server=dotnet-ci
-dotnet/coreclr branch=feature/utf8string server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy
 dotnet/coreclr branch=master server=dotnet-ci
 dotnet/coreclr branch=master server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/coreclr branch=master server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy
@@ -160,7 +157,6 @@ Microsoft/msbuild branch=vs15.7_sourcebuild server=dotnet-ci2
 Microsoft/msbuild branch=vs15.8 server=dotnet-ci2
 Microsoft/msbuild branch=vs15.9 server=dotnet-ci2
 Microsoft/msbuild branch=vs15.9stg server=dotnet-ci2
-Microsoft/msbuild branch=exp/net472 server=dotnet-ci2
 Microsoft/TypeScript branch=master server=dotnet-ci2
 Microsoft/xunit-performance branch=master server=dotnet-ci
 Microsoft/xunit-performance branch=citest server=dotnet-ci
