@@ -126,7 +126,6 @@ dotnet/symreader-portable branch=release/1.5.0 server=dotnet-ci
 dotnet/symreader-converter branch=master server=dotnet-ci2
 dotnet/metadata-tools branch=master server=dotnet-ci2
 dotnet/symstore branch=master server=dotnet-ci
-dotnet/sourcelink branch=master server=dotnet-ci2
 dotnet/versions branch=master server=dotnet-ci
 dotnet/wcf branch=master server=dotnet-ci
 dotnet/wcf branch=release/1.0.0 server=dotnet-ci
