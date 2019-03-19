@@ -159,7 +159,6 @@ Microsoft/visualfsharp branch=dev15.7 server=dotnet-ci2
 Microsoft/visualfsharp branch=dev15.8 server=dotnet-ci2
 Microsoft/PartsUnlimited branch=master server=dotnet-ci
 dotnet/templating branch=stabilize server=dotnet-ci
-dotnet/templating branch=master server=dotnet-ci
 dotnet/templating branch=release/2.1 server=dotnet-ci
 drewscoggins/corefx branch=master server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 drewscoggins/corefx branch=PerfRuns server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
@@ -217,6 +216,5 @@ aspnet/KestrelHttpServer branch=release/2.2 server=dotnet-ci3 definitionScript=b
 aspnet/Mvc branch=release/2.1 server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
 aspnet/Razor branch=release/2.1 server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
 aspnet/SignalR branch=release/2.1 server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
-aspnet/websdk branch=master server=dotnet-ci
 aspnet/websdk branch=release/2.1.3xx server=dotnet-ci
 aspnet/websdk branch=release/2.1.4xx server=dotnet-ci
