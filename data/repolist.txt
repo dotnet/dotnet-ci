@@ -86,8 +86,7 @@ dotnet/orleans branch=master server=dotnet-ci
 dotnet/platform-compat branch=master server=dotnet-ci2
 dotnet/ProjFileTools branch=master server=dotnet-ci
 dotnet/roslyn-analyzers branch=master server=dotnet-ci
-dotnet/roslyn-analyzers branch=dev15.3 server=dotnet-ci
-dotnet/roslyn-analyzers branch=features/dataflow server=dotnet-ci
+dotnet/roslyn-analyzers branch=2.6.x server=dotnet-ci
 dotnet/sdk branch=experimental-classic-projects server=dotnet-ci
 dotnet/sdk branch=rel/1.0.0 server=dotnet-ci
 dotnet/sdk branch=rel/1.1.0 server=dotnet-ci
