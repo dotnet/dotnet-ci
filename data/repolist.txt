@@ -147,19 +147,7 @@ dotnet/dotnet-ci branch=master definitionScript=tests/dsl/*.groovy isDSLTest=tru
 # Tests for pipelines
 dotnet/dotnet-ci branch=master definitionScript=tests/pipeline/tests.groovy server=dotnet-ci2 subFolder=pipelineTests
 # Tests for DSL
-dotnet/dotnet-ci branch=master definitionScript=tests/dsl/*.groovy isDSLTest=true server=dotnet-ci2 subFolder=dslTests
-# Tests for pipelines
-dotnet/dotnet-ci branch=master definitionScript=tests/pipeline/tests.groovy server=dotnet-ci subFolder=pipelineTests
-# Tests for DSL
-dotnet/dotnet-ci branch=master definitionScript=tests/dsl/*.groovy isDSLTest=true server=dotnet-ci subFolder=dslTests
-# Tests for pipelines
-Tools/DotNet-CI-Trusted credentials=vsts-dotnet-ci-trusted-creds collection=mseng branch=master definitionScript=tests/pipeline/tests.groovy server=dotnet-vsts subFolder=pipelineTests
-# Tests for dsl
-Tools/DotNet-CI-Trusted credentials=vsts-dotnet-ci-trusted-creds collection=mseng branch=master definitionScript=tests/dsl/*.groovy isDSLTest=true server=dotnet-vsts subFolder=dslTests
-# Tests for pipelines
-dotnet/dotnet-ci branch=master definitionScript=tests/pipeline/tests.groovy server=dotnet-ci4 subFolder=pipelineTests
-# Tests for DSL
-dotnet/dotnet-ci branch=master definitionScript=tests/dsl/*.groovy isDSLTest=true server=dotnet-ci4 subFolder=dslTests
+dotnet/dotnet-ci branch=master definitionScript=tests/dsl/*.groovy isDSLTest=true server=dotnet-ci2 subFolder=dslTest
 #AspNetCore
 aspnet/aspnet-docker branch=dev server=dotnet-ci definitionScript=build-pipeline/pipelinejobs.groovy
 aspnet/aspnet-docker branch=master server=dotnet-ci definitionScript=build-pipeline/pipelinejobs.groovy
