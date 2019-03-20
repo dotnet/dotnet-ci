@@ -27,9 +27,11 @@ dotnet/cli branch=release/2.1.4xx server=dotnet-ci
 dotnet/cli branch=release/2.1.5xx server=dotnet-ci
 dotnet/cli branch=release/2.1.502 server=dotnet-ci
 dotnet/cli branch=release/2.1.6xx server=dotnet-ci
+dotnet/cli branch=release/2.1.7xx server=dotnet-ci
 dotnet/cli branch=release/2.1.401 server=dotnet-ci
 dotnet/cli branch=release/2.2.1xx server=dotnet-ci
 dotnet/cli branch=release/2.2.2xx server=dotnet-ci
+dotnet/cli branch=release/2.2.3xx server=dotnet-ci
 dotnet/cli branch=release/2.0-vs server=dotnet-ci
 dotnet/cli branch=release/15.5 server=dotnet-ci
 dotnet/cli branch=dev/release/2.0 server=dotnet-ci
@@ -103,8 +105,10 @@ dotnet/sdk branch=release/2.1.3xx server=dotnet-ci
 dotnet/sdk branch=release/2.1.4xx server=dotnet-ci
 dotnet/sdk branch=release/2.1.5xx server=dotnet-ci
 dotnet/sdk branch=release/2.1.6xx server=dotnet-ci
+dotnet/sdk branch=release/2.1.7xx server=dotnet-ci
 dotnet/sdk branch=release/2.2.1xx server=dotnet-ci
 dotnet/sdk branch=release/2.2.2xx server=dotnet-ci
+dotnet/sdk branch=release/2.2.3xx server=dotnet-ci
 dotnet/sdk branch=release/2.1 server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/sdk branch=release/2.1.1xx server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/sdk branch=release/2.1.2xx server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
