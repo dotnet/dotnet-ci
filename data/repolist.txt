@@ -19,66 +19,46 @@ dotnet/buildtools branch=release/2.2 server=dotnet-ci
 dotnet/cli branch=rel/1.0.0 server=dotnet-ci
 dotnet/cli branch=rel/1.0.1 server=dotnet-ci
 dotnet/cli branch=rel/1.1.0 server=dotnet-ci
-dotnet/cli branch=release/2.1 server=dotnet-ci
-dotnet/cli branch=release/2.1.1xx server=dotnet-ci
-dotnet/cli branch=release/2.1.2xx server=dotnet-ci
-dotnet/cli branch=release/2.1.3xx server=dotnet-ci
-dotnet/cli branch=release/2.1.4xx server=dotnet-ci
 dotnet/cli branch=release/2.1.5xx server=dotnet-ci
-dotnet/cli branch=release/2.1.502 server=dotnet-ci
 dotnet/cli branch=release/2.1.6xx server=dotnet-ci
-dotnet/cli branch=release/2.1.401 server=dotnet-ci
 dotnet/cli branch=release/2.2.1xx server=dotnet-ci
 dotnet/cli branch=release/2.2.2xx server=dotnet-ci
-dotnet/cli branch=release/2.0-vs server=dotnet-ci
-dotnet/cli branch=release/15.5 server=dotnet-ci
-dotnet/cli branch=dev/release/2.0 server=dotnet-ci
 dotnet/diagnostics branch=master server=dotnet-ci
-dotnet/CliCommandLineParser branch=release/2.1.3xx server=dotnet-ci
 dotnet/xliff-tasks branch=master server=dotnet-ci
-dotnet/cli-migrate branch=release/2.1.3xx server=dotnet-ci
 dotnet/core-setup branch=release/1.0.0 server=dotnet-ci
 dotnet/core-setup branch=release/1.1.0 server=dotnet-ci
 dotnet/core-setup branch=release/uwp6.0 server=dotnet-ci
 dotnet/core-setup branch=release/2.1 server=dotnet-ci
-dotnet/core-setup branch=release/2.1 server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy
+dotnet/core-setup branch=release/2.1 server=dotnet-ci definitionScript=buildpipeline/pipelinejobs.groovy subFolder=pipelines
 dotnet/core-setup branch=release/2.2 server=dotnet-ci
-dotnet/core-setup branch=release/2.2 server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy
+dotnet/core-setup branch=release/2.2 server=dotnet-ci definitionScript=buildpipeline/pipelinejobs.groovy subFolder=pipelines
 dotnet/codeformatter branch=master server=dotnet-ci2
 dotnet/coreclr branch=master server=dotnet-ci
 dotnet/coreclr branch=master server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
-dotnet/coreclr branch=master server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy
+dotnet/coreclr branch=master server=dotnet-ci definitionScript=buildpipeline/pipelinejobs.groovy subFolder=pipelines
 dotnet/coreclr branch=release/1.1.0 server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/coreclr branch=release/2.1 server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/coreclr branch=release/2.2 server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
-jorive/coreclr branch=dev/baseline-with-new-api server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
-nategraf/coreclr branch=perf-ci-test server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/coreclr branch=release/1.0.0 server=dotnet-ci
 dotnet/coreclr branch=release/1.1.0 server=dotnet-ci
 dotnet/coreclr branch=release/uwp6.2 server=dotnet-ci
-dotnet/coreclr branch=dev/unix_test_workflow server=dotnet-ci
 dotnet/coreclr branch=release/2.1 server=dotnet-ci
-dotnet/coreclr branch=release/2.1 server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy
+dotnet/coreclr branch=release/2.1 server=dotnet-ci definitionScript=buildpipeline/pipelinejobs.groovy subFolder=pipelines
 dotnet/coreclr branch=release/2.2 server=dotnet-ci
-dotnet/coreclr branch=release/2.2 server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy
+dotnet/coreclr branch=release/2.2 server=dotnet-ci definitionScript=buildpipeline/pipelinejobs.groovy subFolder=pipelines
 dotnet/corefx branch=release/1.0.0 server=dotnet-ci
 dotnet/corefx branch=release/1.1.0 server=dotnet-ci
-dotnet/corefx branch=release/uwp6.0 server=dotnet-ci
-dotnet/corefx branch=release/uwp6.1 server=dotnet-ci
 dotnet/corefx branch=release/uwp6.2 server=dotnet-ci
-dotnet/corefx branch=release/uwp6.0 server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy
-dotnet/corefx branch=release/uwp6.1 server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy
-dotnet/corefx branch=release/uwp6.2 server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy
+dotnet/corefx branch=release/uwp6.2 server=dotnet-ci definitionScript=buildpipeline/pipelinejobs.groovy subFolder=pipelines
 dotnet/corefx branch=release/2.1 server=dotnet-ci
 dotnet/corefx branch=release/2.1 server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
-dotnet/corefx branch=release/2.1 server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy
+dotnet/corefx branch=release/2.1 server=dotnet-ci definitionScript=buildpipeline/pipelinejobs.groovy subFolder=pipelines
 dotnet/corefx branch=release/2.2 server=dotnet-ci
 dotnet/corefx branch=release/2.2 server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
-dotnet/corefx branch=release/2.2 server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy
+dotnet/corefx branch=release/2.2 server=dotnet-ci definitionScript=buildpipeline/pipelinejobs.groovy subFolder=pipelines
 dotnet/corefxlab branch=master server=dotnet-ci
 dotnet/corefxlab branch=release/2.1 server=dotnet-ci
 dotnet/corert branch=master server=dotnet-ci
-dotnet/corert branch=r2r server=dotnet-ci
 dotnet/dotnet-buildtools-prereqs-docker branch=master server=dotnet-ci
 dotnet/dotnet-docker branch=master server=dotnet-ci
 dotnet/dotnet-docker branch=nightly server=dotnet-ci
@@ -90,32 +70,15 @@ dotnet/roslyn-analyzers branch=2.6.x server=dotnet-ci
 dotnet/sdk branch=experimental-classic-projects server=dotnet-ci
 dotnet/sdk branch=rel/1.0.0 server=dotnet-ci
 dotnet/sdk branch=rel/1.1.0 server=dotnet-ci
-dotnet/sdk branch=release/2.0.0 server=dotnet-ci
-dotnet/sdk branch=release/2.0-vs server=dotnet-ci
-dotnet/sdk branch=release/2.0.0-preview2 server=dotnet-ci
-dotnet/sdk branch=release/2.1 server=dotnet-ci
-dotnet/sdk branch=release/15.5 server=dotnet-ci
-dotnet/sdk branch=dev15.0.x server=dotnet-ci
-dotnet/sdk branch=dev15.1.x server=dotnet-ci
-dotnet/sdk branch=release/2.1.1xx server=dotnet-ci
-dotnet/sdk branch=release/2.1.2xx server=dotnet-ci
-dotnet/sdk branch=release/2.1.3xx server=dotnet-ci
-dotnet/sdk branch=release/2.1.4xx server=dotnet-ci
 dotnet/sdk branch=release/2.1.5xx server=dotnet-ci
 dotnet/sdk branch=release/2.1.6xx server=dotnet-ci
 dotnet/sdk branch=release/2.2.1xx server=dotnet-ci
 dotnet/sdk branch=release/2.2.2xx server=dotnet-ci
-dotnet/sdk branch=release/2.1 server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
-dotnet/sdk branch=release/2.1.1xx server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
-dotnet/sdk branch=release/2.1.2xx server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
-dotnet/sdk branch=release/2.1.3xx server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
-dotnet/sdk branch=release/2.1.4xx server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/sdk branch=release/2.1.5xx server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/sdk branch=release/2.1.6xx server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/sdk branch=release/2.2.1xx server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/sdk branch=release/2.2.2xx server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/sdk branch=master server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
-dotnet/sdk branch=release/2.0.0 server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/standard branch=release/2.0.0 server=dotnet-ci
 dotnet/interactive-window branch=master server=dotnet-ci
 dotnet/symreader branch=release/1.3.0 server=dotnet-ci
@@ -174,16 +137,13 @@ Microsoft/vstest branch=rel/15.6 server=dotnet-ci
 Microsoft/vstest branch=perf-improvements server=dotnet-ci
 Microsoft/vstest branch=rel/15.7 server=dotnet-ci
 Microsoft/vstest branch=dn-core-code-coverage server=dotnet-ci
-mmitche/coreclr branch=dev/pipeline server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy
-adiaaida/coreclr branch=dev/pipeline server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy
 dotnet/coreclr branch=master server=dotnet-ci2 definitionScript=buildpipeline/perf_pipelinejobs.groovy
 Microsoft/testfx branch=master server=dotnet-ci
 Microsoft/testfx branch=1.2.1 server=dotnet-ci
-sbomer/coreclr branch=master server=dotnet-ci3 definitionScript=buildpipeline/pipelinejobs.groovy
 # Tests for pipelines
-dotnet/dotnet-ci branch=master definitionScript=tests/pipeline/tests.groovy server=dotnet-ci3 subFolder=pipelineTests
+dotnet/dotnet-ci branch=master definitionScript=tests/pipeline/tests.groovy server=dotnet-ci subFolder=pipelineTests
 # Tests for DSL
-dotnet/dotnet-ci branch=master definitionScript=tests/dsl/*.groovy isDSLTest=true server=dotnet-ci3 subFolder=dslTests
+dotnet/dotnet-ci branch=master definitionScript=tests/dsl/*.groovy isDSLTest=true server=dotnet-ci subFolder=dslTests
 # Tests for pipelines
 dotnet/dotnet-ci branch=master definitionScript=tests/pipeline/tests.groovy server=dotnet-ci2 subFolder=pipelineTests
 # Tests for DSL
@@ -201,19 +161,17 @@ dotnet/dotnet-ci branch=master definitionScript=tests/pipeline/tests.groovy serv
 # Tests for DSL
 dotnet/dotnet-ci branch=master definitionScript=tests/dsl/*.groovy isDSLTest=true server=dotnet-ci4 subFolder=dslTests
 #AspNetCore
-aspnet/aspnet-docker branch=dev server=dotnet-ci3 definitionScript=build-pipeline/pipelinejobs.groovy
-aspnet/aspnet-docker branch=master server=dotnet-ci3 definitionScript=build-pipeline/pipelinejobs.groovy
-aspnet/CORS branch=release/2.1 server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
-aspnet/EntityFrameworkCore branch=release/2.1 server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
-aspnet/EntityFrameworkCore branch=release/2.2 server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
-aspnet/IISIntegration branch=master server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
-aspnet/IISIntegration branch=release/2.1 server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
-aspnet/IISIntegration branch=release/2.2 server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
-aspnet/KestrelHttpServer branch=master server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
-aspnet/KestrelHttpServer branch=release/2.1 server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
-aspnet/KestrelHttpServer branch=release/2.2 server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
-aspnet/Mvc branch=release/2.1 server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
-aspnet/Razor branch=release/2.1 server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
-aspnet/SignalR branch=release/2.1 server=dotnet-ci3 definitionScript=build/buildpipeline/pipeline.groovy
-aspnet/websdk branch=release/2.1.3xx server=dotnet-ci
-aspnet/websdk branch=release/2.1.4xx server=dotnet-ci
+aspnet/aspnet-docker branch=dev server=dotnet-ci definitionScript=build-pipeline/pipelinejobs.groovy
+aspnet/aspnet-docker branch=master server=dotnet-ci definitionScript=build-pipeline/pipelinejobs.groovy
+aspnet/CORS branch=release/2.1 server=dotnet-ci definitionScript=build/buildpipeline/pipeline.groovy
+aspnet/EntityFrameworkCore branch=release/2.1 server=dotnet-ci definitionScript=build/buildpipeline/pipeline.groovy
+aspnet/EntityFrameworkCore branch=release/2.2 server=dotnet-ci definitionScript=build/buildpipeline/pipeline.groovy
+aspnet/IISIntegration branch=master server=dotnet-ci definitionScript=build/buildpipeline/pipeline.groovy
+aspnet/IISIntegration branch=release/2.1 server=dotnet-ci definitionScript=build/buildpipeline/pipeline.groovy
+aspnet/IISIntegration branch=release/2.2 server=dotnet-ci definitionScript=build/buildpipeline/pipeline.groovy
+aspnet/KestrelHttpServer branch=master server=dotnet-ci definitionScript=build/buildpipeline/pipeline.groovy
+aspnet/KestrelHttpServer branch=release/2.1 server=dotnet-ci definitionScript=build/buildpipeline/pipeline.groovy
+aspnet/KestrelHttpServer branch=release/2.2 server=dotnet-ci definitionScript=build/buildpipeline/pipeline.groovy
+aspnet/Mvc branch=release/2.1 server=dotnet-ci definitionScript=build/buildpipeline/pipeline.groovy
+aspnet/Razor branch=release/2.1 server=dotnet-ci definitionScript=build/buildpipeline/pipeline.groovy
+aspnet/SignalR branch=release/2.1 server=dotnet-ci definitionScript=build/buildpipeline/pipeline.groovy
