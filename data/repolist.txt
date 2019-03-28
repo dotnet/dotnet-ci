@@ -64,8 +64,6 @@ dotnet/dotnet-buildtools-prereqs-docker branch=master server=dotnet-ci
 dotnet/dotnet-docker branch=master server=dotnet-ci
 dotnet/dotnet-docker branch=nightly server=dotnet-ci
 dotnet/orleans branch=master server=dotnet-ci
-dotnet/platform-compat branch=master server=dotnet-ci2
-dotnet/ProjFileTools branch=master server=dotnet-ci
 dotnet/roslyn-analyzers branch=master server=dotnet-ci
 dotnet/roslyn-analyzers branch=2.6.x server=dotnet-ci
 dotnet/sdk branch=experimental-classic-projects server=dotnet-ci
@@ -116,21 +114,17 @@ Microsoft/msbuild branch=vs15.7_sourcebuild server=dotnet-ci2
 Microsoft/msbuild branch=vs15.8 server=dotnet-ci2
 Microsoft/msbuild branch=vs15.9 server=dotnet-ci2
 Microsoft/msbuild branch=vs15.9stg server=dotnet-ci2
-Microsoft/TypeScript branch=master server=dotnet-ci2
 Microsoft/xunit-performance branch=master server=dotnet-ci
 Microsoft/xunit-performance branch=citest server=dotnet-ci
 Microsoft/Vipr branch=master server=dotnet-ci
 Microsoft/visualfsharp branch=dev15.7 server=dotnet-ci2
 Microsoft/visualfsharp branch=dev15.8 server=dotnet-ci2
-Microsoft/PartsUnlimited branch=master server=dotnet-ci
+# Microsoft/PartsUnlimited branch=master server=dotnet-ci
 dotnet/templating branch=stabilize server=dotnet-ci
 dotnet/templating branch=release/2.1 server=dotnet-ci
 drewscoggins/corefx branch=master server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 drewscoggins/corefx branch=PerfRuns server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/core branch=master server=dotnet-ci2
-dotnet/netcorecli-fsc branch=master server=dotnet-ci2
-dotnet/netcorecli-fsc branch=rel/1.0.0-preview2.1 server=dotnet-ci2
-dotnet/netcorecli-fsc branch=rel/1.0.0-preview2 server=dotnet-ci2
 dotnet/perf-infra branch=master server=dotnet-ci2 definitionScript=stability.groovy subFolder=stability
 dotnet/perf-infra branch=master server=dotnet-ci2 definitionScript=startup.groovy subFolder=startup
 dotnet/performance branch=master server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
@@ -154,15 +148,5 @@ dotnet/dotnet-ci branch=master definitionScript=tests/dsl/*.groovy isDSLTest=tru
 #AspNetCore
 aspnet/aspnet-docker branch=dev server=dotnet-ci definitionScript=build-pipeline/pipelinejobs.groovy
 aspnet/aspnet-docker branch=master server=dotnet-ci definitionScript=build-pipeline/pipelinejobs.groovy
-aspnet/CORS branch=release/2.1 server=dotnet-ci definitionScript=build/buildpipeline/pipeline.groovy
 aspnet/EntityFrameworkCore branch=release/2.1 server=dotnet-ci definitionScript=build/buildpipeline/pipeline.groovy
-aspnet/EntityFrameworkCore branch=release/2.2 server=dotnet-ci definitionScript=build/buildpipeline/pipeline.groovy
-aspnet/IISIntegration branch=master server=dotnet-ci definitionScript=build/buildpipeline/pipeline.groovy
-aspnet/IISIntegration branch=release/2.1 server=dotnet-ci definitionScript=build/buildpipeline/pipeline.groovy
-aspnet/IISIntegration branch=release/2.2 server=dotnet-ci definitionScript=build/buildpipeline/pipeline.groovy
-aspnet/KestrelHttpServer branch=master server=dotnet-ci definitionScript=build/buildpipeline/pipeline.groovy
-aspnet/KestrelHttpServer branch=release/2.1 server=dotnet-ci definitionScript=build/buildpipeline/pipeline.groovy
-aspnet/KestrelHttpServer branch=release/2.2 server=dotnet-ci definitionScript=build/buildpipeline/pipeline.groovy
-aspnet/Mvc branch=release/2.1 server=dotnet-ci definitionScript=build/buildpipeline/pipeline.groovy
-aspnet/Razor branch=release/2.1 server=dotnet-ci definitionScript=build/buildpipeline/pipeline.groovy
-aspnet/SignalR branch=release/2.1 server=dotnet-ci definitionScript=build/buildpipeline/pipeline.groovy
+aspnet/EntityFrameworkCore branch=release/2.2 server=dotnet-ci definitionScript=build/buildpipeline/pip
