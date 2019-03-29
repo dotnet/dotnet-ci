@@ -66,6 +66,7 @@ dotnet/dotnet-docker branch=nightly server=dotnet-ci
 dotnet/orleans branch=master server=dotnet-ci
 dotnet/roslyn-analyzers branch=master server=dotnet-ci
 dotnet/roslyn-analyzers branch=2.6.x server=dotnet-ci
+dotnet/roslyn-analyzers branch=2.9.x server=dotnet-ci
 dotnet/sdk branch=experimental-classic-projects server=dotnet-ci
 dotnet/sdk branch=rel/1.0.0 server=dotnet-ci
 dotnet/sdk branch=rel/1.1.0 server=dotnet-ci
