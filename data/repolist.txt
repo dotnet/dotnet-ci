@@ -33,7 +33,6 @@ dotnet/core-setup branch=release/2.1 server=dotnet-ci
 dotnet/core-setup branch=release/2.1 server=dotnet-ci definitionScript=buildpipeline/pipelinejobs.groovy subFolder=pipelines
 dotnet/core-setup branch=release/2.2 server=dotnet-ci
 dotnet/core-setup branch=release/2.2 server=dotnet-ci definitionScript=buildpipeline/pipelinejobs.groovy subFolder=pipelines
-dotnet/codeformatter branch=master server=dotnet-ci2
 dotnet/coreclr branch=master server=dotnet-ci
 dotnet/coreclr branch=master server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/coreclr branch=master server=dotnet-ci definitionScript=buildpipeline/pipelinejobs.groovy subFolder=pipelines
