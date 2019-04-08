@@ -101,7 +101,6 @@ Microsoft/ChakraCore branch=release/1.11-ci server=dotnet-ci2
 Microsoft/ConcordExtensibilitySamples branch=master server=dotnet-ci
 Microsoft/dotnet-framework-docker branch=master server=dotnet-ci
 Microsoft/dotnet-framework-docker branch=dev server=dotnet-ci
-Microsoft/MIEngine branch=master server=dotnet-ci
 Microsoft/msbuild branch=vs15.5 server=dotnet-ci2
 Microsoft/msbuild branch=vs15.6 server=dotnet-ci2
 Microsoft/msbuild branch=vs15.7 server=dotnet-ci2
