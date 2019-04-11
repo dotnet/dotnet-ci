@@ -103,7 +103,6 @@ Microsoft/dotnet-framework-docker branch=master server=dotnet-ci
 Microsoft/dotnet-framework-docker branch=dev server=dotnet-ci
 Microsoft/MIEngine branch=master server=dotnet-ci
 Microsoft/msbuild branch=vs15.9 server=dotnet-ci2
-Microsoft/msbuild branch=vs15.9stg server=dotnet-ci2
 Microsoft/xunit-performance branch=master server=dotnet-ci
 Microsoft/xunit-performance branch=citest server=dotnet-ci
 Microsoft/Vipr branch=master server=dotnet-ci
