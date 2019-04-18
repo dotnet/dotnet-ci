@@ -30,8 +30,6 @@ dotnet/core-setup branch=release/2.1 server=dotnet-ci definitionScript=buildpipe
 dotnet/core-setup branch=release/2.2 server=dotnet-ci
 dotnet/core-setup branch=release/2.2 server=dotnet-ci definitionScript=buildpipeline/pipelinejobs.groovy subFolder=pipelines
 dotnet/coreclr branch=master server=dotnet-ci
-dotnet/coreclr branch=master server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
-dotnet/coreclr branch=master server=dotnet-ci definitionScript=buildpipeline/pipelinejobs.groovy subFolder=pipelines
 dotnet/coreclr branch=release/1.1.0 server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/coreclr branch=release/2.1 server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/coreclr branch=release/2.2 server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
@@ -109,7 +107,6 @@ dotnet/perf-infra branch=master server=dotnet-ci2 definitionScript=stability.gro
 dotnet/perf-infra branch=master server=dotnet-ci2 definitionScript=startup.groovy subFolder=startup
 dotnet/performance branch=master server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 mono/linker branch=master server=dotnet-ci
-dotnet/coreclr branch=master server=dotnet-ci2 definitionScript=buildpipeline/perf_pipelinejobs.groovy
 Microsoft/testfx branch=master server=dotnet-ci
 Microsoft/testfx branch=1.2.1 server=dotnet-ci
 # Tests for pipelines
