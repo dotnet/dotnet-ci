@@ -103,8 +103,6 @@ Microsoft/Vipr branch=master server=dotnet-ci
 dotnet/templating branch=stabilize server=dotnet-ci
 dotnet/templating branch=release/2.1 server=dotnet-ci
 dotnet/core branch=master server=dotnet-ci2
-dotnet/perf-infra branch=master server=dotnet-ci2 definitionScript=stability.groovy subFolder=stability
-dotnet/perf-infra branch=master server=dotnet-ci2 definitionScript=startup.groovy subFolder=startup
 mono/linker branch=master server=dotnet-ci
 Microsoft/testfx branch=master server=dotnet-ci
 Microsoft/testfx branch=1.2.1 server=dotnet-ci
