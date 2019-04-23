@@ -105,8 +105,6 @@ dotnet/templating branch=stabilize server=dotnet-ci
 dotnet/templating branch=release/2.1 server=dotnet-ci
 dotnet/core branch=master server=dotnet-ci2
 mono/linker branch=master server=dotnet-ci
-Microsoft/testfx branch=master server=dotnet-ci
-Microsoft/testfx branch=1.2.1 server=dotnet-ci
 # Tests for pipelines
 dotnet/dotnet-ci branch=master definitionScript=tests/pipeline/tests.groovy server=dotnet-ci subFolder=pipelineTests
 # Tests for DSL
