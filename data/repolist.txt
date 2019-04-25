@@ -50,7 +50,6 @@ dotnet/corefx branch=release/2.1 server=dotnet-ci definitionScript=buildpipeline
 dotnet/corefx branch=release/2.2 server=dotnet-ci
 dotnet/corefx branch=release/2.2 server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/corefx branch=release/2.2 server=dotnet-ci definitionScript=buildpipeline/pipelinejobs.groovy subFolder=pipelines
-dotnet/corefxlab branch=master server=dotnet-ci
 dotnet/corert branch=master server=dotnet-ci
 dotnet/orleans branch=master server=dotnet-ci
 dotnet/roslyn-analyzers branch=master server=dotnet-ci
