@@ -91,5 +91,3 @@ mono/linker branch=master server=dotnet-ci
 #AspNetCore
 aspnet/aspnet-docker branch=dev server=dotnet-ci definitionScript=build-pipeline/pipelinejobs.groovy
 aspnet/aspnet-docker branch=master server=dotnet-ci definitionScript=build-pipeline/pipelinejobs.groovy
-aspnet/EntityFrameworkCore branch=release/2.1 server=dotnet-ci definitionScript=build/buildpipeline/pipeline.groovy
-aspnet/EntityFrameworkCore branch=release/2.2 server=dotnet-ci definitionScript=build/buildpipeline/pip
