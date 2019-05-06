@@ -88,8 +88,6 @@ Microsoft/msbuild branch=vs15.9 server=dotnet-ci2
 Microsoft/xunit-performance branch=master server=dotnet-ci
 Microsoft/xunit-performance branch=citest server=dotnet-ci
 Microsoft/Vipr branch=master server=dotnet-ci
-dotnet/templating branch=stabilize server=dotnet-ci
-dotnet/templating branch=release/2.1 server=dotnet-ci
 mono/linker branch=master server=dotnet-ci
 # Tests for pipelines
 dotnet/dotnet-ci branch=master definitionScript=tests/pipeline/tests.groovy server=dotnet-ci subFolder=pipelineTests
