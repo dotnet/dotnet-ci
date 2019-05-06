@@ -88,14 +88,6 @@ Microsoft/msbuild branch=vs15.9 server=dotnet-ci2
 Microsoft/xunit-performance branch=master server=dotnet-ci
 Microsoft/Vipr branch=master server=dotnet-ci
 mono/linker branch=master server=dotnet-ci
-# Tests for pipelines
-dotnet/dotnet-ci branch=master definitionScript=tests/pipeline/tests.groovy server=dotnet-ci subFolder=pipelineTests
-# Tests for DSL
-dotnet/dotnet-ci branch=master definitionScript=tests/dsl/*.groovy isDSLTest=true server=dotnet-ci subFolder=dslTests
-# Tests for pipelines
-dotnet/dotnet-ci branch=master definitionScript=tests/pipeline/tests.groovy server=dotnet-ci2 subFolder=pipelineTests
-# Tests for DSL
-dotnet/dotnet-ci branch=master definitionScript=tests/dsl/*.groovy isDSLTest=true server=dotnet-ci2 subFolder=dslTest
 #AspNetCore
 aspnet/aspnet-docker branch=dev server=dotnet-ci definitionScript=build-pipeline/pipelinejobs.groovy
 aspnet/aspnet-docker branch=master server=dotnet-ci definitionScript=build-pipeline/pipelinejobs.groovy
