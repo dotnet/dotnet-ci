@@ -19,9 +19,11 @@ dotnet/cli branch=rel/1.1.0 server=dotnet-ci
 dotnet/cli branch=release/2.1.5xx server=dotnet-ci
 dotnet/cli branch=release/2.1.6xx server=dotnet-ci
 dotnet/cli branch=release/2.1.7xx server=dotnet-ci
+dotnet/cli branch=release/2.1.8xx server=dotnet-ci
 dotnet/cli branch=release/2.2.1xx server=dotnet-ci
 dotnet/cli branch=release/2.2.2xx server=dotnet-ci
 dotnet/cli branch=release/2.2.3xx server=dotnet-ci
+dotnet/cli branch=release/2.2.4xx server=dotnet-ci
 dotnet/core-setup branch=release/1.0.0 server=dotnet-ci
 dotnet/core-setup branch=release/1.1.0 server=dotnet-ci
 dotnet/core-setup branch=release/uwp6.0 server=dotnet-ci
@@ -58,15 +60,19 @@ dotnet/sdk branch=rel/1.1.0 server=dotnet-ci
 dotnet/sdk branch=release/2.1.5xx server=dotnet-ci
 dotnet/sdk branch=release/2.1.6xx server=dotnet-ci
 dotnet/sdk branch=release/2.1.7xx server=dotnet-ci
+dotnet/sdk branch=release/2.1.8xx server=dotnet-ci
 dotnet/sdk branch=release/2.2.1xx server=dotnet-ci
 dotnet/sdk branch=release/2.2.2xx server=dotnet-ci
 dotnet/sdk branch=release/2.2.3xx server=dotnet-ci
+dotnet/sdk branch=release/2.2.4xx server=dotnet-ci
 dotnet/sdk branch=release/2.1.5xx server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/sdk branch=release/2.1.6xx server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/sdk branch=release/2.1.7xx server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
+dotnet/sdk branch=release/2.1.8xx server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/sdk branch=release/2.2.1xx server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/sdk branch=release/2.2.2xx server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/sdk branch=release/2.2.3xx server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
+dotnet/sdk branch=release/2.2.4xx server=dotnet-ci2 definitionScript=perf.groovy subFolder=perf
 dotnet/symreader-converter branch=master server=dotnet-ci2
 dotnet/symstore branch=master server=dotnet-ci
 dotnet/wcf branch=release/1.0.0 server=dotnet-ci
